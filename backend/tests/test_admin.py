@@ -82,3 +82,35 @@ def test_dataset_auditing():
     assert len(df) == 2500
     assert audit["target_leakage_purged"] is True
     assert "Monthly_Installment" not in df.columns
+
+
+def test_admin_login_success():
+    # Valid password
+    res = client.post("/api/admin/login", json={"username": "admin", "password": ADMIN_KEY})
+    assert res.status_code == 200
+    data = res.json()
+    assert data["success"] is True
+    assert data["token"] == ADMIN_KEY
+    assert data["user"]["username"] == "admin"
+
+    # Valid admin_key field
+    res2 = client.post("/api/admin/login", json={"admin_key": ADMIN_KEY})
+    assert res2.status_code == 200
+    assert res2.json()["token"] == ADMIN_KEY
+
+
+def test_admin_login_failure():
+    res = client.post("/api/admin/login", json={"username": "admin", "password": "wrong-password"})
+    assert res.status_code == 401
+    assert "Invalid" in res.json()["detail"]
+
+
+def test_admin_verify_session():
+    # Valid token
+    res = client.get("/api/admin/verify", headers=HEADERS)
+    assert res.status_code == 200
+    assert res.json()["valid"] is True
+
+    # Invalid token
+    res_bad = client.get("/api/admin/verify", headers={"X-Admin-Key": "bad"})
+    assert res_bad.status_code == 401

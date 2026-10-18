@@ -1,5 +1,33 @@
 [
   {
+    "run_id": "run_20261018_114206",
+    "timestamp_utc": "2026-10-18T03:42:06.681761+00:00",
+    "timestamp_myt": "2026-10-18T11:42:06.681761+08:00",
+    "trigger": "manual_admin",
+    "status": "skipped",
+    "duration_seconds": 0.08,
+    "dataset_fingerprint": "fdc09b76cd985e40dbe49b27d34811b437dd6adeb743192a0581675eb3febad8",
+    "record_count": 2500,
+    "action": "Retained active production model",
+    "message": "Dataset fingerprint is unchanged since the last successful training. Retraining skipped to conserve compute."
+  },
+  {
+    "run_id": "run_20261018_113942",
+    "version_id": "v_20261018_113942",
+    "timestamp_utc": "2026-10-18T03:39:42.347332+00:00",
+    "timestamp_myt": "2026-10-18T11:39:42.347332+08:00",
+    "trigger": "manual_admin",
+    "status": "completed",
+    "duration_seconds": 23.78,
+    "selected_model": "Gradient Boosting Regressor",
+    "champion_cv_mae": 18345.56923974455,
+    "champion_cv_r2": 0.8972263815444176,
+    "dataset_fingerprint": "fdc09b76cd985e40dbe49b27d34811b437dd6adeb743192a0581675eb3febad8",
+    "record_count": 2500,
+    "action": "Promoted new model version 'v_20261018_113942' (Gradient Boosting Regressor) with CV MAE RM 18,345.57",
+    "message": "Daily retraining completed successfully."
+  },
+  {
     "run_id": "run_20261018_113209",
     "timestamp_utc": "2026-10-18T03:32:09.004130+00:00",
     "timestamp_myt": "2026-10-18T11:32:09.004130+08:00",

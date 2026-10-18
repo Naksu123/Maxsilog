@@ -38,6 +38,46 @@ class TriggerTrainingRequest(BaseModel):
     force: bool = Field(default=False, description="Force retraining even if dataset checksum is unchanged", examples=[False])
 
 
+class AdminLoginRequest(BaseModel):
+    username: Optional[str] = Field(default="admin", description="Admin username")
+    password: Optional[str] = Field(default=None, description="Admin password or admin key")
+    admin_key: Optional[str] = Field(default=None, description="Direct Admin API Key")
+
+
+@router.post("/login")
+def admin_login(req: AdminLoginRequest):
+    """
+    Authenticate administrator credentials and return access token.
+    Accepts username/password or direct admin_key.
+    Default password / key: 'autovaluate-admin-2026'
+    """
+    key_candidate = (req.admin_key or req.password or "").strip()
+    if not key_candidate or key_candidate != ADMIN_API_KEY:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid administrator credentials or secret key."
+        )
+
+    return {
+        "success": True,
+        "message": "Administrator authentication successful.",
+        "token": ADMIN_API_KEY,
+        "user": {
+            "username": req.username or "admin",
+            "role": "Super Administrator"
+        }
+    }
+
+
+@router.get("/verify", dependencies=[Depends(verify_admin_auth)])
+def verify_session():
+    """Verify that an active admin token or session is valid."""
+    return {
+        "valid": True,
+        "role": "Super Administrator"
+    }
+
+
 @router.get("/training/status", dependencies=[Depends(verify_admin_auth)])
 def get_training_status():
     from .main import RETRAIN_MANAGER

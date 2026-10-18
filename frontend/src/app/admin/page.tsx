@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState, useCallback } from "react";
+import Link from "next/link";
 import {
   RefreshCw,
   Shield,
@@ -24,14 +25,21 @@ import {
   Layers,
   Award,
   Terminal,
-  FileCheck
+  FileCheck,
+  LogOut,
+  Eye,
+  EyeOff,
+  HelpCircle,
+  ArrowRight,
+  Car
 } from "lucide-react";
 import {
   getTrainingStatus,
   getTrainingHistory,
   getArchivedModels,
   triggerManualTraining,
-  rollbackModelVersion
+  rollbackModelVersion,
+  adminLogin
 } from "@/lib/api";
 import {
   TrainingStatusResponse,
@@ -41,10 +49,19 @@ import {
 } from "@/types";
 
 export default function AdminPage() {
-  const [adminKey, setAdminKey] = useState<string>("autovaluate-admin-2026");
-  const [inputKey, setInputKey] = useState<string>("autovaluate-admin-2026");
-  const [keySaved, setKeySaved] = useState<boolean>(true);
+  // Authentication State
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const [adminKey, setAdminKey] = useState<string>("");
+  const [adminUser, setAdminUser] = useState<string>("admin");
 
+  // Login Form State
+  const [loginUsername, setLoginUsername] = useState<string>("admin");
+  const [loginPassword, setLoginPassword] = useState<string>("");
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [loginLoading, setLoginLoading] = useState<boolean>(false);
+  const [loginError, setLoginError] = useState<string | null>(null);
+
+  // Dashboard Data State
   const [status, setStatus] = useState<TrainingStatusResponse | null>(null);
   const [history, setHistory] = useState<TrainingHistoryItem[]>([]);
   const [versions, setVersions] = useState<ModelVersionItem[]>([]);
@@ -58,13 +75,25 @@ export default function AdminPage() {
   const [rollbackModalVersion, setRollbackModalVersion] = useState<string | null>(null);
   const [rollbackLoading, setRollbackLoading] = useState<boolean>(false);
 
-  // Load saved admin key from localStorage on mount
+  // Check authentication status on mount
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const stored = localStorage.getItem("autovaluate_admin_key");
-      if (stored) {
-        setAdminKey(stored);
-        setInputKey(stored);
+      const storedToken =
+        localStorage.getItem("autovaluate_admin_token") ||
+        localStorage.getItem("autovaluate_admin_key");
+
+      if (storedToken) {
+        setAdminKey(storedToken);
+        setIsAuthenticated(true);
+        const storedUser = localStorage.getItem("autovaluate_admin_user");
+        if (storedUser) {
+          try {
+            const parsed = JSON.parse(storedUser);
+            setAdminUser(parsed.username || "admin");
+          } catch {}
+        }
+      } else {
+        setIsAuthenticated(false);
       }
     }
   }, []);
@@ -84,29 +113,36 @@ export default function AdminPage() {
       setFeedback(null);
     } catch (err: any) {
       console.error("Error loading admin data:", err);
-      setFeedback({
-        type: "error",
-        message: err.message || "Failed to authenticate or fetch admin status."
-      });
+      if (err.message && err.message.toLowerCase().includes("unauthorized")) {
+        // Token expired or invalid, log out
+        handleLogout();
+        setLoginError("Session expired or invalid key. Please log in again.");
+      } else {
+        setFeedback({
+          type: "error",
+          message: err.message || "Failed to fetch admin status."
+        });
+      }
     } finally {
       setLoading(false);
     }
   }, []);
 
   useEffect(() => {
-    fetchData(adminKey);
-  }, [adminKey, fetchData]);
+    if (isAuthenticated && adminKey) {
+      fetchData(adminKey);
+    }
+  }, [isAuthenticated, adminKey, fetchData]);
 
   // Polling when training is active
   useEffect(() => {
     let interval: NodeJS.Timeout | null = null;
-    if (status?.is_training) {
+    if (status?.is_training && adminKey) {
       interval = setInterval(() => {
         getTrainingStatus(adminKey)
           .then((newStatus) => {
             setStatus(newStatus);
             if (!newStatus.is_training) {
-              // Training just completed, refresh history and versions
               fetchData(adminKey);
             }
           })
@@ -118,15 +154,55 @@ export default function AdminPage() {
     };
   }, [status?.is_training, adminKey, fetchData]);
 
-  const handleSaveKey = () => {
-    const trimmed = inputKey.trim();
-    if (!trimmed) return;
-    setAdminKey(trimmed);
-    if (typeof window !== "undefined") {
-      localStorage.setItem("autovaluate_admin_key", trimmed);
+  // Handle Login submission
+  const handleLoginSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!loginPassword.trim()) {
+      setLoginError("Please enter your administrator password or admin key.");
+      return;
     }
-    setKeySaved(true);
-    fetchData(trimmed);
+
+    setLoginLoading(true);
+    setLoginError(null);
+
+    try {
+      const res = await adminLogin({
+        username: loginUsername.trim(),
+        password: loginPassword.trim(),
+        admin_key: loginPassword.trim()
+      });
+
+      if (res.token) {
+        setAdminKey(res.token);
+        setIsAuthenticated(true);
+        setAdminUser(res.user?.username || loginUsername || "admin");
+        if (typeof window !== "undefined") {
+          localStorage.setItem("autovaluate_admin_token", res.token);
+          localStorage.setItem("autovaluate_admin_key", res.token);
+          localStorage.setItem("autovaluate_admin_user", JSON.stringify(res.user));
+        }
+      } else {
+        setLoginError("Authentication failed. Please check credentials.");
+      }
+    } catch (err: any) {
+      setLoginError(err.message || "Invalid administrator credentials or secret key.");
+    } finally {
+      setLoginLoading(false);
+    }
+  };
+
+  // Handle Logout
+  const handleLogout = () => {
+    setAdminKey("");
+    setIsAuthenticated(false);
+    setStatus(null);
+    setHistory([]);
+    setVersions([]);
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("autovaluate_admin_token");
+      localStorage.removeItem("autovaluate_admin_key");
+      localStorage.removeItem("autovaluate_admin_user");
+    }
   };
 
   const handleTriggerTraining = async () => {
@@ -138,7 +214,6 @@ export default function AdminPage() {
         type: "success",
         message: res.message || "Training job successfully dispatched to background worker."
       });
-      // Immediately refresh status to pick up is_training = true
       const newStatus = await getTrainingStatus(adminKey);
       setStatus(newStatus);
     } catch (err: any) {
@@ -190,10 +265,145 @@ export default function AdminPage() {
     }
   };
 
+  // -------------------------------------------------------------
+  // RENDER 1: Dedicated Administrator Login Screen (When Not Logged In)
+  // -------------------------------------------------------------
+  if (isAuthenticated === false) {
+    return (
+      <div className="min-h-[80vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12">
+        <div className="max-w-md w-full space-y-8">
+          {/* Header */}
+          <div className="text-center space-y-3">
+            <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-cyan-400 shadow-xl shadow-blue-500/20 text-white mx-auto">
+              <Shield className="w-7 h-7 text-white" />
+            </div>
+            <div>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                Auto<span className="text-cyan-400">Valuate</span> Admin Portal
+              </h2>
+              <p className="text-xs text-slate-400 mt-1.5 max-w-sm mx-auto">
+                Restricted gateway for machine learning retraining, candidate benchmarking, and model deployment.
+              </p>
+            </div>
+          </div>
+
+          {/* Login Card */}
+          <div className="glass-panel-elevated rounded-3xl p-7 sm:p-8 border border-slate-800 bg-[#0B1120]/90 shadow-2xl relative overflow-hidden">
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-cyan-400 to-indigo-500" />
+
+            <form onSubmit={handleLoginSubmit} className="space-y-5">
+              {loginError && (
+                <div className="p-3.5 rounded-xl bg-rose-950/40 border border-rose-500/40 text-rose-300 text-xs flex items-start space-x-2.5 animate-in fade-in">
+                  <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
+                  <div className="flex-1 font-mono text-[11px] leading-relaxed">{loginError}</div>
+                </div>
+              )}
+
+              {/* Username Input */}
+              <div className="space-y-1.5">
+                <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider font-mono">
+                  Administrator Username
+                </label>
+                <input
+                  id="admin-username-input"
+                  type="text"
+                  value={loginUsername}
+                  onChange={(e) => setLoginUsername(e.target.value)}
+                  placeholder="admin"
+                  required
+                  className="w-full px-4 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-slate-100 placeholder-slate-500 text-xs font-mono focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all"
+                />
+              </div>
+
+              {/* Password / Admin Key Input */}
+              <div className="space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider font-mono">
+                    Password / Admin Key
+                  </label>
+                  <span className="text-[10px] text-cyan-400 font-mono">Required</span>
+                </div>
+                <div className="relative">
+                  <input
+                    id="admin-password-input"
+                    type={showPassword ? "text" : "password"}
+                    value={loginPassword}
+                    onChange={(e) => setLoginPassword(e.target.value)}
+                    placeholder="Enter administrator key or password"
+                    required
+                    className="w-full px-4 py-2.5 pr-10 rounded-xl bg-slate-900/90 border border-slate-700 text-slate-100 placeholder-slate-500 text-xs font-mono focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200"
+                    tabIndex={-1}
+                  >
+                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  </button>
+                </div>
+              </div>
+
+              {/* Submit Button */}
+              <button
+                id="admin-login-submit"
+                type="submit"
+                disabled={loginLoading}
+                className="w-full flex items-center justify-center space-x-2 px-5 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white text-xs font-bold uppercase tracking-wider shadow-lg shadow-blue-500/25 transition-all cursor-pointer"
+              >
+                {loginLoading ? (
+                  <>
+                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    <span>Authenticating...</span>
+                  </>
+                ) : (
+                  <>
+                    <Lock className="w-4 h-4" />
+                    <span>Authenticate & Enter Console</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </>
+                )}
+              </button>
+            </form>
+
+            {/* Explanation: What is Admin-Key Auth? */}
+            <div className="mt-6 pt-5 border-t border-slate-800 text-[11px] text-slate-400 space-y-2">
+              <div className="flex items-center space-x-1.5 text-slate-300 font-semibold font-mono">
+                <HelpCircle className="w-3.5 h-3.5 text-cyan-400" />
+                <span>What is Admin-Key Auth?</span>
+              </div>
+              <p className="leading-relaxed text-slate-400">
+                Admin-Key Auth is a secure zero-trust token (<code className="text-cyan-300 bg-slate-900 px-1 py-0.5 rounded">X-Admin-Key</code>) protecting server-side ML model retraining and rollback operations.
+              </p>
+              <div className="p-2.5 rounded-lg bg-blue-950/30 border border-blue-900/40 font-mono text-[10px] text-blue-300 flex items-center justify-between">
+                <span>Default Key:</span>
+                <span className="font-bold text-cyan-300 select-all">autovaluate-admin-2026</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Return link */}
+          <div className="text-center">
+            <Link
+              href="/"
+              className="inline-flex items-center space-x-2 text-xs text-slate-400 hover:text-cyan-400 transition-colors"
+            >
+              <Car className="w-3.5 h-3.5" />
+              <span>Return to Public Car Valuation Dashboard</span>
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // -------------------------------------------------------------
+  // RENDER 2: Full Administrator Dashboard (When Authenticated)
+  // -------------------------------------------------------------
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-      {/* Page Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-in fade-in duration-300">
+      {/* Top Header & Session Bar */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800/80 pb-6">
         <div>
           <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-cyan-400 text-xs font-semibold mb-2">
             <Shield className="w-3.5 h-3.5" />
@@ -207,55 +417,34 @@ export default function AdminPage() {
           </p>
         </div>
 
-        {/* Global Action Controls */}
-        <div className="flex items-center space-x-3">
+        {/* Global Action & Authentication Controls */}
+        <div className="flex flex-wrap items-center gap-3">
+          {/* Active Administrator Identity Badge */}
+          <div className="flex items-center space-x-2 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-xs">
+            <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="text-slate-300">Logged in: <strong className="text-white font-mono">{adminUser}</strong></span>
+            <span className="text-[9px] uppercase px-1.5 py-0.5 rounded bg-blue-500/20 text-cyan-300 border border-blue-500/30 font-bold">
+              Super Admin
+            </span>
+          </div>
+
           <button
             onClick={() => fetchData(adminKey)}
             disabled={loading}
-            className="flex items-center space-x-2 px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 hover:text-white text-xs font-medium transition-all"
+            className="flex items-center space-x-2 px-3.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 hover:text-white text-xs font-medium transition-all cursor-pointer"
             title="Refresh All Dashboard Data"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin text-cyan-400" : ""}`} />
             <span>Refresh</span>
           </button>
-        </div>
-      </div>
 
-      {/* Admin Key & Security Card */}
-      <div className="glass-panel rounded-2xl p-4 sm:p-5 border border-slate-800 bg-[#0B1120]/70 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-        <div className="flex items-center space-x-3">
-          <div className="w-9 h-9 rounded-xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-cyan-400 shrink-0">
-            <Key className="w-4 h-4" />
-          </div>
-          <div>
-            <div className="flex items-center space-x-2">
-              <span className="text-sm font-semibold text-white">Administrator Credentials</span>
-              <span className="text-[10px] px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono">
-                X-Admin-Key Auth
-              </span>
-            </div>
-            <p className="text-xs text-slate-400">
-              Administrative retraining and rollback endpoints are strictly protected by server token verification.
-            </p>
-          </div>
-        </div>
-
-        <div className="flex items-center space-x-2 w-full lg:w-auto">
-          <input
-            type="password"
-            value={inputKey}
-            onChange={(e) => {
-              setInputKey(e.target.value);
-              setKeySaved(false);
-            }}
-            placeholder="Enter Admin API Key"
-            className="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs font-mono text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-500 w-full sm:w-64"
-          />
           <button
-            onClick={handleSaveKey}
-            className="px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-medium transition-colors shrink-0 shadow-sm shadow-blue-500/30"
+            onClick={handleLogout}
+            className="flex items-center space-x-1.5 px-3.5 py-1.5 rounded-xl bg-rose-950/40 hover:bg-rose-900/50 border border-rose-800/50 text-rose-300 hover:text-white text-xs font-medium transition-all cursor-pointer"
+            title="Sign out of Admin Console"
           >
-            Apply Key
+            <LogOut className="w-3.5 h-3.5" />
+            <span>Sign Out</span>
           </button>
         </div>
       </div>
@@ -416,9 +605,10 @@ export default function AdminPage() {
 
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
             <button
+              id="run-training-btn"
               onClick={handleTriggerTraining}
               disabled={actionLoading || status?.is_training}
-              className={`flex items-center justify-center space-x-2.5 px-6 py-3.5 rounded-xl font-semibold text-sm transition-all shadow-lg ${
+              className={`flex items-center justify-center space-x-2.5 px-6 py-3.5 rounded-xl font-semibold text-sm transition-all shadow-lg cursor-pointer ${
                 status?.is_training
                   ? "bg-amber-600/30 border border-amber-500/40 text-amber-300 cursor-not-allowed"
                   : "bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white shadow-blue-500/20 hover:shadow-cyan-500/30"
