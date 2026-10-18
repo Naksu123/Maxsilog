@@ -3,6 +3,7 @@ Automated Daily Retraining & Administration Tests
 Tests authentication, scheduling status, manual retraining triggers, conflict locking, and rollback.
 """
 
+import os
 import pytest
 from fastapi.testclient import TestClient
 from backend.app.main import app, load_artifacts, RETRAIN_MANAGER
@@ -69,15 +70,22 @@ def test_admin_rollback_invalid_version():
     assert "does not exist" in res.json()["detail"]
 
 
+def _get_test_dataset_path():
+    for p in ["data/Resale_car_installment.csv", "backend/data/Resale_car_installment.csv"]:
+        if os.path.exists(p):
+            return p
+    return "data/Resale_car_installment.csv"
+
+
 def test_dataset_sha256_computation():
-    data_path = "backend/data/Resale_car_installment.csv"
+    data_path = _get_test_dataset_path()
     h = compute_file_sha256(data_path)
     assert isinstance(h, str)
     assert len(h) == 64  # standard SHA-256 length
 
 
 def test_dataset_auditing():
-    data_path = "backend/data/Resale_car_installment.csv"
+    data_path = _get_test_dataset_path()
     df, audit = audit_and_prepare_dataset(data_path)
     assert len(df) == 2500
     assert audit["target_leakage_purged"] is True
