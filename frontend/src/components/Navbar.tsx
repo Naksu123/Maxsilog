@@ -21,7 +21,7 @@ import {
   Sparkles
 } from "lucide-react";
 import GithubIcon from "./GithubIcon";
-import { getHealth } from "../lib/api";
+import { getHealth } from "@/lib/api";
 
 export default function Navbar() {
   const pathname = usePathname();
