@@ -215,14 +215,32 @@ export interface TrainingHistoryItem {
   trigger: string;
   status: "completed" | "skipped" | "failed";
   duration_seconds: number;
+  force_retraining?: boolean;
+  data_changed?: boolean;
   selected_model?: string;
   champion_cv_mae?: number;
   champion_cv_r2?: number;
   dataset_fingerprint?: string;
+  dataset_validation?: {
+    status: string;
+    row_count?: number;
+    target_leakage_purged?: boolean;
+  };
   record_count?: number;
   action: string;
+  skip_reason?: string;
   message?: string;
   error?: string;
+}
+
+export interface PaginatedTrainingHistoryResponse {
+  items: TrainingHistoryItem[];
+  total: number;
+  page: number;
+  page_size: number;
+  total_pages: number;
+  has_next: boolean;
+  has_prev: boolean;
 }
 
 export interface ModelVersionItem {

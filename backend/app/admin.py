@@ -35,7 +35,13 @@ def verify_admin_auth(
 
 
 class TriggerTrainingRequest(BaseModel):
-    force: bool = Field(default=False, description="Force retraining even if dataset checksum is unchanged", examples=[False])
+    force: Optional[bool] = Field(default=False, description="Force retraining even if dataset checksum is unchanged", examples=[False])
+    force_retraining: Optional[bool] = Field(default=None, description="Alias for force parameter", examples=[False])
+
+    def is_forced(self) -> bool:
+        if self.force_retraining is not None:
+            return bool(self.force_retraining)
+        return bool(self.force)
 
 
 class AdminLoginRequest(BaseModel):
@@ -49,7 +55,7 @@ def admin_login(req: AdminLoginRequest):
     """
     Authenticate administrator credentials and return access token.
     Accepts username/password or direct admin_key.
-    Default password / key: 'autovaluate-admin-2026'
+    Default password / key: 'admin123'
     """
     key_candidate = (req.admin_key or req.password or "").strip()
     if not key_candidate or key_candidate != ADMIN_API_KEY:
@@ -87,11 +93,45 @@ def get_training_status():
 
 
 @router.get("/training/history", dependencies=[Depends(verify_admin_auth)])
-def get_training_history():
+def get_training_history(
+    page: Optional[int] = Query(None, ge=1, description="Page number (1-indexed)"),
+    page_size: int = Query(5, ge=1, le=100, description="Records per page, default 5"),
+    status: Optional[str] = Query(None, description="Filter by status (completed, skipped, failed)"),
+    trigger: Optional[str] = Query(None, description="Filter by trigger source")
+):
     from .main import RETRAIN_MANAGER
     if not RETRAIN_MANAGER:
         raise HTTPException(status_code=503, detail="Retrain manager not initialized.")
-    return RETRAIN_MANAGER.get_history()
+    
+    history = RETRAIN_MANAGER.get_history()
+
+    # Filter by status and/or trigger if provided
+    filtered = history
+    if status and status.lower() != "all":
+        filtered = [h for h in filtered if str(h.get("status", "")).lower() == status.lower()]
+    if trigger and trigger.lower() != "all":
+        filtered = [h for h in filtered if trigger.lower() in str(h.get("trigger", "")).lower()]
+
+    # If page is not requested, return flat list for backwards compatibility
+    if page is None:
+        return filtered
+
+    total = len(filtered)
+    total_pages = max(1, (total + page_size - 1) // page_size) if total > 0 else 1
+    current_page = min(page, total_pages) if page else 1
+    start_idx = (current_page - 1) * page_size
+    end_idx = start_idx + page_size
+    items = filtered[start_idx:end_idx]
+
+    return {
+        "items": items,
+        "total": total,
+        "page": current_page,
+        "page_size": page_size,
+        "total_pages": total_pages,
+        "has_next": current_page < total_pages,
+        "has_prev": current_page > 1
+    }
 
 
 @router.get("/models", dependencies=[Depends(verify_admin_auth)])
@@ -117,7 +157,7 @@ def trigger_training(
             detail="A machine learning training job is already actively running on the server."
         )
 
-    force_retrain = req.force if req else False
+    force_retrain = req.is_forced() if req else False
 
     # Execute in background task so HTTP response returns immediately and prediction endpoints stay responsive
     def _run_bg():
@@ -128,6 +168,7 @@ def trigger_training(
     return {
         "success": True,
         "status": "initiated",
+        "force_retraining": force_retrain,
         "message": f"Training job successfully queued in background (Force Retrain: {force_retrain}). Poll /api/admin/training/status for live progress."
     }
 

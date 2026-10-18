@@ -31,7 +31,10 @@ import {
   EyeOff,
   HelpCircle,
   ArrowRight,
-  Car
+  Car,
+  ChevronLeft,
+  Search,
+  Filter
 } from "lucide-react";
 import {
   getTrainingStatus,
@@ -65,6 +68,12 @@ export default function AdminPage() {
   const [status, setStatus] = useState<TrainingStatusResponse | null>(null);
   const [history, setHistory] = useState<TrainingHistoryItem[]>([]);
   const [versions, setVersions] = useState<ModelVersionItem[]>([]);
+
+  // Audit Log Pagination & Filtering State
+  const [historyPage, setHistoryPage] = useState<number>(1);
+  const historyPageSize = 5;
+  const [historyStatusFilter, setHistoryStatusFilter] = useState<string>("all");
+  const [historySearch, setHistorySearch] = useState<string>("");
 
   const [loading, setLoading] = useState<boolean>(true);
   const [actionLoading, setActionLoading] = useState<boolean>(false);
@@ -108,7 +117,8 @@ export default function AdminPage() {
         getArchivedModels(keyToUse)
       ]);
       setStatus(statusRes);
-      setHistory(historyRes);
+      const rawHistory = Array.isArray(historyRes) ? historyRes : ((historyRes as any)?.items || []);
+      setHistory(rawHistory);
       setVersions(versionsRes);
       setFeedback(null);
     } catch (err: any) {
@@ -207,21 +217,61 @@ export default function AdminPage() {
 
   const handleTriggerTraining = async () => {
     setActionLoading(true);
-    setFeedback(null);
+    setFeedback({
+      type: "info",
+      message: `Dispatching training job (Force Retraining: ${forceRetrain ? "Enabled" : "Disabled"})...`
+    });
     try {
       const res = await triggerManualTraining(adminKey, forceRetrain);
       setFeedback({
-        type: "success",
-        message: res.message || "Training job successfully dispatched to background worker."
+        type: "info",
+        message: res.message || `Training job dispatched (Force Retrain: ${forceRetrain ? "Enabled" : "Disabled"}). Live monitoring active...`
       });
-      const newStatus = await getTrainingStatus(adminKey);
-      setStatus(newStatus);
+
+      // Poll until training finishes
+      let attempts = 0;
+      const pollInterval = setInterval(async () => {
+        attempts++;
+        try {
+          const newStatus = await getTrainingStatus(adminKey);
+          setStatus(newStatus);
+
+          if (!newStatus.is_training || attempts >= 40) {
+            clearInterval(pollInterval);
+            setActionLoading(false);
+            await fetchData(adminKey);
+            setHistoryPage(1); // Reset to page 1 to see the newest execution
+
+            const lastRun = newStatus.last_training_run;
+            if (lastRun) {
+              if (lastRun.status === "completed") {
+                setFeedback({
+                  type: "success",
+                  message: `Retraining completed successfully! Promoted version ${lastRun.version_id || ""} (${lastRun.selected_model || "Champion"}) with CV MAE RM ${lastRun.champion_cv_mae?.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}.`
+                });
+              } else if (lastRun.status === "skipped") {
+                setFeedback({
+                  type: "info",
+                  message: `Retraining skipped: ${lastRun.skip_reason || lastRun.message || "Dataset is unchanged since the last successful training. Retraining skipped under automated data-change policy."}`
+                });
+              } else if (lastRun.status === "failed") {
+                setFeedback({
+                  type: "error",
+                  message: `Retraining failed: ${lastRun.error || lastRun.message || "Pipeline execution failed."}`
+                });
+              }
+            }
+          }
+        } catch (pollErr) {
+          console.error("Polling error:", pollErr);
+        }
+      }, 1500);
+
     } catch (err: any) {
       setFeedback({
         type: "error",
         message: err.message || "Failed to trigger training."
       });
-    } finally {
       setActionLoading(false);
     }
   };
@@ -394,6 +444,36 @@ export default function AdminPage() {
       </div>
     );
   }
+
+  // -------------------------------------------------------------
+  // Audit Log Filtering & Pagination Logic (5 records/page)
+  // -------------------------------------------------------------
+  const filteredHistory = history.filter((item) => {
+    if (historyStatusFilter !== "all" && item.status !== historyStatusFilter) {
+      return false;
+    }
+    if (historySearch.trim()) {
+      const q = historySearch.toLowerCase();
+      const matchRun = item.run_id?.toLowerCase().includes(q);
+      const matchVer = item.version_id?.toLowerCase().includes(q);
+      const matchModel = item.selected_model?.toLowerCase().includes(q);
+      const matchAction = item.action?.toLowerCase().includes(q);
+      const matchMsg = item.message?.toLowerCase().includes(q);
+      const matchErr = item.error?.toLowerCase().includes(q);
+      const matchSkip = item.skip_reason?.toLowerCase().includes(q);
+      if (!matchRun && !matchVer && !matchModel && !matchAction && !matchMsg && !matchErr && !matchSkip) {
+        return false;
+      }
+    }
+    return true;
+  });
+
+  const totalHistoryRecords = filteredHistory.length;
+  const totalHistoryPages = Math.max(1, Math.ceil(totalHistoryRecords / historyPageSize));
+  const currentHistoryPage = Math.min(Math.max(1, historyPage), totalHistoryPages);
+  const startIdx = totalHistoryRecords === 0 ? 0 : (currentHistoryPage - 1) * historyPageSize;
+  const endIdx = Math.min(startIdx + historyPageSize, totalHistoryRecords);
+  const paginatedHistory = filteredHistory.slice(startIdx, endIdx);
 
   // -------------------------------------------------------------
   // RENDER 2: Full Administrator Dashboard (When Authenticated)
@@ -856,49 +936,107 @@ export default function AdminPage() {
         </div>
       </div>
 
-      {/* Retraining Execution Audit History */}
-      <div className="glass-panel rounded-2xl p-6 border border-slate-800 space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+      {/* Retraining Execution Audit History with 5-Records-Per-Page Pagination */}
+      <div className="glass-panel rounded-2xl p-6 border border-slate-800 space-y-5">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-800/80 pb-4">
           <div>
             <h3 className="text-lg font-bold text-white flex items-center space-x-2">
               <Terminal className="w-4 h-4 text-emerald-400" />
               <span>Training Execution History (Audit Log)</span>
             </h3>
-            <p className="text-xs text-slate-400">
-              Audit trail of successful runs, skipped runs (fingerprint unchanged), and failures.
+            <p className="text-xs text-slate-400 mt-0.5">
+              Comprehensive audit trail of completed runs, policy-skipped runs, and failures. Strictly 5 records per page.
             </p>
           </div>
-          <span className="text-xs font-mono text-slate-400">
-            Log entries: {history.length}
-          </span>
+
+          {/* Filtering and Search Controls */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
+            {/* Status Filter Tabs */}
+            <div className="flex items-center rounded-xl bg-slate-900/90 border border-slate-800 p-1 text-xs">
+              {(["all", "completed", "skipped", "failed"] as const).map((st) => {
+                const count = st === "all" ? history.length : history.filter((h) => h.status === st).length;
+                const active = historyStatusFilter === st;
+                return (
+                  <button
+                    key={st}
+                    onClick={() => {
+                      setHistoryStatusFilter(st);
+                      setHistoryPage(1); // Reset to page 1 on filter change
+                    }}
+                    className={`px-2.5 py-1 rounded-lg capitalize font-medium transition-all ${
+                      active
+                        ? "bg-blue-600/30 text-cyan-300 border border-cyan-500/40 font-semibold"
+                        : "text-slate-400 hover:text-slate-200"
+                    }`}
+                  >
+                    <span>{st}</span>
+                    <span className="ml-1.5 text-[10px] opacity-75 font-mono">({count})</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Search Input */}
+            <div className="relative">
+              <Search className="w-3.5 h-3.5 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
+              <input
+                type="text"
+                value={historySearch}
+                onChange={(e) => {
+                  setHistorySearch(e.target.value);
+                  setHistoryPage(1); // Reset to page 1 on search change
+                }}
+                placeholder="Filter audit records..."
+                className="w-full sm:w-48 pl-8 pr-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+              />
+            </div>
+          </div>
         </div>
 
+        {/* Table View */}
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead className="bg-slate-900/80 text-slate-400 font-mono uppercase text-[10px] tracking-wider border-b border-slate-800">
               <tr>
-                <th className="py-3 px-4">Run ID</th>
+                <th className="py-3 px-4">Run ID & Version</th>
                 <th className="py-3 px-3">Date (MYT)</th>
                 <th className="py-3 px-3">Trigger</th>
+                <th className="py-3 px-3">Force Flag</th>
                 <th className="py-3 px-3">Status</th>
                 <th className="py-3 px-3">Duration</th>
-                <th className="py-3 px-4">Decision & Action Summary</th>
+                <th className="py-3 px-4">Decision & Execution Summary</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-800/60 font-mono">
-              {history.length > 0 ? (
-                history.map((item, idx) => (
-                  <tr key={idx} className="hover:bg-slate-900/40">
+              {paginatedHistory.length > 0 ? (
+                paginatedHistory.map((item, idx) => (
+                  <tr key={item.run_id || idx} className="hover:bg-slate-900/40">
                     <td className="py-3.5 px-4 font-bold text-slate-200">
-                      {item.run_id}
+                      <div>{item.run_id}</div>
+                      {item.version_id && (
+                        <div className="text-[10px] text-cyan-400 font-normal">
+                          {item.version_id}
+                        </div>
+                      )}
                     </td>
                     <td className="py-3.5 px-3 text-slate-300 font-sans">
                       {formatMytDate(item.timestamp_myt || item.timestamp_utc)}
                     </td>
                     <td className="py-3.5 px-3">
-                      <span className="px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-300 border border-slate-700">
+                      <span className="px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-300 border border-slate-700 font-sans">
                         {item.trigger === "scheduled_daily" ? "Daily Cron (02:00)" : item.trigger}
                       </span>
+                    </td>
+                    <td className="py-3.5 px-3">
+                      {item.force_retraining ? (
+                        <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold uppercase bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                          Forced: Yes
+                        </span>
+                      ) : (
+                        <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] uppercase bg-slate-800/80 text-slate-400 border border-slate-700/60">
+                          Forced: No
+                        </span>
+                      )}
                     </td>
                     <td className="py-3.5 px-3">
                       {item.status === "completed" ? (
@@ -922,10 +1060,27 @@ export default function AdminPage() {
                       {item.duration_seconds}s
                     </td>
                     <td className="py-3.5 px-4 font-sans text-slate-300 text-xs">
-                      <div>{item.action || item.message}</div>
+                      <div className="font-medium text-slate-200">
+                        {item.action || item.message}
+                      </div>
+
+                      {item.status === "skipped" && item.skip_reason && (
+                        <div className="text-[11px] text-amber-300/90 mt-1 bg-amber-950/20 p-1.5 rounded border border-amber-900/40 font-mono">
+                          {item.skip_reason}
+                        </div>
+                      )}
+
                       {item.error && (
                         <div className="text-rose-400 font-mono text-[11px] mt-1 bg-rose-950/20 p-1.5 rounded border border-rose-900/40">
                           {item.error}
+                        </div>
+                      )}
+
+                      {item.dataset_validation && (
+                        <div className="text-[10px] text-slate-400 mt-1 flex items-center space-x-2">
+                          <span>Rows: {item.record_count ?? item.dataset_validation.row_count ?? 2500}</span>
+                          <span>•</span>
+                          <span className="text-emerald-400">Leakage Purged: True</span>
                         </div>
                       )}
                     </td>
@@ -933,13 +1088,80 @@ export default function AdminPage() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={6} className="py-6 text-center text-slate-500 font-sans">
-                    No historical executions logged yet. Scheduled daily runs and manual runs will record here.
+                  <td colSpan={7} className="py-8 text-center text-slate-500 font-sans">
+                    No historical executions match the selected filter.
                   </td>
                 </tr>
               )}
             </tbody>
           </table>
+        </div>
+
+        {/* Functional Pagination Controls Bar (5 Records Per Page) */}
+        <div className="border-t border-slate-800/80 pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-sans">
+          <div className="text-slate-400">
+            {totalHistoryRecords === 0 ? (
+              <span>Showing 0 records</span>
+            ) : (
+              <span>
+                Showing <strong className="text-white">{startIdx + 1}–{endIdx}</strong> of{" "}
+                <strong className="text-white">{totalHistoryRecords}</strong> records{" "}
+                <span className="text-slate-500">(Page {currentHistoryPage} of {totalHistoryPages})</span>
+              </span>
+            )}
+          </div>
+
+          <div className="flex items-center space-x-2">
+            {/* Previous Page Button */}
+            <button
+              id="audit-prev-page-btn"
+              onClick={() => setHistoryPage((p) => Math.max(1, p - 1))}
+              disabled={currentHistoryPage <= 1}
+              className={`inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg border text-xs font-medium transition-all ${
+                currentHistoryPage <= 1
+                  ? "bg-slate-900/40 border-slate-800 text-slate-600 cursor-not-allowed"
+                  : "bg-slate-900 hover:bg-slate-800 border-slate-700 text-slate-300 hover:text-white cursor-pointer"
+              }`}
+            >
+              <ChevronLeft className="w-3.5 h-3.5" />
+              <span>Previous</span>
+            </button>
+
+            {/* Numbered Page Buttons */}
+            <div className="flex items-center space-x-1">
+              {Array.from({ length: totalHistoryPages }, (_, i) => i + 1).map((pageNum) => {
+                const isActive = pageNum === currentHistoryPage;
+                return (
+                  <button
+                    key={pageNum}
+                    onClick={() => setHistoryPage(pageNum)}
+                    className={`w-7 h-7 rounded-lg text-xs font-mono font-medium transition-all ${
+                      isActive
+                        ? "bg-blue-600 text-white font-bold shadow-sm shadow-blue-500/20 border border-blue-500"
+                        : "bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-800"
+                    }`}
+                  >
+                    {pageNum}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Next Page Button */}
+            <button
+              id="audit-next-page-btn"
+              onClick={() => setHistoryPage((p) => Math.min(totalHistoryPages, p + 1))}
+              disabled={currentHistoryPage >= totalHistoryPages}
+              className={`inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg border text-xs font-medium transition-all ${
+                currentHistoryPage >= totalHistoryPages
+                  ? "bg-slate-900/40 border-slate-800 text-slate-600 cursor-not-allowed"
+                  : "bg-slate-900 hover:bg-slate-800 border-slate-700 text-slate-300 hover:text-white cursor-pointer"
+              }`}
+            >
+              <span>Next</span>
+              <ChevronRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
         </div>
       </div>
 

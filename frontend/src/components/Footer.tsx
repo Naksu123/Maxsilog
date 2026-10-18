@@ -4,12 +4,17 @@ import {
   Car, 
   ShieldCheck, 
   ExternalLink,
-  FileCode2
+  FileCode2,
+  Database,
+  Cpu
 } from "lucide-react";
 import GithubIcon from "./GithubIcon";
 
 export default function Footer() {
   const githubUrl = process.env.NEXT_PUBLIC_GITHUB_REPO_URL || "https://github.com/Naksu123/autovaluate";
+  const apiDocsUrl = process.env.NEXT_PUBLIC_API_URL 
+    ? `${process.env.NEXT_PUBLIC_API_URL}/docs` 
+    : "http://localhost:8000/docs";
 
   return (
     <footer className="bg-[#050811] border-t border-slate-800/80 mt-14 text-slate-400 text-xs">
@@ -32,7 +37,7 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-[11px] text-slate-400 leading-snug">
-              AI-driven used-car resale price prediction & market intelligence in Malaysia.
+              Machine Learning-Based Web Application for Used-Car Price Prediction and Market Analysis in Malaysia.
             </p>
           </div>
 
@@ -45,10 +50,10 @@ export default function Footer() {
               Dashboard
             </Link>
             <Link href="/predict" className="hover:text-cyan-400 transition-colors">
-              Predict
+              Predict Price
             </Link>
             <Link href="/analytics" className="hover:text-cyan-400 transition-colors">
-              Analytics
+              Market Analysis
             </Link>
             <Link href="/benchmark" className="hover:text-cyan-400 transition-colors">
               Benchmark
@@ -62,10 +67,10 @@ export default function Footer() {
             </Link>
           </nav>
 
-          {/* External Links: GitHub & Swagger */}
+          {/* External Verified Links: GitHub & Swagger */}
           <div className="flex items-center space-x-2.5">
             <a
-              href="http://localhost:8000/docs"
+              href={apiDocsUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg bg-slate-900/90 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 hover:border-slate-700 transition-all text-[11px]"
@@ -91,17 +96,32 @@ export default function Footer() {
 
         </div>
 
+        {/* Minimal Context Bar */}
+        <div className="pt-2 flex flex-wrap items-center gap-x-4 gap-y-2 text-[11px] text-slate-400 border-t border-slate-900/80">
+          <div className="flex items-center space-x-1.5 text-emerald-400/90">
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+            <span>Target Leakage Barred (2,500 Malaysian listings)</span>
+          </div>
+          <span>•</span>
+          <div className="flex items-center space-x-1.5 text-indigo-400/90">
+            <Cpu className="w-3.5 h-3.5 text-indigo-400 shrink-0" />
+            <span>5-Fold Cross-Validation (SLR, Ridge, Random Forest, Gradient Boosting)</span>
+          </div>
+          <span>•</span>
+          <div className="flex items-center space-x-1.5 text-cyan-400/90">
+            <Database className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+            <span>Dataset Integrity Audited</span>
+          </div>
+        </div>
+
         {/* Minimal Bottom Bar */}
         <div className="border-t border-slate-900 pt-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-slate-400">
-          <div className="flex items-center space-x-2">
+          <div className="flex flex-wrap items-center space-x-2">
             <span>© 2026 AutoValuate</span>
             <span>•</span>
-            <span className="flex items-center space-x-1 text-emerald-400/90">
-              <ShieldCheck className="w-3 h-3 text-emerald-400" />
-              <span>Target Leakage Barred (2,500 listings)</span>
-            </span>
+            <span>UNO-R College of Information Technology (COPE0683X)</span>
             <span className="hidden md:inline">•</span>
-            <span className="hidden md:inline text-slate-400">UNO-R College of Information Technology (COPE0683X)</span>
+            <span className="hidden md:inline text-slate-400">Researchers: L. Ballaran, K. J. Dele Serna, R. F. Montaner III | Advisor: M. S. Urocay</span>
           </div>
 
           <span className="text-slate-400 text-center sm:text-right">

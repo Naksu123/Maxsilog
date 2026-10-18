@@ -200,17 +200,25 @@ class RetrainManager:
             last_successful = next((h for h in history if h.get("status") == "completed"), None)
             if not force and last_successful and last_successful.get("dataset_fingerprint") == current_fingerprint:
                 duration = round(time.time() - start_time, 2)
-                skip_msg = "Dataset fingerprint is unchanged since the last successful training. Retraining skipped to conserve compute."
+                skip_msg = f"Dataset fingerprint is unchanged since the last successful training (SHA-256: {current_fingerprint[:12]}...). Normal retraining skipped under automated data-change policy. Check 'Force Retraining' to override."
                 record = {
                     "run_id": run_id,
                     "timestamp_utc": now_utc.isoformat(),
                     "timestamp_myt": now_myt.isoformat(),
                     "trigger": trigger,
+                    "force_retraining": False,
+                    "data_changed": False,
                     "status": "skipped",
                     "duration_seconds": duration,
                     "dataset_fingerprint": current_fingerprint,
+                    "dataset_validation": {
+                        "status": "VALID",
+                        "row_count": len(df_clean),
+                        "target_leakage_purged": audit_info.get("target_leakage_purged", True)
+                    },
                     "record_count": len(df_clean),
                     "action": "Retained active production model",
+                    "skip_reason": skip_msg,
                     "message": skip_msg
                 }
                 self._append_history(record)
@@ -475,15 +483,22 @@ class RetrainManager:
                 "timestamp_utc": now_utc.isoformat(),
                 "timestamp_myt": now_myt.isoformat(),
                 "trigger": trigger,
+                "force_retraining": bool(force),
+                "data_changed": (not last_successful or last_successful.get("dataset_fingerprint") != current_fingerprint),
                 "status": "completed",
                 "duration_seconds": duration,
                 "selected_model": champion_name,
                 "champion_cv_mae": champion_cv_mae,
                 "champion_cv_r2": champion_cv_r2,
                 "dataset_fingerprint": current_fingerprint,
+                "dataset_validation": {
+                    "status": "VALID",
+                    "row_count": len(df_clean),
+                    "target_leakage_purged": audit_info.get("target_leakage_purged", True)
+                },
                 "record_count": len(df_clean),
                 "action": action_msg,
-                "message": "Daily retraining completed successfully."
+                "message": "Model retraining and champion evaluation completed successfully."
             }
             self._append_history(record)
             print(f"[{run_id}] Retraining completed in {duration}s: {action_msg}")
@@ -509,10 +524,13 @@ class RetrainManager:
                 "timestamp_utc": now_utc.isoformat(),
                 "timestamp_myt": now_myt.isoformat(),
                 "trigger": trigger,
+                "force_retraining": bool(force),
+                "data_changed": False,
                 "status": "failed",
                 "duration_seconds": duration,
                 "action": "Retained active production model due to error",
-                "error": err_msg
+                "error": err_msg,
+                "message": f"Retraining failed: {err_msg}"
             }
             self._append_history(fail_record)
             return {

@@ -122,3 +122,76 @@ def test_admin_verify_session():
     # Invalid token
     res_bad = client.get("/api/admin/verify", headers={"X-Admin-Key": "bad"})
     assert res_bad.status_code == 401
+
+
+def test_admin_training_history_pagination():
+    # Test 5-records-per-page pagination
+    res = client.get("/api/admin/training/history?page=1&page_size=5", headers=HEADERS)
+    assert res.status_code == 200
+    data = res.json()
+    assert isinstance(data, dict)
+    assert "items" in data
+    assert "total" in data
+    assert "page" in data
+    assert "page_size" in data
+    assert "total_pages" in data
+    assert data["page"] == 1
+    assert data["page_size"] == 5
+    assert len(data["items"]) <= 5
+    if data["total"] > 5:
+        assert data["total_pages"] > 1
+        assert data["has_next"] is True
+        assert data["has_prev"] is False
+
+        # Test page 2
+        res_p2 = client.get("/api/admin/training/history?page=2&page_size=5", headers=HEADERS)
+        assert res_p2.status_code == 200
+        data_p2 = res_p2.json()
+        assert data_p2["page"] == 2
+        assert data_p2["has_prev"] is True
+
+
+def test_admin_training_history_filtering():
+    # Filter by completed status
+    res = client.get("/api/admin/training/history?page=1&page_size=5&status=completed", headers=HEADERS)
+    assert res.status_code == 200
+    data = res.json()
+    for item in data["items"]:
+        assert item["status"] == "completed"
+
+    # Filter by skipped status
+    res_skip = client.get("/api/admin/training/history?page=1&page_size=5&status=skipped", headers=HEADERS)
+    assert res_skip.status_code == 200
+    data_skip = res_skip.json()
+    for item in data_skip["items"]:
+        assert item["status"] == "skipped"
+
+
+def test_trigger_training_force_retraining_schema():
+    # When force is false
+    res_unforced = client.post("/api/admin/training/run", json={"force": False}, headers=HEADERS)
+    # Could be 200 (initiated) or 409 (if currently training)
+    if res_unforced.status_code == 200:
+        data = res_unforced.json()
+        assert data["success"] is True
+        assert data["force_retraining"] is False
+
+    # When force_retraining alias is true
+    res_forced = client.post("/api/admin/training/run", json={"force_retraining": True}, headers=HEADERS)
+    if res_forced.status_code == 200:
+        data = res_forced.json()
+        assert data["success"] is True
+        assert data["force_retraining"] is True
+
+
+def test_retrain_manager_skip_policy_when_unforced():
+    from backend.app import main
+    assert main.RETRAIN_MANAGER is not None
+    outcome = main.RETRAIN_MANAGER.run_retraining(trigger="test_runner", force=False)
+    assert outcome["status"] in ["skipped", "completed"]
+    if outcome["status"] == "skipped":
+        assert outcome["record"]["force_retraining"] is False
+        assert outcome["record"]["data_changed"] is False
+        assert "unchanged" in outcome["record"]["skip_reason"]
+        assert "Force Retraining" in outcome["record"]["skip_reason"]
+
