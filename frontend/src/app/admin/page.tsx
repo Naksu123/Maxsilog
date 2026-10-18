@@ -75,6 +75,11 @@ export default function AdminPage() {
   const [historyStatusFilter, setHistoryStatusFilter] = useState<string>("all");
   const [historySearch, setHistorySearch] = useState<string>("");
 
+  // Model Artifact Versions Pagination & Search State
+  const [versionsPage, setVersionsPage] = useState<number>(1);
+  const versionsPageSize = 5;
+  const [versionsSearch, setVersionsSearch] = useState<string>("");
+
   const [loading, setLoading] = useState<boolean>(true);
   const [actionLoading, setActionLoading] = useState<boolean>(false);
   const [forceRetrain, setForceRetrain] = useState<boolean>(false);
@@ -287,6 +292,7 @@ export default function AdminPage() {
       });
       setRollbackModalVersion(null);
       await fetchData(adminKey);
+      setVersionsPage(1);
     } catch (err: any) {
       setFeedback({
         type: "error",
@@ -474,6 +480,24 @@ export default function AdminPage() {
   const startIdx = totalHistoryRecords === 0 ? 0 : (currentHistoryPage - 1) * historyPageSize;
   const endIdx = Math.min(startIdx + historyPageSize, totalHistoryRecords);
   const paginatedHistory = filteredHistory.slice(startIdx, endIdx);
+
+  // Model Artifact Versions Filtering & 5-Records-Per-Page Pagination
+  const filteredVersions = versions.filter((ver) => {
+    if (!versionsSearch.trim()) return true;
+    const q = versionsSearch.toLowerCase().trim();
+    const matchId = ver.version_id?.toLowerCase().includes(q);
+    const matchModel = (ver.selected_algorithm || ver.selected_model || "")
+      .toLowerCase()
+      .includes(q);
+    return matchId || matchModel;
+  });
+
+  const totalVersionRecords = filteredVersions.length;
+  const totalVersionPages = Math.max(1, Math.ceil(totalVersionRecords / versionsPageSize));
+  const currentVersionsPage = Math.min(Math.max(1, versionsPage), totalVersionPages);
+  const versionStartIdx = totalVersionRecords === 0 ? 0 : (currentVersionsPage - 1) * versionsPageSize;
+  const versionEndIdx = Math.min(versionStartIdx + versionsPageSize, totalVersionRecords);
+  const paginatedVersions = filteredVersions.slice(versionStartIdx, versionEndIdx);
 
   // -------------------------------------------------------------
   // RENDER 2: Full Administrator Dashboard (When Authenticated)
@@ -842,19 +866,35 @@ export default function AdminPage() {
 
       {/* Model Version Archive & Safe Rollback */}
       <div className="glass-panel rounded-2xl p-6 border border-slate-800 space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800/80 pb-4">
           <div>
             <h3 className="text-lg font-bold text-white flex items-center space-x-2">
               <Layers className="w-4 h-4 text-indigo-400" />
               <span>Model Artifact Versions & Rollback</span>
             </h3>
-            <p className="text-xs text-slate-400">
-              Every daily run preserves versioned model artifacts and manifests under backend/models/versions/.
+            <p className="text-xs text-slate-400 mt-0.5">
+              Every daily run preserves versioned model artifacts and manifests. Paginated at strictly 5 records per table view.
             </p>
           </div>
-          <span className="text-xs font-mono text-cyan-400 bg-blue-950/40 border border-blue-800/40 px-2.5 py-1 rounded">
-            Total Archives: {versions.length}
-          </span>
+
+          <div className="flex items-center gap-2.5">
+            <div className="relative">
+              <Search className="w-3.5 h-3.5 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
+              <input
+                type="text"
+                value={versionsSearch}
+                onChange={(e) => {
+                  setVersionsSearch(e.target.value);
+                  setVersionsPage(1);
+                }}
+                placeholder="Search versions..."
+                className="w-full sm:w-44 pl-8 pr-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+              />
+            </div>
+            <span className="text-xs font-mono text-cyan-400 bg-blue-950/40 border border-blue-800/40 px-2.5 py-1.5 rounded-xl whitespace-nowrap">
+              {totalVersionRecords} Archives
+            </span>
+          </div>
         </div>
 
         <div className="overflow-x-auto">
@@ -872,9 +912,9 @@ export default function AdminPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-800/60 font-mono">
-              {versions.length > 0 ? (
-                versions.map((ver, idx) => (
-                  <tr key={`ver-${ver.version_id || "v"}-${idx}`} className={ver.is_active ? "bg-blue-950/20" : "hover:bg-slate-900/40"}>
+              {paginatedVersions.length > 0 ? (
+                paginatedVersions.map((ver, idx) => (
+                  <tr key={`ver-${ver.version_id || "v"}-${versionStartIdx + idx}`} className={ver.is_active ? "bg-blue-950/20" : "hover:bg-slate-900/40"}>
                     <td className="py-3.5 px-4 font-bold text-white flex items-center space-x-2">
                       <span>{ver.version_id}</span>
                       {ver.is_active && (
@@ -933,6 +973,73 @@ export default function AdminPage() {
               )}
             </tbody>
           </table>
+        </div>
+
+        {/* Functional Pagination Controls Bar (5 Versions Per Page) */}
+        <div className="border-t border-slate-800/80 pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-sans">
+          <div className="text-slate-400">
+            {totalVersionRecords === 0 ? (
+              <span>Showing 0 versions</span>
+            ) : (
+              <span>
+                Showing <strong className="text-white">{versionStartIdx + 1}–{versionEndIdx}</strong> of{" "}
+                <strong className="text-white">{totalVersionRecords}</strong> archives{" "}
+                <span className="text-slate-500">(Page {currentVersionsPage} of {totalVersionPages})</span>
+              </span>
+            )}
+          </div>
+
+          <div className="flex items-center space-x-2">
+            {/* Previous Page Button */}
+            <button
+              id="versions-prev-page-btn"
+              onClick={() => setVersionsPage((p) => Math.max(1, p - 1))}
+              disabled={currentVersionsPage <= 1}
+              className={`inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg border text-xs font-medium transition-all ${
+                currentVersionsPage <= 1
+                  ? "bg-slate-900/40 border-slate-800 text-slate-600 cursor-not-allowed"
+                  : "bg-slate-900 hover:bg-slate-800 border-slate-700 text-slate-300 hover:text-white cursor-pointer"
+              }`}
+            >
+              <ChevronLeft className="w-3.5 h-3.5" />
+              <span>Previous</span>
+            </button>
+
+            {/* Numbered Page Buttons */}
+            <div className="flex items-center space-x-1">
+              {Array.from({ length: totalVersionPages }, (_, i) => i + 1).map((pageNum) => {
+                const isActive = pageNum === currentVersionsPage;
+                return (
+                  <button
+                    key={pageNum}
+                    onClick={() => setVersionsPage(pageNum)}
+                    className={`w-7 h-7 rounded-lg text-xs font-mono font-medium transition-all ${
+                      isActive
+                        ? "bg-blue-600 text-white font-bold shadow-sm shadow-blue-500/20 border border-blue-500"
+                        : "bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-800"
+                    }`}
+                  >
+                    {pageNum}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Next Page Button */}
+            <button
+              id="versions-next-page-btn"
+              onClick={() => setVersionsPage((p) => Math.min(totalVersionPages, p + 1))}
+              disabled={currentVersionsPage >= totalVersionPages}
+              className={`inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg border text-xs font-medium transition-all ${
+                currentVersionsPage >= totalVersionPages
+                  ? "bg-slate-900/40 border-slate-800 text-slate-600 cursor-not-allowed"
+                  : "bg-slate-900 hover:bg-slate-800 border-slate-700 text-slate-300 hover:text-white cursor-pointer"
+              }`}
+            >
+              <span>Next</span>
+              <ChevronRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
         </div>
       </div>
 
