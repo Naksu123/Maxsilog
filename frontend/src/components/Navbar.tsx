@@ -116,70 +116,7 @@ export default function Navbar() {
               </Link>
             </div>
 
-            {/* Desktop Navigation Links */}
-            <nav className="hidden lg:flex items-center space-x-1 xl:space-x-2">
-              <Link
-                href="/dashboard"
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                  pathname === "/dashboard"
-                    ? "bg-blue-600/20 text-cyan-400 border border-cyan-500/30 font-semibold"
-                    : "text-slate-300 hover:text-white hover:bg-slate-800/60"
-                }`}
-              >
-                Dashboard
-              </Link>
-              <Link
-                href="/predict"
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                  pathname === "/predict"
-                    ? "bg-blue-600/20 text-cyan-400 border border-cyan-500/30 font-semibold"
-                    : "text-slate-300 hover:text-white hover:bg-slate-800/60"
-                }`}
-              >
-                Prediction
-              </Link>
-              <Link
-                href="/analytics"
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                  pathname === "/analytics"
-                    ? "bg-blue-600/20 text-cyan-400 border border-cyan-500/30 font-semibold"
-                    : "text-slate-300 hover:text-white hover:bg-slate-800/60"
-                }`}
-              >
-                Market Analysis
-              </Link>
-              <Link
-                href="/benchmark"
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                  pathname === "/benchmark"
-                    ? "bg-blue-600/20 text-cyan-400 border border-cyan-500/30 font-semibold"
-                    : "text-slate-300 hover:text-white hover:bg-slate-800/60"
-                }`}
-              >
-                Benchmark
-              </Link>
-              <Link
-                href="/financing"
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                  pathname === "/financing"
-                    ? "bg-blue-600/20 text-cyan-400 border border-cyan-500/30 font-semibold"
-                    : "text-slate-300 hover:text-white hover:bg-slate-800/60"
-                }`}
-              >
-                Financing
-              </Link>
-              <Link
-                href="/admin"
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center space-x-1 ${
-                  pathname.startsWith("/admin")
-                    ? "bg-blue-600/20 text-cyan-400 border border-cyan-500/30 font-semibold"
-                    : "text-slate-300 hover:text-white hover:bg-slate-800/60"
-                }`}
-              >
-                <span>Admin</span>
-                <span className="text-[9px] px-1 bg-cyan-900/60 text-cyan-300 rounded border border-cyan-700/50">SECURE</span>
-              </Link>
-            </nav>
+
 
             {/* FAR-RIGHT: Primary CTA + Status Badge + GitHub */}
             <div className="flex items-center space-x-2.5 sm:space-x-3">
