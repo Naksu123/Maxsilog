@@ -1,5 +1,111 @@
 [
   {
+    "run_id": "run_20261019_040943_536",
+    "timestamp_utc": "2026-10-18T20:09:43.536386+00:00",
+    "timestamp_myt": "2026-10-19T04:09:43.536386+08:00",
+    "trigger": "test_runner",
+    "force_retraining": false,
+    "data_changed": false,
+    "status": "skipped",
+    "duration_seconds": 0.06,
+    "dataset_fingerprint": "0d1e0ffadc54c524cc79fb931ba8c47e91beb8260a9693fc286f6753a7674f77",
+    "dataset_validation": {
+      "status": "VALID",
+      "row_count": 2483,
+      "target_leakage_purged": true
+    },
+    "record_count": 2483,
+    "action": "Retained active production model",
+    "skip_reason": "Dataset fingerprint is unchanged since the last successful training (SHA-256: 0d1e0ffadc54...). Normal retraining skipped under automated data-change policy. Check 'Force Retraining' to override.",
+    "message": "Dataset fingerprint is unchanged since the last successful training (SHA-256: 0d1e0ffadc54...). Normal retraining skipped under automated data-change policy. Check 'Force Retraining' to override."
+  },
+  {
+    "run_id": "run_20261019_040930_269",
+    "version_id": "v_20261019_040930",
+    "timestamp_utc": "2026-10-18T20:09:30.269979+00:00",
+    "timestamp_myt": "2026-10-19T04:09:30.269979+08:00",
+    "trigger": "manual_admin",
+    "force_retraining": true,
+    "data_changed": false,
+    "status": "completed",
+    "duration_seconds": 13.26,
+    "selected_model": "Gradient Boosting Regressor",
+    "champion_cv_mae": 22072.068801953174,
+    "champion_cv_r2": 0.8079276678322989,
+    "dataset_fingerprint": "0d1e0ffadc54c524cc79fb931ba8c47e91beb8260a9693fc286f6753a7674f77",
+    "dataset_validation": {
+      "status": "VALID",
+      "row_count": 2483,
+      "target_leakage_purged": true
+    },
+    "record_count": 2483,
+    "action": "Promoted new model version 'v_20261019_040930' (Gradient Boosting Regressor) with CV MAE RM 22,072.07",
+    "message": "Model retraining and champion evaluation completed successfully."
+  },
+  {
+    "run_id": "run_20261019_040930_203",
+    "timestamp_utc": "2026-10-18T20:09:30.203128+00:00",
+    "timestamp_myt": "2026-10-19T04:09:30.203128+08:00",
+    "trigger": "manual_admin",
+    "force_retraining": false,
+    "data_changed": false,
+    "status": "skipped",
+    "duration_seconds": 0.06,
+    "dataset_fingerprint": "0d1e0ffadc54c524cc79fb931ba8c47e91beb8260a9693fc286f6753a7674f77",
+    "dataset_validation": {
+      "status": "VALID",
+      "row_count": 2483,
+      "target_leakage_purged": true
+    },
+    "record_count": 2483,
+    "action": "Retained active production model",
+    "skip_reason": "Dataset fingerprint is unchanged since the last successful training (SHA-256: 0d1e0ffadc54...). Normal retraining skipped under automated data-change policy. Check 'Force Retraining' to override.",
+    "message": "Dataset fingerprint is unchanged since the last successful training (SHA-256: 0d1e0ffadc54...). Normal retraining skipped under automated data-change policy. Check 'Force Retraining' to override."
+  },
+  {
+    "run_id": "run_20261019_040930_041",
+    "timestamp_utc": "2026-10-18T20:09:30.041829+00:00",
+    "timestamp_myt": "2026-10-19T04:09:30.041829+08:00",
+    "trigger": "manual_admin",
+    "force_retraining": false,
+    "data_changed": false,
+    "status": "skipped",
+    "duration_seconds": 0.07,
+    "dataset_fingerprint": "0d1e0ffadc54c524cc79fb931ba8c47e91beb8260a9693fc286f6753a7674f77",
+    "dataset_validation": {
+      "status": "VALID",
+      "row_count": 2483,
+      "target_leakage_purged": true
+    },
+    "record_count": 2483,
+    "action": "Retained active production model",
+    "skip_reason": "Dataset fingerprint is unchanged since the last successful training (SHA-256: 0d1e0ffadc54...). Normal retraining skipped under automated data-change policy. Check 'Force Retraining' to override.",
+    "message": "Dataset fingerprint is unchanged since the last successful training (SHA-256: 0d1e0ffadc54...). Normal retraining skipped under automated data-change policy. Check 'Force Retraining' to override."
+  },
+  {
+    "run_id": "run_20261019_040915_023",
+    "version_id": "v_20261019_040915",
+    "timestamp_utc": "2026-10-18T20:09:15.023292+00:00",
+    "timestamp_myt": "2026-10-19T04:09:15.023292+08:00",
+    "trigger": "cli_runner",
+    "force_retraining": false,
+    "data_changed": true,
+    "status": "completed",
+    "duration_seconds": 12.67,
+    "selected_model": "Gradient Boosting Regressor",
+    "champion_cv_mae": 22072.068801953174,
+    "champion_cv_r2": 0.8079276678322989,
+    "dataset_fingerprint": "0d1e0ffadc54c524cc79fb931ba8c47e91beb8260a9693fc286f6753a7674f77",
+    "dataset_validation": {
+      "status": "VALID",
+      "row_count": 2483,
+      "target_leakage_purged": true
+    },
+    "record_count": 2483,
+    "action": "Promoted new model version 'v_20261019_040915' (Gradient Boosting Regressor) with CV MAE RM 22,072.07",
+    "message": "Model retraining and champion evaluation completed successfully."
+  },
+  {
     "run_id": "run_20261018_142142_568",
     "version_id": "v_20261018_142142",
     "timestamp_utc": "2026-10-18T06:21:42.568015+00:00",

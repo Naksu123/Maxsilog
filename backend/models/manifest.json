@@ -1,9 +1,9 @@
 {
-  "version_id": "v_20261018_142142",
-  "timestamp_utc": "2026-10-18T06:21:42.568015+00:00",
-  "timestamp_myt": "2026-10-18T14:21:42.568015+08:00",
+  "version_id": "v_20261019_040930",
+  "timestamp_utc": "2026-10-18T20:09:30.269979+00:00",
+  "timestamp_myt": "2026-10-19T04:09:30.269979+08:00",
   "selected_algorithm": "Gradient Boosting Regressor",
-  "dataset_fingerprint": "fdc09b76cd985e40dbe49b27d34811b437dd6adeb743192a0581675eb3febad8",
+  "dataset_fingerprint": "0d1e0ffadc54c524cc79fb931ba8c47e91beb8260a9693fc286f6753a7674f77",
   "record_count": 2483,
   "cv_mae": 22072.068801953174,
   "cv_r2": 0.8079276678322989,
