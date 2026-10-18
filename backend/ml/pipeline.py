@@ -80,10 +80,29 @@ def extract_state_from_location(loc: Any) -> str:
     return loc.split(",")[0].strip()
 
 
-def clean_dataset(df_raw: pd.DataFrame) -> Tuple[pd.DataFrame, Dict[str, Any]]:
+def extract_brand_from_description_or_model(val: Any) -> str:
+    """
+    Extract automotive manufacturer / brand from model or description text.
+    Handles compound names in Malaysia (e.g. Mercedes-Benz, Land Rover, Alfa Romeo).
+    """
+    if not isinstance(val, str) or not val.strip():
+        return "Unknown"
+    s = val.strip()
+    if re.search(r"\bMercedes(?:-Benz)?\b", s, re.IGNORECASE):
+        return "Mercedes-Benz"
+    if re.search(r"\bLand\s+Rover\b", s, re.IGNORECASE):
+        return "Land Rover"
+    if re.search(r"\bAlfa\s+Romeo\b", s, re.IGNORECASE):
+        return "Alfa Romeo"
+    tokens = s.split()
+    return tokens[0] if tokens else "Unknown"
+
+
+def clean_dataset(df_raw: pd.DataFrame, filter_typos: bool = True) -> Tuple[pd.DataFrame, Dict[str, Any]]:
     """
     Execute full leakage-free data cleansing and feature extraction on the Malaysian car dataset.
     Strictly removes 'Monthly_Installment' to prevent target leakage.
+    Filters extreme data-entry typographical errors (e.g., non-luxury sedans priced over RM 300,000).
     """
     df = df_raw.copy()
     initial_rows = len(df)
@@ -120,6 +139,8 @@ def clean_dataset(df_raw: pd.DataFrame) -> Tuple[pd.DataFrame, Dict[str, Any]]:
     df["Vehicle_Age"] = 2024.0 - df["Year"]
     df["Engine_Size"] = df["Description"].apply(extract_engine_displacement)
     df["State"] = df["Location"].apply(extract_state_from_location)
+    df["Brand"] = df["Model"].apply(extract_brand_from_description_or_model)
+    df["Mileage_Per_Year"] = df["Mileage"] / np.maximum(1.0, df["Vehicle_Age"].fillna(5.0))
 
     # 6. Target Leakage Prevention: STRICT PURGE of Monthly_Installment
     if "Monthly_Installment" in df.columns:
@@ -135,6 +156,24 @@ def clean_dataset(df_raw: pd.DataFrame) -> Tuple[pd.DataFrame, Dict[str, Any]]:
     before_dedup = len(df)
     df = df.drop_duplicates(subset=dedup_subset).reset_index(drop=True)
     audit["duplicates_removed"] = before_dedup - len(df)
+
+    # 8. Anomaly & Data-Entry Typo Purge (Research Data Quality)
+    if filter_typos:
+        luxury_brands = {
+            "Porsche", "Land Rover", "Lexus", "BMW", "Mercedes-Benz",
+            "Audi", "Jaguar", "Alfa Romeo", "Ford"
+        }
+        is_luxury_toyota = (df["Brand"] == "Toyota") & df["Model"].str.contains(
+            r"Alphard|Vellfire|Land Cruiser|Supra|Granace|Century", case=False, na=False
+        )
+        is_legit_high_tier = df["Brand"].isin(luxury_brands) | is_luxury_toyota
+        typo_mask = (df["List_Price"] > 300000.0) & (~is_legit_high_tier)
+        typos_count = int(typo_mask.sum())
+        df = df[~typo_mask].reset_index(drop=True)
+        audit["typos_removed"] = typos_count
+    else:
+        audit["typos_removed"] = 0
+
     audit["final_rows"] = len(df)
     audit["final_columns"] = list(df.columns)
 
@@ -142,8 +181,8 @@ def clean_dataset(df_raw: pd.DataFrame) -> Tuple[pd.DataFrame, Dict[str, Any]]:
 
 
 def build_preprocessors(
-    numerical_features: List[str] = ["Mileage", "Vehicle_Age", "Engine_Size"],
-    categorical_features: List[str] = ["Model", "Gear_Type", "State"]
+    numerical_features: List[str] = ["Mileage", "Vehicle_Age", "Engine_Size", "Mileage_Per_Year"],
+    categorical_features: List[str] = ["Brand", "Model", "Gear_Type", "State"]
 ) -> Tuple[ColumnTransformer, ColumnTransformer]:
     """
     Construct scikit-learn ColumnTransformers for:
@@ -183,3 +222,4 @@ def build_preprocessors(
     )
 
     return linear_preprocessor, tree_preprocessor
+

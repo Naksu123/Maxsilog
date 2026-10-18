@@ -75,6 +75,7 @@ export interface PredictResponse {
     engine_displacement_liters: number;
   };
   disclaimer: string;
+  model_comparison?: Record<string, number>;
 }
 
 export interface MarketSummary {

@@ -874,7 +874,7 @@ export default function AdminPage() {
             <tbody className="divide-y divide-slate-800/60 font-mono">
               {versions.length > 0 ? (
                 versions.map((ver, idx) => (
-                  <tr key={idx} className={ver.is_active ? "bg-blue-950/20" : "hover:bg-slate-900/40"}>
+                  <tr key={`ver-${ver.version_id || "v"}-${idx}`} className={ver.is_active ? "bg-blue-950/20" : "hover:bg-slate-900/40"}>
                     <td className="py-3.5 px-4 font-bold text-white flex items-center space-x-2">
                       <span>{ver.version_id}</span>
                       {ver.is_active && (
@@ -1010,7 +1010,10 @@ export default function AdminPage() {
             <tbody className="divide-y divide-slate-800/60 font-mono">
               {paginatedHistory.length > 0 ? (
                 paginatedHistory.map((item, idx) => (
-                  <tr key={item.run_id || idx} className="hover:bg-slate-900/40">
+                  <tr
+                    key={`run-${item.run_id || "hist"}-${item.timestamp_utc || item.timestamp_myt || ""}-${startIdx + idx}`}
+                    className="hover:bg-slate-900/40"
+                  >
                     <td className="py-3.5 px-4 font-bold text-slate-200">
                       <div>{item.run_id}</div>
                       {item.version_id && (

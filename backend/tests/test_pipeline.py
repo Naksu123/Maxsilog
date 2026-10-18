@@ -64,3 +64,14 @@ def test_extract_state_from_location():
     assert extract_state_from_location("Johor, Skudai") == "Johor"
     assert extract_state_from_location("Putrajaya, Putrajaya") == "Putrajaya"
     assert extract_state_from_location(None) == "Unknown"
+
+
+def test_extract_brand():
+    from backend.ml.pipeline import extract_brand_from_description_or_model
+    assert extract_brand_from_description_or_model("Honda Civic 1.5 TC") == "Honda"
+    assert extract_brand_from_description_or_model("Mercedes-Benz C200 2.0") == "Mercedes-Benz"
+    assert extract_brand_from_description_or_model("Land Rover Range Rover 3.0") == "Land Rover"
+    assert extract_brand_from_description_or_model("Perodua Myvi 1.5 AV") == "Perodua"
+    assert extract_brand_from_description_or_model("") == "Unknown"
+    assert extract_brand_from_description_or_model(None) == "Unknown"
+

@@ -3,18 +3,18 @@
 import React, { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { 
-  Menu, 
-  X, 
-  Car, 
-  LayoutDashboard, 
-  BarChart3, 
-  Calculator, 
-  Award, 
-  RefreshCw, 
-  ShieldCheck, 
-  Zap, 
-  Home, 
+import {
+  Menu,
+  X,
+  Car,
+  LayoutDashboard,
+  BarChart3,
+  Calculator,
+  Award,
+  RefreshCw,
+  ShieldCheck,
+  Zap,
+  Home,
   Info,
   ChevronRight,
   ExternalLink,
@@ -84,7 +84,7 @@ export default function Navbar() {
       <header className="sticky top-0 z-40 bg-[#0B1120]/95 backdrop-blur-md border-b border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            
+
             {/* FAR-LEFT: Hamburger Button + Brand Logo */}
             <div className="flex items-center space-x-3 sm:space-x-4">
               {/* Left-Side Hamburger Menu Button */}
@@ -133,14 +133,12 @@ export default function Navbar() {
               <div className="flex items-center space-x-1.5 px-2.5 py-1 rounded-full bg-slate-900/90 border border-slate-700/80 text-xs">
                 <span className="relative flex h-2 w-2">
                   <span
-                    className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${
-                      apiOnline ? "bg-emerald-400" : apiOnline === false ? "bg-rose-400" : "bg-amber-400"
-                    }`}
+                    className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${apiOnline ? "bg-emerald-400" : apiOnline === false ? "bg-rose-400" : "bg-amber-400"
+                      }`}
                   />
                   <span
-                    className={`relative inline-flex rounded-full h-2 w-2 ${
-                      apiOnline ? "bg-emerald-500" : apiOnline === false ? "bg-rose-500" : "bg-amber-500"
-                    }`}
+                    className={`relative inline-flex rounded-full h-2 w-2 ${apiOnline ? "bg-emerald-500" : apiOnline === false ? "bg-rose-500" : "bg-amber-500"
+                      }`}
                   />
                 </span>
                 <span className="text-slate-300 font-mono text-[11px] hidden sm:inline">
@@ -167,9 +165,8 @@ export default function Navbar() {
       {/* ----------------- LEFT-SIDE NAVIGATION DRAWER ----------------- */}
       {/* Backdrop */}
       <div
-        className={`fixed inset-0 bg-black/70 backdrop-blur-sm z-50 transition-opacity duration-300 ${
-          drawerOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-        }`}
+        className={`fixed inset-0 bg-black/70 backdrop-blur-sm z-50 transition-opacity duration-300 ${drawerOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+          }`}
         onClick={() => setDrawerOpen(false)}
         aria-hidden="true"
       />
@@ -177,15 +174,14 @@ export default function Navbar() {
       {/* Slide-out Drawer Panel */}
       <aside
         ref={drawerRef}
-        className={`fixed top-0 bottom-0 left-0 w-84 max-w-[85vw] bg-[#0A0F1D] border-r border-slate-800/90 shadow-2xl z-50 flex flex-col justify-between transition-transform duration-300 ease-out transform ${
-          drawerOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
+        className={`fixed top-0 bottom-0 left-0 w-84 max-w-[85vw] bg-[#0A0F1D] border-r border-slate-800/90 shadow-2xl z-50 flex flex-col justify-between transition-transform duration-300 ease-out transform ${drawerOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
         aria-label="Left Side Navigation Drawer"
       >
         {/* Drawer Header */}
         <div className="p-5 border-b border-slate-800 flex items-center justify-between">
-          <Link 
-            href="/" 
+          <Link
+            href="/"
             onClick={() => setDrawerOpen(false)}
             className="flex items-center space-x-2.5"
           >
@@ -245,11 +241,10 @@ export default function Navbar() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setDrawerOpen(false)}
-                className={`flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-medium transition-all group ${
-                  isActive
+                className={`flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-medium transition-all group ${isActive
                     ? "bg-blue-600/20 text-cyan-400 border border-cyan-500/30 shadow-sm shadow-cyan-500/10 font-semibold"
                     : "text-slate-300 hover:text-white hover:bg-slate-800/60"
-                }`}
+                  }`}
               >
                 <div className="flex items-center space-x-3">
                   <Icon className={`w-4 h-4 ${isActive ? "text-cyan-400" : "text-slate-400 group-hover:text-cyan-400 transition-colors"}`} />
@@ -257,11 +252,10 @@ export default function Navbar() {
                     <div className="flex items-center space-x-1.5">
                       <span>{item.label}</span>
                       {item.badge && (
-                        <span className={`text-[9px] px-1.5 py-0.2 rounded font-mono font-bold ${
-                          item.badge === "SECURE"
+                        <span className={`text-[9px] px-1.5 py-0.2 rounded font-mono font-bold ${item.badge === "SECURE"
                             ? "bg-cyan-900/60 text-cyan-300 border border-cyan-700/50"
                             : "bg-blue-500/20 text-blue-300 border border-blue-500/30"
-                        }`}>
+                          }`}>
                           {item.badge}
                         </span>
                       )}

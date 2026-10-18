@@ -33,6 +33,7 @@ class PredictResponse(BaseModel):
     algorithm_used: str
     input_summary: Dict[str, Any]
     disclaimer: str
+    model_comparison: Optional[Dict[str, float]] = None
 
 
 class CarModelStat(BaseModel):

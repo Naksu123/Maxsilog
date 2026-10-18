@@ -233,10 +233,14 @@ def predict_price(req: PredictRequest):
     vehicle_age = 2024.0 - resolved_year
 
     # 3. Build Input Row
+    brand = pipeline_mod.extract_brand_from_description_or_model(req.model)
+    mileage_per_year = float(req.mileage) / max(1.0, float(vehicle_age))
     input_data = pd.DataFrame([{
         "Mileage": float(req.mileage),
         "Vehicle_Age": float(vehicle_age),
         "Engine_Size": float(resolved_engine),
+        "Mileage_Per_Year": float(mileage_per_year),
+        "Brand": str(brand),
         "Model": str(req.model),
         "Gear_Type": str(req.gear_type),
         "State": str(req.state)
@@ -263,6 +267,15 @@ def predict_price(req: PredictRequest):
     fair_low = max(5000.0, predicted_price - (cv_mae * 0.75))
     fair_high = predicted_price + (cv_mae * 0.75)
 
+    # 6. Multi-Model Consensus Comparison
+    model_comparison = {}
+    for name, pipe in MODELS.items():
+        try:
+            m_pred = pipe.predict(input_data)[0]
+            model_comparison[name] = round(max(5000.0, float(m_pred)), 2)
+        except Exception:
+            pass
+
     return PredictResponse(
         estimated_price=round(predicted_price, 2),
         fair_price_low=round(fair_low, 2),
@@ -278,7 +291,8 @@ def predict_price(req: PredictRequest):
             "vehicle_age_years": vehicle_age,
             "engine_displacement_liters": resolved_engine
         },
-        disclaimer="Valuation result is a statistical estimate derived from supervised regression on historical Malaysian listing data. It does not constitute a guaranteed trade-in offer, loan approval amount, or formal certified appraisal."
+        disclaimer="Valuation result is a statistical estimate derived from supervised regression on historical Malaysian listing data. It does not constitute a guaranteed trade-in offer, loan approval amount, or formal certified appraisal.",
+        model_comparison=model_comparison
     )
 
 

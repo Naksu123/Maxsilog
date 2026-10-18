@@ -4,9 +4,7 @@ import {
   Car, 
   ShieldCheck, 
   ExternalLink,
-  FileCode2,
-  Database,
-  Cpu
+  FileCode2
 } from "lucide-react";
 import GithubIcon from "./GithubIcon";
 
@@ -17,32 +15,31 @@ export default function Footer() {
     : "http://localhost:8000/docs";
 
   return (
-    <footer className="bg-[#050811] border-t border-slate-800/80 mt-14 text-slate-400 text-xs">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+    <footer className="bg-[#050811] border-t border-slate-800/80 mt-12 text-slate-400 text-xs">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-4">
         
-        {/* Main Footer Row */}
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        {/* Top Minimal Bar */}
+        <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
           
-          {/* Brand & Mission */}
-          <div className="space-y-1.5 max-w-md">
-            <div className="flex items-center space-x-2">
-              <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-blue-600 via-indigo-600 to-cyan-400 flex items-center justify-center shadow-md shadow-blue-500/20">
-                <Car className="w-3.5 h-3.5 text-white" />
-              </div>
-              <span className="text-base font-bold text-white font-mono">
-                Auto<span className="text-cyan-400">Valuate</span>
-              </span>
-              <span className="px-1.5 py-0.2 text-[9px] uppercase font-bold tracking-wider bg-blue-500/10 text-cyan-300 border border-cyan-500/30 rounded">
-                MY
-              </span>
+          {/* Brand & Slogan */}
+          <div className="flex items-center space-x-2.5 shrink-0">
+            <div className="w-6 h-6 rounded-lg bg-gradient-to-tr from-blue-600 via-indigo-600 to-cyan-400 flex items-center justify-center shadow-sm shadow-blue-500/20 shrink-0">
+              <Car className="w-3.5 h-3.5 text-white" />
             </div>
-            <p className="text-[11px] text-slate-400 leading-snug">
-              Machine Learning-Based Web Application for Used-Car Price Prediction and Market Analysis in Malaysia.
-            </p>
+            <span className="text-sm font-bold text-white font-mono tracking-tight">
+              Auto<span className="text-cyan-400">Valuate</span>
+            </span>
+            <span className="px-1.5 py-0.5 text-[9px] uppercase font-bold tracking-wider bg-blue-500/10 text-cyan-300 border border-cyan-500/30 rounded">
+              MY
+            </span>
+            <span className="text-slate-700 hidden sm:inline">|</span>
+            <span className="text-[11px] text-slate-400 hidden sm:inline">
+              Machine Learning Used-Car Valuation & Market Analytics
+            </span>
           </div>
 
-          {/* Quick Navigation Links */}
-          <nav className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-medium text-slate-300">
+          {/* Quick Navigation & External Links */}
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-medium text-slate-300">
             <Link href="/" className="hover:text-cyan-400 transition-colors">
               Home
             </Link>
@@ -50,10 +47,10 @@ export default function Footer() {
               Dashboard
             </Link>
             <Link href="/predict" className="hover:text-cyan-400 transition-colors">
-              Predict Price
+              Predict
             </Link>
             <Link href="/analytics" className="hover:text-cyan-400 transition-colors">
-              Market Analysis
+              Analytics
             </Link>
             <Link href="/benchmark" className="hover:text-cyan-400 transition-colors">
               Benchmark
@@ -61,19 +58,20 @@ export default function Footer() {
             <Link href="/financing" className="hover:text-cyan-400 transition-colors">
               Financing
             </Link>
-            <Link href="/admin" className="hover:text-cyan-400 transition-colors flex items-center space-x-1">
+            <Link href="/admin" className="hover:text-cyan-400 transition-colors inline-flex items-center space-x-1">
               <span>Admin</span>
-              <span className="text-[8px] px-1 bg-cyan-900/60 text-cyan-300 rounded border border-cyan-700/50">SECURE</span>
+              <span className="text-[8px] px-1 py-0.2 bg-cyan-950 text-cyan-300 rounded border border-cyan-800/80 font-mono">
+                SECURE
+              </span>
             </Link>
-          </nav>
 
-          {/* External Verified Links: GitHub & Swagger */}
-          <div className="flex items-center space-x-2.5">
+            <span className="text-slate-800 hidden sm:inline">|</span>
+
             <a
               href={apiDocsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg bg-slate-900/90 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 hover:border-slate-700 transition-all text-[11px]"
+              className="inline-flex items-center space-x-1 text-slate-400 hover:text-cyan-400 transition-colors text-[11px]"
               title="FastAPI Swagger Documentation"
             >
               <FileCode2 className="w-3.5 h-3.5 text-cyan-400" />
@@ -85,10 +83,10 @@ export default function Footer() {
               href={githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg bg-slate-900/90 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 hover:border-slate-700 transition-all text-[11px]"
-              aria-label="View Project on GitHub"
+              className="inline-flex items-center space-x-1 text-slate-400 hover:text-cyan-400 transition-colors text-[11px]"
+              aria-label="View on GitHub"
             >
-              <GithubIcon className="w-3.5 h-3.5 text-slate-300" />
+              <GithubIcon className="w-3.5 h-3.5 text-slate-400" />
               <span>GitHub</span>
               <ExternalLink className="w-2.5 h-2.5 text-slate-500" />
             </a>
@@ -96,37 +94,24 @@ export default function Footer() {
 
         </div>
 
-        {/* Minimal Context Bar */}
-        <div className="pt-2 flex flex-wrap items-center gap-x-4 gap-y-2 text-[11px] text-slate-400 border-t border-slate-900/80">
-          <div className="flex items-center space-x-1.5 text-emerald-400/90">
-            <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-            <span>Target Leakage Barred (2,500 Malaysian listings)</span>
-          </div>
-          <span>•</span>
-          <div className="flex items-center space-x-1.5 text-indigo-400/90">
-            <Cpu className="w-3.5 h-3.5 text-indigo-400 shrink-0" />
-            <span>5-Fold Cross-Validation (SLR, Ridge, Random Forest, Gradient Boosting)</span>
-          </div>
-          <span>•</span>
-          <div className="flex items-center space-x-1.5 text-cyan-400/90">
-            <Database className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-            <span>Dataset Integrity Audited</span>
-          </div>
-        </div>
-
-        {/* Minimal Bottom Bar */}
-        <div className="border-t border-slate-900 pt-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-slate-400">
-          <div className="flex flex-wrap items-center space-x-2">
-            <span>© 2026 AutoValuate</span>
-            <span>•</span>
+        {/* Bottom Academic Attribution & Integrity Row */}
+        <div className="border-t border-slate-900/90 pt-3 flex flex-col md:flex-row items-start md:items-center justify-between gap-2.5 text-[11px] text-slate-400">
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+            <span className="font-medium text-slate-300">© 2026 AutoValuate</span>
+            <span className="text-slate-700">•</span>
             <span>UNO-R College of Information Technology (COPE0683X)</span>
-            <span className="hidden md:inline">•</span>
-            <span className="hidden md:inline text-slate-400">Researchers: L. Ballaran, K. J. Dele Serna, R. F. Montaner III | Advisor: M. S. Urocay</span>
+            <span className="text-slate-700 hidden sm:inline">•</span>
+            <span className="text-slate-400">
+              Researchers: L. Ballaran, K. J. Dela Serna, R. F. Montaner III
+            </span>
+            <span className="text-slate-700">|</span>
+            <span className="text-slate-400">Advisor: M. S. Urocay</span>
           </div>
 
-          <span className="text-slate-400 text-center sm:text-right">
-            Statistical estimates for the Malaysian automotive resale market.
-          </span>
+          <div className="flex items-center space-x-2 shrink-0 text-[11px] text-emerald-400/90 self-start md:self-auto">
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+            <span>2,500 Malaysian Listings (Target Leakage Barred)</span>
+          </div>
         </div>
 
       </div>

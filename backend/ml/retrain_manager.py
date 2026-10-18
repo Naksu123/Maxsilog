@@ -175,7 +175,7 @@ class RetrainManager:
         start_time = time.time()
         now_utc = datetime.now(timezone.utc)
         now_myt = now_utc.astimezone(MYT_TIMEZONE)
-        run_id = f"run_{now_myt.strftime('%Y%m%d_%H%M%S')}"
+        run_id = f"run_{now_myt.strftime('%Y%m%d_%H%M%S')}_{now_myt.microsecond // 1000:03d}"
 
         self.is_training = True
         self.current_job = {
@@ -232,8 +232,8 @@ class RetrainManager:
 
             # 2. Features and Target preparation
             self.current_job["progress"] = "Partitioning training and test splits (80/20)..."
-            numerical_features = ["Mileage", "Vehicle_Age", "Engine_Size"]
-            categorical_features = ["Model", "Gear_Type", "State"]
+            numerical_features = ["Mileage", "Vehicle_Age", "Engine_Size", "Mileage_Per_Year"]
+            categorical_features = ["Brand", "Model", "Gear_Type", "State"]
             target_variable = "List_Price"
 
             X = df_clean[numerical_features + categorical_features].copy()

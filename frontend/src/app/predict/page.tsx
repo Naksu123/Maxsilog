@@ -19,10 +19,78 @@ import {
   Layers,
   ChevronDown,
   Zap,
-  ShieldCheck
+  ShieldCheck,
+  TrendingUp,
+  Tag,
+  DollarSign,
+  Wallet,
+  Wrench,
+  Award,
+  Check
 } from "lucide-react";
 import { getMetadata, predictPrice } from "@/lib/api";
 import { ModelMetadata, PredictRequest, PredictResponse } from "@/types";
+
+// Helper: Calculate estimated Malaysian Hire-Purchase installment (10% down, 7 years, 3.2% fixed interest)
+function calculateInstallment(price: number) {
+  const deposit = price * 0.10;
+  const principal = price * 0.90;
+  const totalInterest = principal * 0.032 * 7;
+  const monthly = Math.round((principal + totalInterest) / 84);
+  return { deposit: Math.round(deposit), monthly };
+}
+
+// Helper: Malaysian annual road tax estimate by engine displacement
+function getRoadTax(liters: number): number {
+  if (liters <= 1.0) return 20;
+  if (liters <= 1.2) return 55;
+  if (liters <= 1.5) return 90;
+  if (liters <= 1.6) return 120;
+  if (liters <= 1.8) return 280;
+  if (liters <= 2.0) return 437;
+  if (liters <= 2.5) return 880;
+  return 1600;
+}
+
+// Helper: Mileage health assessment based on Malaysian standard benchmark (18,000–20,000 km/yr)
+function getMileageHealth(mileage: number, ageYears: number) {
+  const effectiveAge = Math.max(1, ageYears || 1);
+  const annualMileage = Math.round(mileage / effectiveAge);
+  if (annualMileage < 14000) {
+    return {
+      status: "Low Mileage",
+      annualMileage,
+      badgeColor: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40",
+      badgeText: "High Value Retention",
+      description: `~${annualMileage.toLocaleString()} km/year. Well below Malaysian standard (18,000–20,000 km/yr). Engine and transmission wear is minimal, commanding a resale price premium.`
+    };
+  } else if (annualMileage <= 22000) {
+    return {
+      status: "Standard Mileage",
+      annualMileage,
+      badgeColor: "bg-blue-500/20 text-cyan-300 border-cyan-500/40",
+      badgeText: "Normal Market Wear",
+      description: `~${annualMileage.toLocaleString()} km/year. Standard daily Malaysian commuting usage. Aligns closely with empirical training distributions.`
+    };
+  } else {
+    return {
+      status: "High Mileage",
+      annualMileage,
+      badgeColor: "bg-amber-500/20 text-amber-300 border-amber-500/40",
+      badgeText: "Heavy Usage Advisory",
+      description: `~${annualMileage.toLocaleString()} km/year. Above average highway/commercial use. Recommend inspecting transmission fluid, timing belt, and suspension bushings.`
+    };
+  }
+}
+
+// Helper: Pricing strategy breakdown (Buyer target, Seller asking, Dealer trade-in)
+function getPricingStrategy(est: number, low: number, high: number) {
+  return {
+    buyerTarget: Math.round(low + (est - low) * 0.35),
+    sellerAsking: Math.round(est * 1.04),
+    tradeInEstimate: Math.round(est * 0.85),
+  };
+}
 
 export default function PredictPage() {
   const [metadata, setMetadata] = useState<ModelMetadata | null>(null);
@@ -109,6 +177,12 @@ export default function PredictPage() {
     m.toLowerCase().includes(modelSearch.toLowerCase())
   ) || [];
 
+  // Computed valuation recommendations
+  const pricingStrategy = result ? getPricingStrategy(result.estimated_price, result.fair_price_low, result.fair_price_high) : null;
+  const mileageHealth = result ? getMileageHealth(result.input_summary.mileage_km, result.input_summary.vehicle_age_years) : null;
+  const financingQuick = result ? calculateInstallment(result.estimated_price) : null;
+  const roadTaxEst = result ? getRoadTax(result.input_summary.engine_displacement_liters) : null;
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       {/* Header */}
@@ -118,134 +192,109 @@ export default function PredictPage() {
           <span>Interactive Machine Learning Valuation</span>
         </div>
         <h1 className="text-3xl font-extrabold text-white tracking-tight">
-          Used-Car Listing Price Predictor
+          Predict Used-Car Market Value
         </h1>
-        <p className="text-slate-400 text-sm max-w-3xl">
-          Enter observable vehicle characteristics to generate a real-time price prediction.
-          Strictly isolated from monthly installment variables to guarantee unbiased regression estimation.
+        <p className="text-sm text-slate-400 max-w-2xl">
+          Enter vehicle attributes to compute an empirical price estimate derived from supervised regression models trained on real Malaysian used-car resale listings.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        {/* Form Column */}
-        <div className="lg:col-span-7">
-          <form 
-            onSubmit={handlePredict} 
-            className="glass-panel-elevated rounded-2xl p-6 sm:p-8 space-y-6 border border-slate-800"
-          >
+      {/* Main Grid: Form + Result */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        {/* Input Form Column */}
+        <div className="lg:col-span-7 glass-panel rounded-2xl p-6 sm:p-8 border border-slate-800 space-y-6">
+          <form onSubmit={handlePredict} className="space-y-6">
+            
             {/* Algorithm Selector */}
-            <div className="space-y-2 pb-4 border-b border-slate-800">
+            <div className="space-y-2">
               <label className="flex items-center justify-between text-xs font-semibold text-slate-300">
                 <span className="flex items-center space-x-1.5">
                   <Cpu className="w-4 h-4 text-cyan-400" />
                   <span>Machine Learning Algorithm</span>
                 </span>
-                <span className="text-[11px] text-slate-400">Model version: v1.2.0</span>
+                <span className="text-[11px] text-cyan-400 font-mono">
+                  {algorithm.includes("Gradient") ? "★ Selected Champion" : "Alternative Model"}
+                </span>
               </label>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {[
-                  {
-                    id: "Gradient Boosting Regressor",
-                    title: "Gradient Boosting",
-                    tag: "Champion / Lowest CV MAE",
-                    highlight: true
-                  },
-                  {
-                    id: "Random Forest Regressor",
-                    title: "Random Forest",
-                    tag: "Ensemble Trees",
-                    highlight: false
-                  },
-                  {
-                    id: "Ridge Regression",
-                    title: "Ridge Regression",
-                    tag: "L2 Regularized",
-                    highlight: false
-                  },
-                  {
-                    id: "Simple Linear Regression (Baseline)",
-                    title: "Linear Baseline",
-                    tag: "Mileage Only",
-                    highlight: false
-                  }
-                ].map((algo) => (
+                  { id: "Gradient Boosting Regressor", name: "Gradient Boosting", sub: "Production Champion • CV MAE RM 18,345" },
+                  { id: "Random Forest Regressor", name: "Random Forest", sub: "Ensemble Trees • Non-linear" },
+                  { id: "Ridge Regression", name: "Ridge Regression", sub: "L2 Regularized Linear" },
+                  { id: "Simple Linear Regression (Baseline)", name: "Simple Linear", sub: "Unregularized Baseline OLS" }
+                ].map((item) => (
                   <button
-                    key={algo.id}
+                    key={item.id}
                     type="button"
-                    onClick={() => setAlgorithm(algo.id)}
-                    className={`text-left p-3 rounded-xl border text-xs transition-all ${
-                      algorithm === algo.id
-                        ? "bg-blue-600/20 border-cyan-500/60 text-white shadow-md shadow-cyan-500/10"
+                    onClick={() => setAlgorithm(item.id)}
+                    className={`p-3 rounded-xl text-left border transition-all text-xs ${
+                      algorithm === item.id
+                        ? "bg-blue-600/20 border-cyan-500 text-white shadow-md shadow-blue-500/10 font-medium"
                         : "bg-slate-900/60 border-slate-800 text-slate-400 hover:border-slate-700 hover:text-slate-200"
                     }`}
                   >
-                    <div className="flex items-center justify-between">
-                      <span className="font-semibold text-sm">{algo.title}</span>
-                      {algo.highlight && (
-                        <span className="text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 px-1.5 py-0.2 rounded font-mono">
-                          BEST
-                        </span>
-                      )}
-                    </div>
-                    <span className="text-[11px] text-slate-400 block mt-0.5">{algo.tag}</span>
+                    <div className="font-semibold text-slate-200">{item.name}</div>
+                    <div className="text-[10px] text-slate-400 truncate">{item.sub}</div>
                   </button>
                 ))}
               </div>
             </div>
 
-            {/* Vehicle Model */}
+            {/* Model Search & Select */}
             <div className="space-y-2">
               <label className="flex items-center justify-between text-xs font-semibold text-slate-300">
                 <span className="flex items-center space-x-1.5">
                   <Car className="w-4 h-4 text-cyan-400" />
-                  <span>Vehicle Make & Model</span>
+                  <span>Vehicle Model</span>
                 </span>
-                <span className="text-[11px] text-slate-400">
-                  {metadata?.available_models.length || 0} models available
-                </span>
+                {metadata && (
+                  <span className="text-[11px] text-slate-400">
+                    {metadata.available_models.length} Malaysian models available
+                  </span>
+                )}
               </label>
 
-              <div className="space-y-2">
-                <input
-                  type="text"
-                  placeholder="Filter vehicle models (e.g. Civic, Vios, C200)..."
-                  value={modelSearch}
-                  onChange={(e) => setModelSearch(e.target.value)}
-                  className="w-full bg-slate-900/90 border border-slate-700/80 rounded-lg px-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors"
-                />
+              {/* Filter search bar */}
+              <input
+                type="text"
+                placeholder="Search model name (e.g. Civic, Myvi, City, Vios)..."
+                value={modelSearch}
+                onChange={(e) => setModelSearch(e.target.value)}
+                className="w-full bg-slate-900/80 border border-slate-800 rounded-xl px-4 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors"
+              />
 
-                <select
-                  value={selectedModel}
-                  onChange={(e) => handleModelChange(e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-cyan-500 transition-colors font-medium cursor-pointer"
-                >
-                  {filteredModels.map((m) => (
-                    <option key={m} value={m} className="bg-slate-900 text-white">
-                      {m}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {metadata?.model_lookup[selectedModel] && (
-                <div className="text-[11px] text-slate-400 flex items-center space-x-3 pt-1">
-                  <span>Median Market: RM {Math.round(metadata.model_lookup[selectedModel].median_price).toLocaleString()}</span>
-                  <span>•</span>
-                  <span>{metadata.model_lookup[selectedModel].count} listings in dataset</span>
-                </div>
-              )}
+              <select
+                value={selectedModel}
+                onChange={(e) => handleModelChange(e.target.value)}
+                className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-cyan-500 transition-colors cursor-pointer"
+              >
+                {filteredModels.map((m) => (
+                  <option key={m} value={m}>
+                    {m}
+                  </option>
+                ))}
+              </select>
             </div>
 
-            {/* Mileage Input & Slider */}
+            {/* Mileage Slider & Input */}
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <label className="flex items-center space-x-1.5 text-xs font-semibold text-slate-300">
                   <Gauge className="w-4 h-4 text-cyan-400" />
-                  <span>Odometer Mileage (KM)</span>
+                  <span>Odometer Mileage (km)</span>
                 </label>
-                <div className="font-mono text-cyan-400 font-bold text-sm">
-                  {Number(mileage).toLocaleString()} KM
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="number"
+                    min="0"
+                    max="500000"
+                    step="1000"
+                    value={mileage}
+                    onChange={(e) => setMileage(Number(e.target.value))}
+                    className="w-28 bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-right text-sm text-cyan-400 font-mono font-bold focus:outline-none focus:border-cyan-500"
+                  />
+                  <span className="text-xs text-slate-400">km</span>
                 </div>
               </div>
 
@@ -272,7 +321,7 @@ export default function PredictPage() {
                     key={p.val}
                     type="button"
                     onClick={() => setMileage(p.val)}
-                    className={`flex-1 py-1 rounded text-[10px] font-mono border transition-all ${
+                    className={`flex-1 py-1 rounded text-[10px] font-mono border transition-all cursor-pointer ${
                       mileage === p.val
                         ? "bg-cyan-500/20 text-cyan-300 border-cyan-500/50 font-bold"
                         : "bg-slate-900/60 text-slate-400 border-slate-800 hover:border-slate-700"
@@ -294,7 +343,7 @@ export default function PredictPage() {
                 <select
                   value={gearType}
                   onChange={(e) => setGearType(e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-cyan-500 transition-colors"
+                  className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-cyan-500 transition-colors cursor-pointer"
                 >
                   <option value="Automatic">Automatic (A)</option>
                   <option value="Manual">Manual (M)</option>
@@ -309,7 +358,7 @@ export default function PredictPage() {
                 <select
                   value={state}
                   onChange={(e) => setState(e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-cyan-500 transition-colors"
+                  className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-cyan-500 transition-colors cursor-pointer"
                 >
                   {metadata?.available_states.map((s) => (
                     <option key={s} value={s}>
@@ -382,7 +431,7 @@ export default function PredictPage() {
             <button
               type="submit"
               disabled={predicting}
-              className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-semibold text-sm shadow-lg shadow-cyan-500/25 flex items-center justify-center space-x-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-semibold text-sm shadow-lg shadow-cyan-500/25 flex items-center justify-center space-x-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
             >
               {predicting ? (
                 <>
@@ -401,8 +450,10 @@ export default function PredictPage() {
 
         {/* Valuation Result Display Column */}
         <div className="lg:col-span-5 space-y-6">
-          {result ? (
-            <div className="glass-panel-elevated rounded-2xl p-6 sm:p-8 border border-cyan-500/30 space-y-6 glow-blue">
+          {result && pricingStrategy && mileageHealth && financingQuick ? (
+            <div className="glass-panel-elevated rounded-2xl p-6 sm:p-7 border border-cyan-500/30 space-y-6 glow-blue">
+              
+              {/* Result Header & Status */}
               <div className="flex items-center justify-between pb-3 border-b border-slate-800">
                 <div className="flex items-center space-x-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-400" />
@@ -410,22 +461,29 @@ export default function PredictPage() {
                     Valuation Successful
                   </span>
                 </div>
-                <span className="text-[11px] font-mono text-slate-400">
-                  {result.algorithm_used}
-                </span>
+                <div className="flex items-center space-x-1.5">
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-semibold">
+                    Fair Market Deal
+                  </span>
+                </div>
               </div>
 
               {/* Price Callout */}
               <div className="space-y-1">
-                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
-                  Estimated Resale Listing Price
-                </p>
+                <div className="flex items-baseline justify-between">
+                  <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                    Estimated Resale Value
+                  </p>
+                  <span className="text-[11px] font-mono text-cyan-400">
+                    {result.algorithm_used.replace("Regressor", "").trim()}
+                  </span>
+                </div>
                 <div className="text-4xl sm:text-5xl font-black font-mono text-white tracking-tight">
                   RM {Math.round(result.estimated_price).toLocaleString()}
                 </div>
               </div>
 
-              {/* Confidence Band */}
+              {/* Confidence Band Bar */}
               <div className="p-4 rounded-xl bg-slate-900/80 border border-slate-800 space-y-2">
                 <div className="flex items-center justify-between text-xs">
                   <span className="text-slate-400">Estimated Fair Market Range</span>
@@ -433,54 +491,200 @@ export default function PredictPage() {
                     RM {Math.round(result.fair_price_low).toLocaleString()} – RM {Math.round(result.fair_price_high).toLocaleString()}
                   </span>
                 </div>
-                <div className="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
-                  <div className="bg-gradient-to-r from-cyan-500 to-blue-500 h-full w-full rounded-full opacity-80" />
+                <div className="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden relative">
+                  <div className="bg-gradient-to-r from-blue-500 via-cyan-400 to-emerald-400 h-full w-full rounded-full opacity-85" />
+                  <div className="absolute top-0 bottom-0 left-1/2 w-1 bg-white shadow-sm shadow-white rounded-full -translate-x-1/2" title="Median Estimate" />
                 </div>
-                <p className="text-[10px] text-slate-400 leading-tight">
-                  Derived from cross-validation mean absolute error bounds for {result.algorithm_used}.
+                <div className="flex justify-between text-[10px] text-slate-500 font-mono">
+                  <span>Buyer Advantage</span>
+                  <span className="text-slate-400">Market Consensus</span>
+                  <span>Seller Advantage</span>
+                </div>
+              </div>
+
+              {/* 1. RECOMMENDATION: ACTIONABLE PRICING STRATEGY */}
+              <div className="space-y-2.5 pt-1 border-t border-slate-800/80">
+                <div className="flex items-center space-x-1.5 text-xs font-bold text-slate-200 uppercase tracking-wider">
+                  <Tag className="w-3.5 h-3.5 text-cyan-400" />
+                  <span>Market Pricing Recommendation</span>
+                </div>
+
+                <div className="grid grid-cols-3 gap-2 text-center">
+                  {/* Buyer Target */}
+                  <div className="p-2.5 rounded-xl bg-slate-900/70 border border-slate-800 space-y-1">
+                    <span className="text-[10px] text-slate-400 block font-medium">Buyer Target</span>
+                    <div className="text-sm font-bold text-emerald-400 font-mono">
+                      RM {pricingStrategy.buyerTarget.toLocaleString()}
+                    </div>
+                    <span className="text-[9px] text-slate-500 block">Negotiation aim</span>
+                  </div>
+
+                  {/* Seller Asking */}
+                  <div className="p-2.5 rounded-xl bg-cyan-950/20 border border-cyan-800/40 space-y-1">
+                    <span className="text-[10px] text-cyan-300 block font-medium">List Asking Price</span>
+                    <div className="text-sm font-bold text-white font-mono">
+                      RM {pricingStrategy.sellerAsking.toLocaleString()}
+                    </div>
+                    <span className="text-[9px] text-cyan-400/80 block">Includes buffer</span>
+                  </div>
+
+                  {/* Dealer Trade-in */}
+                  <div className="p-2.5 rounded-xl bg-slate-900/70 border border-slate-800 space-y-1">
+                    <span className="text-[10px] text-slate-400 block font-medium">Dealer Trade-In</span>
+                    <div className="text-sm font-bold text-amber-400 font-mono">
+                      RM {pricingStrategy.tradeInEstimate.toLocaleString()}
+                    </div>
+                    <span className="text-[9px] text-slate-500 block">Cash wholesale</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* 2. RECOMMENDATION: MILEAGE & WEAR HEALTH CHECK */}
+              <div className="p-3.5 rounded-xl bg-slate-900/75 border border-slate-800/90 space-y-2">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-1.5 text-xs font-bold text-slate-200">
+                    <Gauge className="w-3.5 h-3.5 text-cyan-400" />
+                    <span>Annual Mileage Assessment</span>
+                  </div>
+                  <span className={`text-[10px] px-2 py-0.5 rounded-full border font-semibold ${mileageHealth.badgeColor}`}>
+                    {mileageHealth.badgeText}
+                  </span>
+                </div>
+                <p className="text-[11px] text-slate-300 leading-relaxed">
+                  {mileageHealth.description}
                 </p>
               </div>
 
-              {/* Input Summary */}
-              <div className="space-y-2">
+              {/* 3. RECOMMENDATION: INSTANT FINANCING & ROAD TAX QUICK BREAKDOWN */}
+              <div className="p-3.5 rounded-xl bg-gradient-to-br from-blue-950/30 via-slate-900/80 to-[#0F172A] border border-blue-900/40 space-y-2.5">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="font-bold text-slate-200 flex items-center space-x-1.5">
+                    <Wallet className="w-3.5 h-3.5 text-cyan-400" />
+                    <span>Monthly Installment & Ownership Cost</span>
+                  </span>
+                  <Link
+                    href={`/financing?price=${Math.round(result.estimated_price)}`}
+                    className="text-[11px] text-cyan-400 hover:text-cyan-300 flex items-center space-x-1 transition-colors"
+                  >
+                    <span>Full Loan Table</span>
+                    <ArrowRight className="w-3 h-3" />
+                  </Link>
+                </div>
+
+                <div className="grid grid-cols-3 gap-2 text-center pt-1">
+                  <div className="p-2 rounded-lg bg-slate-900/80 border border-slate-800">
+                    <span className="text-[10px] text-slate-400 block">Est. Monthly</span>
+                    <span className="text-sm font-bold text-cyan-300 font-mono">
+                      ~RM {financingQuick.monthly.toLocaleString()}
+                    </span>
+                    <span className="text-[9px] text-slate-500 block">7 yrs @ 3.2%</span>
+                  </div>
+
+                  <div className="p-2 rounded-lg bg-slate-900/80 border border-slate-800">
+                    <span className="text-[10px] text-slate-400 block">10% Deposit</span>
+                    <span className="text-sm font-bold text-slate-200 font-mono">
+                      RM {financingQuick.deposit.toLocaleString()}
+                    </span>
+                    <span className="text-[9px] text-slate-500 block">Min. cash</span>
+                  </div>
+
+                  <div className="p-2 rounded-lg bg-slate-900/80 border border-slate-800">
+                    <span className="text-[10px] text-slate-400 block">Annual Road Tax</span>
+                    <span className="text-sm font-bold text-slate-200 font-mono">
+                      RM {roadTaxEst}
+                    </span>
+                    <span className="text-[9px] text-slate-500 block">{result.input_summary.engine_displacement_liters}L engine</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* 4. RECOMMENDATION: MULTI-MODEL CONSENSUS (IF AVAILABLE) */}
+              {result.model_comparison && Object.keys(result.model_comparison).length > 0 && (
+                <div className="space-y-2 pt-1 border-t border-slate-800/80">
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="font-bold text-slate-200 flex items-center space-x-1.5 uppercase tracking-wider">
+                      <Award className="w-3.5 h-3.5 text-cyan-400" />
+                      <span>4-Model AI Consensus</span>
+                    </span>
+                    <span className="text-[10px] text-emerald-400 font-mono">High Generalization</span>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2 text-xs font-mono">
+                    {Object.entries(result.model_comparison).map(([mName, mPrice]) => (
+                      <div
+                        key={mName}
+                        className={`p-2 rounded-lg border flex items-center justify-between ${
+                          mName === result.algorithm_used
+                            ? "bg-blue-950/40 border-cyan-500/50 text-white font-bold"
+                            : "bg-slate-900/60 border-slate-800 text-slate-300"
+                        }`}
+                      >
+                        <span className="text-[10px] truncate max-w-[110px]" title={mName}>
+                          {mName.replace("Regressor", "").replace("Simple", "").replace("(Baseline)", "").trim()}
+                        </span>
+                        <span className="text-cyan-300">
+                          RM {Math.round(mPrice).toLocaleString()}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* 5. RECOMMENDATION: PUSPAKOM & INSPECTION CHECKLIST */}
+              <div className="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-2 text-xs">
+                <div className="flex items-center space-x-1.5 font-bold text-slate-200">
+                  <Wrench className="w-3.5 h-3.5 text-cyan-400" />
+                  <span>Pre-Purchase & Puspakom Checklist</span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] text-slate-400">
+                  <div className="flex items-center space-x-1.5">
+                    <Check className="w-3 h-3 text-emerald-400 shrink-0" />
+                    <span>Puspakom B5 Test certificate</span>
+                  </div>
+                  <div className="flex items-center space-x-1.5">
+                    <Check className="w-3 h-3 text-emerald-400 shrink-0" />
+                    <span>Flood & chassis rust verification</span>
+                  </div>
+                  <div className="flex items-center space-x-1.5">
+                    <Check className="w-3 h-3 text-emerald-400 shrink-0" />
+                    <span>Manufacturer service logbook</span>
+                  </div>
+                  <div className="flex items-center space-x-1.5">
+                    <Check className="w-3 h-3 text-emerald-400 shrink-0" />
+                    <span>JPJ blacklist & summon clearance</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Evaluated Parameters */}
+              <div className="space-y-2 pt-1 border-t border-slate-800/80">
                 <h4 className="text-xs font-bold text-slate-300 uppercase tracking-wider">
                   Parameters Evaluated
                 </h4>
-                <div className="grid grid-cols-2 gap-2 text-xs">
-                  <div className="p-2.5 rounded-lg bg-slate-900/60 border border-slate-800">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+                  <div className="p-2 rounded-lg bg-slate-900/60 border border-slate-800">
                     <span className="text-slate-400 block text-[10px]">Model</span>
-                    <span className="font-semibold text-white">{result.input_summary.model}</span>
+                    <span className="font-semibold text-white truncate block">{result.input_summary.model}</span>
                   </div>
-                  <div className="p-2.5 rounded-lg bg-slate-900/60 border border-slate-800">
+                  <div className="p-2 rounded-lg bg-slate-900/60 border border-slate-800">
                     <span className="text-slate-400 block text-[10px]">Mileage</span>
                     <span className="font-mono font-semibold text-white">
                       {result.input_summary.mileage_km.toLocaleString()} KM
                     </span>
                   </div>
-                  <div className="p-2.5 rounded-lg bg-slate-900/60 border border-slate-800">
+                  <div className="p-2 rounded-lg bg-slate-900/60 border border-slate-800">
                     <span className="text-slate-400 block text-[10px]">Transmission</span>
                     <span className="font-semibold text-white">{result.input_summary.gear_type}</span>
                   </div>
-                  <div className="p-2.5 rounded-lg bg-slate-900/60 border border-slate-800">
+                  <div className="p-2 rounded-lg bg-slate-900/60 border border-slate-800">
                     <span className="text-slate-400 block text-[10px]">Location</span>
                     <span className="font-semibold text-white">{result.input_summary.state}</span>
                   </div>
                 </div>
               </div>
 
-              {/* Actions & Financing Jump */}
-              <div className="pt-2 space-y-3">
-                <Link
-                  href={`/financing?price=${Math.round(result.estimated_price)}`}
-                  className="w-full py-3 px-4 rounded-xl bg-blue-600/30 hover:bg-blue-600/50 border border-blue-500/40 text-cyan-300 text-xs font-semibold flex items-center justify-center space-x-2 transition-all"
-                >
-                  <Calculator className="w-4 h-4 text-cyan-400" />
-                  <span>Calculate Monthly Hire-Purchase Installment</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
-
-              {/* Academic & Market Disclaimer */}
+              {/* Research Disclaimer */}
               <div className="p-3.5 rounded-xl bg-amber-950/20 border border-amber-900/40 text-[11px] text-amber-300/80 leading-relaxed">
                 <div className="font-semibold text-amber-200 mb-0.5 flex items-center space-x-1">
                   <AlertCircle className="w-3.5 h-3.5" />

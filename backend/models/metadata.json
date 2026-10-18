@@ -28,9 +28,22 @@
         "min": 1.0,
         "max": 5.7,
         "median": 2.0
+      },
+      {
+        "name": "Mileage_Per_Year",
+        "description": "Average annual mileage intensity",
+        "unit": "KM/Yr",
+        "min": 833.3333333333334,
+        "max": 238500.0,
+        "median": 13611.111111111111
       }
     ],
     "categorical": [
+      {
+        "name": "Brand",
+        "description": "Vehicle manufacturer brand",
+        "total_categories": 37
+      },
       {
         "name": "Model",
         "description": "Vehicle brand and model name",
@@ -543,32 +556,32 @@
       "count": 25
     },
     "Chery Tiggo 8 Pro 2.0 TGDi": {
-      "default_year": 2018,
+      "default_year": 2017,
       "default_engine_size": 2.0,
-      "median_price": 49800.0,
-      "mean_price": 104865.21739130435,
-      "count": 23
+      "median_price": 49100.0,
+      "mean_price": 85740.90909090909,
+      "count": 22
     },
     "Chevrolet Colorado 2.8 High Country": {
       "default_year": 2018,
       "default_engine_size": 2.8,
-      "median_price": 79300.0,
-      "mean_price": 115077.77777777778,
-      "count": 18
+      "median_price": 78700.0,
+      "mean_price": 101135.29411764706,
+      "count": 17
     },
     "Chevrolet Cruze 1.8 LT": {
       "default_year": 2020,
       "default_engine_size": 1.8,
-      "median_price": 86100.0,
-      "mean_price": 162517.39130434784,
-      "count": 23
+      "median_price": 78900.0,
+      "mean_price": 101009.52380952382,
+      "count": 21
     },
     "Chevrolet Malibu 2.4 LTZ": {
       "default_year": 2018,
       "default_engine_size": 2.4,
-      "median_price": 73100.0,
-      "mean_price": 132741.66666666666,
-      "count": 24
+      "median_price": 60550.0,
+      "mean_price": 100263.63636363637,
+      "count": 22
     },
     "Citroen C4 Picasso": {
       "default_year": 2016,
@@ -760,25 +773,25 @@
       "count": 15
     },
     "Jeep Compass 1.4 Limited": {
-      "default_year": 2020,
+      "default_year": 2019,
       "default_engine_size": 1.4,
-      "median_price": 73000.0,
-      "mean_price": 144500.0,
-      "count": 18
+      "median_price": 62900.0,
+      "mean_price": 71753.33333333333,
+      "count": 15
     },
     "Jeep Grand Cherokee 3.6": {
       "default_year": 2020,
       "default_engine_size": 3.6,
-      "median_price": 62400.0,
-      "mean_price": 98448.0,
-      "count": 25
+      "median_price": 62000.0,
+      "mean_price": 83166.66666666667,
+      "count": 24
     },
     "Jeep Wrangler 2.0 Rubicon": {
       "default_year": 2018,
       "default_engine_size": 2.0,
-      "median_price": 85050.0,
-      "mean_price": 114025.0,
-      "count": 12
+      "median_price": 80800.0,
+      "mean_price": 84072.72727272728,
+      "count": 11
     },
     "Kia Carnival": {
       "default_year": 2017,
@@ -907,18 +920,18 @@
       "count": 2
     },
     "MG HS 1.5T Trophy": {
-      "default_year": 2018,
+      "default_year": 2019,
       "default_engine_size": 1.8,
-      "median_price": 56800.0,
-      "mean_price": 92300.0,
-      "count": 26
+      "median_price": 54200.0,
+      "mean_price": 66941.66666666667,
+      "count": 24
     },
     "MG ZS 1.5 Exclusive": {
       "default_year": 2019,
       "default_engine_size": 1.5,
-      "median_price": 89200.0,
-      "mean_price": 190492.59259259258,
-      "count": 27
+      "median_price": 82800.0,
+      "mean_price": 114762.5,
+      "count": 24
     },
     "MINI 2.0 Cooper": {
       "default_year": 2017,
@@ -1511,9 +1524,9 @@
     "Renault Megane 2.0 RS": {
       "default_year": 2019,
       "default_engine_size": 2.0,
-      "median_price": 63800.0,
-      "mean_price": 100989.47368421052,
-      "count": 19
+      "median_price": 63650.0,
+      "mean_price": 89900.0,
+      "count": 18
     },
     "Rover Range Rover": {
       "default_year": 2013,
@@ -1797,12 +1810,12 @@
     }
   },
   "summary": {
-    "total_listings": 2500,
-    "average_price": 106409.52,
-    "median_price": 68700.0,
+    "total_listings": 2483,
+    "average_price": 103356.1014901329,
+    "median_price": 68400.0,
     "min_price": 10300.0,
-    "max_price": 1172000.0,
-    "average_mileage": 112664.5644,
+    "max_price": 1166900.0,
+    "average_mileage": 112732.94844945631,
     "median_mileage": 97500.0
   }
 }

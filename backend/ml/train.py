@@ -53,8 +53,8 @@ def train_and_benchmark(
     print(f"Cleaned dataset saved to {clean_csv_path} ({len(df_clean)} rows)")
 
     # 2. Features and Target setup
-    numerical_features = ["Mileage", "Vehicle_Age", "Engine_Size"]
-    categorical_features = ["Model", "Gear_Type", "State"]
+    numerical_features = ["Mileage", "Vehicle_Age", "Engine_Size", "Mileage_Per_Year"]
+    categorical_features = ["Brand", "Model", "Gear_Type", "State"]
     target_variable = "List_Price"
 
     X = df_clean[numerical_features + categorical_features].copy()
@@ -273,9 +273,11 @@ def train_and_benchmark(
             "numerical": [
                 {"name": "Mileage", "description": "Odometer reading in kilometers", "unit": "KM", "min": float(df_clean["Mileage"].min()), "max": float(df_clean["Mileage"].max()), "median": float(df_clean["Mileage"].median())},
                 {"name": "Vehicle_Age", "description": "Vehicle age calculated as 2024 - Year", "unit": "Years", "min": float(df_clean["Vehicle_Age"].min()), "max": float(df_clean["Vehicle_Age"].max()), "median": float(df_clean["Vehicle_Age"].median())},
-                {"name": "Engine_Size", "description": "Engine displacement extracted in Liters", "unit": "L", "min": float(df_clean["Engine_Size"].min()), "max": float(df_clean["Engine_Size"].max()), "median": float(df_clean["Engine_Size"].median())}
+                {"name": "Engine_Size", "description": "Engine displacement extracted in Liters", "unit": "L", "min": float(df_clean["Engine_Size"].min()), "max": float(df_clean["Engine_Size"].max()), "median": float(df_clean["Engine_Size"].median())},
+                {"name": "Mileage_Per_Year", "description": "Average annual mileage intensity", "unit": "KM/Yr", "min": float(df_clean["Mileage_Per_Year"].min()), "max": float(df_clean["Mileage_Per_Year"].max()), "median": float(df_clean["Mileage_Per_Year"].median())}
             ],
             "categorical": [
+                {"name": "Brand", "description": "Vehicle manufacturer brand", "total_categories": int(df_clean["Brand"].nunique())},
                 {"name": "Model", "description": "Vehicle brand and model name", "total_categories": len(unique_models)},
                 {"name": "Gear_Type", "description": "Transmission type (e.g. Automatic, Manual)", "categories": unique_gear_types},
                 {"name": "State", "description": "Malaysian state/federal territory extracted from location", "categories": unique_states}

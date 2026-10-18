@@ -1,0 +1,17 @@
+{
+  "version_id": "v_20261018_125652",
+  "timestamp_utc": "2026-10-18T04:56:52.806550+00:00",
+  "timestamp_myt": "2026-10-18T12:56:52.806550+08:00",
+  "selected_algorithm": "Gradient Boosting Regressor",
+  "dataset_fingerprint": "fdc09b76cd985e40dbe49b27d34811b437dd6adeb743192a0581675eb3febad8",
+  "record_count": 2500,
+  "cv_mae": 18345.56923974455,
+  "cv_r2": 0.8972263815444176,
+  "models_trained": [
+    "Simple Linear Regression (Baseline)",
+    "Ridge Regression",
+    "Random Forest Regressor",
+    "Gradient Boosting Regressor"
+  ],
+  "status": "active"
+}
