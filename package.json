@@ -3,10 +3,14 @@
   "version": "1.2.0",
   "description": "AutoValuate: AI-Powered Used-Car Valuation & Market Analytics System",
   "scripts": {
-    "dev:frontend": "cd frontend && npm run dev",
-    "build:frontend": "cd frontend && npm run build",
-    "start:frontend": "cd frontend && npm run start",
-    "test:backend": "pytest backend/tests -v"
+    "dev": "npm --prefix frontend run dev",
+    "build": "npm --prefix frontend run build",
+    "start": "npm --prefix frontend run start",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "build:frontend": "npm --prefix frontend run build",
+    "start:frontend": "npm --prefix frontend run start",
+    "dev:backend": "\"C:\\Users\\lemsb\\anaconda3\\python.exe\" run_backend.py",
+    "test:backend": "\"C:\\Users\\lemsb\\anaconda3\\python.exe\" -m pytest backend/tests -v"
   },
   "author": "Naksu123",
   "license": "MIT"
