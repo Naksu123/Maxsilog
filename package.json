@@ -1,0 +1,13 @@
+{
+  "name": "autovaluate",
+  "version": "1.2.0",
+  "description": "AutoValuate: AI-Powered Used-Car Valuation & Market Analytics System",
+  "scripts": {
+    "dev:frontend": "cd frontend && npm run dev",
+    "build:frontend": "cd frontend && npm run build",
+    "start:frontend": "cd frontend && npm run start",
+    "test:backend": "pytest backend/tests -v"
+  },
+  "author": "Naksu123",
+  "license": "MIT"
+}
