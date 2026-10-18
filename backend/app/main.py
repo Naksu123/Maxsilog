@@ -48,18 +48,28 @@ from .schemas import (
 )
 from .analytics import MarketAnalytics
 
+try:
+    from backend.ml.retrain_manager import RetrainManager
+    from backend.ml.scheduler import start_daily_scheduler, shutdown_scheduler
+except ImportError:
+    from ml.retrain_manager import RetrainManager
+    from ml.scheduler import start_daily_scheduler, shutdown_scheduler
+
+from .admin import router as admin_router
+
 # Global in-memory storage for models and metadata
 MODELS: Dict[str, Any] = {}
 METRICS: Dict[str, Any] = {}
 METADATA: Dict[str, Any] = {}
 ANALYTICS: Optional[MarketAnalytics] = None
+RETRAIN_MANAGER: Optional[RetrainManager] = None
 
 MODELS_DIR = os.path.normpath(os.path.join(base_dir, "..", "models"))
 CLEAN_DATA_PATH = os.path.normpath(os.path.join(base_dir, "..", "data", "Resale_car_installment_clean.csv"))
 
 
 def load_artifacts():
-    global MODELS, METRICS, METADATA, ANALYTICS
+    global MODELS, METRICS, METADATA, ANALYTICS, RETRAIN_MANAGER
     
     # 1. Load Analytics
     try:
@@ -100,19 +110,42 @@ def load_artifacts():
         else:
             print(f"[!] Model artifact not found: {file_path}")
 
+    # 4. Initialize RetrainManager
+    if RETRAIN_MANAGER is None:
+        RETRAIN_MANAGER = RetrainManager(base_dir=backend_dir, on_model_promoted=load_artifacts)
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    global RETRAIN_MANAGER
     load_artifacts()
+    # Initialize RetrainManager with model reload callback
+    RETRAIN_MANAGER = RetrainManager(base_dir=backend_dir, on_model_promoted=load_artifacts)
+    
+    # Start persistent 2:00 AM MYT daily retraining scheduler
+    try:
+        start_daily_scheduler(RETRAIN_MANAGER)
+    except Exception as e:
+        print(f"[!] Warning starting background scheduler: {e}")
+
     yield
+
+    # Shutdown scheduler cleanly on exit
+    try:
+        shutdown_scheduler()
+    except Exception:
+        pass
 
 
 app = FastAPI(
     title="AutoValuate API — Malaysian Used-Car Valuation System",
-    description="Full-stack AI valuation and market analytics service based on supervised machine learning regression.",
+    description="Full-stack AI valuation and market analytics service with automated daily retraining.",
     version="1.2.0-research",
     lifespan=lifespan
 )
+
+# Include Administrator Router
+app.include_router(admin_router)
 
 # Enable CORS for Next.js frontend and external consumption
 app.add_middleware(
@@ -142,6 +175,11 @@ def root():
             "mileage_distribution": "/api/analytics/mileage-distribution",
             "model_metrics": "/api/model/metrics",
             "financing_calculator": "/api/financing/calculate",
+            "admin_training_status": "/api/admin/training/status",
+            "admin_training_history": "/api/admin/training/history",
+            "admin_models": "/api/admin/models",
+            "admin_trigger_training": "/api/admin/training/run",
+            "admin_rollback": "/api/admin/models/{version}/rollback",
             "docs": "/docs"
         }
     }

@@ -1,0 +1,118 @@
+{
+  "selected_model": "Gradient Boosting Regressor",
+  "model_version": "v_20261018_110325",
+  "random_state": 42,
+  "train_size": 2000,
+  "test_size": 500,
+  "k_folds": 5,
+  "benchmark": [
+    {
+      "model": "Simple Linear Regression (Baseline)",
+      "cv_mae": 68524.33684401645,
+      "cv_mae_std": 3050.357182030642,
+      "cv_rmse": 101166.43321401186,
+      "cv_rmse_std": 7579.859746489022,
+      "cv_r2": -0.004766785415565944,
+      "cv_r2_std": 0.006863965922460112,
+      "test_mae": 72676.1629868668,
+      "test_rmse": 124985.71556698352,
+      "test_r2": 0.0016820418198359999,
+      "generalization_gap": 4151.8261428503465,
+      "is_selected": false
+    },
+    {
+      "model": "Ridge Regression",
+      "cv_mae": 31484.061166215874,
+      "cv_mae_std": 1930.284167268418,
+      "cv_rmse": 49128.481567173476,
+      "cv_rmse_std": 6734.311302677244,
+      "cv_r2": 0.7634113066888899,
+      "cv_r2_std": 0.03531095027095558,
+      "test_mae": 85849.23751292864,
+      "test_rmse": 133158.62442064047,
+      "test_r2": -0.1331482220188649,
+      "generalization_gap": 54365.17634671276,
+      "is_selected": false
+    },
+    {
+      "model": "Random Forest Regressor",
+      "cv_mae": 19201.467827394394,
+      "cv_mae_std": 1686.2912768183555,
+      "cv_rmse": 35989.918467513766,
+      "cv_rmse_std": 5846.199279614545,
+      "cv_r2": 0.873206087087213,
+      "cv_r2_std": 0.023592284587552817,
+      "test_mae": 86103.16139627731,
+      "test_rmse": 148819.11816391943,
+      "test_r2": -0.41535562442942897,
+      "generalization_gap": 66901.69356888291,
+      "is_selected": false
+    },
+    {
+      "model": "Gradient Boosting Regressor",
+      "cv_mae": 18345.56923974455,
+      "cv_mae_std": 1620.4141905080357,
+      "cv_rmse": 32380.000678121414,
+      "cv_rmse_std": 5590.503128701181,
+      "cv_r2": 0.8972263815444176,
+      "cv_r2_std": 0.022091316779645317,
+      "test_mae": 84429.33942505279,
+      "test_rmse": 143133.55958262834,
+      "test_r2": -0.3092755726442815,
+      "generalization_gap": 66083.77018530824,
+      "is_selected": true
+    }
+  ],
+  "diagnostic_outliers": [
+    {
+      "index": 679,
+      "description": "2019 MG ZS 1.5 Exclusive (M) - Grey Full Service Record",
+      "model": "MG ZS 1.5 Exclusive",
+      "mileage": 2500.0,
+      "actual_price": 1172000.0,
+      "predicted_price": 68521.97629131674,
+      "residual_error": 1103478.0237086832
+    },
+    {
+      "index": 2472,
+      "description": "2018 Chevrolet Cruze 1.8 LT (M) - Pearl White Full Service Record",
+      "model": "Chevrolet Cruze 1.8 LT",
+      "mileage": 182500.0,
+      "actual_price": 1142900.0,
+      "predicted_price": 68892.88746777836,
+      "residual_error": 1074007.1125322217
+    },
+    {
+      "index": 1131,
+      "description": "2023 MG ZS 1.5 Exclusive (M) - Red Full Service Record",
+      "model": "MG ZS 1.5 Exclusive",
+      "mileage": 103500.0,
+      "actual_price": 653200.0,
+      "predicted_price": 63326.53842340836,
+      "residual_error": 589873.4615765916
+    },
+    {
+      "index": 1133,
+      "description": "2018 Chevrolet Malibu 2.4 LTZ (M) - Maroon Full Service Record",
+      "model": "Chevrolet Malibu 2.4 LTZ",
+      "mileage": 54500.0,
+      "actual_price": 648900.0,
+      "predicted_price": 103983.16817217172,
+      "residual_error": 544916.8318278283
+    },
+    {
+      "index": 1467,
+      "description": "2023 Jeep Compass 1.4 Limited (M) - Grey Full Service Record",
+      "model": "Jeep Compass 1.4 Limited",
+      "mileage": 43500.0,
+      "actual_price": 584800.0,
+      "predicted_price": 55933.67078281577,
+      "residual_error": 528866.3292171842
+    }
+  ],
+  "target_leakage_audit": {
+    "status": "SECURE",
+    "excluded_variable": "Monthly_Installment",
+    "justification": "Target leakage occurs because monthly installments are directly computed from the list price. Strict purge guarantees genuine generalizability."
+  }
+}

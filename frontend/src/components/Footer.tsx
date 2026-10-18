@@ -88,6 +88,12 @@ export default function Footer() {
                   Hire-Purchase Calculator
                 </Link>
               </li>
+              <li>
+                <Link href="/admin" className="hover:text-cyan-400 transition-colors flex items-center space-x-1">
+                  <span>ML Retraining & Admin</span>
+                  <span className="text-[9px] px-1 bg-cyan-900/60 text-cyan-300 rounded border border-cyan-700/50">SECURE</span>
+                </Link>
+              </li>
             </ul>
           </div>
 

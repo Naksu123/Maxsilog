@@ -1,6 +1,6 @@
 {
   "selected_model": "Gradient Boosting Regressor",
-  "model_version": "v1.2.0-research",
+  "model_version": "v_20261018_111122",
   "random_state": 42,
   "train_size": 2000,
   "test_size": 500,
@@ -113,6 +113,6 @@
   "target_leakage_audit": {
     "status": "SECURE",
     "excluded_variable": "Monthly_Installment",
-    "justification": "Target leakage occurs because monthly installments are directly computed from the list price by vehicle financing institutions. Omission guarantees genuine predictive validity."
+    "justification": "Target leakage occurs because monthly installments are directly computed from the list price. Strict purge guarantees genuine generalizability."
   }
 }

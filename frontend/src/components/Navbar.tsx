@@ -12,7 +12,8 @@ import {
   ShieldCheck, 
   Menu, 
   X,
-  Activity
+  Activity,
+  RefreshCw
 } from "lucide-react";
 import GithubIcon from "./GithubIcon";
 import { getHealth } from "../lib/api";
@@ -42,6 +43,7 @@ export default function Navbar() {
     { href: "/analytics", label: "Market Analytics", icon: BarChart3 },
     { href: "/benchmark", label: "Model Benchmark", icon: Award },
     { href: "/financing", label: "Financing Calculator", icon: Calculator },
+    { href: "/admin", label: "Admin & Retraining", icon: RefreshCw },
   ];
 
   return (

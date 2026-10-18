@@ -199,3 +199,81 @@ export interface FinancingResponse {
   yearly_schedule: YearlyScheduleItem[];
   disclaimer: string;
 }
+
+export interface TrainingJobProgress {
+  run_id: string;
+  trigger: string;
+  started_at: string;
+  progress: string;
+}
+
+export interface TrainingHistoryItem {
+  run_id: string;
+  version_id?: string;
+  timestamp_utc: string;
+  timestamp_myt: string;
+  trigger: string;
+  status: "completed" | "skipped" | "failed";
+  duration_seconds: number;
+  selected_model?: string;
+  champion_cv_mae?: number;
+  champion_cv_r2?: number;
+  dataset_fingerprint?: string;
+  record_count?: number;
+  action: string;
+  message?: string;
+  error?: string;
+}
+
+export interface ModelVersionItem {
+  version_id: string;
+  timestamp_utc: string;
+  timestamp_myt: string;
+  dataset_fingerprint: string;
+  record_count: number;
+  selected_algorithm?: string;
+  selected_model?: string;
+  cv_mae?: number;
+  cv_r2?: number;
+  champion_metrics?: {
+    cv_mae: number;
+    cv_rmse: number;
+    cv_r2: number;
+    test_mae: number;
+    test_rmse: number;
+    test_r2: number;
+  };
+  benchmark?: BenchmarkModel[];
+  artifacts?: string[];
+  status?: string;
+  is_active: boolean;
+}
+
+export interface TrainingStatusResponse {
+  is_training: boolean;
+  current_job: TrainingJobProgress | null;
+  active_version: string;
+  active_model_name: string;
+  active_metrics: BenchmarkModel[];
+  last_training_run: TrainingHistoryItem | null;
+  next_scheduled_run_myt: string;
+  schedule_info: string;
+  dataset_sha256: string | null;
+  total_versions_count: number;
+  server_time_myt: string;
+}
+
+export interface TriggerTrainingResponse {
+  success: boolean;
+  status: string;
+  message: string;
+}
+
+export interface RollbackResponse {
+  success: boolean;
+  status: string;
+  message: string;
+  version?: string;
+  active_version?: string;
+  selected_model?: string;
+}
