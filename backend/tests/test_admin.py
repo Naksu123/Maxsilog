@@ -11,7 +11,7 @@ from backend.ml.dataset_manager import compute_file_sha256, audit_and_prepare_da
 load_artifacts()
 client = TestClient(app)
 
-ADMIN_KEY = "autovaluate-admin-2026"
+ADMIN_KEY = "admin123"
 HEADERS = {"X-Admin-Key": ADMIN_KEY}
 
 

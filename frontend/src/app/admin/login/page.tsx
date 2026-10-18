@@ -116,26 +116,27 @@ export default function AdminLoginPage() {
                 </label>
                 <span className="text-[10px] text-cyan-400 font-mono">Required</span>
               </div>
-              <div className="relative">
-                <input
-                  id="admin-password"
-                  type={showPassword ? "text" : "password"}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter administrator password or key"
-                  required
-                  className="w-full px-4 py-2.5 pr-10 rounded-xl bg-slate-900/90 border border-slate-700 text-slate-100 placeholder-slate-500 text-xs font-mono focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200"
-                  tabIndex={-1}
-                  aria-label={showPassword ? "Hide password" : "Show password"}
-                >
-                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                </button>
-              </div>
+                <div className="relative">
+                  <input
+                    id="admin-password"
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Enter administrator password"
+                    autoComplete="off"
+                    required
+                    className="w-full px-4 py-2.5 pr-10 rounded-xl bg-slate-900/90 border border-slate-700 text-slate-100 placeholder-slate-500 text-xs font-mono focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200"
+                    tabIndex={-1}
+                    aria-label={showPassword ? "Hide password" : "Show password"}
+                  >
+                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  </button>
+                </div>
             </div>
 
             {/* Login Action Button */}
@@ -164,15 +165,11 @@ export default function AdminLoginPage() {
           <div className="mt-6 pt-5 border-t border-slate-800 text-[11px] text-slate-400 space-y-2">
             <div className="flex items-center space-x-1.5 text-slate-300 font-semibold font-mono">
               <HelpCircle className="w-3.5 h-3.5 text-cyan-400" />
-              <span>What is Admin-Key Auth?</span>
+              <span>Restricted Administration</span>
             </div>
             <p className="leading-relaxed text-slate-400">
-              Admin-Key Auth is an API-level security token (<code className="text-cyan-300 bg-slate-900 px-1 py-0.5 rounded">X-Admin-Key</code>) protecting server-side ML model retraining and rollback operations from unauthorized access.
+              Administrative functions, model retraining, and deployment rollbacks are protected by server-side authorization. Only authorized administrators with verified credentials may sign in.
             </p>
-            <div className="p-2.5 rounded-lg bg-blue-950/30 border border-blue-900/40 font-mono text-[10px] text-blue-300 flex items-center justify-between">
-              <span>Default Key:</span>
-              <span className="font-bold text-cyan-300 select-all">autovaluate-admin-2026</span>
-            </div>
           </div>
         </div>
 

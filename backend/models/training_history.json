@@ -1,5 +1,17 @@
 [
   {
+    "run_id": "run_20261018_114940",
+    "timestamp_utc": "2026-10-18T03:49:40.170075+00:00",
+    "timestamp_myt": "2026-10-18T11:49:40.170075+08:00",
+    "trigger": "manual_admin",
+    "status": "skipped",
+    "duration_seconds": 0.11,
+    "dataset_fingerprint": "fdc09b76cd985e40dbe49b27d34811b437dd6adeb743192a0581675eb3febad8",
+    "record_count": 2500,
+    "action": "Retained active production model",
+    "message": "Dataset fingerprint is unchanged since the last successful training. Retraining skipped to conserve compute."
+  },
+  {
     "run_id": "run_20261018_114206",
     "timestamp_utc": "2026-10-18T03:42:06.681761+00:00",
     "timestamp_myt": "2026-10-18T11:42:06.681761+08:00",

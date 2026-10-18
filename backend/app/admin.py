@@ -10,7 +10,7 @@ from pydantic import BaseModel, Field
 
 router = APIRouter(prefix="/api/admin", tags=["Administration & Retraining"])
 
-ADMIN_API_KEY = os.environ.get("ADMIN_API_KEY", "autovaluate-admin-2026")
+ADMIN_API_KEY = os.environ.get("ADMIN_API_KEY", "admin123")
 
 
 def verify_admin_auth(
