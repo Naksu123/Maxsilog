@@ -1,0 +1,54 @@
+{
+  "version_id": "v_20261019_204516",
+  "timestamp_utc": "2026-10-19T12:45:16.320288+00:00",
+  "timestamp_myt": "2026-10-19T20:45:16.320288+08:00",
+  "model_type": "Gradient Boosting Regressor",
+  "selected_algorithm": "Gradient Boosting Regressor",
+  "selected_model": "Gradient Boosting Regressor",
+  "previous_version_id": "v_20261019_150641",
+  "artifact_location": "versions/v_20261019_204516",
+  "artifacts": [
+    "baseline_model.joblib",
+    "ridge_model.joblib",
+    "rf_model.joblib",
+    "gbr_model.joblib",
+    "metrics.json",
+    "metadata.json",
+    "manifest.json"
+  ],
+  "dataset_fingerprint": "fdc09b76cd985e40dbe49b27d34811b437dd6adeb743192a0581675eb3febad8",
+  "record_count": 2483,
+  "cv_mae": 22072.068801953174,
+  "cv_r2": 0.8079276678322989,
+  "evaluation_metrics": {
+    "cv_mae": 22072.068801953174,
+    "cv_mae_std": 2208.9526613252806,
+    "cv_rmse": 42743.578423857514,
+    "cv_rmse_std": 10566.788848253484,
+    "cv_r2": 0.8079276678322989,
+    "cv_r2_std": 0.05479109603624238,
+    "test_mae": 21821.651863546613,
+    "test_rmse": 40731.89842322877,
+    "test_r2": 0.8328819317491432,
+    "generalization_gap": -250.4169384065608
+  },
+  "champion_metrics": {
+    "cv_mae": 22072.068801953174,
+    "cv_mae_std": 2208.9526613252806,
+    "cv_rmse": 42743.578423857514,
+    "cv_rmse_std": 10566.788848253484,
+    "cv_r2": 0.8079276678322989,
+    "cv_r2_std": 0.05479109603624238,
+    "test_mae": 21821.651863546613,
+    "test_rmse": 40731.89842322877,
+    "test_r2": 0.8328819317491432,
+    "generalization_gap": -250.4169384065608
+  },
+  "models_trained": [
+    "Simple Linear Regression (Baseline)",
+    "Ridge Regression",
+    "Random Forest Regressor",
+    "Gradient Boosting Regressor"
+  ],
+  "status": "archived"
+}

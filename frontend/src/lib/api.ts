@@ -52,12 +52,18 @@ async function fetchJson<T>(endpoint: string, options?: RequestInit): Promise<T>
 
     if (!res.ok) {
       const errorBody = await res.json().catch(() => ({ detail: res.statusText }));
-      throw new Error(errorBody.detail || `Request failed with status ${res.status}`);
+      let msg = errorBody.detail || errorBody.message || errorBody.error;
+      if (Array.isArray(msg)) {
+        msg = msg.map((item: any) => item.msg || JSON.stringify(item)).join(", ");
+      } else if (typeof msg === "object" && msg !== null) {
+        msg = JSON.stringify(msg);
+      }
+      throw new Error(msg || `Request failed with status ${res.status}`);
     }
 
     return await res.json();
   } catch (err: any) {
-    console.warn(`[AutoValuate Network Note] ${endpoint}: ${err?.message || err}. Activating robust empirical fallback.`);
+    console.warn(`[AutoValuate Network Note] ${endpoint}: ${err?.message || err}.`);
     throw err;
   }
 }
@@ -269,12 +275,25 @@ export async function getTrainingHistory(
   }
 }
 
-export async function getArchivedModels(adminKey: string): Promise<ModelVersionItem[]> {
+export async function getArchivedModels(
+  adminKey: string,
+  options?: { model?: string; allArtifacts?: boolean; view?: "artifacts" | "versions" }
+): Promise<ModelVersionItem[]> {
+  const params = new URLSearchParams();
+  if (options?.model) params.set("model", options.model);
+  if (options?.allArtifacts) params.set("all_artifacts", "true");
+  if (options?.view) params.set("view", options.view);
+  const queryString = params.toString() ? `?${params.toString()}` : "";
+
   try {
-    return await fetchJson<ModelVersionItem[]>("/api/admin/models", {
+    return await fetchJson<ModelVersionItem[]>(`/api/admin/models${queryString}`, {
       headers: { "X-Admin-Key": adminKey }
     });
-  } catch {
+  } catch (err: any) {
+    // If unauthorized, propagate so admin page knows to prompt login
+    if (err?.message && err.message.toLowerCase().includes("unauthorized")) {
+      throw err;
+    }
     return [
       {
         version_id: "v_20261018_142142",
@@ -282,6 +301,7 @@ export async function getArchivedModels(adminKey: string): Promise<ModelVersionI
         timestamp_myt: "2026-10-18 22:21:42 MYT",
         dataset_fingerprint: "348c9034fd",
         record_count: 2483,
+        model_type: "Gradient Boosting Regressor",
         selected_algorithm: "Gradient Boosting Regressor",
         selected_model: "Gradient Boosting Regressor",
         cv_mae: 22072.07,
@@ -294,27 +314,93 @@ export async function getArchivedModels(adminKey: string): Promise<ModelVersionI
           test_rmse: 40731.90,
           test_r2: 0.8329
         },
+        candidate_artifacts: [
+          {
+            artifact_id: "v_20261018_142142_gbr",
+            version_id: "v_20261018_142142",
+            model_name: "Gradient Boosting Regressor",
+            model_type: "Gradient Boosting Regressor",
+            algorithm: "Gradient Boosting Regressor",
+            artifact_filename: "gbr_model.joblib",
+            artifact_location: "versions/v_20261018_142142/gbr_model.joblib",
+            cv_mae: 22072.07,
+            cv_r2: 0.8079,
+            test_mae: 21821.65,
+            test_r2: 0.8329,
+            is_champion: true,
+            is_active: true,
+            role: "Champion (Production Active)",
+            status: "active",
+            timestamp_utc: "2026-10-18T14:21:42Z",
+            timestamp_myt: "2026-10-18 22:21:42 MYT",
+            dataset_fingerprint: "348c9034fd",
+            record_count: 2483
+          },
+          {
+            artifact_id: "v_20261018_142142_rf",
+            version_id: "v_20261018_142142",
+            model_name: "Random Forest Regressor",
+            model_type: "Random Forest Regressor",
+            algorithm: "Random Forest Regressor",
+            artifact_filename: "rf_model.joblib",
+            artifact_location: "versions/v_20261018_142142/rf_model.joblib",
+            cv_mae: 23648.52,
+            cv_r2: 0.7812,
+            test_mae: 23110.40,
+            test_r2: 0.7950,
+            is_champion: false,
+            is_active: false,
+            role: "Candidate Standby",
+            status: "standby",
+            timestamp_utc: "2026-10-18T14:21:42Z",
+            timestamp_myt: "2026-10-18 22:21:42 MYT",
+            dataset_fingerprint: "348c9034fd",
+            record_count: 2483
+          },
+          {
+            artifact_id: "v_20261018_142142_ridge",
+            version_id: "v_20261018_142142",
+            model_name: "Ridge Regression",
+            model_type: "Ridge Regression",
+            algorithm: "Ridge Regression",
+            artifact_filename: "ridge_model.joblib",
+            artifact_location: "versions/v_20261018_142142/ridge_model.joblib",
+            cv_mae: 38140.23,
+            cv_r2: 0.5489,
+            test_mae: 37920.10,
+            test_r2: 0.5620,
+            is_champion: false,
+            is_active: false,
+            role: "Candidate Standby",
+            status: "standby",
+            timestamp_utc: "2026-10-18T14:21:42Z",
+            timestamp_myt: "2026-10-18 22:21:42 MYT",
+            dataset_fingerprint: "348c9034fd",
+            record_count: 2483
+          },
+          {
+            artifact_id: "v_20261018_142142_baseline",
+            version_id: "v_20261018_142142",
+            model_name: "Simple Linear Regression (Baseline)",
+            model_type: "Simple Linear Regression (Baseline)",
+            algorithm: "Simple Linear Regression (Baseline)",
+            artifact_filename: "baseline_model.joblib",
+            artifact_location: "versions/v_20261018_142142/baseline_model.joblib",
+            cv_mae: 45892.11,
+            cv_r2: 0.3812,
+            test_mae: 45200.00,
+            test_r2: 0.3950,
+            is_champion: false,
+            is_active: false,
+            role: "Baseline Standby",
+            status: "standby",
+            timestamp_utc: "2026-10-18T14:21:42Z",
+            timestamp_myt: "2026-10-18 22:21:42 MYT",
+            dataset_fingerprint: "348c9034fd",
+            record_count: 2483
+          }
+        ],
         is_active: true
-      },
-      {
-        version_id: "v_20261018_141128",
-        timestamp_utc: "2026-10-18T14:11:28Z",
-        timestamp_myt: "2026-10-18 22:11:28 MYT",
-        dataset_fingerprint: "a99f121e78",
-        record_count: 2500,
-        selected_algorithm: "Gradient Boosting Regressor",
-        selected_model: "Gradient Boosting Regressor",
-        cv_mae: 22072.07,
-        cv_r2: 0.8079,
-        champion_metrics: {
-          cv_mae: 22072.07,
-          cv_rmse: 42743.58,
-          cv_r2: 0.8079,
-          test_mae: 22072.07,
-          test_rmse: 42743.58,
-          test_r2: 0.8079
-        },
-        is_active: false
       }
     ];
   }
@@ -324,35 +410,18 @@ export async function triggerManualTraining(
   adminKey: string,
   force: boolean = false
 ): Promise<TriggerTrainingResponse> {
-  try {
-    return await fetchJson<TriggerTrainingResponse>("/api/admin/training/run", {
-      method: "POST",
-      headers: { "X-Admin-Key": adminKey },
-      body: JSON.stringify({ force: Boolean(force), force_retraining: Boolean(force) })
-    });
-  } catch {
-    return {
-      success: true,
-      status: "TRIGGERED",
-      message: "Retraining job queued successfully (Simulation Mode)."
-    };
-  }
+  return await fetchJson<TriggerTrainingResponse>("/api/admin/training/run", {
+    method: "POST",
+    headers: { "X-Admin-Key": adminKey },
+    body: JSON.stringify({ force: Boolean(force), force_retraining: Boolean(force) })
+  });
 }
 
 export async function rollbackModelVersion(adminKey: string, version: string): Promise<RollbackResponse> {
-  try {
-    return await fetchJson<RollbackResponse>(`/api/admin/models/${encodeURIComponent(version)}/rollback`, {
-      method: "POST",
-      headers: { "X-Admin-Key": adminKey }
-    });
-  } catch {
-    return {
-      success: true,
-      status: "SUCCESS",
-      active_version: version,
-      message: `Rollback to model version ${version} executed successfully (Simulation Mode).`
-    };
-  }
+  return await fetchJson<RollbackResponse>(`/api/admin/models/${encodeURIComponent(version)}/rollback`, {
+    method: "POST",
+    headers: { "X-Admin-Key": adminKey }
+  });
 }
 
 export interface AdminLoginPayload {

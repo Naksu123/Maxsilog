@@ -135,11 +135,54 @@ def get_training_history(
 
 
 @router.get("/models", dependencies=[Depends(verify_admin_auth)])
-def get_archived_models():
+def get_archived_models(
+    model: Optional[str] = Query(None, description="Filter by model name/type"),
+    all_artifacts: bool = Query(False, description="Return flat list of all candidate model artifacts"),
+    view: Optional[str] = Query(None, description="View mode: 'artifacts' or 'versions'")
+):
     from .main import RETRAIN_MANAGER
     if not RETRAIN_MANAGER:
         raise HTTPException(status_code=503, detail="Retrain manager not initialized.")
-    return RETRAIN_MANAGER.get_versions()
+    return_artifacts = all_artifacts or (view == "artifacts")
+    return RETRAIN_MANAGER.get_versions(model_filter=model, all_artifacts=return_artifacts)
+
+
+@router.get("/rollback/history", dependencies=[Depends(verify_admin_auth)])
+def get_rollback_history(
+    page: Optional[int] = Query(None, ge=1, description="Page number (1-indexed)"),
+    page_size: int = Query(5, ge=1, le=100, description="Records per page, default 5"),
+    event_type: Optional[str] = Query(None, description="Filter by event type (PROMOTION, ROLLBACK)")
+):
+    """Retrieve persistent audit ledger of model deployments, promotions, and rollbacks."""
+    from .main import RETRAIN_MANAGER
+    if not RETRAIN_MANAGER:
+        raise HTTPException(status_code=503, detail="Retrain manager not initialized.")
+    
+    history = RETRAIN_MANAGER.get_rollback_history()
+
+    filtered = history
+    if event_type and event_type.lower() != "all":
+        filtered = [h for h in filtered if str(h.get("event_type", "")).upper() == event_type.upper()]
+
+    if page is None:
+        return filtered
+
+    total = len(filtered)
+    total_pages = max(1, (total + page_size - 1) // page_size) if total > 0 else 1
+    current_page = min(page, total_pages) if page else 1
+    start_idx = (current_page - 1) * page_size
+    end_idx = start_idx + page_size
+    items = filtered[start_idx:end_idx]
+
+    return {
+        "items": items,
+        "total": total,
+        "page": current_page,
+        "page_size": page_size,
+        "total_pages": total_pages,
+        "has_next": current_page < total_pages,
+        "has_prev": current_page > 1
+    }
 
 
 @router.post("/training/run", dependencies=[Depends(verify_admin_auth)])

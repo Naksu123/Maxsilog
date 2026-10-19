@@ -48,7 +48,8 @@ import {
   TrainingStatusResponse,
   TrainingHistoryItem,
   ModelVersionItem,
-  BenchmarkModel
+  BenchmarkModel,
+  CandidateArtifactItem
 } from "@/types";
 
 export default function AdminPage() {
@@ -75,10 +76,12 @@ export default function AdminPage() {
   const [historyStatusFilter, setHistoryStatusFilter] = useState<string>("all");
   const [historySearch, setHistorySearch] = useState<string>("");
 
-  // Model Artifact Versions Pagination & Search State
+  // Model Artifact Versions Pagination, Model Filter, View Mode & Search State
   const [versionsPage, setVersionsPage] = useState<number>(1);
   const versionsPageSize = 5;
   const [versionsSearch, setVersionsSearch] = useState<string>("");
+  const [versionsModelFilter, setVersionsModelFilter] = useState<string>("all");
+  const [versionsViewMode, setVersionsViewMode] = useState<"artifacts" | "versions">("artifacts");
 
   const [loading, setLoading] = useState<boolean>(true);
   const [actionLoading, setActionLoading] = useState<boolean>(false);
@@ -87,6 +90,7 @@ export default function AdminPage() {
 
   // Rollback confirmation modal state
   const [rollbackModalVersion, setRollbackModalVersion] = useState<string | null>(null);
+  const [rollbackModalError, setRollbackModalError] = useState<string | null>(null);
   const [rollbackLoading, setRollbackLoading] = useState<boolean>(false);
 
   // Check authentication status on mount
@@ -281,9 +285,19 @@ export default function AdminPage() {
     }
   };
 
+  // Auto-dismiss feedback notification after 8 seconds
+  useEffect(() => {
+    if (!feedback) return;
+    const timer = setTimeout(() => {
+      setFeedback(null);
+    }, 8000);
+    return () => clearTimeout(timer);
+  }, [feedback]);
+
   const handleConfirmRollback = async () => {
     if (!rollbackModalVersion) return;
     setRollbackLoading(true);
+    setRollbackModalError(null);
     try {
       const res = await rollbackModelVersion(adminKey, rollbackModalVersion);
       setFeedback({
@@ -291,12 +305,15 @@ export default function AdminPage() {
         message: res.message || `Successfully rolled back active model to ${rollbackModalVersion}`
       });
       setRollbackModalVersion(null);
+      setRollbackModalError(null);
       await fetchData(adminKey);
       setVersionsPage(1);
     } catch (err: any) {
+      const errMsg = err.message || "Failed to perform model rollback.";
+      setRollbackModalError(errMsg);
       setFeedback({
         type: "error",
-        message: err.message || "Failed to perform model rollback."
+        message: errMsg
       });
     } finally {
       setRollbackLoading(false);
@@ -481,8 +498,137 @@ export default function AdminPage() {
   const endIdx = Math.min(startIdx + historyPageSize, totalHistoryRecords);
   const paginatedHistory = filteredHistory.slice(startIdx, endIdx);
 
-  // Model Artifact Versions Filtering & 5-Records-Per-Page Pagination
+  // Helper: Model badge styling by model family
+  const getModelBadge = (modelName: string) => {
+    if (modelName.includes("Gradient")) {
+      return {
+        bg: "bg-emerald-500/15 text-emerald-300 border-emerald-500/40",
+        tag: "Nonlinear Boosting",
+        short: "GBR"
+      };
+    } else if (modelName.includes("Random")) {
+      return {
+        bg: "bg-indigo-500/15 text-indigo-300 border-indigo-500/40",
+        tag: "Tree Ensemble",
+        short: "RF"
+      };
+    } else if (modelName.includes("Ridge")) {
+      return {
+        bg: "bg-amber-500/15 text-amber-300 border-amber-500/40",
+        tag: "L2 Regularized",
+        short: "Ridge"
+      };
+    } else {
+      return {
+        bg: "bg-slate-500/15 text-slate-300 border-slate-500/40",
+        tag: "Baseline OLS",
+        short: "Linear"
+      };
+    }
+  };
+
+  // Extract all registered candidate model artifacts across all versions
+  const allCandidateArtifacts: CandidateArtifactItem[] = [];
+  versions.forEach((ver) => {
+    if (ver.candidate_artifacts && ver.candidate_artifacts.length > 0) {
+      ver.candidate_artifacts.forEach((cand) => allCandidateArtifacts.push(cand));
+    } else {
+      const filenameMap: Record<string, string> = {
+        "Gradient Boosting Regressor": "gbr_model.joblib",
+        "Random Forest Regressor": "rf_model.joblib",
+        "Ridge Regression": "ridge_model.joblib",
+        "Simple Linear Regression (Baseline)": "baseline_model.joblib"
+      };
+      if (ver.benchmark && ver.benchmark.length > 0) {
+        ver.benchmark.forEach((b) => {
+          const isChamp = b.model === (ver.selected_algorithm || ver.selected_model) || b.is_selected;
+          const isAct = Boolean(isChamp && ver.is_active);
+          const fname = filenameMap[b.model] || `${b.model.toLowerCase().replace(/ /g, "_")}.joblib`;
+          allCandidateArtifacts.push({
+            artifact_id: `${ver.version_id}_${fname.replace(".joblib", "")}`,
+            version_id: ver.version_id,
+            model_name: b.model,
+            model_type: b.model,
+            algorithm: b.model,
+            artifact_filename: fname,
+            artifact_location: `versions/${ver.version_id}/${fname}`,
+            cv_mae: b.cv_mae,
+            cv_mae_std: b.cv_mae_std,
+            cv_rmse: b.cv_rmse,
+            cv_rmse_std: b.cv_rmse_std,
+            cv_r2: b.cv_r2,
+            cv_r2_std: b.cv_r2_std,
+            test_mae: b.test_mae,
+            test_rmse: b.test_rmse,
+            test_r2: b.test_r2,
+            generalization_gap: b.generalization_gap,
+            is_champion: isChamp,
+            is_active: isAct,
+            role: isAct
+              ? "Champion (Production Active)"
+              : isChamp
+              ? "Champion (Archived)"
+              : b.model.includes("Baseline")
+              ? "Baseline Standby"
+              : "Candidate Standby",
+            status: isAct ? "active" : isChamp ? "archived" : "standby",
+            timestamp_utc: ver.timestamp_utc,
+            timestamp_myt: ver.timestamp_myt,
+            dataset_fingerprint: ver.dataset_fingerprint,
+            record_count: ver.record_count
+          });
+        });
+      } else {
+        const champModel = ver.selected_algorithm || ver.selected_model || "Gradient Boosting Regressor";
+        allCandidateArtifacts.push({
+          artifact_id: `${ver.version_id}_gbr`,
+          version_id: ver.version_id,
+          model_name: champModel,
+          model_type: champModel,
+          algorithm: champModel,
+          artifact_filename: "gbr_model.joblib",
+          artifact_location: `versions/${ver.version_id}/gbr_model.joblib`,
+          cv_mae: ver.cv_mae,
+          cv_r2: ver.cv_r2,
+          is_champion: true,
+          is_active: ver.is_active,
+          role: ver.is_active ? "Champion (Production Active)" : "Champion (Archived)",
+          status: ver.is_active ? "active" : "archived",
+          timestamp_utc: ver.timestamp_utc,
+          timestamp_myt: ver.timestamp_myt,
+          dataset_fingerprint: ver.dataset_fingerprint,
+          record_count: ver.record_count
+        });
+      }
+    }
+  });
+
+  // Filter candidate artifacts
+  const filteredCandidateArtifacts = allCandidateArtifacts.filter((cand) => {
+    if (versionsModelFilter !== "all" && !cand.model_name.toLowerCase().includes(versionsModelFilter.toLowerCase())) {
+      return false;
+    }
+    if (!versionsSearch.trim()) return true;
+    const q = versionsSearch.toLowerCase().trim();
+    return (
+      cand.artifact_id.toLowerCase().includes(q) ||
+      cand.version_id.toLowerCase().includes(q) ||
+      cand.model_name.toLowerCase().includes(q) ||
+      cand.artifact_filename.toLowerCase().includes(q)
+    );
+  });
+
+  // Filter version runs
   const filteredVersions = versions.filter((ver) => {
+    if (versionsModelFilter !== "all") {
+      const matchCandidate = ver.candidate_artifacts?.some((c) =>
+        c.model_name.toLowerCase().includes(versionsModelFilter.toLowerCase())
+      );
+      const matchSelected = (ver.selected_algorithm || ver.selected_model || "")
+        .toLowerCase()
+        .includes(versionsModelFilter.toLowerCase());
+      if (!matchCandidate && !matchSelected) return false;
+    }
     if (!versionsSearch.trim()) return true;
     const q = versionsSearch.toLowerCase().trim();
     const matchId = ver.version_id?.toLowerCase().includes(q);
@@ -492,11 +638,17 @@ export default function AdminPage() {
     return matchId || matchModel;
   });
 
-  const totalVersionRecords = filteredVersions.length;
+  const totalVersionRecords =
+    versionsViewMode === "artifacts"
+      ? filteredCandidateArtifacts.length
+      : filteredVersions.length;
+
   const totalVersionPages = Math.max(1, Math.ceil(totalVersionRecords / versionsPageSize));
   const currentVersionsPage = Math.min(Math.max(1, versionsPage), totalVersionPages);
   const versionStartIdx = totalVersionRecords === 0 ? 0 : (currentVersionsPage - 1) * versionsPageSize;
   const versionEndIdx = Math.min(versionStartIdx + versionsPageSize, totalVersionRecords);
+
+  const paginatedArtifacts = filteredCandidateArtifacts.slice(versionStartIdx, versionEndIdx);
   const paginatedVersions = filteredVersions.slice(versionStartIdx, versionEndIdx);
 
   // -------------------------------------------------------------
@@ -865,125 +1017,311 @@ export default function AdminPage() {
       </div>
 
       {/* Model Version Archive & Safe Rollback */}
-      <div className="glass-panel rounded-2xl p-6 border border-slate-800 space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800/80 pb-4">
+      <div className="glass-panel rounded-2xl p-6 border border-slate-800 space-y-5">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-800/80 pb-4">
           <div>
-            <h3 className="text-lg font-bold text-white flex items-center space-x-2">
-              <Layers className="w-4 h-4 text-indigo-400" />
-              <span>Model Artifact Versions & Rollback</span>
-            </h3>
-            <p className="text-xs text-slate-400 mt-0.5">
-              Every daily run preserves versioned model artifacts and manifests. Paginated at strictly 5 records per table view.
+            <div className="flex items-center space-x-2">
+              <Layers className="w-5 h-5 text-indigo-400" />
+              <h3 className="text-lg font-bold text-white">Model Artifact Versions & Rollback</h3>
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-mono bg-indigo-500/10 text-indigo-300 border border-indigo-500/30">
+                4 Supervised Models
+              </span>
+            </div>
+            <p className="text-xs text-slate-400 mt-1 max-w-2xl leading-relaxed">
+              Every retraining cycle evaluates and registers all 4 candidate algorithms: Gradient Boosting, Random Forest, Ridge Regression, and Simple Linear. Paginated at strictly 5 records per table view.
             </p>
           </div>
 
-          <div className="flex items-center gap-2.5">
+          {/* View Mode Toggle and Search Controls */}
+          <div className="flex flex-wrap items-center gap-2.5">
+            {/* View Mode Switcher */}
+            <div className="inline-flex rounded-xl bg-slate-900 border border-slate-800 p-0.5 text-xs">
+              <button
+                id="view-artifacts-toggle-btn"
+                onClick={() => {
+                  setVersionsViewMode("artifacts");
+                  setVersionsPage(1);
+                }}
+                className={`px-3 py-1.5 rounded-lg font-medium transition-all cursor-pointer ${
+                  versionsViewMode === "artifacts"
+                    ? "bg-blue-600 text-white font-bold shadow-sm shadow-blue-500/20"
+                    : "text-slate-400 hover:text-white"
+                }`}
+              >
+                All 4 Candidate Models
+              </button>
+              <button
+                id="view-bundles-toggle-btn"
+                onClick={() => {
+                  setVersionsViewMode("versions");
+                  setVersionsPage(1);
+                }}
+                className={`px-3 py-1.5 rounded-lg font-medium transition-all cursor-pointer ${
+                  versionsViewMode === "versions"
+                    ? "bg-blue-600 text-white font-bold shadow-sm shadow-blue-500/20"
+                    : "text-slate-400 hover:text-white"
+                }`}
+              >
+                Version Runs
+              </button>
+            </div>
+
+            {/* Search Input */}
             <div className="relative">
               <Search className="w-3.5 h-3.5 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
               <input
+                id="versions-search-input"
                 type="text"
                 value={versionsSearch}
                 onChange={(e) => {
                   setVersionsSearch(e.target.value);
                   setVersionsPage(1);
                 }}
-                placeholder="Search versions..."
-                className="w-full sm:w-44 pl-8 pr-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+                placeholder="Search models or artifacts..."
+                className="w-full sm:w-48 pl-8 pr-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500"
               />
             </div>
+
             <span className="text-xs font-mono text-cyan-400 bg-blue-950/40 border border-blue-800/40 px-2.5 py-1.5 rounded-xl whitespace-nowrap">
-              {totalVersionRecords} Archives
+              {totalVersionRecords} Records
             </span>
           </div>
         </div>
 
-        <div className="overflow-x-auto">
+        {/* Algorithm Filter Pills */}
+        <div className="flex flex-wrap items-center gap-2 pt-1">
+          <span className="text-xs text-slate-400 font-medium mr-1 flex items-center space-x-1">
+            <Filter className="w-3.5 h-3.5" />
+            <span>Filter Model:</span>
+          </span>
+          {[
+            { id: "all", label: "All Models (4)" },
+            { id: "Gradient Boosting", label: "Gradient Boosting" },
+            { id: "Random Forest", label: "Random Forest" },
+            { id: "Ridge", label: "Ridge Regression" },
+            { id: "Linear", label: "Simple Linear" }
+          ].map((tab) => {
+            const isTabActive = versionsModelFilter === tab.id;
+            return (
+              <button
+                key={tab.id}
+                id={`filter-model-${tab.id.toLowerCase().replace(/ /g, "-")}`}
+                onClick={() => {
+                  setVersionsModelFilter(tab.id);
+                  setVersionsPage(1);
+                }}
+                className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-all cursor-pointer ${
+                  isTabActive
+                    ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/50 font-bold"
+                    : "bg-slate-900/80 hover:bg-slate-800 border border-slate-800 text-slate-400 hover:text-slate-200"
+                }`}
+              >
+                {tab.label}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Table View (Responsive Container) */}
+        <div className="overflow-x-auto rounded-xl border border-slate-800/80">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-900/80 text-slate-400 font-mono uppercase text-[10px] tracking-wider border-b border-slate-800">
+            <thead className="bg-slate-900/90 text-slate-400 font-mono uppercase text-[10px] tracking-wider border-b border-slate-800">
               <tr>
-                <th className="py-3 px-4">Version ID</th>
+                <th className="py-3 px-4">Artifact ID & File</th>
                 <th className="py-3 px-3">Date (MYT)</th>
-                <th className="py-3 px-3">Selected Model</th>
+                <th className="py-3 px-3">Model Name / Algorithm</th>
                 <th className="py-3 px-3">Validation CV MAE</th>
                 <th className="py-3 px-3">Validation CV R²</th>
-                <th className="py-3 px-3">Records</th>
-                <th className="py-3 px-3">Deployment Status</th>
-                <th className="py-3 px-4 text-right">Rollback Control</th>
+                <th className="py-3 px-3">Candidate Role / Status</th>
+                <th className="py-3 px-3">Artifact Storage</th>
+                <th className="py-3 px-4 text-right">Deployment / Rollback</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-800/60 font-mono">
-              {paginatedVersions.length > 0 ? (
-                paginatedVersions.map((ver, idx) => (
-                  <tr key={`ver-${ver.version_id || "v"}-${versionStartIdx + idx}`} className={ver.is_active ? "bg-blue-950/20" : "hover:bg-slate-900/40"}>
-                    <td className="py-3.5 px-4 font-bold text-white flex items-center space-x-2">
-                      <span>{ver.version_id}</span>
-                      {ver.is_active && (
-                        <span className="px-1.5 py-0.2 bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[9px] rounded font-bold uppercase">
-                          Active
-                        </span>
-                      )}
-                    </td>
-                    <td className="py-3.5 px-3 text-slate-300 font-sans">
-                      {formatMytDate(ver.timestamp_myt || ver.timestamp_utc)}
-                    </td>
-                    <td className="py-3.5 px-3 text-slate-200 font-sans">
-                      {ver.selected_algorithm || ver.selected_model || "Gradient Boosting Regressor"}
-                    </td>
-                    <td className="py-3.5 px-3 text-cyan-400 font-semibold">
-                      RM {(ver.cv_mae ?? ver.champion_metrics?.cv_mae)?.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || "N/A"}
-                    </td>
-                    <td className="py-3.5 px-3 text-slate-300">
-                      {(ver.cv_r2 ?? ver.champion_metrics?.cv_r2)?.toFixed(4) || "N/A"}
-                    </td>
-                    <td className="py-3.5 px-3 text-slate-400">
-                      {ver.record_count}
-                    </td>
-                    <td className="py-3.5 px-3">
-                      {ver.is_active ? (
-                        <span className="inline-flex items-center space-x-1 text-emerald-400 text-[11px]">
-                          <CheckCircle2 className="w-3.5 h-3.5" />
-                          <span>Production Active</span>
-                        </span>
-                      ) : (
-                        <span className="text-slate-400 text-[11px]">Archived Standby</span>
-                      )}
-                    </td>
-                    <td className="py-3.5 px-4 text-right">
-                      {ver.is_active ? (
-                        <span className="text-[11px] text-slate-500 italic font-sans">Current Model</span>
-                      ) : (
-                        <button
-                          id={`rollback-btn-${ver.version_id}`}
-                          onClick={() => setRollbackModalVersion(ver.version_id)}
-                          className="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 border border-amber-500/40 text-amber-300 hover:text-amber-200 text-xs font-sans transition-colors cursor-pointer"
-                        >
-                          <RotateCcw className="w-3 h-3 text-amber-400" />
-                          <span>Rollback</span>
-                        </button>
-                      )}
+              {versionsViewMode === "artifacts" ? (
+                paginatedArtifacts.length > 0 ? (
+                  paginatedArtifacts.map((cand, idx) => {
+                    const badge = getModelBadge(cand.model_name);
+                    return (
+                      <tr
+                        key={`art-${cand.artifact_id || cand.version_id}-${versionStartIdx + idx}`}
+                        className={cand.is_active ? "bg-emerald-950/20" : "hover:bg-slate-900/40"}
+                      >
+                        <td className="py-3.5 px-4 font-bold text-white">
+                          <div className="flex items-center space-x-2">
+                            <span className="text-slate-200">{cand.artifact_id}</span>
+                            {cand.is_active && (
+                              <span className="px-1.5 py-0.5 bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[9px] rounded font-bold uppercase">
+                                Active
+                              </span>
+                            )}
+                            {cand.is_champion && !cand.is_active && (
+                              <span className="px-1.5 py-0.5 bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[9px] rounded font-bold uppercase">
+                                Champion
+                              </span>
+                            )}
+                          </div>
+                          <div className="text-[10px] text-slate-400 font-normal font-mono mt-0.5">
+                            {cand.artifact_filename}
+                          </div>
+                        </td>
+                        <td className="py-3.5 px-3 text-slate-300 font-sans whitespace-nowrap">
+                          {formatMytDate(cand.timestamp_myt || cand.timestamp_utc)}
+                        </td>
+                        <td className="py-3.5 px-3 text-slate-200 font-sans">
+                          <div className="font-semibold text-white">{cand.model_name}</div>
+                          <span className={`inline-flex items-center px-1.5 py-0.2 rounded text-[9px] font-mono border mt-0.5 ${badge.bg}`}>
+                            {badge.tag}
+                          </span>
+                        </td>
+                        <td className="py-3.5 px-3 text-cyan-400 font-semibold whitespace-nowrap">
+                          RM {cand.cv_mae?.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || "N/A"}
+                        </td>
+                        <td className="py-3.5 px-3 text-slate-300 whitespace-nowrap">
+                          {cand.cv_r2 !== undefined && cand.cv_r2 !== null ? cand.cv_r2.toFixed(4) : "N/A"}
+                        </td>
+                        <td className="py-3.5 px-3 font-sans">
+                          {cand.is_active ? (
+                            <span className="inline-flex items-center space-x-1.5 text-emerald-400 text-xs font-semibold">
+                              <CheckCircle2 className="w-3.5 h-3.5" />
+                              <span>Production Active</span>
+                            </span>
+                          ) : cand.is_champion ? (
+                            <span className="inline-flex items-center space-x-1 text-amber-400 text-xs">
+                              <Award className="w-3.5 h-3.5" />
+                              <span>Archived Champion</span>
+                            </span>
+                          ) : cand.model_name.includes("Baseline") ? (
+                            <span className="text-slate-400 text-xs">Baseline Standby</span>
+                          ) : (
+                            <span className="text-cyan-400/90 text-xs">Candidate Standby</span>
+                          )}
+                        </td>
+                        <td className="py-3.5 px-3 text-[10px] text-slate-400 font-mono truncate max-w-[140px]" title={cand.artifact_location}>
+                          {cand.artifact_location}
+                        </td>
+                        <td className="py-3.5 px-4 text-right font-sans">
+                          {cand.is_active ? (
+                            <span className="text-[11px] text-slate-500 italic">Current Active Model</span>
+                          ) : (
+                            <button
+                              id={`rollback-btn-${cand.artifact_id || cand.version_id}`}
+                              onClick={() => {
+                                setRollbackModalVersion(cand.version_id);
+                                setRollbackModalError(null);
+                              }}
+                              className="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 border border-amber-500/40 text-amber-300 hover:text-amber-200 text-xs transition-colors cursor-pointer"
+                              title={`Rollback production model to version ${cand.version_id}`}
+                            >
+                              <RotateCcw className="w-3 h-3 text-amber-400" />
+                              <span>Rollback</span>
+                            </button>
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })
+                ) : (
+                  <tr>
+                    <td colSpan={8} className="py-8 text-center text-slate-500 font-sans">
+                      No candidate model artifacts found matching the current search or filter.
                     </td>
                   </tr>
-                ))
+                )
               ) : (
-                <tr>
-                  <td colSpan={8} className="py-6 text-center text-slate-500 font-sans">
-                    No versioned model archives detected. Retraining runs will automatically generate version manifests.
-                  </td>
-                </tr>
+                paginatedVersions.length > 0 ? (
+                  paginatedVersions.map((ver, idx) => (
+                    <tr
+                      key={`ver-${ver.version_id || "v"}-${versionStartIdx + idx}`}
+                      className={ver.is_active ? "bg-blue-950/20" : "hover:bg-slate-900/40"}
+                    >
+                      <td className="py-3.5 px-4 font-bold text-white">
+                        <div className="flex items-center space-x-2">
+                          <span>{ver.version_id}</span>
+                          {ver.is_active && (
+                            <span className="px-1.5 py-0.2 bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[9px] rounded font-bold uppercase">
+                              Active
+                            </span>
+                          )}
+                        </div>
+                        <div className="text-[10px] text-slate-400 font-normal font-sans mt-0.5">
+                          {ver.candidate_artifacts?.length || 4} Trained Models Registered
+                        </div>
+                      </td>
+                      <td className="py-3.5 px-3 text-slate-300 font-sans whitespace-nowrap">
+                        {formatMytDate(ver.timestamp_myt || ver.timestamp_utc)}
+                      </td>
+                      <td className="py-3.5 px-3 text-slate-200 font-sans">
+                        <div className="font-semibold text-white">
+                          {ver.selected_algorithm || ver.selected_model || "Gradient Boosting Regressor"}
+                        </div>
+                        <div className="flex flex-wrap gap-1 mt-1">
+                          {ver.candidate_artifacts?.map((c) => (
+                            <span key={c.artifact_id} className="text-[9px] font-mono px-1 py-0.2 rounded bg-slate-800 text-slate-400 border border-slate-700">
+                              {c.model_name.replace(" Regressor", "").replace(" Regression", "")}
+                            </span>
+                          ))}
+                        </div>
+                      </td>
+                      <td className="py-3.5 px-3 text-cyan-400 font-semibold whitespace-nowrap">
+                        RM {(ver.cv_mae ?? ver.champion_metrics?.cv_mae)?.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || "N/A"}
+                      </td>
+                      <td className="py-3.5 px-3 text-slate-300 whitespace-nowrap">
+                        {(ver.cv_r2 ?? ver.champion_metrics?.cv_r2)?.toFixed(4) || "N/A"}
+                      </td>
+                      <td className="py-3.5 px-3 font-sans">
+                        {ver.is_active ? (
+                          <span className="inline-flex items-center space-x-1 text-emerald-400 text-xs font-semibold">
+                            <CheckCircle2 className="w-3.5 h-3.5" />
+                            <span>Production Active</span>
+                          </span>
+                        ) : (
+                          <span className="text-slate-400 text-xs">Archived Standby</span>
+                        )}
+                      </td>
+                      <td className="py-3.5 px-3 text-[10px] text-slate-400 font-mono">
+                        versions/{ver.version_id}
+                      </td>
+                      <td className="py-3.5 px-4 text-right font-sans">
+                        {ver.is_active ? (
+                          <span className="text-[11px] text-slate-500 italic">Current Model</span>
+                        ) : (
+                          <button
+                            id={`rollback-btn-${ver.version_id}`}
+                            onClick={() => {
+                              setRollbackModalVersion(ver.version_id);
+                              setRollbackModalError(null);
+                            }}
+                            className="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 border border-amber-500/40 text-amber-300 hover:text-amber-200 text-xs transition-colors cursor-pointer"
+                          >
+                            <RotateCcw className="w-3 h-3 text-amber-400" />
+                            <span>Rollback</span>
+                          </button>
+                        )}
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={8} className="py-8 text-center text-slate-500 font-sans">
+                      No versioned model archives detected.
+                    </td>
+                  </tr>
+                )
               )}
             </tbody>
           </table>
         </div>
 
-        {/* Functional Pagination Controls Bar (5 Versions Per Page) */}
+        {/* Functional Pagination Controls Bar (Strictly 5 Records Per Page) */}
         <div className="border-t border-slate-800/80 pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-sans">
           <div className="text-slate-400">
             {totalVersionRecords === 0 ? (
-              <span>Showing 0 versions</span>
+              <span>Showing 0 records</span>
             ) : (
               <span>
                 Showing <strong className="text-white">{versionStartIdx + 1}–{versionEndIdx}</strong> of{" "}
-                <strong className="text-white">{totalVersionRecords}</strong> archives{" "}
+                <strong className="text-white">{totalVersionRecords}</strong> {versionsViewMode === "artifacts" ? "model artifacts" : "version archives"}{" "}
                 <span className="text-slate-500">(Page {currentVersionsPage} of {totalVersionPages})</span>
               </span>
             )}
@@ -1284,7 +1622,20 @@ export default function AdminPage() {
               <h4 className="text-lg font-bold text-white">Confirm Model Rollback</h4>
             </div>
 
-            <p className="text-xs text-slate-300 leading-relaxed">
+            {rollbackModalError && (
+              <div
+                id="modal-rollback-error"
+                className="p-3.5 rounded-xl bg-rose-950/70 border border-rose-500/60 text-rose-200 text-xs flex items-start space-x-2.5 animate-in fade-in"
+              >
+                <XCircle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
+                <div className="flex-1 font-mono text-[11px] leading-relaxed break-words">
+                  <div className="font-bold text-rose-300 mb-0.5">Rollback Execution Error</div>
+                  <div>{rollbackModalError}</div>
+                </div>
+              </div>
+            )}
+
+            <p className="text-xs text-slate-300 leading-relaxed break-words">
               Are you sure you want to rollback the active production model to version{" "}
               <span className="font-mono font-bold text-cyan-300">{rollbackModalVersion}</span>?
             </p>
@@ -1301,7 +1652,10 @@ export default function AdminPage() {
             <div className="flex items-center justify-end space-x-3 pt-2">
               <button
                 id="cancel-rollback-btn"
-                onClick={() => setRollbackModalVersion(null)}
+                onClick={() => {
+                  setRollbackModalVersion(null);
+                  setRollbackModalError(null);
+                }}
                 disabled={rollbackLoading}
                 className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium transition-colors cursor-pointer"
               >
@@ -1326,6 +1680,46 @@ export default function AdminPage() {
                 )}
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Floating Viewport-Anchored Mobile & Desktop Toast Notification */}
+      {feedback && (
+        <div
+          id="viewport-feedback-toast"
+          className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-6 sm:max-w-md z-[100] animate-in slide-in-from-bottom-5 duration-300"
+        >
+          <div
+            className={`p-4 rounded-2xl border text-xs shadow-2xl backdrop-blur-xl flex items-start space-x-3 transition-all ${
+              feedback.type === "success"
+                ? "bg-emerald-950/95 border-emerald-500/60 text-emerald-100 shadow-emerald-950/60"
+                : feedback.type === "error"
+                ? "bg-rose-950/95 border-rose-500/60 text-rose-100 shadow-rose-950/60"
+                : "bg-slate-900/95 border-cyan-500/60 text-cyan-100 shadow-cyan-950/60"
+            }`}
+          >
+            {feedback.type === "success" ? (
+              <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+            ) : feedback.type === "error" ? (
+              <AlertTriangle className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />
+            ) : (
+              <Info className="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" />
+            )}
+            <div className="flex-1 font-mono text-[11px] sm:text-xs leading-relaxed break-words">
+              <div className="font-bold uppercase tracking-wider mb-0.5 text-white">
+                {feedback.type === "success" ? "Operation Successful" : feedback.type === "error" ? "System Error Alert" : "System Notification"}
+              </div>
+              <div className="text-slate-200">{feedback.message}</div>
+            </div>
+            <button
+              id="dismiss-viewport-toast"
+              onClick={() => setFeedback(null)}
+              className="p-1 rounded-lg hover:bg-white/10 text-slate-400 hover:text-white transition-colors cursor-pointer"
+              aria-label="Dismiss notification"
+            >
+              ✕
+            </button>
           </div>
         </div>
       )}

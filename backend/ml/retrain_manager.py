@@ -46,6 +46,7 @@ class RetrainManager:
         self.models_dir = os.path.join(self.base_dir, "models")
         self.versions_dir = os.path.join(self.models_dir, "versions")
         self.history_file = os.path.join(self.models_dir, "training_history.json")
+        self.rollback_file = os.path.join(self.models_dir, "rollback_history.json")
         self.on_model_promoted = on_model_promoted
 
         os.makedirs(self.versions_dir, exist_ok=True)
@@ -58,6 +59,9 @@ class RetrainManager:
     def _init_history_if_needed(self):
         if not os.path.exists(self.history_file):
             with open(self.history_file, "w", encoding="utf-8") as f:
+                json.dump([], f, indent=2)
+        if not os.path.exists(self.rollback_file):
+            with open(self.rollback_file, "w", encoding="utf-8") as f:
                 json.dump([], f, indent=2)
 
     def get_history(self) -> List[Dict[str, Any]]:
@@ -81,13 +85,45 @@ class RetrainManager:
         except Exception as e:
             print(f"[!] Error writing training history: {e}")
 
-    def get_versions(self) -> List[Dict[str, Any]]:
-        """List all archived model versions with their evaluation metrics."""
+    def get_rollback_history(self) -> List[Dict[str, Any]]:
+        """Return persistent audit ledger of model promotions and rollbacks."""
+        if os.path.exists(self.rollback_file):
+            try:
+                with open(self.rollback_file, "r", encoding="utf-8") as f:
+                    return json.load(f)
+            except Exception as e:
+                print(f"[!] Warning reading rollback history: {e}")
+                return []
+        return []
+
+    def _append_rollback_record(self, record: Dict[str, Any]):
+        """Persistently append a promotion or rollback transition record."""
+        history = self.get_rollback_history()
+        history.insert(0, record)  # Most recent first
+        history = history[:100]    # Keep last 100 transition events
+        try:
+            with open(self.rollback_file, "w", encoding="utf-8") as f:
+                json.dump(history, f, indent=2)
+        except Exception as e:
+            print(f"[!] Error writing rollback history: {e}")
+
+    def get_versions(self, model_filter: Optional[str] = None, all_artifacts: bool = False) -> List[Dict[str, Any]]:
+        """
+        List archived model versions or all individual candidate model artifacts.
+        Supports filtering by model name/type, and returning either version bundles
+        or a flat register of all candidate model artifacts across all runs.
+        """
         versions = []
         if not os.path.exists(self.versions_dir):
             return versions
 
         active_version = self._get_active_version()
+        filename_map = {
+            "Gradient Boosting Regressor": "gbr_model.joblib",
+            "Random Forest Regressor": "rf_model.joblib",
+            "Ridge Regression": "ridge_model.joblib",
+            "Simple Linear Regression (Baseline)": "baseline_model.joblib"
+        }
 
         for entry in os.listdir(self.versions_dir):
             v_path = os.path.join(self.versions_dir, entry)
@@ -96,16 +132,135 @@ class RetrainManager:
                 try:
                     with open(manifest_file, "r", encoding="utf-8") as f:
                         data = json.load(f)
-                        data["is_active"] = (data.get("version_id") == active_version)
+                        version_id = data.get("version_id", entry)
+                        is_active = (version_id == active_version)
+                        data["is_active"] = is_active
+                        data["status"] = "active" if is_active else "archived"
+                        if "model_type" not in data and "selected_algorithm" in data:
+                            data["model_type"] = data["selected_algorithm"]
+                        if "selected_model" not in data and "selected_algorithm" in data:
+                            data["selected_model"] = data["selected_algorithm"]
+                        if "artifact_location" not in data:
+                            data["artifact_location"] = f"versions/{entry}"
+                        if "artifacts" not in data:
+                            data["artifacts"] = sorted([f for f in os.listdir(v_path) if os.path.isfile(os.path.join(v_path, f))])
+                        # Ensure evaluation_metrics is present
+                        if "evaluation_metrics" not in data:
+                            data["evaluation_metrics"] = data.get("champion_metrics", {
+                                "cv_mae": data.get("cv_mae"),
+                                "cv_r2": data.get("cv_r2")
+                            })
+                        if "champion_metrics" not in data:
+                            data["champion_metrics"] = data.get("evaluation_metrics")
+
+                        # Build or sanitize candidate_artifacts for all 4 models
+                        candidate_artifacts = data.get("candidate_artifacts", [])
+                        if not candidate_artifacts:
+                            # Reconstruct candidate_artifacts from metrics.json benchmark
+                            metrics_file = os.path.join(v_path, "metrics.json")
+                            benchmark_list = []
+                            if os.path.exists(metrics_file):
+                                try:
+                                    with open(metrics_file, "r", encoding="utf-8") as mf:
+                                        m_info = json.load(mf)
+                                        benchmark_list = m_info.get("benchmark", [])
+                                except Exception:
+                                    pass
+
+                            if benchmark_list:
+                                for b in benchmark_list:
+                                    m_name = b.get("model", "Unknown")
+                                    f_name = filename_map.get(m_name, f"{m_name.lower().replace(' ', '_')}.joblib")
+                                    is_champ = (m_name == data.get("selected_model") or b.get("is_selected", False))
+                                    is_act = bool(is_champ and is_active)
+                                    short_id = f_name.replace(".joblib", "")
+                                    candidate_artifacts.append({
+                                        "artifact_id": f"{version_id}_{short_id}",
+                                        "version_id": version_id,
+                                        "model_name": m_name,
+                                        "model_type": m_name,
+                                        "algorithm": m_name,
+                                        "artifact_filename": f_name,
+                                        "artifact_location": f"versions/{entry}/{f_name}",
+                                        "cv_mae": b.get("cv_mae"),
+                                        "cv_mae_std": b.get("cv_mae_std"),
+                                        "cv_rmse": b.get("cv_rmse"),
+                                        "cv_rmse_std": b.get("cv_rmse_std"),
+                                        "cv_r2": b.get("cv_r2"),
+                                        "cv_r2_std": b.get("cv_r2_std"),
+                                        "test_mae": b.get("test_mae"),
+                                        "test_rmse": b.get("test_rmse"),
+                                        "test_r2": b.get("test_r2"),
+                                        "generalization_gap": b.get("generalization_gap"),
+                                        "fold_mae": b.get("fold_mae", []),
+                                        "fold_r2": b.get("fold_r2", []),
+                                        "is_champion": is_champ,
+                                        "is_active": is_act,
+                                        "role": "Champion (Production Active)" if is_act else ("Champion (Archived)" if is_champ else ("Baseline Standby" if "Baseline" in m_name else "Candidate Standby")),
+                                        "status": "active" if is_act else ("archived" if is_champ else "standby"),
+                                        "timestamp_utc": data.get("timestamp_utc"),
+                                        "timestamp_myt": data.get("timestamp_myt"),
+                                        "dataset_fingerprint": data.get("dataset_fingerprint"),
+                                        "record_count": data.get("record_count")
+                                    })
+                        else:
+                            # Update dynamic active/status flags on existing candidate_artifacts
+                            for cand in candidate_artifacts:
+                                is_champ = cand.get("is_champion", False)
+                                is_act = bool(is_champ and is_active)
+                                cand["is_active"] = is_act
+                                if is_act:
+                                    cand["role"] = "Champion (Production Active)"
+                                    cand["status"] = "active"
+                                elif is_champ:
+                                    cand["role"] = "Champion (Archived)"
+                                    cand["status"] = "archived"
+                                else:
+                                    cand["role"] = "Baseline Standby" if "Baseline" in cand.get("model_name", "") else "Candidate Standby"
+                                    cand["status"] = "standby"
+
+                        data["candidate_artifacts"] = candidate_artifacts
                         versions.append(data)
                 except Exception as e:
                     print(f"[!] Error reading manifest in {entry}: {e}")
 
         # Sort newest first
         versions.sort(key=lambda x: x.get("timestamp_utc", ""), reverse=True)
+
+        if all_artifacts:
+            flat_artifacts = []
+            for v in versions:
+                for cand in v.get("candidate_artifacts", []):
+                    if not model_filter or model_filter.lower() in cand.get("model_name", "").lower():
+                        flat_artifacts.append(cand)
+            return flat_artifacts
+
+        if model_filter:
+            filtered_versions = []
+            for v in versions:
+                matching_cands = [
+                    c for c in v.get("candidate_artifacts", [])
+                    if model_filter.lower() in c.get("model_name", "").lower()
+                ]
+                if matching_cands:
+                    v_copy = dict(v)
+                    v_copy["candidate_artifacts"] = matching_cands
+                    filtered_versions.append(v_copy)
+            return filtered_versions
+
         return versions
 
     def _get_active_version(self) -> str:
+        manifest_file = os.path.join(self.models_dir, "manifest.json")
+        if os.path.exists(manifest_file):
+            try:
+                with open(manifest_file, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                    if data.get("version_id"):
+                        return data["version_id"]
+            except Exception:
+                pass
+
         metrics_file = os.path.join(self.models_dir, "metrics.json")
         if os.path.exists(metrics_file):
             try:
@@ -115,6 +270,62 @@ class RetrainManager:
             except Exception:
                 pass
         return "v1.2.0-research"
+
+    def _build_metadata_payload(self, df_clean: pd.DataFrame, version_id: str) -> Dict[str, Any]:
+        """Compute statistical boundaries, categories, and autofill stats for runtime metadata."""
+        unique_models = sorted([str(m) for m in df_clean["Model"].dropna().unique() if str(m) != "Unknown"])
+        unique_gear_types = sorted([str(g) for g in df_clean["Gear_Type"].dropna().unique()])
+        unique_states = sorted([str(s) for s in df_clean["State"].dropna().unique() if str(s) != "Unknown"])
+
+        model_stats = {}
+        for m in unique_models:
+            subset = df_clean[df_clean["Model"] == m]
+            med_year = float(subset["Year"].median()) if not subset["Year"].dropna().empty else 2017.0
+            med_engine = float(subset["Engine_Size"].median()) if not subset["Engine_Size"].dropna().empty else 1.8
+            med_price = float(subset["List_Price"].median())
+            mean_price = float(subset["List_Price"].mean())
+            count = int(len(subset))
+            model_stats[m] = {
+                "default_year": int(med_year) if not np.isnan(med_year) else 2017,
+                "default_engine_size": round(med_engine, 1) if not np.isnan(med_engine) else 1.8,
+                "median_price": med_price,
+                "mean_price": mean_price,
+                "count": count
+            }
+
+        return {
+            "model_version": version_id,
+            "author": "University of Negros Occidental - Recoletos Research Team",
+            "target_variable": "List_Price",
+            "currency": "MYR (RM)",
+            "features": {
+                "numerical": [
+                    {"name": "Mileage", "description": "Odometer reading in kilometers", "unit": "KM", "min": float(df_clean["Mileage"].min()), "max": float(df_clean["Mileage"].max()), "median": float(df_clean["Mileage"].median())},
+                    {"name": "Vehicle_Age", "description": "Vehicle age calculated as 2024 - Year", "unit": "Years", "min": float(df_clean["Vehicle_Age"].min()), "max": float(df_clean["Vehicle_Age"].max()), "median": float(df_clean["Vehicle_Age"].median())},
+                    {"name": "Engine_Size", "description": "Engine displacement extracted in Liters", "unit": "L", "min": float(df_clean["Engine_Size"].min()), "max": float(df_clean["Engine_Size"].max()), "median": float(df_clean["Engine_Size"].median())},
+                    {"name": "Mileage_Per_Year", "description": "Average annual mileage intensity", "unit": "KM/Yr", "min": float(df_clean["Mileage_Per_Year"].min()), "max": float(df_clean["Mileage_Per_Year"].max()), "median": float(df_clean["Mileage_Per_Year"].median())}
+                ],
+                "categorical": [
+                    {"name": "Brand", "description": "Vehicle manufacturer brand", "total_categories": int(df_clean["Brand"].nunique())},
+                    {"name": "Model", "description": "Vehicle brand and model name", "total_categories": len(unique_models)},
+                    {"name": "Gear_Type", "description": "Transmission type (e.g. Automatic, Manual)", "categories": unique_gear_types},
+                    {"name": "State", "description": "Malaysian state/federal territory extracted from location", "categories": unique_states}
+                ]
+            },
+            "available_models": unique_models,
+            "available_gear_types": unique_gear_types,
+            "available_states": unique_states,
+            "model_lookup": model_stats,
+            "summary": {
+                "total_listings": int(len(df_clean)),
+                "average_price": float(df_clean["List_Price"].mean()),
+                "median_price": float(df_clean["List_Price"].median()),
+                "min_price": float(df_clean["List_Price"].min()),
+                "max_price": float(df_clean["List_Price"].max()),
+                "average_mileage": float(df_clean["Mileage"].mean()),
+                "median_mileage": float(df_clean["Mileage"].median())
+            }
+        }
 
     def get_status(self) -> Dict[str, Any]:
         """Return the current scheduler and training state."""
@@ -322,7 +533,10 @@ class RetrainManager:
                         "cv_rmse": cv_rmse,
                         "cv_rmse_std": cv_rmse_std,
                         "cv_r2": cv_r2,
-                        "cv_r2_std": cv_r2_std
+                        "cv_r2_std": cv_r2_std,
+                        "fold_mae": [float(-s) for s in scores['test_mae']],
+                        "fold_r2": [float(s) for s in scores['test_r2']],
+                        "fold_rmse": [float(-s) for s in scores['test_rmse']]
                     }
 
                     # Fit full training set and evaluate holdout test
@@ -382,7 +596,8 @@ class RetrainManager:
                     "residual_error": float(residuals.loc[idx])
                 })
 
-            # 9. Version Archiving
+            # 9. Version Archiving with Full Metadata and Rollback Tracking
+            previous_version_id = self._get_active_version()
             version_id = f"v_{now_myt.strftime('%Y%m%d_%H%M%S')}"
             version_dir = os.path.join(self.versions_dir, version_id)
             os.makedirs(version_dir, exist_ok=True)
@@ -443,29 +658,138 @@ class RetrainManager:
             with open(os.path.join(version_dir, "metrics.json"), "w", encoding="utf-8") as f:
                 json.dump(metrics_data, f, indent=2)
 
-            # Save version manifest
+            # Generate and archive metadata.json (statistical boundaries and UI lookups)
+            metadata_payload = self._build_metadata_payload(df_clean, version_id)
+            with open(os.path.join(version_dir, "metadata.json"), "w", encoding="utf-8") as f:
+                json.dump(metadata_payload, f, indent=2)
+
+            # Comprehensive evaluation metrics for champion model
+            champion_eval_metrics = {
+                "cv_mae": champion_cv_mae,
+                "cv_mae_std": cv_results[champion_name]["cv_mae_std"],
+                "cv_rmse": cv_results[champion_name]["cv_rmse"],
+                "cv_rmse_std": cv_results[champion_name]["cv_rmse_std"],
+                "cv_r2": champion_cv_r2,
+                "cv_r2_std": cv_results[champion_name]["cv_r2_std"],
+                "test_mae": test_results[champion_name]["test_mae"],
+                "test_rmse": test_results[champion_name]["test_rmse"],
+                "test_r2": test_results[champion_name]["test_r2"],
+                "generalization_gap": test_results[champion_name]["generalization_gap"]
+            }
+
+            saved_artifacts = [filename_map.get(m, f"{m.lower().replace(' ', '_')}.joblib") for m in trained_models.keys()]
+            saved_artifacts.extend(["metrics.json", "metadata.json", "manifest.json"])
+
+            # 9b. Register all 4 Candidate Model Artifacts with unique persistent identifiers
+            candidate_artifacts = []
+            for m_name in candidate_pipelines.keys():
+                f_name = filename_map.get(m_name, f"{m_name.lower().replace(' ', '_')}.joblib")
+                is_champion = (m_name == champion_name)
+                m_cv = cv_results.get(m_name, {})
+                m_test = test_results.get(m_name, {})
+                short_id = f_name.replace(".joblib", "")
+                candidate_artifacts.append({
+                    "artifact_id": f"{version_id}_{short_id}",
+                    "version_id": version_id,
+                    "run_id": run_id,
+                    "model_name": m_name,
+                    "model_type": m_name,
+                    "algorithm": m_name,
+                    "artifact_filename": f_name,
+                    "artifact_location": f"versions/{version_id}/{f_name}",
+                    "cv_mae": m_cv.get("cv_mae"),
+                    "cv_mae_std": m_cv.get("cv_mae_std"),
+                    "cv_rmse": m_cv.get("cv_rmse"),
+                    "cv_rmse_std": m_cv.get("cv_rmse_std"),
+                    "cv_r2": m_cv.get("cv_r2"),
+                    "cv_r2_std": m_cv.get("cv_r2_std"),
+                    "test_mae": m_test.get("test_mae"),
+                    "test_rmse": m_test.get("test_rmse"),
+                    "test_r2": m_test.get("test_r2"),
+                    "generalization_gap": m_test.get("generalization_gap"),
+                    "fold_mae": m_cv.get("fold_mae", []),
+                    "fold_r2": m_cv.get("fold_r2", []),
+                    "is_champion": is_champion,
+                    "is_active": is_champion,
+                    "role": "Champion (Production Active)" if is_champion else ("Baseline Standby" if "Baseline" in m_name else "Candidate Standby"),
+                    "status": "active" if is_champion else "candidate",
+                    "timestamp_utc": now_utc.isoformat(),
+                    "timestamp_myt": now_myt.isoformat(),
+                    "dataset_fingerprint": current_fingerprint,
+                    "record_count": len(df_clean)
+                })
+
+            # Save comprehensive version manifest
             manifest = {
                 "version_id": version_id,
                 "timestamp_utc": now_utc.isoformat(),
                 "timestamp_myt": now_myt.isoformat(),
+                "model_type": champion_name,
                 "selected_algorithm": champion_name,
+                "selected_model": champion_name,
+                "previous_version_id": previous_version_id,
+                "artifact_location": f"versions/{version_id}",
+                "artifacts": saved_artifacts,
+                "candidate_artifacts": candidate_artifacts,
                 "dataset_fingerprint": current_fingerprint,
                 "record_count": len(df_clean),
                 "cv_mae": champion_cv_mae,
                 "cv_r2": champion_cv_r2,
+                "evaluation_metrics": champion_eval_metrics,
+                "champion_metrics": champion_eval_metrics,
                 "models_trained": list(trained_models.keys()),
                 "status": "active"
             }
             with open(os.path.join(version_dir, "manifest.json"), "w", encoding="utf-8") as f:
                 json.dump(manifest, f, indent=2)
 
-            # 10. Atomic Model Promotion to Production
+            # 10. Atomic Model Promotion to Production with Staging Backup
             self.current_job["progress"] = "Promoting new candidate to active production model..."
-            for f_name in os.listdir(version_dir):
-                src = os.path.join(version_dir, f_name)
-                dst = os.path.join(self.models_dir, f_name)
-                if os.path.isfile(src):
-                    shutil.copy2(src, dst)
+            staging_backup = os.path.join(self.models_dir, ".staging_promotion_backup")
+            if os.path.exists(staging_backup):
+                shutil.rmtree(staging_backup, ignore_errors=True)
+            os.makedirs(staging_backup, exist_ok=True)
+
+            try:
+                # Stage backup of current active production files
+                for f_name in os.listdir(self.models_dir):
+                    src_f = os.path.join(self.models_dir, f_name)
+                    if os.path.isfile(src_f):
+                        shutil.copy2(src_f, os.path.join(staging_backup, f_name))
+
+                # Copy version artifacts to active production models directory
+                for f_name in os.listdir(version_dir):
+                    src = os.path.join(version_dir, f_name)
+                    dst = os.path.join(self.models_dir, f_name)
+                    if os.path.isfile(src):
+                        shutil.copy2(src, dst)
+
+                # Set older versions in archive to 'archived' status
+                for entry in os.listdir(self.versions_dir):
+                    if entry != version_id:
+                        old_manifest = os.path.join(self.versions_dir, entry, "manifest.json")
+                        if os.path.exists(old_manifest):
+                            try:
+                                with open(old_manifest, "r", encoding="utf-8") as mf:
+                                    m_data = json.load(mf)
+                                m_data["status"] = "archived"
+                                with open(old_manifest, "w", encoding="utf-8") as mf:
+                                    json.dump(m_data, mf, indent=2)
+                            except Exception:
+                                pass
+
+                # Clean staging backup
+                shutil.rmtree(staging_backup, ignore_errors=True)
+
+            except Exception as promo_err:
+                print(f"[!] Promotion failed: {promo_err}. Restoring production files from backup...")
+                for b_file in os.listdir(staging_backup):
+                    shutil.copy2(os.path.join(staging_backup, b_file), os.path.join(self.models_dir, b_file))
+                shutil.rmtree(staging_backup, ignore_errors=True)
+                # Purge incomplete version dir so no corrupt version is listed
+                if os.path.exists(version_dir):
+                    shutil.rmtree(version_dir, ignore_errors=True)
+                raise RuntimeError(f"Atomic promotion failed: {promo_err}")
 
             # Trigger FastAPI in-memory model reload callback
             if self.on_model_promoted:
@@ -475,11 +799,14 @@ class RetrainManager:
                     print(f"[!] Warning reloading active FastAPI models: {e}")
 
             duration = round(time.time() - start_time, 2)
-            action_msg = f"Promoted new model version '{version_id}' ({champion_name}) with CV MAE RM {champion_cv_mae:,.2f}"
+            action_msg = f"Promoted new model version '{version_id}' ({champion_name}) replacing '{previous_version_id}' with CV MAE RM {champion_cv_mae:,.2f}"
 
+            # Persistent Audit Log Record
             record = {
                 "run_id": run_id,
                 "version_id": version_id,
+                "previous_version_id": previous_version_id,
+                "new_version_id": version_id,
                 "timestamp_utc": now_utc.isoformat(),
                 "timestamp_myt": now_myt.isoformat(),
                 "trigger": trigger,
@@ -488,8 +815,11 @@ class RetrainManager:
                 "status": "completed",
                 "duration_seconds": duration,
                 "selected_model": champion_name,
+                "model_type": champion_name,
                 "champion_cv_mae": champion_cv_mae,
                 "champion_cv_r2": champion_cv_r2,
+                "evaluation_metrics": champion_eval_metrics,
+                "artifact_location": f"versions/{version_id}",
                 "dataset_fingerprint": current_fingerprint,
                 "dataset_validation": {
                     "status": "VALID",
@@ -501,15 +831,40 @@ class RetrainManager:
                 "message": "Model retraining and champion evaluation completed successfully."
             }
             self._append_history(record)
+
+            # Persistent Rollback & Deployment Ledger Record
+            rollback_entry = {
+                "event_id": f"evt_promote_{now_myt.strftime('%Y%m%d_%H%M%S')}_{now_myt.microsecond // 1000:03d}",
+                "event_type": "PROMOTION",
+                "timestamp_utc": now_utc.isoformat(),
+                "timestamp_myt": now_myt.isoformat(),
+                "previous_version_id": previous_version_id,
+                "new_version_id": version_id,
+                "deployed_version_id": version_id,
+                "model_type": champion_name,
+                "cv_mae": champion_cv_mae,
+                "cv_r2": champion_cv_r2,
+                "evaluation_metrics": champion_eval_metrics,
+                "artifact_location": f"versions/{version_id}",
+                "trigger": trigger,
+                "status": "deployed",
+                "message": f"Successfully promoted new model version '{version_id}' ({champion_name}) replacing '{previous_version_id}'"
+            }
+            self._append_rollback_record(rollback_entry)
+
             print(f"[{run_id}] Retraining completed in {duration}s: {action_msg}")
 
             return {
                 "success": True,
                 "status": "completed",
                 "version_id": version_id,
+                "previous_version_id": previous_version_id,
                 "selected_model": champion_name,
+                "model_type": champion_name,
                 "cv_mae": champion_cv_mae,
                 "cv_r2": champion_cv_r2,
+                "evaluation_metrics": champion_eval_metrics,
+                "artifact_location": f"versions/{version_id}",
                 "duration_seconds": duration,
                 "message": action_msg,
                 "record": record
@@ -519,6 +874,11 @@ class RetrainManager:
             duration = round(time.time() - start_time, 2)
             err_msg = str(e)
             print(f"[{run_id}] Retraining failed: {err_msg}")
+
+            # Clean up version directory if it was created during this failed run
+            if 'version_dir' in locals() and os.path.exists(version_dir):
+                shutil.rmtree(version_dir, ignore_errors=True)
+
             fail_record = {
                 "run_id": run_id,
                 "timestamp_utc": now_utc.isoformat(),
@@ -528,6 +888,7 @@ class RetrainManager:
                 "data_changed": False,
                 "status": "failed",
                 "duration_seconds": duration,
+                "previous_version_id": self._get_active_version(),
                 "action": "Retained active production model due to error",
                 "error": err_msg,
                 "message": f"Retraining failed: {err_msg}"
@@ -549,7 +910,8 @@ class RetrainManager:
     def rollback_to_version(self, target_version_id: str) -> Dict[str, Any]:
         """
         Rollback active production model to a previously archived version.
-        Validates artifact presence and sanity before atomic activation.
+        Validates artifact presence and sanity before atomic activation,
+        and persistently records the rollback transition.
         """
         if not self.lock.acquire(blocking=False):
             return {
@@ -559,6 +921,17 @@ class RetrainManager:
             }
 
         try:
+            previous_version_id = self._get_active_version()
+            if target_version_id == previous_version_id:
+                return {
+                    "success": True,
+                    "status": "already_active",
+                    "version": target_version_id,
+                    "active_version": target_version_id,
+                    "previous_version_id": previous_version_id,
+                    "message": f"Model version '{target_version_id}' is already the currently active production model."
+                }
+
             target_dir = os.path.join(self.versions_dir, target_version_id)
             if not os.path.exists(target_dir):
                 return {
@@ -580,11 +953,14 @@ class RetrainManager:
 
             # Verify that at least one model exists and can be loaded
             test_pipe = None
-            for fname in ["gbr_model.joblib", "rf_model.joblib", "ridge_model.joblib"]:
+            for fname in ["gbr_model.joblib", "rf_model.joblib", "ridge_model.joblib", "baseline_model.joblib"]:
                 candidate_file = os.path.join(target_dir, fname)
                 if os.path.exists(candidate_file):
-                    test_pipe = joblib.load(candidate_file)
-                    break
+                    try:
+                        test_pipe = joblib.load(candidate_file)
+                        break
+                    except Exception as load_ex:
+                        print(f"[!] Warning testing artifact {fname}: {load_ex}")
 
             if test_pipe is None:
                 return {
@@ -593,12 +969,83 @@ class RetrainManager:
                     "message": f"Version '{target_version_id}' has no valid model joblib artifacts."
                 }
 
-            # Atomic copy to active models directory
-            for f_name in os.listdir(target_dir):
-                src = os.path.join(target_dir, f_name)
-                dst = os.path.join(self.models_dir, f_name)
-                if os.path.isfile(src):
-                    shutil.copy2(src, dst)
+            # Atomic copy to active models directory using staging backup
+            staging_backup = os.path.join(self.models_dir, ".staging_rollback_backup")
+            if os.path.exists(staging_backup):
+                shutil.rmtree(staging_backup, ignore_errors=True)
+            os.makedirs(staging_backup, exist_ok=True)
+
+            now_utc = datetime.now(timezone.utc)
+            now_myt = now_utc.astimezone(MYT_TIMEZONE)
+
+            try:
+                # Stage backup of current active production files
+                for fname in os.listdir(self.models_dir):
+                    fpath = os.path.join(self.models_dir, fname)
+                    if os.path.isfile(fpath):
+                        shutil.copy2(fpath, os.path.join(staging_backup, fname))
+
+                # Copy all artifacts from target_dir to active models directory
+                for f_name in os.listdir(target_dir):
+                    src = os.path.join(target_dir, f_name)
+                    dst = os.path.join(self.models_dir, f_name)
+                    if os.path.isfile(src):
+                        shutil.copy2(src, dst)
+
+                # Ensure metadata.json exists in active models directory
+                prod_meta = os.path.join(self.models_dir, "metadata.json")
+                if not os.path.exists(prod_meta):
+                    backup_meta = os.path.join(staging_backup, "metadata.json")
+                    if os.path.exists(backup_meta):
+                        shutil.copy2(backup_meta, prod_meta)
+
+                # Update manifests across version archive
+                for entry in os.listdir(self.versions_dir):
+                    v_manifest = os.path.join(self.versions_dir, entry, "manifest.json")
+                    if os.path.exists(v_manifest):
+                        try:
+                            with open(v_manifest, "r", encoding="utf-8") as vf:
+                                v_data = json.load(vf)
+                            v_data["status"] = "active" if entry == target_version_id else "archived"
+                            if "candidate_artifacts" in v_data:
+                                for cand in v_data["candidate_artifacts"]:
+                                    is_champ = cand.get("is_champion", False)
+                                    is_act = bool(is_champ and entry == target_version_id)
+                                    cand["is_active"] = is_act
+                                    cand["status"] = "active" if is_act else ("archived" if is_champ else "candidate")
+                            with open(v_manifest, "w", encoding="utf-8") as vf:
+                                json.dump(v_data, vf, indent=2)
+                        except Exception:
+                            pass
+
+                # Update active manifest in self.models_dir
+                prod_manifest_path = os.path.join(self.models_dir, "manifest.json")
+                if os.path.exists(prod_manifest_path):
+                    try:
+                        with open(prod_manifest_path, "r", encoding="utf-8") as mf:
+                            prod_manifest = json.load(mf)
+                        prod_manifest["status"] = "active"
+                        prod_manifest["previous_version_id"] = previous_version_id
+                        prod_manifest["restored_at_utc"] = now_utc.isoformat()
+                        prod_manifest["restored_at_myt"] = now_myt.isoformat()
+                        with open(prod_manifest_path, "w", encoding="utf-8") as mf:
+                            json.dump(prod_manifest, mf, indent=2)
+                    except Exception:
+                        pass
+
+                # Clean up staging backup
+                shutil.rmtree(staging_backup, ignore_errors=True)
+
+            except Exception as copy_err:
+                # Restore production from backup
+                for b_file in os.listdir(staging_backup):
+                    shutil.copy2(os.path.join(staging_backup, b_file), os.path.join(self.models_dir, b_file))
+                shutil.rmtree(staging_backup, ignore_errors=True)
+                return {
+                    "success": False,
+                    "status": "error",
+                    "message": f"Rollback failed during artifact copying: {copy_err}. Production model remained intact."
+                }
 
             # Reload FastAPI in-memory models
             if self.on_model_promoted:
@@ -607,28 +1054,55 @@ class RetrainManager:
                 except Exception as e:
                     print(f"[!] Warning reloading models during rollback: {e}")
 
-            now_utc = datetime.now(timezone.utc)
-            now_myt = now_utc.astimezone(MYT_TIMEZONE)
+            selected_model_name = (
+                target_manifest.get("model_type")
+                or target_manifest.get("selected_model")
+                or target_manifest.get("selected_algorithm", "Unknown")
+            )
 
             rollback_record = {
-                "run_id": f"rollback_{now_myt.strftime('%Y%m%d_%H%M%S')}",
+                "run_id": f"rollback_{now_myt.strftime('%Y%m%d_%H%M%S')}_{now_myt.microsecond // 1000:03d}",
                 "timestamp_utc": now_utc.isoformat(),
                 "timestamp_myt": now_myt.isoformat(),
                 "trigger": "admin_rollback",
                 "status": "completed",
-                "action": f"Rolled back active model to '{target_version_id}'",
+                "action": f"Rolled back active model from '{previous_version_id}' to '{target_version_id}'",
                 "version_id": target_version_id,
-                "selected_model": target_manifest.get("selected_algorithm", "Unknown"),
+                "previous_version_id": previous_version_id,
+                "new_version_id": target_version_id,
+                "selected_model": selected_model_name,
+                "model_type": selected_model_name,
                 "duration_seconds": 0.5,
-                "message": f"Successfully restored model version {target_version_id}"
+                "message": f"Successfully restored model version {target_version_id} (reverted from {previous_version_id})"
             }
             self._append_history(rollback_record)
+
+            rollback_entry = {
+                "event_id": f"evt_rollback_{now_myt.strftime('%Y%m%d_%H%M%S')}_{now_myt.microsecond // 1000:03d}",
+                "event_type": "ROLLBACK",
+                "timestamp_utc": now_utc.isoformat(),
+                "timestamp_myt": now_myt.isoformat(),
+                "previous_version_id": previous_version_id,
+                "new_version_id": target_version_id,
+                "deployed_version_id": target_version_id,
+                "model_type": selected_model_name,
+                "cv_mae": target_manifest.get("cv_mae"),
+                "cv_r2": target_manifest.get("cv_r2"),
+                "artifact_location": f"versions/{target_version_id}",
+                "trigger": "admin_rollback",
+                "status": "restored",
+                "message": f"Successfully rolled back production model from '{previous_version_id}' to '{target_version_id}'"
+            }
+            self._append_rollback_record(rollback_entry)
 
             return {
                 "success": True,
                 "status": "rolled_back",
+                "version": target_version_id,
                 "active_version": target_version_id,
-                "message": f"Production model successfully restored to version {target_version_id}"
+                "previous_version_id": previous_version_id,
+                "selected_model": selected_model_name,
+                "message": f"Production model successfully restored to version {target_version_id} (reverted from {previous_version_id})"
             }
 
         finally:

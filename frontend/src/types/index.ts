@@ -244,12 +244,44 @@ export interface PaginatedTrainingHistoryResponse {
   has_prev: boolean;
 }
 
+export interface CandidateArtifactItem {
+  artifact_id: string;
+  version_id: string;
+  run_id?: string;
+  model_name: string;
+  model_type: string;
+  algorithm?: string;
+  artifact_filename: string;
+  artifact_location: string;
+  cv_mae?: number;
+  cv_mae_std?: number;
+  cv_rmse?: number;
+  cv_rmse_std?: number;
+  cv_r2?: number;
+  cv_r2_std?: number;
+  test_mae?: number;
+  test_rmse?: number;
+  test_r2?: number;
+  generalization_gap?: number;
+  fold_mae?: number[];
+  fold_r2?: number[];
+  is_champion: boolean;
+  is_active: boolean;
+  role: string;
+  status: string;
+  timestamp_utc?: string;
+  timestamp_myt?: string;
+  dataset_fingerprint?: string;
+  record_count?: number;
+}
+
 export interface ModelVersionItem {
   version_id: string;
   timestamp_utc: string;
   timestamp_myt: string;
   dataset_fingerprint: string;
   record_count: number;
+  model_type?: string;
   selected_algorithm?: string;
   selected_model?: string;
   cv_mae?: number;
@@ -263,6 +295,7 @@ export interface ModelVersionItem {
     test_r2: number;
   };
   benchmark?: BenchmarkModel[];
+  candidate_artifacts?: CandidateArtifactItem[];
   artifacts?: string[];
   status?: string;
   is_active: boolean;

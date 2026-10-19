@@ -6,6 +6,9 @@ and final evaluation on 20% untouched Holdout Test Split.
 
 import os
 import json
+import hashlib
+from datetime import datetime, timezone
+import pytz
 # pyrefly: ignore[missing-import]
 import joblib
 # pyrefly: ignore[missing-import]
@@ -198,12 +201,52 @@ def train_and_benchmark(
             "residual_error": float(residuals.loc[idx])
         })
 
-    # 10. Persist Artifacts
-    # Save pipelines
-    joblib.dump(gbr_pipeline, os.path.join(output_dir, "gbr_model.joblib"))
-    joblib.dump(rf_pipeline, os.path.join(output_dir, "rf_model.joblib"))
-    joblib.dump(ridge_pipeline, os.path.join(output_dir, "ridge_model.joblib"))
-    joblib.dump(baseline_pipeline, os.path.join(output_dir, "baseline_model.joblib"))
+    # 10. Persist Artifacts with Unique Versioning and Rollback History
+    MYT_TIMEZONE = pytz.timezone("Asia/Kuala_Lumpur")
+    now_utc = datetime.now(timezone.utc)
+    now_myt = now_utc.astimezone(MYT_TIMEZONE)
+    version_id = f"v_{now_myt.strftime('%Y%m%d_%H%M%S')}"
+
+    # Determine active previous version
+    previous_version_id = "v1.2.0-research"
+    manifest_prod_path = os.path.join(output_dir, "manifest.json")
+    if os.path.exists(manifest_prod_path):
+        try:
+            with open(manifest_prod_path, "r", encoding="utf-8") as f:
+                p_data = json.load(f)
+                if p_data.get("version_id"):
+                    previous_version_id = p_data["version_id"]
+        except Exception:
+            pass
+    elif os.path.exists(os.path.join(output_dir, "metrics.json")):
+        try:
+            with open(os.path.join(output_dir, "metrics.json"), "r", encoding="utf-8") as f:
+                p_data = json.load(f)
+                if p_data.get("model_version"):
+                    previous_version_id = p_data["model_version"]
+        except Exception:
+            pass
+
+    # Compute dataset fingerprint
+    dataset_sha256 = audit_info.get("sha256_fingerprint", "")
+    if not dataset_sha256 and os.path.exists(data_path):
+        with open(data_path, "rb") as f:
+            dataset_sha256 = hashlib.sha256(f.read()).hexdigest()
+
+    versions_dir = os.path.join(output_dir, "versions")
+    version_dir = os.path.join(versions_dir, version_id)
+    os.makedirs(version_dir, exist_ok=True)
+
+    # Save pipelines to version directory and output_dir
+    models_saved_map = {
+        "gbr_model.joblib": gbr_pipeline,
+        "rf_model.joblib": rf_pipeline,
+        "ridge_model.joblib": ridge_pipeline,
+        "baseline_model.joblib": baseline_pipeline
+    }
+    for fname, model_obj in models_saved_map.items():
+        joblib.dump(model_obj, os.path.join(version_dir, fname))
+        joblib.dump(model_obj, os.path.join(output_dir, fname))
 
     # Prepare Metrics Summary
     benchmark_data = []
@@ -225,7 +268,7 @@ def train_and_benchmark(
 
     metrics_payload = {
         "selected_model": selected_model_name,
-        "model_version": "v1.2.0-research",
+        "model_version": version_id,
         "random_state": RANDOM_STATE,
         "train_size": len(X_train),
         "test_size": len(X_test),
@@ -239,6 +282,8 @@ def train_and_benchmark(
         }
     }
 
+    with open(os.path.join(version_dir, "metrics.json"), "w", encoding="utf-8") as f:
+        json.dump(metrics_payload, f, indent=2)
     with open(os.path.join(output_dir, "metrics.json"), "w", encoding="utf-8") as f:
         json.dump(metrics_payload, f, indent=2)
 
@@ -265,7 +310,7 @@ def train_and_benchmark(
         }
 
     metadata_payload = {
-        "model_version": "v1.2.0-research",
+        "model_version": version_id,
         "author": "University of Negros Occidental - Recoletos Research Team",
         "target_variable": "List_Price",
         "currency": "MYR (RM)",
@@ -298,10 +343,183 @@ def train_and_benchmark(
         }
     }
 
+    with open(os.path.join(version_dir, "metadata.json"), "w", encoding="utf-8") as f:
+        json.dump(metadata_payload, f, indent=2)
     with open(os.path.join(output_dir, "metadata.json"), "w", encoding="utf-8") as f:
         json.dump(metadata_payload, f, indent=2)
 
-    print(f"\nAll artifacts saved successfully to {output_dir}/")
+    # 12. Persist Version Manifest and Deployment/Rollback Records
+    champion_eval_metrics = {
+        "cv_mae": cv_results[selected_model_name]["cv_mae_mean"],
+        "cv_mae_std": cv_results[selected_model_name]["cv_mae_std"],
+        "cv_rmse": cv_results[selected_model_name]["cv_rmse_mean"],
+        "cv_rmse_std": cv_results[selected_model_name]["cv_rmse_std"],
+        "cv_r2": cv_results[selected_model_name]["cv_r2_mean"],
+        "cv_r2_std": cv_results[selected_model_name]["cv_r2_std"],
+        "test_mae": test_results[selected_model_name]["test_mae"],
+        "test_rmse": test_results[selected_model_name]["test_rmse"],
+        "test_r2": test_results[selected_model_name]["test_r2"],
+        "generalization_gap": test_results[selected_model_name]["generalization_gap_mae"]
+    }
+
+    saved_artifacts = list(models_saved_map.keys()) + ["metrics.json", "metadata.json", "manifest.json"]
+
+    candidate_artifacts = []
+    inv_filename_map = {
+        "Gradient Boosting Regressor": "gbr_model.joblib",
+        "Random Forest Regressor": "rf_model.joblib",
+        "Ridge Regression": "ridge_model.joblib",
+        "Simple Linear Regression (Baseline)": "baseline_model.joblib"
+    }
+    for m_name in models.keys():
+        f_name = inv_filename_map.get(m_name, f"{m_name.lower().replace(' ', '_')}.joblib")
+        is_champ = (m_name == selected_model_name)
+        m_cv = cv_results.get(m_name, {})
+        m_test = test_results.get(m_name, {})
+        short_id = f_name.replace(".joblib", "")
+        candidate_artifacts.append({
+            "artifact_id": f"{version_id}_{short_id}",
+            "version_id": version_id,
+            "run_id": f"run_{now_myt.strftime('%Y%m%d_%H%M%S')}_000",
+            "model_name": m_name,
+            "model_type": m_name,
+            "algorithm": m_name,
+            "artifact_filename": f_name,
+            "artifact_location": f"versions/{version_id}/{f_name}",
+            "cv_mae": m_cv.get("cv_mae_mean"),
+            "cv_mae_std": m_cv.get("cv_mae_std"),
+            "cv_rmse": m_cv.get("cv_rmse_mean"),
+            "cv_rmse_std": m_cv.get("cv_rmse_std"),
+            "cv_r2": m_cv.get("cv_r2_mean"),
+            "cv_r2_std": m_cv.get("cv_r2_std"),
+            "test_mae": m_test.get("test_mae"),
+            "test_rmse": m_test.get("test_rmse"),
+            "test_r2": m_test.get("test_r2"),
+            "generalization_gap": m_test.get("generalization_gap_mae"),
+            "is_champion": is_champ,
+            "is_active": is_champ,
+            "role": "Champion (Production Active)" if is_champ else ("Baseline Standby" if "Baseline" in m_name else "Candidate Standby"),
+            "status": "active" if is_champ else "candidate",
+            "timestamp_utc": now_utc.isoformat(),
+            "timestamp_myt": now_myt.isoformat(),
+            "dataset_fingerprint": dataset_sha256,
+            "record_count": len(df_clean)
+        })
+
+    manifest_payload = {
+        "version_id": version_id,
+        "timestamp_utc": now_utc.isoformat(),
+        "timestamp_myt": now_myt.isoformat(),
+        "model_type": selected_model_name,
+        "selected_algorithm": selected_model_name,
+        "selected_model": selected_model_name,
+        "previous_version_id": previous_version_id,
+        "artifact_location": f"versions/{version_id}",
+        "artifacts": saved_artifacts,
+        "candidate_artifacts": candidate_artifacts,
+        "dataset_fingerprint": dataset_sha256,
+        "record_count": len(df_clean),
+        "cv_mae": cv_results[selected_model_name]["cv_mae_mean"],
+        "cv_r2": cv_results[selected_model_name]["cv_r2_mean"],
+        "evaluation_metrics": champion_eval_metrics,
+        "champion_metrics": champion_eval_metrics,
+        "models_trained": list(models.keys()),
+        "status": "active"
+    }
+
+    with open(os.path.join(version_dir, "manifest.json"), "w", encoding="utf-8") as f:
+        json.dump(manifest_payload, f, indent=2)
+    with open(os.path.join(output_dir, "manifest.json"), "w", encoding="utf-8") as f:
+        json.dump(manifest_payload, f, indent=2)
+
+    # Update previous version manifests to 'archived'
+    for entry in os.listdir(versions_dir):
+        if entry != version_id:
+            old_mf = os.path.join(versions_dir, entry, "manifest.json")
+            if os.path.exists(old_mf):
+                try:
+                    with open(old_mf, "r", encoding="utf-8") as f:
+                        old_data = json.load(f)
+                    old_data["status"] = "archived"
+                    with open(old_mf, "w", encoding="utf-8") as f:
+                        json.dump(old_data, f, indent=2)
+                except Exception:
+                    pass
+
+    # Audit History Record
+    history_file = os.path.join(output_dir, "training_history.json")
+    history_list = []
+    if os.path.exists(history_file):
+        try:
+            with open(history_file, "r", encoding="utf-8") as f:
+                history_list = json.load(f)
+        except Exception:
+            history_list = []
+
+    history_record = {
+        "run_id": f"run_{now_myt.strftime('%Y%m%d_%H%M%S')}_000",
+        "version_id": version_id,
+        "previous_version_id": previous_version_id,
+        "new_version_id": version_id,
+        "timestamp_utc": now_utc.isoformat(),
+        "timestamp_myt": now_myt.isoformat(),
+        "trigger": "train_and_benchmark",
+        "force_retraining": True,
+        "data_changed": True,
+        "status": "completed",
+        "duration_seconds": 0.0,
+        "selected_model": selected_model_name,
+        "model_type": selected_model_name,
+        "champion_cv_mae": cv_results[selected_model_name]["cv_mae_mean"],
+        "champion_cv_r2": cv_results[selected_model_name]["cv_r2_mean"],
+        "evaluation_metrics": champion_eval_metrics,
+        "artifact_location": f"versions/{version_id}",
+        "dataset_fingerprint": dataset_sha256,
+        "dataset_validation": {
+            "status": "VALID",
+            "row_count": len(df_clean),
+            "target_leakage_purged": audit_info.get("target_leakage_purged", True)
+        },
+        "record_count": len(df_clean),
+        "action": f"Promoted new model version '{version_id}' ({selected_model_name}) replacing '{previous_version_id}'",
+        "message": "Model retraining and champion evaluation completed successfully."
+    }
+    history_list.insert(0, history_record)
+    with open(history_file, "w", encoding="utf-8") as f:
+        json.dump(history_list[:50], f, indent=2)
+
+    # Rollback and Deployment Ledger Record
+    rollback_file = os.path.join(output_dir, "rollback_history.json")
+    rollback_list = []
+    if os.path.exists(rollback_file):
+        try:
+            with open(rollback_file, "r", encoding="utf-8") as f:
+                rollback_list = json.load(f)
+        except Exception:
+            rollback_list = []
+
+    rollback_record = {
+        "event_id": f"evt_promote_{now_myt.strftime('%Y%m%d_%H%M%S')}_000",
+        "event_type": "PROMOTION",
+        "timestamp_utc": now_utc.isoformat(),
+        "timestamp_myt": now_myt.isoformat(),
+        "previous_version_id": previous_version_id,
+        "new_version_id": version_id,
+        "deployed_version_id": version_id,
+        "model_type": selected_model_name,
+        "cv_mae": cv_results[selected_model_name]["cv_mae_mean"],
+        "cv_r2": cv_results[selected_model_name]["cv_r2_mean"],
+        "evaluation_metrics": champion_eval_metrics,
+        "artifact_location": f"versions/{version_id}",
+        "trigger": "train_and_benchmark",
+        "status": "deployed",
+        "message": f"Successfully promoted new model version '{version_id}' ({selected_model_name}) replacing '{previous_version_id}'"
+    }
+    rollback_list.insert(0, rollback_record)
+    with open(rollback_file, "w", encoding="utf-8") as f:
+        json.dump(rollback_list[:100], f, indent=2)
+
+    print(f"\nAll artifacts and version records saved successfully for {version_id} to {output_dir}/")
     return metrics_payload
 
 if __name__ == "__main__":

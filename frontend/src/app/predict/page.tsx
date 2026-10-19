@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { 
   Car, 
@@ -112,6 +112,7 @@ export default function PredictPage() {
   const [predicting, setPredicting] = useState(false);
   const [result, setResult] = useState<PredictResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const errorRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     getMetadata()
@@ -167,7 +168,11 @@ export default function PredictPage() {
       const res = await predictPrice(payload);
       setResult(res);
     } catch (err: any) {
-      setError(err.message || "Failed to generate valuation. Please verify inputs or API connectivity.");
+      const errMsg = err.message || "Failed to generate valuation. Please verify inputs or API connectivity.";
+      setError(errMsg);
+      setTimeout(() => {
+        errorRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      }, 50);
     } finally {
       setPredicting(false);
     }
@@ -421,9 +426,13 @@ export default function PredictPage() {
 
             {/* Error Message */}
             {error && (
-              <div className="flex items-start space-x-2.5 p-3.5 rounded-xl bg-rose-950/40 border border-rose-800/50 text-rose-300 text-xs">
+              <div
+                ref={errorRef}
+                id="predict-form-error"
+                className="flex items-start space-x-2.5 p-3.5 rounded-xl bg-rose-950/60 border border-rose-500/50 text-rose-200 text-xs shadow-lg animate-in fade-in"
+              >
                 <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5 text-rose-400" />
-                <span>{error}</span>
+                <span className="font-mono text-[11px] leading-relaxed break-words">{error}</span>
               </div>
             )}
 
@@ -724,6 +733,30 @@ export default function PredictPage() {
           </div>
         </div>
       </div>
+
+      {/* Floating Viewport-Anchored Error Toast for Mobile Screens */}
+      {error && (
+        <div
+          id="predict-viewport-toast"
+          className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-6 sm:max-w-md z-[100] animate-in slide-in-from-bottom-5 duration-300"
+        >
+          <div className="p-4 rounded-2xl border border-rose-500/60 bg-rose-950/95 text-rose-100 text-xs shadow-2xl backdrop-blur-xl flex items-start space-x-3">
+            <AlertCircle className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />
+            <div className="flex-1 font-mono text-[11px] sm:text-xs leading-relaxed break-words">
+              <div className="font-bold uppercase tracking-wider mb-0.5 text-white">Valuation Error</div>
+              <div className="text-slate-200">{error}</div>
+            </div>
+            <button
+              id="dismiss-predict-toast"
+              onClick={() => setError(null)}
+              className="p-1 rounded-lg hover:bg-white/10 text-slate-400 hover:text-white transition-colors cursor-pointer"
+              aria-label="Dismiss error notification"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
