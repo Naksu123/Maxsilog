@@ -55,5 +55,5 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "AutoValuate ML Bot"
           git add backend/models/
-          git diff --staged --quiet || git commit -m "Auto-retrain: Daily model candidate evaluation & version manifest [skip ci]"
+          git diff --staged --quiet || git commit -m "Auto-retrain: Daily model candidate evaluation & version manifest"
           git push origin HEAD:${{ github.ref }} || echo "No changes to commit or remote updated"
