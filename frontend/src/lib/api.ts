@@ -33,10 +33,9 @@ import {
   computeFallbackFinancing
 } from "./serverFallback";
 
-// On Vercel or any production deployment, relative path "" cleanly routes to Next.js API route handlers
-// with zero CORS, zero mixed-content, and zero localhost dependency.
-// If NEXT_PUBLIC_API_URL is explicitly configured, use it.
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "";
+// On Vercel or production deployment, connects directly to cloud Render backend
+// If NEXT_PUBLIC_API_URL is explicitly configured, use it; otherwise default to active Render backend.
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://maxsilog-1.onrender.com";
 
 async function fetchJson<T>(endpoint: string, options?: RequestInit): Promise<T> {
   const url = `${API_BASE_URL}${endpoint}`;
