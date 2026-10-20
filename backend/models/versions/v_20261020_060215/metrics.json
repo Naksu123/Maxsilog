@@ -1,0 +1,118 @@
+{
+  "selected_model": "Gradient Boosting Regressor",
+  "model_version": "v_20261020_060215",
+  "random_state": 42,
+  "train_size": 1986,
+  "test_size": 497,
+  "k_folds": 5,
+  "benchmark": [
+    {
+      "model": "Simple Linear Regression (Baseline)",
+      "cv_mae": 65207.05804523645,
+      "cv_mae_std": 2487.6845136737934,
+      "cv_rmse": 97482.1313053846,
+      "cv_rmse_std": 10288.906024651393,
+      "cv_r2": -0.0049486762065326095,
+      "cv_r2_std": 0.0068952000522586425,
+      "test_mae": 67360.3245406403,
+      "test_rmse": 99506.90920406664,
+      "test_r2": 0.0026201812373505273,
+      "generalization_gap": 2153.2664954038482,
+      "is_selected": false
+    },
+    {
+      "model": "Ridge Regression",
+      "cv_mae": 32386.45563491778,
+      "cv_mae_std": 3781.1234093655,
+      "cv_rmse": 55069.97707892789,
+      "cv_rmse_std": 12771.44232533482,
+      "cv_r2": 0.6814236020368798,
+      "cv_r2_std": 0.08142993906435717,
+      "test_mae": 31883.304587342987,
+      "test_rmse": 50233.36410313234,
+      "test_r2": 0.7458216067607277,
+      "generalization_gap": -503.15104757479276,
+      "is_selected": false
+    },
+    {
+      "model": "Random Forest Regressor",
+      "cv_mae": 22909.584837301183,
+      "cv_mae_std": 2696.214838539202,
+      "cv_rmse": 44638.16003585995,
+      "cv_rmse_std": 10987.797203657152,
+      "cv_r2": 0.7899770548907907,
+      "cv_r2_std": 0.06061044173029905,
+      "test_mae": 21663.88734933869,
+      "test_rmse": 40902.40919723588,
+      "test_r2": 0.8314798328695958,
+      "generalization_gap": -1245.697487962494,
+      "is_selected": false
+    },
+    {
+      "model": "Gradient Boosting Regressor",
+      "cv_mae": 22072.068801953174,
+      "cv_mae_std": 2208.9526613252806,
+      "cv_rmse": 42743.578423857514,
+      "cv_rmse_std": 10566.788848253484,
+      "cv_r2": 0.8079276678322989,
+      "cv_r2_std": 0.05479109603624238,
+      "test_mae": 21821.651863546613,
+      "test_rmse": 40731.89842322877,
+      "test_r2": 0.8328819317491432,
+      "generalization_gap": -250.4169384065608,
+      "is_selected": true
+    }
+  ],
+  "diagnostic_outliers": [
+    {
+      "index": 1178,
+      "description": "2018 Land Rover Range Rover 3.0 P400 Vogue SE SUV - VOGUE DIESEL WTY 2025 ,CRYSTAL BLACK IN COLOUR,PANAROMIC ROOF,POWER BOOT,ONE OF DATO VIP OWNER - Grey",
+      "model": "Land Rover Range",
+      "mileage": 198500.0,
+      "actual_price": 221800.0,
+      "predicted_price": 445078.0385940909,
+      "residual_error": -223278.0385940909
+    },
+    {
+      "index": 1915,
+      "description": "2022 Jeep Grand Cherokee 3.6 (M) - Grey Full Service Record",
+      "model": "Jeep Grand Cherokee 3.6",
+      "mileage": 114500.0,
+      "actual_price": 268900.0,
+      "predicted_price": 51444.52188092944,
+      "residual_error": 217455.47811907055
+    },
+    {
+      "index": 1210,
+      "description": "2015 Chevrolet Colorado 2.8 High Country (M) - Dark Blue Full Service Record",
+      "model": "Chevrolet Colorado 2.8 High Country",
+      "mileage": 224500.0,
+      "actual_price": 273700.0,
+      "predicted_price": 56364.64993320679,
+      "residual_error": 217335.3500667932
+    },
+    {
+      "index": 1135,
+      "description": "2017 Land Rover Range Rover Sport 5.0 SVR SUV - WTY 2025 ,CRYSTAL BLACK IN COLOUR,REVERSE CAMERA,PUSH START,ONE OF VIP OWNER - Red",
+      "model": "Land Rover Range Rover Sport",
+      "mileage": 27500.0,
+      "actual_price": 268500.0,
+      "predicted_price": 482664.1383663853,
+      "residual_error": -214164.1383663853
+    },
+    {
+      "index": 1864,
+      "description": "2020 Renault Clio 1.6 RS (M) - Black Full Service Record",
+      "model": "Renault Clio 1.6 RS",
+      "mileage": 127500.0,
+      "actual_price": 284200.0,
+      "predicted_price": 70543.98758589853,
+      "residual_error": 213656.01241410145
+    }
+  ],
+  "target_leakage_audit": {
+    "status": "SECURE",
+    "excluded_variable": "Monthly_Installment",
+    "justification": "Target leakage occurs because monthly installments are directly computed from the list price. Strict purge guarantees genuine generalizability."
+  }
+}
