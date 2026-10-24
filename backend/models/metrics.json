@@ -1,6 +1,6 @@
 {
   "selected_model": "Gradient Boosting Regressor",
-  "model_version": "v_20261024_050224",
+  "model_version": "v_20261025_041709",
   "random_state": 42,
   "train_size": 1986,
   "test_size": 497,
@@ -23,15 +23,15 @@
     {
       "model": "Ridge Regression",
       "cv_mae": 32386.45563491778,
-      "cv_mae_std": 3781.1234093655,
-      "cv_rmse": 55069.97707892789,
-      "cv_rmse_std": 12771.44232533482,
-      "cv_r2": 0.6814236020368798,
-      "cv_r2_std": 0.08142993906435717,
-      "test_mae": 31883.304587342987,
-      "test_rmse": 50233.36410313234,
-      "test_r2": 0.7458216067607277,
-      "generalization_gap": -503.15104757479276,
+      "cv_mae_std": 3781.12340936549,
+      "cv_rmse": 55069.97707892788,
+      "cv_rmse_std": 12771.4423253348,
+      "cv_r2": 0.6814236020368799,
+      "cv_r2_std": 0.08142993906435692,
+      "test_mae": 31883.304587342984,
+      "test_rmse": 50233.364103132335,
+      "test_r2": 0.7458216067607278,
+      "generalization_gap": -503.1510475747964,
       "is_selected": false
     },
     {
