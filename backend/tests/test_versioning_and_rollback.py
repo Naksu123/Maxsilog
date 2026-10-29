@@ -35,7 +35,7 @@ except ImportError:
     from app.main import app
     import app.admin as admin_module
 
-ADMIN_KEY = "admin123"
+ADMIN_KEY = "admin123!s01"
 
 @pytest.fixture
 def mock_ml_environment(tmp_path):

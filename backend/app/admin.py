@@ -10,8 +10,8 @@ from pydantic import BaseModel, Field
 
 router = APIRouter(prefix="/api/admin", tags=["Administration & Retraining"])
 
-ADMIN_API_KEY = os.environ.get("ADMIN_API_KEY", "admin123")
-VALID_ADMIN_KEYS = {ADMIN_API_KEY, "admin123", "research_admin_2026"}
+ADMIN_API_KEY = os.environ.get("ADMIN_API_KEY", "admin123!s01")
+VALID_ADMIN_KEYS = {ADMIN_API_KEY, "admin123!s01", "research_admin_2026"}
 
 
 def verify_admin_auth(
@@ -57,7 +57,7 @@ def admin_login(req: AdminLoginRequest):
     """
     Authenticate administrator credentials and return access token.
     Accepts username/password or direct admin_key.
-    Default password / key: 'admin123'
+    Default password / key: 'admin123!s01'
     """
     key_candidate = (req.admin_key or req.password or "").strip()
     if not key_candidate or key_candidate not in VALID_ADMIN_KEYS:

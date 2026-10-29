@@ -12,7 +12,7 @@ from backend.ml.dataset_manager import compute_file_sha256, audit_and_prepare_da
 load_artifacts()
 client = TestClient(app)
 
-ADMIN_KEY = "admin123"
+ADMIN_KEY = "admin123!s01"
 HEADERS = {"X-Admin-Key": ADMIN_KEY}
 
 
@@ -24,6 +24,10 @@ def test_admin_auth_required():
 
     # With wrong key -> 401
     res = client.get("/api/admin/training/status", headers={"X-Admin-Key": "wrong-secret"})
+    assert res.status_code == 401
+
+    # With deprecated old key -> 401
+    res = client.get("/api/admin/training/status", headers={"X-Admin-Key": "admin123"})
     assert res.status_code == 401
 
 
