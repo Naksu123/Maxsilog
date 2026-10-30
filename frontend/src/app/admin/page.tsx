@@ -33,6 +33,8 @@ import {
   ArrowRight,
   Car,
   ChevronLeft,
+  ChevronsLeft,
+  ChevronsRight,
   Search,
   Filter
 } from "lucide-react";
@@ -497,6 +499,24 @@ export default function AdminPage() {
   const startIdx = totalHistoryRecords === 0 ? 0 : (currentHistoryPage - 1) * historyPageSize;
   const endIdx = Math.min(startIdx + historyPageSize, totalHistoryRecords);
   const paginatedHistory = filteredHistory.slice(startIdx, endIdx);
+
+  // Helper: Sliding window of at most 5 page numbers for pagination controls
+  const getPaginationPages = (currentPage: number, totalPages: number, maxVisible: number = 5): number[] => {
+    if (totalPages <= maxVisible) {
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
+    }
+    let start = Math.max(1, currentPage - Math.floor(maxVisible / 2));
+    let end = start + maxVisible - 1;
+    if (end > totalPages) {
+      end = totalPages;
+      start = Math.max(1, end - maxVisible + 1);
+    }
+    const pages: number[] = [];
+    for (let i = start; i <= end; i++) {
+      pages.push(i);
+    }
+    return pages;
+  };
 
   // Helper: Model badge styling by model family
   const getModelBadge = (modelName: string) => {
@@ -1327,13 +1347,30 @@ export default function AdminPage() {
             )}
           </div>
 
-          <div className="flex items-center space-x-2">
+          <div className="flex flex-wrap items-center justify-center sm:justify-end gap-1.5">
+            {/* First Page Button */}
+            {totalVersionPages > 5 && (
+              <button
+                id="versions-first-page-btn"
+                onClick={() => setVersionsPage(1)}
+                disabled={currentVersionsPage <= 1}
+                title="First Page"
+                className={`inline-flex items-center justify-center w-7 h-7 rounded-lg border text-xs font-medium transition-all ${
+                  currentVersionsPage <= 1
+                    ? "bg-slate-900/40 border-slate-800 text-slate-600 cursor-not-allowed"
+                    : "bg-slate-900 hover:bg-slate-800 border-slate-700 text-slate-300 hover:text-white cursor-pointer"
+                }`}
+              >
+                <ChevronsLeft className="w-3.5 h-3.5" />
+              </button>
+            )}
+
             {/* Previous Page Button */}
             <button
               id="versions-prev-page-btn"
               onClick={() => setVersionsPage((p) => Math.max(1, p - 1))}
               disabled={currentVersionsPage <= 1}
-              className={`inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg border text-xs font-medium transition-all ${
+              className={`inline-flex items-center space-x-1 px-2.5 py-1.5 rounded-lg border text-xs font-medium transition-all ${
                 currentVersionsPage <= 1
                   ? "bg-slate-900/40 border-slate-800 text-slate-600 cursor-not-allowed"
                   : "bg-slate-900 hover:bg-slate-800 border-slate-700 text-slate-300 hover:text-white cursor-pointer"
@@ -1343,15 +1380,16 @@ export default function AdminPage() {
               <span>Previous</span>
             </button>
 
-            {/* Numbered Page Buttons */}
+            {/* Numbered Page Buttons (Limited to 5 Pages) */}
             <div className="flex items-center space-x-1">
-              {Array.from({ length: totalVersionPages }, (_, i) => i + 1).map((pageNum) => {
+              {getPaginationPages(currentVersionsPage, totalVersionPages, 5).map((pageNum) => {
                 const isActive = pageNum === currentVersionsPage;
                 return (
                   <button
                     key={pageNum}
+                    id={`versions-page-btn-${pageNum}`}
                     onClick={() => setVersionsPage(pageNum)}
-                    className={`w-7 h-7 rounded-lg text-xs font-mono font-medium transition-all ${
+                    className={`w-7 h-7 rounded-lg text-xs font-mono font-medium transition-all cursor-pointer ${
                       isActive
                         ? "bg-blue-600 text-white font-bold shadow-sm shadow-blue-500/20 border border-blue-500"
                         : "bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-800"
@@ -1368,7 +1406,7 @@ export default function AdminPage() {
               id="versions-next-page-btn"
               onClick={() => setVersionsPage((p) => Math.min(totalVersionPages, p + 1))}
               disabled={currentVersionsPage >= totalVersionPages}
-              className={`inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg border text-xs font-medium transition-all ${
+              className={`inline-flex items-center space-x-1 px-2.5 py-1.5 rounded-lg border text-xs font-medium transition-all ${
                 currentVersionsPage >= totalVersionPages
                   ? "bg-slate-900/40 border-slate-800 text-slate-600 cursor-not-allowed"
                   : "bg-slate-900 hover:bg-slate-800 border-slate-700 text-slate-300 hover:text-white cursor-pointer"
@@ -1377,6 +1415,23 @@ export default function AdminPage() {
               <span>Next</span>
               <ChevronRight className="w-3.5 h-3.5" />
             </button>
+
+            {/* Last Page Button */}
+            {totalVersionPages > 5 && (
+              <button
+                id="versions-last-page-btn"
+                onClick={() => setVersionsPage(totalVersionPages)}
+                disabled={currentVersionsPage >= totalVersionPages}
+                title="Last Page"
+                className={`inline-flex items-center justify-center w-7 h-7 rounded-lg border text-xs font-medium transition-all ${
+                  currentVersionsPage >= totalVersionPages
+                    ? "bg-slate-900/40 border-slate-800 text-slate-600 cursor-not-allowed"
+                    : "bg-slate-900 hover:bg-slate-800 border-slate-700 text-slate-300 hover:text-white cursor-pointer"
+                }`}
+              >
+                <ChevronsRight className="w-3.5 h-3.5" />
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -1559,13 +1614,30 @@ export default function AdminPage() {
             )}
           </div>
 
-          <div className="flex items-center space-x-2">
+          <div className="flex flex-wrap items-center justify-center sm:justify-end gap-1.5">
+            {/* First Page Button */}
+            {totalHistoryPages > 5 && (
+              <button
+                id="audit-first-page-btn"
+                onClick={() => setHistoryPage(1)}
+                disabled={currentHistoryPage <= 1}
+                title="First Page"
+                className={`inline-flex items-center justify-center w-7 h-7 rounded-lg border text-xs font-medium transition-all ${
+                  currentHistoryPage <= 1
+                    ? "bg-slate-900/40 border-slate-800 text-slate-600 cursor-not-allowed"
+                    : "bg-slate-900 hover:bg-slate-800 border-slate-700 text-slate-300 hover:text-white cursor-pointer"
+                }`}
+              >
+                <ChevronsLeft className="w-3.5 h-3.5" />
+              </button>
+            )}
+
             {/* Previous Page Button */}
             <button
               id="audit-prev-page-btn"
               onClick={() => setHistoryPage((p) => Math.max(1, p - 1))}
               disabled={currentHistoryPage <= 1}
-              className={`inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg border text-xs font-medium transition-all ${
+              className={`inline-flex items-center space-x-1 px-2.5 py-1.5 rounded-lg border text-xs font-medium transition-all ${
                 currentHistoryPage <= 1
                   ? "bg-slate-900/40 border-slate-800 text-slate-600 cursor-not-allowed"
                   : "bg-slate-900 hover:bg-slate-800 border-slate-700 text-slate-300 hover:text-white cursor-pointer"
@@ -1575,15 +1647,16 @@ export default function AdminPage() {
               <span>Previous</span>
             </button>
 
-            {/* Numbered Page Buttons */}
+            {/* Numbered Page Buttons (Limited to 5 Pages) */}
             <div className="flex items-center space-x-1">
-              {Array.from({ length: totalHistoryPages }, (_, i) => i + 1).map((pageNum) => {
+              {getPaginationPages(currentHistoryPage, totalHistoryPages, 5).map((pageNum) => {
                 const isActive = pageNum === currentHistoryPage;
                 return (
                   <button
                     key={pageNum}
+                    id={`audit-page-btn-${pageNum}`}
                     onClick={() => setHistoryPage(pageNum)}
-                    className={`w-7 h-7 rounded-lg text-xs font-mono font-medium transition-all ${
+                    className={`w-7 h-7 rounded-lg text-xs font-mono font-medium transition-all cursor-pointer ${
                       isActive
                         ? "bg-blue-600 text-white font-bold shadow-sm shadow-blue-500/20 border border-blue-500"
                         : "bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-800"
@@ -1600,7 +1673,7 @@ export default function AdminPage() {
               id="audit-next-page-btn"
               onClick={() => setHistoryPage((p) => Math.min(totalHistoryPages, p + 1))}
               disabled={currentHistoryPage >= totalHistoryPages}
-              className={`inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg border text-xs font-medium transition-all ${
+              className={`inline-flex items-center space-x-1 px-2.5 py-1.5 rounded-lg border text-xs font-medium transition-all ${
                 currentHistoryPage >= totalHistoryPages
                   ? "bg-slate-900/40 border-slate-800 text-slate-600 cursor-not-allowed"
                   : "bg-slate-900 hover:bg-slate-800 border-slate-700 text-slate-300 hover:text-white cursor-pointer"
@@ -1609,6 +1682,23 @@ export default function AdminPage() {
               <span>Next</span>
               <ChevronRight className="w-3.5 h-3.5" />
             </button>
+
+            {/* Last Page Button */}
+            {totalHistoryPages > 5 && (
+              <button
+                id="audit-last-page-btn"
+                onClick={() => setHistoryPage(totalHistoryPages)}
+                disabled={currentHistoryPage >= totalHistoryPages}
+                title="Last Page"
+                className={`inline-flex items-center justify-center w-7 h-7 rounded-lg border text-xs font-medium transition-all ${
+                  currentHistoryPage >= totalHistoryPages
+                    ? "bg-slate-900/40 border-slate-800 text-slate-600 cursor-not-allowed"
+                    : "bg-slate-900 hover:bg-slate-800 border-slate-700 text-slate-300 hover:text-white cursor-pointer"
+                }`}
+              >
+                <ChevronsRight className="w-3.5 h-3.5" />
+              </button>
+            )}
           </div>
         </div>
       </div>
