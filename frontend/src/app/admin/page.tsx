@@ -6,7 +6,6 @@ import {
   RefreshCw,
   Shield,
   ShieldCheck,
-  ShieldAlert,
   Cpu,
   Clock,
   Database,
@@ -16,16 +15,12 @@ import {
   Play,
   RotateCcw,
   Sparkles,
-  Key,
   Lock,
-  Unlock,
   ChevronRight,
   Info,
-  Calendar,
   Layers,
   Award,
   Terminal,
-  FileCheck,
   LogOut,
   Eye,
   EyeOff,
@@ -102,21 +97,40 @@ export default function AdminPage() {
         localStorage.getItem("autovaluate_admin_token") ||
         localStorage.getItem("autovaluate_admin_key");
 
-      if (storedToken) {
-        setAdminKey(storedToken);
-        setIsAuthenticated(true);
-        const storedUser = localStorage.getItem("autovaluate_admin_user");
-        if (storedUser) {
-          try {
-            const parsed = JSON.parse(storedUser);
-            setAdminUser(parsed.username || "admin");
-          } catch {}
+      const t = setTimeout(() => {
+        if (storedToken) {
+          setAdminKey(storedToken);
+          setIsAuthenticated(true);
+          const storedUser = localStorage.getItem("autovaluate_admin_user");
+          if (storedUser) {
+            try {
+              const parsed = JSON.parse(storedUser);
+              if (parsed && typeof parsed === "object" && "username" in parsed) {
+                setAdminUser(String(parsed.username) || "admin");
+              }
+            } catch {}
+          }
+        } else {
+          setIsAuthenticated(false);
         }
-      } else {
-        setIsAuthenticated(false);
-      }
+      }, 0);
+      return () => clearTimeout(t);
     }
   }, []);
+
+  // Handle Logout
+  const handleLogout = () => {
+    setAdminKey("");
+    setIsAuthenticated(false);
+    setStatus(null);
+    setHistory([]);
+    setVersions([]);
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("autovaluate_admin_token");
+      localStorage.removeItem("autovaluate_admin_key");
+      localStorage.removeItem("autovaluate_admin_user");
+    }
+  };
 
   const fetchData = useCallback(async (keyToUse: string) => {
     if (!keyToUse) return;
@@ -128,20 +142,21 @@ export default function AdminPage() {
         getArchivedModels(keyToUse)
       ]);
       setStatus(statusRes);
-      const rawHistory = Array.isArray(historyRes) ? historyRes : ((historyRes as any)?.items || []);
+      const rawHistory = Array.isArray(historyRes) ? historyRes : ((historyRes as { items?: TrainingHistoryItem[] })?.items || []);
       setHistory(rawHistory);
       setVersions(versionsRes);
       setFeedback(null);
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const errObj = err as { message?: string };
       console.error("Error loading admin data:", err);
-      if (err.message && err.message.toLowerCase().includes("unauthorized")) {
+      if (errObj.message && errObj.message.toLowerCase().includes("unauthorized")) {
         // Token expired or invalid, log out
         handleLogout();
         setLoginError("Session expired or invalid key. Please log in again.");
       } else {
         setFeedback({
           type: "error",
-          message: err.message || "Failed to fetch admin status."
+          message: errObj.message || "Failed to fetch admin status."
         });
       }
     } finally {
@@ -151,7 +166,10 @@ export default function AdminPage() {
 
   useEffect(() => {
     if (isAuthenticated && adminKey) {
-      fetchData(adminKey);
+      const t = setTimeout(() => {
+        fetchData(adminKey);
+      }, 0);
+      return () => clearTimeout(t);
     }
   }, [isAuthenticated, adminKey, fetchData]);
 
@@ -205,26 +223,15 @@ export default function AdminPage() {
       } else {
         setLoginError("Authentication failed. Please check credentials.");
       }
-    } catch (err: any) {
-      setLoginError(err.message || "Invalid administrator credentials or secret key.");
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Invalid administrator credentials or secret key.";
+      setLoginError(message);
     } finally {
       setLoginLoading(false);
     }
   };
 
-  // Handle Logout
-  const handleLogout = () => {
-    setAdminKey("");
-    setIsAuthenticated(false);
-    setStatus(null);
-    setHistory([]);
-    setVersions([]);
-    if (typeof window !== "undefined") {
-      localStorage.removeItem("autovaluate_admin_token");
-      localStorage.removeItem("autovaluate_admin_key");
-      localStorage.removeItem("autovaluate_admin_user");
-    }
-  };
+
 
   const handleTriggerTraining = async () => {
     setActionLoading(true);
@@ -278,10 +285,11 @@ export default function AdminPage() {
         }
       }, 1500);
 
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Failed to trigger training.";
       setFeedback({
         type: "error",
-        message: err.message || "Failed to trigger training."
+        message
       });
       setActionLoading(false);
     }
@@ -310,8 +318,8 @@ export default function AdminPage() {
       setRollbackModalError(null);
       await fetchData(adminKey);
       setVersionsPage(1);
-    } catch (err: any) {
-      const errMsg = err.message || "Failed to perform model rollback.";
+    } catch (err: unknown) {
+      const errMsg = err instanceof Error ? err.message : "Failed to perform model rollback.";
       setRollbackModalError(errMsg);
       setFeedback({
         type: "error",

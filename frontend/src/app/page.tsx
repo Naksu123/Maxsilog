@@ -7,7 +7,6 @@ import {
   BarChart3, 
   ShieldCheck, 
   TrendingUp, 
-  Sparkles, 
   Zap, 
   ArrowRight, 
   CheckCircle2, 
@@ -151,7 +150,7 @@ export default function LandingPage() {
                   <Car className="w-3.5 h-3.5 text-blue-400" />
                   <span>Dataset Scale</span>
                 </div>
-                <div className="text-2xl sm:text-3xl font-extrabold text-white font-mono">2,500</div>
+                <div className="text-2xl sm:text-3xl font-extrabold text-white font-mono">2,483</div>
                 <p className="text-[11px] text-slate-400">Verified Malaysian listings</p>
               </div>
 
@@ -160,16 +159,16 @@ export default function LandingPage() {
                   <TrendingUp className="w-3.5 h-3.5 text-cyan-400" />
                   <span>Median Resale</span>
                 </div>
-                <div className="text-2xl sm:text-3xl font-extrabold text-white font-mono">RM 68.7k</div>
+                <div className="text-2xl sm:text-3xl font-extrabold text-white font-mono">RM 68.4k</div>
                 <p className="text-[11px] text-slate-400">Across all market segments</p>
               </div>
 
               <div className="space-y-1 p-2.5 border-l border-slate-800/80">
                 <div className="flex items-center space-x-1.5 text-xs font-medium text-slate-400">
                   <Award className="w-3.5 h-3.5 text-indigo-400" />
-                  <span>Model Accuracy</span>
+                  <span>Model Explanatory Power</span>
                 </div>
-                <div className="text-2xl sm:text-3xl font-extrabold text-white font-mono">0.897 R²</div>
+                <div className="text-2xl sm:text-3xl font-extrabold text-white font-mono">80.8% R²</div>
                 <p className="text-[11px] text-slate-400">5-Fold cross-validated score</p>
               </div>
 

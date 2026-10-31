@@ -17,7 +17,7 @@ import {
 export function getFallbackHealth(): HealthResponse {
   return {
     status: "healthy",
-    model_version: (offlineData.metrics as any)?.model_version || "v_20261018_142142",
+    model_version: (offlineData.metrics as { model_version?: string })?.model_version || "v_20261018_142142",
     models_loaded: [
       "Gradient Boosting Regressor",
       "Random Forest Regressor",
@@ -70,7 +70,7 @@ export function getFallbackPriceVsMileage(params?: {
     points = points.filter((p) => p.gear_type === params.gear_type);
   }
 
-  const limit = params?.limit || 600;
+  const limit = params?.limit || 2500;
   return points.slice(0, limit);
 }
 
@@ -143,7 +143,7 @@ export function computeFallbackPrediction(payload: PredictRequest): PredictRespo
     estimated_price: finalPrice,
     fair_price_low: fairLow,
     fair_price_high: fairHigh,
-    model_version: (offlineData.metrics as any)?.model_version || "v_20261018_142142",
+    model_version: (offlineData.metrics as { model_version?: string })?.model_version || "v_20261018_142142",
     algorithm_used: algo,
     input_summary: {
       model: payload.model,

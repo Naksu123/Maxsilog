@@ -53,7 +53,7 @@ async function fetchJson<T>(endpoint: string, options?: RequestInit): Promise<T>
       const errorBody = await res.json().catch(() => ({ detail: res.statusText }));
       let msg = errorBody.detail || errorBody.message || errorBody.error;
       if (Array.isArray(msg)) {
-        msg = msg.map((item: any) => item.msg || JSON.stringify(item)).join(", ");
+        msg = msg.map((item: unknown) => (item && typeof item === "object" && "msg" in item ? String((item as { msg: unknown }).msg) : JSON.stringify(item))).join(", ");
       } else if (typeof msg === "object" && msg !== null) {
         msg = JSON.stringify(msg);
       }
@@ -61,8 +61,9 @@ async function fetchJson<T>(endpoint: string, options?: RequestInit): Promise<T>
     }
 
     return await res.json();
-  } catch (err: any) {
-    console.warn(`[AutoValuate Network Note] ${endpoint}: ${err?.message || err}.`);
+  } catch (err: unknown) {
+    const errorMsg = err instanceof Error ? err.message : String(err);
+    console.warn(`[AutoValuate Network Note] ${endpoint}: ${errorMsg}.`);
     throw err;
   }
 }
@@ -288,9 +289,10 @@ export async function getArchivedModels(
     return await fetchJson<ModelVersionItem[]>(`/api/admin/models${queryString}`, {
       headers: { "X-Admin-Key": adminKey }
     });
-  } catch (err: any) {
+  } catch (err: unknown) {
+    const errObj = err as { message?: string };
     // If unauthorized, propagate so admin page knows to prompt login
-    if (err?.message && err.message.toLowerCase().includes("unauthorized")) {
+    if (errObj?.message && errObj.message.toLowerCase().includes("unauthorized")) {
       throw err;
     }
     return [
@@ -445,8 +447,9 @@ export async function adminLogin(payload: AdminLoginPayload): Promise<AdminLogin
       method: "POST",
       body: JSON.stringify(payload)
     });
-  } catch (err: any) {
-    if (err?.message && (err.message.toLowerCase().includes("invalid administrator") || err.message.toLowerCase().includes("unauthorized"))) {
+  } catch (err: unknown) {
+    const errObj = err as { message?: string };
+    if (errObj?.message && (errObj.message.toLowerCase().includes("invalid administrator") || errObj.message.toLowerCase().includes("unauthorized"))) {
       throw err;
     }
     const key = payload.admin_key || payload.password || "";

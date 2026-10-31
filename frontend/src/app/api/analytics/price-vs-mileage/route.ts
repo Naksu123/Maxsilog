@@ -6,7 +6,7 @@ export async function GET(request: NextRequest) {
   const model = searchParams.get("model") || undefined;
   const state = searchParams.get("state") || undefined;
   const gear_type = searchParams.get("gear_type") || undefined;
-  const limit = parseInt(searchParams.get("limit") || "600", 10);
+  const limit = parseInt(searchParams.get("limit") || "2500", 10);
 
   const backendUrl = process.env.FASTAPI_BACKEND_URL;
   if (backendUrl) {

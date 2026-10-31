@@ -14,9 +14,7 @@ import {
   Sparkles,
   Zap,
   CheckCircle2,
-  AlertCircle,
   LayoutDashboard,
-  Calculator,
   RefreshCw
 } from "lucide-react";
 import { 
@@ -31,8 +29,7 @@ import {
   ZAxis, 
   Cell, 
   PieChart, 
-  Pie,
-  Legend
+  Pie
 } from "recharts";
 import { 
   getAnalyticsSummary, 
@@ -55,7 +52,7 @@ export default function DashboardPage() {
   const [topCars, setTopCars] = useState<TopCarStat[]>([]);
   const [topRegions, setTopRegions] = useState<TopRegionStat[]>([]);
   const [priceDist, setPriceDist] = useState<DistributionBin[]>([]);
-  const [mileageDist, setMileageDist] = useState<DistributionBin[]>([]);
+  const [, setMileageDist] = useState<DistributionBin[]>([]);
   const [scatterPoints, setScatterPoints] = useState<PriceMileagePoint[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -79,7 +76,7 @@ export default function DashboardPage() {
         setPriceDist(pDistRes);
         setMileageDist(mDistRes);
         setScatterPoints(scatterRes);
-      } catch (err: any) {
+      } catch (err: unknown) {
         console.error("Dashboard data load error:", err);
         setError("Unable to connect to live backend API. Please ensure FastAPI server is running.");
       } finally {
@@ -92,8 +89,22 @@ export default function DashboardPage() {
 
   const COLORS = ["#38BDF8", "#3B82F6", "#6366F1", "#8B5CF6", "#EC4899", "#10B981"];
 
+  if (loading) {
+    return (
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 flex flex-col items-center justify-center space-y-4">
+        <div className="w-10 h-10 border-2 border-cyan-500 border-t-transparent rounded-full animate-spin" />
+        <p className="text-slate-400 text-sm font-mono">Loading market dashboard telemetry...</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-in fade-in duration-300">
+    <div className="max-w-[1440px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-in fade-in duration-300">
+      {error && (
+        <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-sm">
+          {error}
+        </div>
+      )}
       {/* Welcome Dashboard Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800/80 pb-6">
         <div>

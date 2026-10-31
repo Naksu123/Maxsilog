@@ -25,7 +25,8 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json(computeFallbackPrediction(payload));
-  } catch (err: any) {
-    return NextResponse.json({ detail: err.message || "Invalid prediction request" }, { status: 400 });
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : "Invalid prediction request";
+    return NextResponse.json({ detail: message }, { status: 400 });
   }
 }

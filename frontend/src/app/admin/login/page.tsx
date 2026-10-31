@@ -6,15 +6,12 @@ import Link from "next/link";
 import { 
   Shield, 
   Lock, 
-  Key, 
   ArrowRight, 
   Car, 
-  CheckCircle2, 
   AlertTriangle, 
   Eye, 
   EyeOff,
   HelpCircle,
-  Cpu
 } from "lucide-react";
 import { adminLogin } from "@/lib/api";
 
@@ -51,9 +48,10 @@ export default function AdminLoginPage() {
       } else {
         setError("Invalid response from server. Please try again.");
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const errObj = err as { message?: string };
       console.error("Login failed:", err);
-      setError(err.message || "Invalid administrator credentials or secret key.");
+      setError(errObj.message || "Invalid administrator credentials or secret key.");
     } finally {
       setLoading(false);
     }

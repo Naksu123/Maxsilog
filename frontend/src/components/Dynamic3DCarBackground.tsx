@@ -88,7 +88,7 @@ export default function Dynamic3DCarBackground() {
       window.addEventListener("deviceorientation", handleDeviceOrientation, { passive: true });
     }
 
-    let startTime = performance.now();
+    const startTime = performance.now();
     const render = () => {
       if (containerRef.current) {
         const now = performance.now();

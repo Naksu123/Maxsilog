@@ -4,16 +4,7 @@ import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { 
   Calculator, 
-  DollarSign, 
-  Calendar, 
-  Percent, 
-  ArrowRight, 
-  ShieldCheck, 
-  AlertCircle, 
-  CheckCircle2, 
-  HelpCircle,
-  TrendingUp,
-  PieChart as PieIcon
+  ShieldCheck
 } from "lucide-react";
 import { 
   ResponsiveContainer, 
@@ -21,11 +12,7 @@ import {
   Pie, 
   Cell, 
   Tooltip, 
-  Legend, 
-  BarChart, 
-  Bar, 
-  XAxis, 
-  YAxis 
+  Legend
 } from "recharts";
 import { calculateFinancing } from "@/lib/api";
 import { FinancingResponse } from "@/types";
@@ -44,7 +31,7 @@ function FinancingCalculatorContent() {
 
   // Computed state
   const [result, setResult] = useState<FinancingResponse | null>(null);
-  const [calculating, setCalculating] = useState(false);
+  const [, setCalculating] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const downPaymentAmount = (vehiclePrice * downPaymentPercent) / 100.0;
@@ -65,7 +52,7 @@ function FinancingCalculatorContent() {
         loan_term_years: loanYears
       });
       setResult(res);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Financing calculation error:", err);
       // Fallback local calculation if backend is unreachable
       const loan = vehiclePrice - downPaymentAmount;
@@ -108,7 +95,11 @@ function FinancingCalculatorContent() {
   };
 
   useEffect(() => {
-    performCalculation();
+    const t = setTimeout(() => {
+      performCalculation();
+    }, 0);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [vehiclePrice, downPaymentPercent, annualRate, loanYears]);
 
   const pieData = result
@@ -120,7 +111,7 @@ function FinancingCalculatorContent() {
     : [];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <div className="max-w-[1440px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       {/* Header */}
       <div className="space-y-2">
         <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-xs font-semibold">

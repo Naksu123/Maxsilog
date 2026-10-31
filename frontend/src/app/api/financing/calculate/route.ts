@@ -25,7 +25,8 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json(computeFallbackFinancing(payload));
-  } catch (err: any) {
-    return NextResponse.json({ detail: err.message || "Invalid financing calculation request" }, { status: 400 });
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : "Invalid financing calculation request";
+    return NextResponse.json({ detail: message }, { status: 400 });
   }
 }

@@ -4,16 +4,8 @@ import React, { useEffect, useState } from "react";
 import { 
   Award, 
   CheckCircle2, 
-  ShieldAlert, 
-  ShieldCheck, 
   BookOpen, 
-  Cpu, 
-  BarChart2, 
-  Activity, 
-  TrendingDown, 
   AlertTriangle,
-  Info,
-  Layers,
   Sparkles
 } from "lucide-react";
 import { 
@@ -23,11 +15,10 @@ import {
   XAxis, 
   YAxis, 
   Tooltip, 
-  Legend, 
-  Cell 
+  Legend
 } from "recharts";
 import { getModelMetrics } from "@/lib/api";
-import { ModelMetricsResponse, BenchmarkModel, DiagnosticOutlier } from "@/types";
+import { ModelMetricsResponse } from "@/types";
 
 export default function BenchmarkPage() {
   const [metrics, setMetrics] = useState<ModelMetricsResponse | null>(null);
@@ -56,8 +47,17 @@ export default function BenchmarkPage() {
     "Test R² (%)": Number((m.test_r2 * 100).toFixed(2))
   }));
 
+  if (loading) {
+    return (
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 flex flex-col items-center justify-center space-y-4">
+        <div className="w-10 h-10 border-2 border-cyan-500 border-t-transparent rounded-full animate-spin" />
+        <p className="text-slate-400 text-sm font-mono">Loading model benchmark telemetry...</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+    <div className="max-w-[1440px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
       {/* Header */}
       <div className="space-y-2">
         <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-cyan-400 text-xs font-semibold">
