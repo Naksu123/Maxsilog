@@ -1,0 +1,8 @@
+Column_Name,Raw_Data_Type,Missing_Count,Missing_Percentage,Unique_Values,Sample_Values,Data_Quality_Observation
+Description,str,0,0.0,2306,"['2014 BMW X6 3.0 xDrive35i SUV - (A) TWIN TURBO M SPORT WITH UNDER PREMIUM WARRANTY', '2018 Kia Sportage 2.0 KX SUV - (A) 1 YEAR WARRANTY', '2014 Nissan Sylphy 1.8 VL Sedan - FULL SPEC - HIGH LOAN']","Unstructured text embedding Year, Make, Model variant, and Engine capacity."
+Monthly_Installment,str,0,0.0,1502,"['RM 1,084 / month', 'RM 925 / month', 'RM 395 / month']",Formatted string (RM/month). TARGET LEAKAGE: mathematically derived from List_Price.
+List_Price,str,0,0.0,1337,"['RM 83,000', 'RM 71,700', 'RM 32,600']","Target variable stored as currency string (e.g. 'RM 83,000'). Requires float parsing."
+Model,str,207,8.28,176,"['BMW X6', 'Kia Sportage', 'Nissan Sylphy']",Missing in 207 rows (8.28%). Can be recovered via Description regex.
+Milleage,str,0,0.0,252,"['70 - 75K KM', '45 - 50K KM', '85 - 90K KM']",Typographical header spelling ('Milleage' -> 'Mileage'). Range strings ('70-75K') & point values.
+Gear_Type,str,0,0.0,2,"['Automatic', 'Manual']",Categorical transmission ('Automatic' vs 'Manual'). 100% complete.
+Location,str,0,0.0,66,"['Selangor, Kajang', 'Penang, Bukit Mertajam', 'Johor, Skudai']","Geographic string formatted as 'State, City'. Administrative territory extractable via prefix."

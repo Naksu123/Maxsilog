@@ -1,0 +1,11 @@
+Metric,Value
+Initial Raw Observations,2500
+Exact / Subset Duplicates Removed,0
+Invalid Target Records Removed,0
+Dealership Clerical Typos Removed (>RM300k non-luxury),17
+Target Leakage Purged (Monthly_Installment),True
+Missing Model Imputation via Regex,207 rows recovered
+Final Cleaned Observations,2483
+Data Retention Rate,99.32%
+Final Attributes Count,12
+Cleaned CSV Destination,outputs\cleaned_data\AutoValuate_Cleaned_Dataset.csv

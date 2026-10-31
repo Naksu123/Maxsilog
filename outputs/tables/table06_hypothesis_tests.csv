@@ -1,0 +1,14 @@
+Metric / Parameter,Value
+Automatic Sample Size (n1),"1,828"
+Manual Sample Size (n2),655
+Automatic Mean Price,"RM 107,218.65 (std = RM 102,012.67)"
+Manual Mean Price,"RM 92,576.34 (std = RM 86,187.97)"
+Mean Difference (Auto - Manual),"RM 14,642.32"
+95% Confidence Interval for Difference,"[RM 6,545.89, RM 22,738.75]"
+Welch's t-statistic,3.5477
+Welch-Satterthwaite Degrees of Freedom,1353.31
+p-value (Welch's t-test),4.0182e-04
+Statistical Decision (alpha=0.001),Reject H0 (Highly Significant)
+Cohen's d Effect Size,0.1493 (Small-to-Medium Practical Effect)
+Mann-Whitney U statistic,"652,335.0"
+p-value (Mann-Whitney U),6.5264e-04 (Confirms Difference)

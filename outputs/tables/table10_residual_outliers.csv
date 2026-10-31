@@ -1,0 +1,6 @@
+Dataset_Index,Brand,Model,Actual_Price (RM),Predicted_Price (RM),Residual_Error (RM),Absolute_Error (RM),Listing_Description
+1178,Land Rover,Land Rover Range,221800.0,445078.0385940909,-223278.0385940909,223278.0385940909,"2018 Land Rover Range Rover 3.0 P400 Vogue SE SUV - VOGUE DIESEL WTY 2025 ,CRYSTAL BLACK I"
+1915,Jeep,Jeep Grand Cherokee 3.6,268900.0,51444.52188092944,217455.47811907055,217455.47811907055,2022 Jeep Grand Cherokee 3.6 (M) - Grey Full Service Record
+1210,Chevrolet,Chevrolet Colorado 2.8 High Country,273700.0,56364.64993320679,217335.3500667932,217335.3500667932,2015 Chevrolet Colorado 2.8 High Country (M) - Dark Blue Full Service Record
+1135,Land Rover,Land Rover Range Rover Sport,268500.0,482664.1383663853,-214164.1383663853,214164.1383663853,"2017 Land Rover Range Rover Sport 5.0 SVR SUV - WTY 2025 ,CRYSTAL BLACK IN COLOUR,REVERSE "
+1864,Renault,Renault Clio 1.6 RS,284200.0,70543.98758589853,213656.01241410145,213656.01241410145,2020 Renault Clio 1.6 RS (M) - Black Full Service Record

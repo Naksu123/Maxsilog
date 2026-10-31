@@ -41,6 +41,7 @@ export default function BenchmarkPage() {
   }, []);
 
   const benchmarkData = metrics?.benchmark || [];
+  const selectedModel = benchmarkData.find((m) => m.is_selected) || benchmarkData[3];
 
   // Chart data formatting
   const chartMaeData = benchmarkData.map((m) => ({
@@ -51,8 +52,8 @@ export default function BenchmarkPage() {
 
   const chartR2Data = benchmarkData.map((m) => ({
     name: m.model.replace(" (Baseline)", "").replace(" Regressor", ""),
-    "CV R²": Number(m.cv_r2.toFixed(3)),
-    "Test R²": Number(m.test_r2.toFixed(3))
+    "CV R² (%)": Number((m.cv_r2 * 100).toFixed(2)),
+    "Test R² (%)": Number((m.test_r2 * 100).toFixed(2))
   }));
 
   return (
@@ -88,23 +89,29 @@ export default function BenchmarkPage() {
             </h2>
             <p className="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
               Selected objectively based on achieving the lowest 5-fold cross-validation error 
-              (<span className="text-cyan-300 font-semibold font-mono">CV MAE = RM 18,345.57</span>) and the strongest explanatory power 
-              (<span className="text-cyan-300 font-semibold font-mono">CV R² = 0.8972</span>) during controlled model validation.
+              (<span className="text-cyan-300 font-semibold font-mono">CV MAE = RM {selectedModel ? Math.round(selectedModel.cv_mae).toLocaleString() : "22,072"}</span>) and the strongest explanatory power 
+              (<span className="text-cyan-300 font-semibold font-mono">CV R² = {selectedModel ? (selectedModel.cv_r2 * 100).toFixed(2) + "%" : "80.79%"}</span>) during controlled model validation.
             </p>
           </div>
 
           <div className="grid grid-cols-3 gap-3 bg-slate-900/80 p-4 rounded-xl border border-slate-800 text-center">
             <div>
               <span className="block text-[10px] uppercase font-mono text-slate-400">CV MAE</span>
-              <span className="text-lg font-bold font-mono text-cyan-400">RM 18,346</span>
+              <span className="text-lg font-bold font-mono text-cyan-400">
+                RM {selectedModel ? Math.round(selectedModel.cv_mae).toLocaleString() : "22,072"}
+              </span>
             </div>
             <div>
               <span className="block text-[10px] uppercase font-mono text-slate-400">CV RMSE</span>
-              <span className="text-lg font-bold font-mono text-blue-400">RM 33,832</span>
+              <span className="text-lg font-bold font-mono text-blue-400">
+                RM {selectedModel ? Math.round(selectedModel.cv_rmse).toLocaleString() : "42,744"}
+              </span>
             </div>
             <div>
-              <span className="block text-[10px] uppercase font-mono text-slate-400">CV R²</span>
-              <span className="text-lg font-bold font-mono text-emerald-400">0.8972</span>
+              <span className="block text-[10px] uppercase font-mono text-slate-400">CV R² (%)</span>
+              <span className="text-lg font-bold font-mono text-emerald-400">
+                {selectedModel ? (selectedModel.cv_r2 * 100).toFixed(2) + "%" : "80.79%"}
+              </span>
             </div>
           </div>
         </div>
@@ -131,10 +138,10 @@ export default function BenchmarkPage() {
                 <th className="py-3 px-3">Algorithm</th>
                 <th className="py-3 px-3 text-right">5-Fold CV MAE</th>
                 <th className="py-3 px-3 text-right">5-Fold CV RMSE</th>
-                <th className="py-3 px-3 text-right">5-Fold CV R²</th>
+                <th className="py-3 px-3 text-right">5-Fold CV R² (%)</th>
                 <th className="py-3 px-3 text-right">Holdout Test MAE</th>
                 <th className="py-3 px-3 text-right">Holdout Test RMSE</th>
-                <th className="py-3 px-3 text-right">Holdout Test R²</th>
+                <th className="py-3 px-3 text-right">Holdout Test R² (%)</th>
                 <th className="py-3 px-3 text-center">Status</th>
               </tr>
             </thead>
@@ -161,7 +168,7 @@ export default function BenchmarkPage() {
                     RM {Math.round(row.cv_rmse).toLocaleString()}
                   </td>
                   <td className="py-3 px-3 text-right font-mono font-semibold text-emerald-400">
-                    {row.cv_r2.toFixed(4)}
+                    {(row.cv_r2 * 100).toFixed(2)}%
                   </td>
                   <td className="py-3 px-3 text-right font-mono text-slate-300">
                     RM {Math.round(row.test_mae).toLocaleString()}
@@ -170,7 +177,7 @@ export default function BenchmarkPage() {
                     RM {Math.round(row.test_rmse).toLocaleString()}
                   </td>
                   <td className="py-3 px-3 text-right font-mono text-slate-400">
-                    {row.test_r2.toFixed(4)}
+                    {(row.test_r2 * 100).toFixed(2)}%
                   </td>
                   <td className="py-3 px-3 text-center">
                     {row.is_selected ? (
@@ -235,11 +242,11 @@ export default function BenchmarkPage() {
         <div className="glass-panel rounded-xl p-6 border border-slate-800 space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-base font-semibold text-white">Coefficient of Determination (R²)</h3>
-              <p className="text-xs text-slate-400">Proportion of listing price variance explained by predictors</p>
+              <h3 className="text-base font-semibold text-white">Coefficient of Determination [R² (%)]</h3>
+              <p className="text-xs text-slate-400">Proportion of listing price variance explained by predictors (%)</p>
             </div>
             <span className="text-xs font-mono text-emerald-400 bg-emerald-950/40 px-2 py-0.5 rounded border border-emerald-800/40">
-              Goodness of Fit
+              Goodness of Fit (%)
             </span>
           </div>
 
@@ -247,15 +254,15 @@ export default function BenchmarkPage() {
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={chartR2Data} margin={{ top: 10, right: 10, bottom: 20, left: 0 }}>
                 <XAxis dataKey="name" stroke="#64748b" fontSize={11} />
-                <YAxis stroke="#64748b" fontSize={11} domain={[-0.2, 1.0]} />
+                <YAxis stroke="#64748b" fontSize={11} domain={[-10, 100]} tickFormatter={(v) => `${v}%`} />
                 <Tooltip 
                   content={({ payload }) => {
                     if (payload && payload.length) {
                       return (
                         <div className="bg-slate-900 border border-slate-700 p-2.5 rounded-lg text-xs space-y-1">
                           <p className="font-bold text-white">{payload[0].payload.name}</p>
-                          <p className="text-emerald-400">CV R²: {payload[0].payload["CV R²"]}</p>
-                          <p className="text-slate-400">Test R²: {payload[0].payload["Test R²"]}</p>
+                          <p className="text-emerald-400">CV R²: {payload[0].payload["CV R² (%)"]}%</p>
+                          <p className="text-slate-400">Test R²: {payload[0].payload["Test R² (%)"]}%</p>
                         </div>
                       );
                     }
@@ -263,8 +270,8 @@ export default function BenchmarkPage() {
                   }}
                 />
                 <Legend wrapperStyle={{ fontSize: "11px", paddingTop: "5px" }} />
-                <Bar dataKey="CV R²" fill="#10B981" radius={[4, 4, 0, 0]} />
-                <Bar dataKey="Test R²" fill="#F59E0B" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="CV R² (%)" fill="#10B981" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="Test R² (%)" fill="#F59E0B" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>

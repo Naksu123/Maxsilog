@@ -1,0 +1,37 @@
+Category,File_Name,Relative_Path,Size_KB,File_Type
+Cleaned Dataset,AutoValuate_Cleaned_Dataset.csv,outputs\cleaned_data\AutoValuate_Cleaned_Dataset.csv,479.0 KB,.csv
+Figures,fig01_data_cleaning_pipeline_attrition.png,outputs\figures\fig01_data_cleaning_pipeline_attrition.png,155.3 KB,.png
+Figures,fig02_target_price_distribution.png,outputs\figures\fig02_target_price_distribution.png,261.8 KB,.png
+Figures,fig03_numerical_features_distributions.png,outputs\figures\fig03_numerical_features_distributions.png,467.2 KB,.png
+Figures,fig04_top_vehicle_brands.png,outputs\figures\fig04_top_vehicle_brands.png,409.1 KB,.png
+Figures,fig05_transmission_distribution.png,outputs\figures\fig05_transmission_distribution.png,77.3 KB,.png
+Figures,fig06_state_level_distribution.png,outputs\figures\fig06_state_level_distribution.png,198.3 KB,.png
+Figures,fig07_price_by_transmission.png,outputs\figures\fig07_price_by_transmission.png,137.0 KB,.png
+Figures,fig08_price_vs_mileage.png,outputs\figures\fig08_price_vs_mileage.png,515.7 KB,.png
+Figures,fig09_price_vs_vehicle_age.png,outputs\figures\fig09_price_vs_vehicle_age.png,1378.4 KB,.png
+Figures,fig10_price_vs_engine_size.png,outputs\figures\fig10_price_vs_engine_size.png,325.2 KB,.png
+Figures,fig11_correlation_heatmaps.png,outputs\figures\fig11_correlation_heatmaps.png,351.0 KB,.png
+Figures,fig12_welch_ttest_comparison.png,outputs\figures\fig12_welch_ttest_comparison.png,165.6 KB,.png
+Figures,fig13_cross_validation_mae_comparison.png,outputs\figures\fig13_cross_validation_mae_comparison.png,403.0 KB,.png
+Figures,fig14_holdout_mae_comparison.png,outputs\figures\fig14_holdout_mae_comparison.png,439.9 KB,.png
+Figures,fig15_holdout_rmse_comparison.png,outputs\figures\fig15_holdout_rmse_comparison.png,118.7 KB,.png
+Figures,fig16_holdout_r2_comparison.png,outputs\figures\fig16_holdout_r2_comparison.png,120.9 KB,.png
+Figures,fig17_actual_vs_predicted_prices.png,outputs\figures\fig17_actual_vs_predicted_prices.png,1201.8 KB,.png
+Figures,fig18_residuals_vs_predicted.png,outputs\figures\fig18_residuals_vs_predicted.png,998.7 KB,.png
+Figures,fig19_residual_distribution.png,outputs\figures\fig19_residual_distribution.png,373.9 KB,.png
+Figures,fig20_residual_qq_plot.png,outputs\figures\fig20_residual_qq_plot.png,160.0 KB,.png
+Figures,fig21_feature_importance_champion.png,outputs\figures\fig21_feature_importance_champion.png,545.2 KB,.png
+Figures,fig22_error_analysis_segments.png,outputs\figures\fig22_error_analysis_segments.png,283.3 KB,.png
+Tables,table01_data_quality_assessment.csv,outputs\tables\table01_data_quality_assessment.csv,3.1 KB,.csv
+Tables,table01_raw_data_quality_summary.csv,outputs\tables\table01_raw_data_quality_summary.csv,1.3 KB,.csv
+Tables,table02_cleaning_audit_trail.csv,outputs\tables\table02_cleaning_audit_trail.csv,0.4 KB,.csv
+Tables,table03_descriptive_statistics_numerical.csv,outputs\tables\table03_descriptive_statistics_numerical.csv,0.8 KB,.csv
+Tables,table04_categorical_frequencies.csv,outputs\tables\table04_categorical_frequencies.csv,2.0 KB,.csv
+Tables,table05_correlation_analysis.csv,outputs\tables\table05_correlation_analysis.csv,0.7 KB,.csv
+Tables,table06_hypothesis_tests.csv,outputs\tables\table06_hypothesis_tests.csv,0.7 KB,.csv
+Tables,table07_vif_multicollinearity.csv,outputs\tables\table07_vif_multicollinearity.csv,0.3 KB,.csv
+Tables,table08_cross_validation_results.csv,outputs\tables\table08_cross_validation_results.csv,0.8 KB,.csv
+Tables,table09_holdout_evaluation_metrics.csv,outputs\tables\table09_holdout_evaluation_metrics.csv,1.1 KB,.csv
+Tables,table10_residual_outliers.csv,outputs\tables\table10_residual_outliers.csv,1.0 KB,.csv
+Tables,table11_feature_importance.csv,outputs\tables\table11_feature_importance.csv,22.8 KB,.csv
+Tables,table12_export_manifest.csv,outputs\tables\table12_export_manifest.csv,3.8 KB,.csv

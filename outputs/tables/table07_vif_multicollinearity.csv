@@ -1,0 +1,6 @@
+Predictor,VIF,Multicollinearity_Diagnostic
+const,31.67360527602377,Severe Multicollinearity (> 10)
+Mileage,2.072431022385104,Acceptable (< 5.0)
+Vehicle_Age,1.9423737417141977,Acceptable (< 5.0)
+Engine_Size,1.021418749557284,Acceptable (< 5.0)
+Mileage_Per_Year,2.8857669624425615,Acceptable (< 5.0)
