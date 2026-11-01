@@ -3,16 +3,6 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { 
-  Shield, 
-  Lock, 
-  ArrowRight, 
-  Car, 
-  AlertTriangle, 
-  Eye, 
-  EyeOff,
-  HelpCircle,
-} from "lucide-react";
 import { adminLogin } from "@/lib/api";
 
 export default function AdminLoginPage() {
@@ -63,8 +53,7 @@ export default function AdminLoginPage() {
         {/* Brand Header */}
         <div className="text-center space-y-3">
           <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-cyan-400 shadow-xl shadow-blue-500/20 text-white mx-auto">
-            <Shield className="w-7 h-7 text-white" />
-          </div>
+            </div>
           <div>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
               Auto<span className="text-cyan-400">Valuate</span> Admin Portal
@@ -83,7 +72,6 @@ export default function AdminLoginPage() {
             {/* Error Notification */}
             {error && (
               <div className="p-3.5 rounded-xl bg-rose-950/40 border border-rose-500/40 text-rose-300 text-xs flex items-start space-x-2.5 animate-in fade-in">
-                <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
                 <div className="flex-1 font-mono text-[11px] leading-relaxed">{error}</div>
               </div>
             )}
@@ -132,7 +120,7 @@ export default function AdminLoginPage() {
                     tabIndex={-1}
                     aria-label={showPassword ? "Hide password" : "Show password"}
                   >
-                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    {showPassword ? "Hide" : "Show"}
                   </button>
                 </div>
             </div>
@@ -151,9 +139,8 @@ export default function AdminLoginPage() {
                 </>
               ) : (
                 <>
-                  <Lock className="w-4 h-4" />
                   <span>Authenticate & Enter Console</span>
-                  <ArrowRight className="w-4 h-4" />
+                  &rarr;
                 </>
               )}
             </button>
@@ -162,7 +149,6 @@ export default function AdminLoginPage() {
           {/* Explanation: What is Admin-Key Auth? */}
           <div className="mt-6 pt-5 border-t border-slate-800 text-[11px] text-slate-400 space-y-2">
             <div className="flex items-center space-x-1.5 text-slate-300 font-semibold font-mono">
-              <HelpCircle className="w-3.5 h-3.5 text-cyan-400" />
               <span>Restricted Administration</span>
             </div>
             <p className="leading-relaxed text-slate-400">
@@ -177,7 +163,6 @@ export default function AdminLoginPage() {
             href="/"
             className="inline-flex items-center space-x-2 text-xs text-slate-400 hover:text-cyan-400 transition-colors"
           >
-            <Car className="w-3.5 h-3.5" />
             <span>Return to Public Car Valuation Dashboard</span>
           </Link>
         </div>

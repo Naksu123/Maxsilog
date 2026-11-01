@@ -1,0 +1,3461 @@
+[
+  {
+    "brand": "Alfa Romeo",
+    "model": "Alfa Romeo Giulia 2.0 Veloce",
+    "count": 22,
+    "minYear": 2015,
+    "maxYear": 2022,
+    "avgPrice": 96840.91,
+    "minPrice": 19400.0,
+    "maxPrice": 392100.0,
+    "sampleDescriptions": [
+      "2018 Alfa Romeo Giulia 2.0 Veloce (M) - White Full Service Record",
+      "2017 Alfa Romeo Giulia 2.0 Veloce (M) - Silver Full Service Record",
+      "2022 Alfa Romeo Giulia 2.0 Veloce (M) - Blue Full Service Record",
+      "2015 Alfa Romeo Giulia 2.0 Veloce (M) - Blue Full Service Record",
+      "2016 Alfa Romeo Giulia 2.0 Veloce (M) - Grey Full Service Record"
+    ]
+  },
+  {
+    "brand": "Alfa Romeo",
+    "model": "Alfa Romeo Stelvio 2.0 Super",
+    "count": 19,
+    "minYear": 2015,
+    "maxYear": 2023,
+    "avgPrice": 91873.68,
+    "minPrice": 29700.0,
+    "maxPrice": 221200.0,
+    "sampleDescriptions": [
+      "2023 Alfa Romeo Stelvio 2.0 Super (M) - Maroon Full Service Record",
+      "2016 Alfa Romeo Stelvio 2.0 Super (M) - Silver Full Service Record",
+      "2019 Alfa Romeo Stelvio 2.0 Super (M) - Silver Full Service Record",
+      "2017 Alfa Romeo Stelvio 2.0 Super (M) - Black Full Service Record",
+      "2019 Alfa Romeo Stelvio 2.0 Super (M) - Black Full Service Record"
+    ]
+  },
+  {
+    "brand": "Audi",
+    "model": "Audi A3",
+    "count": 11,
+    "minYear": 2014,
+    "maxYear": 2016,
+    "avgPrice": 51709.09,
+    "minPrice": 42000.0,
+    "maxPrice": 57200.0,
+    "sampleDescriptions": [
+      "2014 Audi A3 1.4 TFSI Sedan - S-LINE RS-3 SPORT TIP-TOP CONDITION",
+      "2015 Audi A3 1.4 TFSI Sedan - (A) S-Line Sport Super Car King 3 Years Warranty",
+      "2016 Audi A3 1.4 TFSI Sedan - (A) New Facelift Model 1.8",
+      "2015 Audi A3 1.4 TFSI Sedan - S-LINE",
+      "2014 Audi A3 1.4 TFSI Sedan - CARKING CONDITION - LOAN WELCOME"
+    ]
+  },
+  {
+    "brand": "Audi",
+    "model": "Audi A4",
+    "count": 12,
+    "minYear": 2013,
+    "maxYear": 2016,
+    "avgPrice": 73791.67,
+    "minPrice": 47500.0,
+    "maxPrice": 115200.0,
+    "sampleDescriptions": [
+      "2016 Audi A4 2.0 TFSI Quattro S Line Sedan - (A) NO PROCESSING CHARGE 1 OWNER",
+      "2016 Audi A4 2.0 TFSI Quattro S Line Sedan - (A) NO PROCESSING CHARGE 1 OWNER - Silver",
+      "2016 Audi A4 2.0 TFSI Quattro S Line Sedan - (A) NO PROCESSING CHARGE 1 OWNER - Red",
+      "2014 Audi A4 1.8 TFSI Sedan - One Year Warranty- Local Spec- High Loan",
+      "2013 Audi A4 2.0 TFSI Quattro S Line Sedan - T (A) SUPER GOOD CONDITION 1 YEAR WARRANTY 90K KM ONLY"
+    ]
+  },
+  {
+    "brand": "Audi",
+    "model": "Audi A5",
+    "count": 2,
+    "minYear": 2015,
+    "maxYear": 2015,
+    "avgPrice": 80300.0,
+    "minPrice": 77300.0,
+    "maxPrice": 83300.0,
+    "sampleDescriptions": [
+      "2014/2015 Audi A5 2.0 TFSI Quattro S Line Coupe - Black Edition Facelift 1 YEAR WARRANTY EA888.3 ENGINE",
+      "2014/2015 Audi A5 2.0 TFSI Quattro S Line Coupe - Black Edition Facelift 1 YEAR WARRANTY EA888.3 ENGINE - Pearl White"
+    ]
+  },
+  {
+    "brand": "Audi",
+    "model": "Audi A6",
+    "count": 2,
+    "minYear": 2013,
+    "maxYear": 2013,
+    "avgPrice": 40250.0,
+    "minPrice": 40000.0,
+    "maxPrice": 40500.0,
+    "sampleDescriptions": [
+      "2013 Audi A6 2.0 TFSI Sedan - (A) HYBRID SUNROOF BOSE SPEAKER FREE WARRANTY",
+      "2013 Audi A6 2.0 TFSI Sedan - (A) HYBRID SUNROOF BOSE SPEAKER FREE WARRANTY - Maroon"
+    ]
+  },
+  {
+    "brand": "Audi",
+    "model": "Audi Q3",
+    "count": 8,
+    "minYear": 2014,
+    "maxYear": 2017,
+    "avgPrice": 57250.0,
+    "minPrice": 51100.0,
+    "maxPrice": 71400.0,
+    "sampleDescriptions": [
+      "2016/2017 Audi Q3 1.4 TFSI SUV - Facelift (POWER BOOT)(1 Year Warranty)(SuperB condition)",
+      "2016/2017 Audi Q3 1.4 TFSI SUV - Facelift (POWER BOOT)(1 Year Warranty)(SuperB condition) - Pearl White",
+      "2014 Audi Q3 2.0 TFSI Quattro SUV - (A) TFSI S-LINE ONE YEAR WARRANTY FULL SERVICE 113836KM",
+      "2014 Audi Q3 2.0 TFSI Quattro SUV - (A) TFSI S-LINE ONE YEAR WARRANTY FULL SERVICE 113836KM - White",
+      "2014 Audi Q3 2.0 TFSI Quattro SUV - (A) TFSI S-LINE ONE YEAR WARRANTY FULL SERVICE 113836KM - Maroon"
+    ]
+  },
+  {
+    "brand": "Audi",
+    "model": "Audi Q5",
+    "count": 6,
+    "minYear": 2014,
+    "maxYear": 2014,
+    "avgPrice": 47750.0,
+    "minPrice": 44100.0,
+    "maxPrice": 52000.0,
+    "sampleDescriptions": [
+      "2014 Audi Q5 2.0 TFSI Quattro SUV - (A) TFSI NEW FACELIFT QUATTRO FREE 1 YEAR WARRANTY",
+      "2014 Audi Q5 2.0 TFSI Quattro SUV - (A) TFSI NEW FACELIFT QUATTRO FREE 1 YEAR WARRANTY - Grey",
+      "2014 Audi Q5 2.0 TFSI Quattro SUV - CASH OTR (A) PADDLE SHIFT PUSH START POWER BOOT 1 YEAR WARRANTY",
+      "2014 Audi Q5 2.0 TFSI Quattro SUV - CASH OTR (A) PADDLE SHIFT PUSH START POWER BOOT 1 YEAR WARRANTY - Silver",
+      "2014 Audi Q5 2.0 TFSI Quattro SUV - (A) TFSI NEW FACELIFT QUATTRO FREE 1 YEAR WARRANTY - Silver"
+    ]
+  },
+  {
+    "brand": "Audi",
+    "model": "Audi Q7",
+    "count": 4,
+    "minYear": 2020,
+    "maxYear": 2020,
+    "avgPrice": 440350.0,
+    "minPrice": 430300.0,
+    "maxPrice": 453500.0,
+    "sampleDescriptions": [
+      "2020 Audi Q7 3.0 TFSI Quattro SUV - 55 TFSI S-Line Quattro Unregistered with 3 Years Warranty",
+      "2020 Audi Q7 3.0 TFSI Quattro SUV - 55 TFSI S-Line Quattro Unregistered with 3 Years Warranty - Dark Blue",
+      "2020 Audi Q7 3.0 TFSI Quattro SUV - 55 TFSI S-Line Quattro Unregistered with 3 Years Warranty - Grey",
+      "2020 Audi Q7 3.0 TFSI Quattro SUV - 55 TFSI S-Line Quattro Unregistered with 3 Years Warranty - Black"
+    ]
+  },
+  {
+    "brand": "BMW",
+    "model": "BMW 116i 1.6",
+    "count": 5,
+    "minYear": 2013,
+    "maxYear": 2013,
+    "avgPrice": 44160.0,
+    "minPrice": 43300.0,
+    "maxPrice": 45600.0,
+    "sampleDescriptions": [
+      "2013 BMW 116i 1.6 Hatchback - (A) F20 TWIN TURBO M SPORT 8 SPEED ONE YEAR WARRANTY",
+      "2013 BMW 116i 1.6 Hatchback - (A) F20 TWIN TURBO M SPORT 8 SPEED ONE YEAR WARRANTY - Grey",
+      "2013 BMW 116i 1.6 Hatchback - (A) F20 TWIN TURBO M SPORT 8 SPEED ONE YEAR WARRANTY - Maroon",
+      "2013 BMW 116i 1.6 Hatchback - (A) F20 TWIN TURBO M SPORT 8 SPEED ONE YEAR WARRANTY - Red",
+      "2013 BMW 116i 1.6 Hatchback - (A) F20 TWIN TURBO M SPORT 8 SPEED ONE YEAR WARRANTY - White"
+    ]
+  },
+  {
+    "brand": "BMW",
+    "model": "BMW 118i",
+    "count": 1,
+    "minYear": 2017,
+    "maxYear": 2017,
+    "avgPrice": 70100.0,
+    "minPrice": 70100.0,
+    "maxPrice": 70100.0,
+    "sampleDescriptions": [
+      "2017 BMW 118i 1.5 Sport Hatchback - , TIPTOP CONDITION, LADY OWNER, WARRANTY PROVIDED"
+    ]
+  },
+  {
+    "brand": "BMW",
+    "model": "BMW 220i 2.0",
+    "count": 2,
+    "minYear": 2015,
+    "maxYear": 2015,
+    "avgPrice": 60450.0,
+    "minPrice": 57500.0,
+    "maxPrice": 63400.0,
+    "sampleDescriptions": [
+      "2015 BMW 220i 2.0 Gran Tourer MPV - (A) Full Service Record Original Mileage 60K-MiL 7 Seater",
+      "2015 BMW 220i 2.0 Gran Tourer MPV - Maroon"
+    ]
+  },
+  {
+    "brand": "BMW",
+    "model": "BMW 316i",
+    "count": 2,
+    "minYear": 2015,
+    "maxYear": 2015,
+    "avgPrice": 56900.0,
+    "minPrice": 56600.0,
+    "maxPrice": 57200.0,
+    "sampleDescriptions": [
+      "2015 BMW 316i 1.6 Sedan - F30 TIP TOP FREE WARRANTY EASY LOAN",
+      "2015 BMW 316i 1.6 Sedan - F30 TIP TOP FREE WARRANTY EASY LOAN - Black"
+    ]
+  },
+  {
+    "brand": "BMW",
+    "model": "BMW 318i",
+    "count": 7,
+    "minYear": 2016,
+    "maxYear": 2018,
+    "avgPrice": 72342.86,
+    "minPrice": 64900.0,
+    "maxPrice": 82000.0,
+    "sampleDescriptions": [
+      "2016 BMW 318i 1.5 Luxury Sedan - F30 318 Car King Easy Loan 3 Years Warranty",
+      "2016 BMW 318i 1.5 Luxury Sedan - F30 318 Car King Easy Loan 3 Years Warranty - Silver",
+      "2016 BMW 318i 1.5 Luxury Sedan - F30 318 Car King Easy Loan 3 Years Warranty - Grey",
+      "2018 BMW 318i 1.5 Luxury Sedan - (A) 1 OWNER FULL SERVICE RECORD NO PROCESSING CHARGE",
+      "2018 BMW 318i 1.5 Luxury Sedan - (A) 1 OWNER FULL SERVICE RECORD NO PROCESSING CHARGE - Red"
+    ]
+  },
+  {
+    "brand": "BMW",
+    "model": "BMW 320i",
+    "count": 13,
+    "minYear": 2014,
+    "maxYear": 2016,
+    "avgPrice": 69630.77,
+    "minPrice": 50600.0,
+    "maxPrice": 88300.0,
+    "sampleDescriptions": [
+      "2014 BMW 320i 2.0 Sport Line Sedan - Sport (A) CKD",
+      "2014 BMW 320i 2.0 Sport Line Sedan - Sport (A) CKD - Grey",
+      "2015/2016 BMW 320i 2.0 Sport Line Sedan - FREEWARRANTY 1OWNER REAL LCI B48 - Dark Blue",
+      "2015 BMW 320i 2.0 Sport Line Sedan - (A) Sport (CKD) - Maroon",
+      "2014 BMW 320i 2.0 Sports Edition Sedan - F30 SPORT EDITION - YOM 1 YEAR WARRANTY ON ENGINE GEAR BOX AUTO BAVARIA HISTORY COME W BRIDGESTONE RUNFLAT TYRE MAX LOAN"
+    ]
+  },
+  {
+    "brand": "BMW",
+    "model": "BMW 328i",
+    "count": 20,
+    "minYear": 2012,
+    "maxYear": 2015,
+    "avgPrice": 71255.0,
+    "minPrice": 45400.0,
+    "maxPrice": 88200.0,
+    "sampleDescriptions": [
+      "2013 BMW 328i 2.0 M Sport Sedan - One Year Warranty- One Careful Owners",
+      "2013 BMW 328i 2.0 M Sport Sedan - One Year Warranty- One Careful Owners - Red",
+      "2013 BMW 328i 2.0 M Sport Sedan - One Year Warranty- One Careful Owners - White",
+      "2013 BMW 328i 2.0 M Sport Sedan - One Year Warranty- One Careful Owners - Red",
+      "2012 BMW 328i 2.0 Sport Line Sedan - (A) F30 TWIN TURBO PADDLE SHIFT ONE YEAR WARRANTY"
+    ]
+  },
+  {
+    "brand": "BMW",
+    "model": "BMW 330e",
+    "count": 25,
+    "minYear": 2017,
+    "maxYear": 2019,
+    "avgPrice": 84268.0,
+    "minPrice": 71800.0,
+    "maxPrice": 98100.0,
+    "sampleDescriptions": [
+      "2018 BMW 330e 2.0 M Sport Sedan - SUNROOF PADDLE SHIFT WARRANTY F30",
+      "2017 BMW 330e 2.0 M Sport Sedan - ORIGINAL SUNROOF EASY LOAN",
+      "2017 BMW 330e 2.0 M Sport Sedan - FULL SERVICE RECORD NAVIGATION PADDLE SHIFT POWER ADJUST SEAT",
+      "2018 BMW 330e 2.0 M Sport Sedan - (A) 1 YEAR WARRANTY, PREMIUM SELECTION",
+      "2019 BMW 330e 2.0 M Sport Sedan - FULL SERVICE F30 - Pearl White"
+    ]
+  },
+  {
+    "brand": "BMW",
+    "model": "BMW 330i",
+    "count": 2,
+    "minYear": 2021,
+    "maxYear": 2021,
+    "avgPrice": 201550.0,
+    "minPrice": 200400.0,
+    "maxPrice": 202700.0,
+    "sampleDescriptions": [
+      "2021 BMW 330i 2.0 M Sport Driving Assist Pack Sedan",
+      "2021 BMW 330i 2.0 M Sport Driving Assist Pack Sedan - Maroon"
+    ]
+  },
+  {
+    "brand": "BMW",
+    "model": "BMW 428i",
+    "count": 5,
+    "minYear": 2013,
+    "maxYear": 2015,
+    "avgPrice": 126080.0,
+    "minPrice": 91100.0,
+    "maxPrice": 139700.0,
+    "sampleDescriptions": [
+      "2013 BMW 428i 2.0 Sport Line Coupe - FULL SERVICE RECORD 2 DOORS, NEGO SAMPAI JADI OFFER",
+      "2015 BMW 428i 2.0 M Sport Coupe - , FREE 1 YEAR WARRANTY , 47K ORI LOW MILEAGE , FULL SERVICE RECORD , PADDLE SHIFT , NAVIGATION 1 OWNER ONLY",
+      "2015 BMW 428i 2.0 M Sport Coupe - , FREE 1 YEAR WARRANTY , 47K ORI LOW MILEAGE , FULL SERVICE RECORD , PADDLE SHIFT , NAVIGATION 1 OWNER ONLY - Grey",
+      "2015 BMW 428i 2.0 M Sport Coupe - , FREE 1 YEAR WARRANTY , 47K ORI LOW MILEAGE , FULL SERVICE RECORD , PADDLE SHIFT , NAVIGATION 1 OWNER ONLY - Dark Blue",
+      "2015 BMW 428i 2.0 M Sport Coupe - , FREE 1 YEAR WARRANTY , 47K ORI LOW MILEAGE , FULL SERVICE RECORD , PADDLE SHIFT , NAVIGATION 1 OWNER ONLY - White"
+    ]
+  },
+  {
+    "brand": "BMW",
+    "model": "BMW 520i",
+    "count": 29,
+    "minYear": 2012,
+    "maxYear": 2019,
+    "avgPrice": 96979.31,
+    "minPrice": 55400.0,
+    "maxPrice": 189100.0,
+    "sampleDescriptions": [
+      "2012 BMW 520i 2.0 Sedan - (A) Twin Turbo FREE 1 YEAR WARRANTY",
+      "2013 BMW 520i 2.0 Sedan - (A) M Sport (With 1 Year Warranty)",
+      "2014 BMW 520i 2.0 Sedan - (A)FACELIFT HEADLIGHT DIGITAL METER FULL SERVICE RECORD",
+      "2014 BMW 520i 2.0 Sedan - (A)FACELIFT HEADLIGHT DIGITAL METER FULL SERVICE RECORD - White",
+      "2013 BMW 520i 2.0 Sedan - TWIN TURBO (A) HIGH SPEC, 1 YEAR WARRANTY WITH CERTIFIED INSPECTION REPORT - Grey"
+    ]
+  },
+  {
+    "brand": "BMW",
+    "model": "BMW 528i",
+    "count": 19,
+    "minYear": 2012,
+    "maxYear": 2016,
+    "avgPrice": 78352.63,
+    "minPrice": 55200.0,
+    "maxPrice": 114300.0,
+    "sampleDescriptions": [
+      "2013 BMW 528i 2.0 M Sport Sedan - (A) 1 YEAR WARRANTY WITH CERTIFIED INSPECTION REPORT",
+      "2012 BMW 528i 2.0 M Sport Sedan - March (A) F10 Petrol Twin Power Turbo, Original High Spec. CKD local Brand New by MALAYSIA",
+      "2014 BMW 528i 2.0 M Sport Sedan - ORIGINAL TIP TOP EASY LOAN",
+      "2012 BMW 528i 2.0 M Sport Sedan - (A) CKD, 1 YEAR WARRANTY WITH CERTIFIED INSPECTION REPORT",
+      "2016 BMW 528i 2.0 M Sport Sedan - Free 3YRS Warranty Offer True Info F10"
+    ]
+  },
+  {
+    "brand": "BMW",
+    "model": "BMW 530e",
+    "count": 4,
+    "minYear": 2019,
+    "maxYear": 2019,
+    "avgPrice": 165600.0,
+    "minPrice": 160300.0,
+    "maxPrice": 169800.0,
+    "sampleDescriptions": [
+      "2019 BMW 530e 2.0 M Sport Sedan",
+      "2019 BMW 530e 2.0 M Sport Sedan - Black",
+      "2019 BMW 530e 2.0 M Sport Sedan - Dark Blue",
+      "2019 BMW 530e 2.0 M Sport Sedan - White"
+    ]
+  },
+  {
+    "brand": "BMW",
+    "model": "BMW 530i",
+    "count": 8,
+    "minYear": 2017,
+    "maxYear": 2018,
+    "avgPrice": 173362.5,
+    "minPrice": 145900.0,
+    "maxPrice": 200600.0,
+    "sampleDescriptions": [
+      "2018 BMW 530i 2.0 M Sport Sedan - Service Record Car King Condition",
+      "2017/2018 BMW 530i 2.0 M Sport Sedan - G30 Full Spec Like New Tip-Top Condition Smart Black Edition",
+      "2018 BMW 530i 2.0 M Sport Sedan - Service Record Car King Condition - Dark Blue",
+      "2017 BMW 530i 2.0 M Sport Sedan - G30 - 1 YEAR WARRANTY WITH CERTIFIED INSPECTION REPORT, CALL US NOW FOR BEST DEAL - Pearl White",
+      "2017 BMW 530i 2.0 M Sport Sedan - (A) 1 YEAR WARRANTY, PREMIUM SELECTION"
+    ]
+  },
+  {
+    "brand": "BMW",
+    "model": "BMW 730Li",
+    "count": 3,
+    "minYear": 2014,
+    "maxYear": 2014,
+    "avgPrice": 124466.67,
+    "minPrice": 123600.0,
+    "maxPrice": 125600.0,
+    "sampleDescriptions": [
+      "2014 BMW 730Li 3.0 Sedan - M-SPORT NEW-FACELIFT WTY2025 ,CRYSTAL BLACK IN COLOUR,PUSH START,FULL LEATHER SEAT,ONE DATO OWNER",
+      "2014 BMW 730Li 3.0 Sedan - M-SPORT NEW-FACELIFT WTY2025 ,CRYSTAL BLACK IN COLOUR,PUSH START,FULL LEATHER SEAT,ONE DATO OWNER - Silver",
+      "2014 BMW 730Li 3.0 Sedan - M-SPORT NEW-FACELIFT WTY2025 ,CRYSTAL BLACK IN COLOUR,PUSH START,FULL LEATHER SEAT,ONE DATO OWNER - Silver"
+    ]
+  },
+  {
+    "brand": "BMW",
+    "model": "BMW 740Le 2.0",
+    "count": 5,
+    "minYear": 2017,
+    "maxYear": 2017,
+    "avgPrice": 176780.0,
+    "minPrice": 171900.0,
+    "maxPrice": 183300.0,
+    "sampleDescriptions": [
+      "2017 BMW 740Le 2.0 xDrive Sedan - (A) 1 YEAR WARRANTY, PREMIUM SELECTION",
+      "2017 BMW 740Le 2.0 xDrive Sedan - (A) 1 YEAR WARRANTY, PREMIUM SELECTION - Blue",
+      "2017 BMW 740Le 2.0 xDrive Sedan - (A) 1 YEAR WARRANTY, PREMIUM SELECTION - Grey",
+      "2017 BMW 740Le 2.0 xDrive Sedan - (A) 1 YEAR WARRANTY, PREMIUM SELECTION - White",
+      "2017 BMW 740Le 2.0 xDrive Sedan - (A) 1 YEAR WARRANTY, PREMIUM SELECTION - Red"
+    ]
+  },
+  {
+    "brand": "BMW",
+    "model": "BMW 840i 3.0",
+    "count": 4,
+    "minYear": 2020,
+    "maxYear": 2020,
+    "avgPrice": 400425.0,
+    "minPrice": 390100.0,
+    "maxPrice": 408600.0,
+    "sampleDescriptions": [
+      "2020 BMW 840i 3.0 M Sport Sedan - GR 4DOOR COUPE Harman Kardon Sound System LED Light Keyless Push Start Engine Paddle Shift 20KMiles",
+      "2020 BMW 840i 3.0 M Sport Sedan - GR 4DOOR COUPE Harman Kardon Sound System LED Light Keyless Push Start Engine Paddle Shift 20KMiles - Maroon",
+      "2020 BMW 840i 3.0 M Sport Sedan - GR 4DOOR COUPE Harman Kardon Sound System LED Light Keyless Push Start Engine Paddle Shift 20KMiles - Black",
+      "2020 BMW 840i 3.0 M Sport Sedan - GR 4DOOR COUPE Harman Kardon Sound System LED Light Keyless Push Start Engine Paddle Shift 20KMiles - Dark Blue"
+    ]
+  },
+  {
+    "brand": "BMW",
+    "model": "BMW X1",
+    "count": 32,
+    "minYear": 2014,
+    "maxYear": 2019,
+    "avgPrice": 93221.88,
+    "minPrice": 39000.0,
+    "maxPrice": 127200.0,
+    "sampleDescriptions": [
+      "2018 BMW X1 2.0 sDrive20i Sport Line SUV - sDrive20i Sport APPROVED USED CAR",
+      "2019 BMW X1 2.0 sDrive20i Sport Line SUV",
+      "2013/2014 BMW X1 2.0 sDrive20i SUV - CARKING CONDITION - CHEAPEST PRICE",
+      "2018 BMW X1 2.0 sDrive20i Sport Line SUV - (A) New Facelift 7 Speed Full Service Record 67k-MiL",
+      "2019 BMW X1 2.0 sDrive20i Sport Line SUV - (A) 1 YEAR WARRANTY, PREMIUM SELECTION"
+    ]
+  },
+  {
+    "brand": "BMW",
+    "model": "BMW X3",
+    "count": 15,
+    "minYear": 2015,
+    "maxYear": 2019,
+    "avgPrice": 149686.67,
+    "minPrice": 77500.0,
+    "maxPrice": 175300.0,
+    "sampleDescriptions": [
+      "2015 BMW X3 2.0 xDrive20i SUV - LCI (Power Boot Keyless Entry Paddle Shift)",
+      "2018 BMW X3 2.0 xDrive30i Luxury SUV - (A) 1 YEAR WARRANTY, PREMIUM SELECTION",
+      "2018 BMW X3 2.0 xDrive30i Luxury SUV - (A) 1 YEAR WARRANTY, PREMIUM SELECTION",
+      "2018 BMW X3 2.0 xDrive30i Luxury SUV - , FULL SERVICE , KING, POWER BOOT, MERDEKA SALES, NEGO SAMPAI JADI, OFFER MURAH",
+      "2018 BMW X3 2.0 xDrive30i Luxury SUV - , FULL SERVICE , KING, POWER BOOT, MERDEKA SALES, NEGO SAMPAI JADI, OFFER MURAH - Red"
+    ]
+  },
+  {
+    "brand": "BMW",
+    "model": "BMW X4",
+    "count": 3,
+    "minYear": 2016,
+    "maxYear": 2019,
+    "avgPrice": 205200.0,
+    "minPrice": 118400.0,
+    "maxPrice": 252700.0,
+    "sampleDescriptions": [
+      "2019 BMW X4 2.0 xDrive30i M Sport SUV - (A) 1 YEAR WARRANTY, PREMIUM SELECTION",
+      "2019 BMW X4 2.0 xDrive30i M Sport SUV - (A) 1 YEAR WARRANTY, PREMIUM SELECTION - Blue",
+      "2016 BMW X4 2.0 xDrive28i M Sport SUV - (LOW MILEAGE 90K KM DONE HEAD DISPLAY HARMAN KARDON ORIGINAL M SPORT) - Pearl White"
+    ]
+  },
+  {
+    "brand": "BMW",
+    "model": "BMW X5",
+    "count": 12,
+    "minYear": 2014,
+    "maxYear": 2019,
+    "avgPrice": 119508.33,
+    "minPrice": 104300.0,
+    "maxPrice": 131700.0,
+    "sampleDescriptions": [
+      "2015 BMW X5 3.0 xDrive35i SUV",
+      "2014 BMW X5 3.0 xDrive35i SUV",
+      "2015 BMW X5 3.0 xDrive35i SUV - Red",
+      "2015 BMW X5 3.0 xDrive35i SUV - Blue",
+      "2015 BMW X5 3.0 xDrive35i SUV - White"
+    ]
+  },
+  {
+    "brand": "BMW",
+    "model": "BMW X6",
+    "count": 10,
+    "minYear": 2014,
+    "maxYear": 2021,
+    "avgPrice": 296280.0,
+    "minPrice": 81800.0,
+    "maxPrice": 558600.0,
+    "sampleDescriptions": [
+      "2014 BMW X6 3.0 xDrive35i SUV - (A) TWIN TURBO M SPORT WITH UNDER PREMIUM WARRANTY",
+      "2020/2021 BMW X6 3.0 xDrive40i M Sport SUV - (A) GUARANTEE No Accident No Total Lost No Flood 5 Days Money back Guarantee",
+      "2017 BMW X6 3.0 xDrive35i M Sport SUV - M-SPORT WTY 2025 ,CRYSTAL WHITE IN COLOUR,FULL LEATHER SEAT,POWER BOOT,ONE OF DATIN D OWNER",
+      "2017 BMW X6 3.0 xDrive35i M Sport SUV - M-SPORT WTY 2025 ,CRYSTAL WHITE IN COLOUR,FULL LEATHER SEAT,POWER BOOT,ONE OF DATIN D OWNER - Silver",
+      "2020/2021 BMW X6 3.0 xDrive40i M Sport SUV - (A) GUARANTEE No Accident No Total Lost No Flood 5 Days Money back Guarantee - Black"
+    ]
+  },
+  {
+    "brand": "BYD",
+    "model": "BYD Atto 3 Extended Range",
+    "count": 13,
+    "minYear": 2015,
+    "maxYear": 2023,
+    "avgPrice": 96946.15,
+    "minPrice": 32800.0,
+    "maxPrice": 243100.0,
+    "sampleDescriptions": [
+      "2018 BYD Atto 3 Extended Range (M) - Red Full Service Record",
+      "2019 BYD Atto 3 Extended Range (M) - Dark Blue Full Service Record",
+      "2016 BYD Atto 3 Extended Range (M) - Silver Full Service Record",
+      "2019 BYD Atto 3 Extended Range (M) - Silver Full Service Record",
+      "2015 BYD Atto 3 Extended Range (M) - Pearl White Full Service Record"
+    ]
+  },
+  {
+    "brand": "BYD",
+    "model": "BYD Dolphin Dynamic Standard",
+    "count": 27,
+    "minYear": 2015,
+    "maxYear": 2023,
+    "avgPrice": 56814.81,
+    "minPrice": 11200.0,
+    "maxPrice": 124800.0,
+    "sampleDescriptions": [
+      "2016 BYD Dolphin Dynamic Standard (M) - Maroon Full Service Record",
+      "2015 BYD Dolphin Dynamic Standard (M) - Dark Blue Full Service Record",
+      "2018 BYD Dolphin Dynamic Standard (M) - Black Full Service Record",
+      "2021 BYD Dolphin Dynamic Standard (M) - Red Full Service Record",
+      "2023 BYD Dolphin Dynamic Standard (M) - Dark Blue Full Service Record"
+    ]
+  },
+  {
+    "brand": "Chery",
+    "model": "Chery Omoda 5 1.5",
+    "count": 25,
+    "minYear": 2015,
+    "maxYear": 2023,
+    "avgPrice": 86596.0,
+    "minPrice": 20000.0,
+    "maxPrice": 272100.0,
+    "sampleDescriptions": [
+      "2018 Chery Omoda 5 1.5 (M) - Black Full Service Record",
+      "2019 Chery Omoda 5 1.5 (M) - Black Full Service Record",
+      "2020 Chery Omoda 5 1.5 (M) - Black Full Service Record",
+      "2019 Chery Omoda 5 1.5 (M) - Dark Blue Full Service Record",
+      "2022 Chery Omoda 5 1.5 (M) - Maroon Full Service Record"
+    ]
+  },
+  {
+    "brand": "Chery",
+    "model": "Chery Tiggo 8 Pro 2.0 TGDi",
+    "count": 22,
+    "minYear": 2015,
+    "maxYear": 2023,
+    "avgPrice": 85740.91,
+    "minPrice": 23700.0,
+    "maxPrice": 272700.0,
+    "sampleDescriptions": [
+      "2023 Chery Tiggo 8 Pro 2.0 TGDi (M) - Red Full Service Record",
+      "2018 Chery Tiggo 8 Pro 2.0 TGDi (M) - Pearl White Full Service Record",
+      "2022 Chery Tiggo 8 Pro 2.0 TGDi (M) - White Full Service Record",
+      "2015 Chery Tiggo 8 Pro 2.0 TGDi (M) - White Full Service Record",
+      "2017 Chery Tiggo 8 Pro 2.0 TGDi (M) - Maroon Full Service Record"
+    ]
+  },
+  {
+    "brand": "Chevrolet",
+    "model": "Chevrolet Colorado 2.8 High Country",
+    "count": 17,
+    "minYear": 2015,
+    "maxYear": 2022,
+    "avgPrice": 101135.29,
+    "minPrice": 28400.0,
+    "maxPrice": 273700.0,
+    "sampleDescriptions": [
+      "2019 Chevrolet Colorado 2.8 High Country (M) - Silver Full Service Record",
+      "2021 Chevrolet Colorado 2.8 High Country (M) - Dark Blue Full Service Record",
+      "2019 Chevrolet Colorado 2.8 High Country (M) - Red Full Service Record",
+      "2018 Chevrolet Colorado 2.8 High Country (M) - Dark Blue Full Service Record",
+      "2019 Chevrolet Colorado 2.8 High Country (M) - Silver Full Service Record"
+    ]
+  },
+  {
+    "brand": "Chevrolet",
+    "model": "Chevrolet Cruze 1.8 LT",
+    "count": 21,
+    "minYear": 2015,
+    "maxYear": 2023,
+    "avgPrice": 101009.52,
+    "minPrice": 26800.0,
+    "maxPrice": 278800.0,
+    "sampleDescriptions": [
+      "2016 Chevrolet Cruze 1.8 LT (M) - Silver Full Service Record",
+      "2017 Chevrolet Cruze 1.8 LT (M) - White Full Service Record",
+      "2023 Chevrolet Cruze 1.8 LT (M) - Silver Full Service Record",
+      "2020 Chevrolet Cruze 1.8 LT (M) - Silver Full Service Record",
+      "2022 Chevrolet Cruze 1.8 LT (M) - Black Full Service Record"
+    ]
+  },
+  {
+    "brand": "Chevrolet",
+    "model": "Chevrolet Malibu 2.4 LTZ",
+    "count": 22,
+    "minYear": 2015,
+    "maxYear": 2023,
+    "avgPrice": 100263.64,
+    "minPrice": 22000.0,
+    "maxPrice": 288100.0,
+    "sampleDescriptions": [
+      "2021 Chevrolet Malibu 2.4 LTZ (M) - Maroon Full Service Record",
+      "2020 Chevrolet Malibu 2.4 LTZ (M) - White Full Service Record",
+      "2023 Chevrolet Malibu 2.4 LTZ (M) - Dark Blue Full Service Record",
+      "2018 Chevrolet Malibu 2.4 LTZ (M) - Maroon Full Service Record",
+      "2022 Chevrolet Malibu 2.4 LTZ (M) - Pearl White Full Service Record"
+    ]
+  },
+  {
+    "brand": "Citroen",
+    "model": "Citroen C4 Picasso",
+    "count": 4,
+    "minYear": 2016,
+    "maxYear": 2016,
+    "avgPrice": 42525.0,
+    "minPrice": 41700.0,
+    "maxPrice": 43500.0,
+    "sampleDescriptions": [
+      "2016 Citroen C4 Picasso 1.6 L3 Executive MPV - CONFIRM POWERBOOT 1YR WARRANTY - Pearl White",
+      "2016 Citroen C4 Picasso 1.6 L3 Executive MPV - CONFIRM POWERBOOT 1YR WARRANTY - Grey",
+      "2016 Citroen C4 Picasso 1.6 L3 Executive MPV - CONFIRM POWERBOOT 1YR WARRANTY - Silver",
+      "2016 Citroen C4 Picasso 1.6 L3 Executive MPV - CONFIRM POWERBOOT 1YR WARRANTY - Black"
+    ]
+  },
+  {
+    "brand": "Ford",
+    "model": "Ford EcoSport",
+    "count": 4,
+    "minYear": 2017,
+    "maxYear": 2017,
+    "avgPrice": 32100.0,
+    "minPrice": 30300.0,
+    "maxPrice": 33300.0,
+    "sampleDescriptions": [
+      "2017 Ford EcoSport 1.5 Trend SUV - AUTO FACELIFT - GIVEN 1YEAR WARRANTY -FULL SERVICE RECORD HISTORY - 1LADY OWNER-ACC FREE -LIKE NEW -HIGH LOAN",
+      "2017 Ford EcoSport 1.5 Trend SUV - AUTO FACELIFT - GIVEN 1YEAR WARRANTY -FULL SERVICE RECORD HISTORY - 1LADY OWNER-ACC FREE -LIKE NEW -HIGH LOAN - Grey",
+      "2017 Ford EcoSport 1.5 Trend SUV - AUTO FACELIFT - GIVEN 1YEAR WARRANTY -FULL SERVICE RECORD HISTORY - 1LADY OWNER-ACC FREE -LIKE NEW -HIGH LOAN - Grey",
+      "2017 Ford EcoSport 1.5 Trend SUV - AUTO FACELIFT - GIVEN 1YEAR WARRANTY -FULL SERVICE RECORD HISTORY - 1LADY OWNER-ACC FREE -LIKE NEW -HIGH LOAN - Silver"
+    ]
+  },
+  {
+    "brand": "Ford",
+    "model": "Ford Fiesta",
+    "count": 3,
+    "minYear": 2014,
+    "maxYear": 2014,
+    "avgPrice": 22433.33,
+    "minPrice": 22200.0,
+    "maxPrice": 22900.0,
+    "sampleDescriptions": [
+      "2013/2014 Ford Fiesta 1.5 Sport Hatchback - , KEYLESS PUSH START, SEAT, FACELIFT MODEL, NEGO SAMPAI JADI, OFFER",
+      "2013/2014 Ford Fiesta 1.5 Sport Hatchback - , KEYLESS PUSH START, SEAT, FACELIFT MODEL, NEGO SAMPAI JADI, OFFER - Maroon",
+      "2013/2014 Ford Fiesta 1.5 Sport Hatchback - , KEYLESS PUSH START, SEAT, FACELIFT MODEL, NEGO SAMPAI JADI, OFFER - Pearl White"
+    ]
+  },
+  {
+    "brand": "Ford",
+    "model": "Ford Kuga",
+    "count": 2,
+    "minYear": 2013,
+    "maxYear": 2013,
+    "avgPrice": 29950.0,
+    "minPrice": 29200.0,
+    "maxPrice": 30700.0,
+    "sampleDescriptions": [
+      "2013 Ford Kuga 1.6 Ecoboost Titanium SUV - (A) 1 YEAR WARRANTY MIL87151KM ONE OWNER CAR KING",
+      "2013 Ford Kuga 1.6 Ecoboost Titanium SUV - (A) 1 YEAR WARRANTY MIL87151KM ONE OWNER CAR KING - Red"
+    ]
+  },
+  {
+    "brand": "Ford",
+    "model": "Ford MUSTANG",
+    "count": 19,
+    "minYear": 2017,
+    "maxYear": 2022,
+    "avgPrice": 248100.0,
+    "minPrice": 162500.0,
+    "maxPrice": 308800.0,
+    "sampleDescriptions": [
+      "2021 Ford MUSTANG 2.3 High Performance Coupe - Unregister New Facelift 330hp 10-Speed Auto B O Sound System Apple Carplay Digital Meter Exhaust Sport",
+      "2022 Ford MUSTANG 2.3 High Performance Coupe",
+      "2017 Ford MUSTANG 2.3 Coupe - ECOBOOST (A) - Silver",
+      "2016/2018 Ford MUSTANG 2.3 Coupe - FASTBACK 2 DOORS, WARRANTY PROVIDED, CAR KING 1 OWNER, RARE COLOUR RAMADHAN SALE - Pearl White",
+      "2016/2018 Ford MUSTANG 2.3 Coupe - FASTBACK 2 DOORS, WARRANTY PROVIDED, CAR KING 1 OWNER, RARE COLOUR RAMADHAN SALE - Grey"
+    ]
+  },
+  {
+    "brand": "Ford",
+    "model": "Ford Ranger",
+    "count": 17,
+    "minYear": 2013,
+    "maxYear": 2020,
+    "avgPrice": 57005.88,
+    "minPrice": 34800.0,
+    "maxPrice": 150600.0,
+    "sampleDescriptions": [
+      "2013 Ford Ranger 2.2 XL Single Cab Pickup Truck - XL NO PROCESSING CHARGE 1 OWNER",
+      "2015 Ford Ranger 2.2 XLT Hi-Rider Dual Cab Pickup Truck - XLT Hi-Rider Pickup (A) 1 YEAR WARRANTY",
+      "2013 Ford Ranger 2.2 XL Single Cab Pickup Truck - XL NO PROCESSING CHARGE 1 OWNER - White",
+      "2015 Ford Ranger 2.2 XL Hi-rider Dual Cab Pickup Truck - CASH OTR XL MANUAL DIESEL TURBO 4WD SINGLE CAB 2 DOOR PICKUP 1 YEAR WARRANTY",
+      "2013 Ford Ranger 3.2 Wildtrak Dual Cab Pickup Truck - Wildtrak ELECTRIC SEAT FULL SPEC FREE INSURANCE"
+    ]
+  },
+  {
+    "brand": "Haval",
+    "model": "Haval H1",
+    "count": 2,
+    "minYear": 2019,
+    "maxYear": 2019,
+    "avgPrice": 32350.0,
+    "minPrice": 31200.0,
+    "maxPrice": 33500.0,
+    "sampleDescriptions": [
+      "2019 Haval H1 1.5 Comfort SUV - GREAT WALL (A) SERVICE RECORD 37599KM ONE YEAR WARRANTY ONE OWNER",
+      "2019 Haval H1 1.5 Comfort SUV - GREAT WALL (A) SERVICE RECORD 37599KM ONE YEAR WARRANTY ONE OWNER - Pearl White"
+    ]
+  },
+  {
+    "brand": "Haval",
+    "model": "Haval H2",
+    "count": 4,
+    "minYear": 2019,
+    "maxYear": 2019,
+    "avgPrice": 46675.0,
+    "minPrice": 46200.0,
+    "maxPrice": 47200.0,
+    "sampleDescriptions": [
+      "2019 Haval H2 1.5 Premium SUV - COMFIRM TURBO (A)",
+      "2019 Haval H2 1.5 Premium SUV - COMFIRM TURBO (A) - Maroon",
+      "2019 Haval H2 1.5 Premium SUV - COMFIRM TURBO (A) - Maroon",
+      "2019 Haval H2 1.5 Premium SUV - COMFIRM TURBO (A) - Blue"
+    ]
+  },
+  {
+    "brand": "Honda",
+    "model": "Honda Accord",
+    "count": 46,
+    "minYear": 2013,
+    "maxYear": 2020,
+    "avgPrice": 65219.57,
+    "minPrice": 44000.0,
+    "maxPrice": 141800.0,
+    "sampleDescriptions": [
+      "2016 Honda Accord 2.0 i-VTEC VTi-L Sedan - VTi-L FACELIFT MODEL",
+      "2016 Honda Accord 2.4 i-VTEC Sedan - , Free Warranty Low depo",
+      "2013/2014 Honda Accord 2.0 i-VTEC VTi Sedan - Cash Out 10k Free 1 Year Warranty",
+      "2015 Honda Accord 2.0 i-VTEC VTi-L Sedan - LEATHER SEAT - KEYLESS - HIGH LOAN AVAILABLE",
+      "2016 Honda Accord 2.0 i-VTEC VTi-L Sedan - (A) 1 YEAR WARRANTY"
+    ]
+  },
+  {
+    "brand": "Honda",
+    "model": "Honda BR-V",
+    "count": 11,
+    "minYear": 2017,
+    "maxYear": 2018,
+    "avgPrice": 51463.64,
+    "minPrice": 48100.0,
+    "maxPrice": 55000.0,
+    "sampleDescriptions": [
+      "2017 Honda BR-V 1.5 V i-VTEC SUV",
+      "2018 Honda BR-V 1.5 V i-VTEC SUV - 7 SEATER SMALL MPV - KEYLESS - EASY LOAN",
+      "2018 Honda BR-V 1.5 V i-VTEC SUV - PUSH START BUTTON - HIGH LOAN WELCOME",
+      "2017 Honda BR-V 1.5 V i-VTEC SUV - JOHOR PLATE - KEYLESS - HIGH LOAN",
+      "2017 Honda BR-V 1.5 V i-VTEC SUV - JOHOR PLATE - KEYLESS - HIGH LOAN - Dark Blue"
+    ]
+  },
+  {
+    "brand": "Honda",
+    "model": "Honda CR-V",
+    "count": 64,
+    "minYear": 2012,
+    "maxYear": 2019,
+    "avgPrice": 68453.12,
+    "minPrice": 34100.0,
+    "maxPrice": 110700.0,
+    "sampleDescriptions": [
+      "2012 Honda CR-V 2.0 i-VTEC SUV - (A) - SERVICE 119K KM ONLY- ORIGINAL PAINT - ORI LEATHER SEAT VIEW TO BELIEVE",
+      "2016 Honda CR-V 2.4 i-VTEC SUV - L AUTO (NEW FACELIFT)",
+      "2015 Honda CR-V 2.4 i-VTEC SUV",
+      "2015 Honda CR-V 2.4 i-VTEC SUV - L AUTO (FACELIFT HIGH SPEC)",
+      "2015 Honda CR-V 2.0 i-VTEC SUV - AUTO (FACELIFT MODEL)"
+    ]
+  },
+  {
+    "brand": "Honda",
+    "model": "Honda City",
+    "count": 51,
+    "minYear": 2013,
+    "maxYear": 2019,
+    "avgPrice": 51243.14,
+    "minPrice": 26500.0,
+    "maxPrice": 65800.0,
+    "sampleDescriptions": [
+      "2019 Honda City 1.5 S i-VTEC Sedan - (A) PUSH START BUTTON - KEYLESS ENTRY - LED AUTO HEADLAMP - 1 OWNER - SELLING CHEAP IN MARKET PLACE",
+      "2019 Honda City 1.5 E i-VTEC Sedan - KEYLESS EASY LOAN FULL SERVICE RECORD",
+      "2019 Honda City 1.5 V i-VTEC Sedan - FULL SPEC - EASY LOAN",
+      "2014 Honda City 1.5 E i-VTEC Sedan - JOHOR PLATE - KEYLESS - LOW DEPOSIT",
+      "2019 Honda City 1.5 V i-VTEC Sedan - PADDLE SHIFT 1 OWNER WARRANTY"
+    ]
+  },
+  {
+    "brand": "Honda",
+    "model": "Honda Civic",
+    "count": 61,
+    "minYear": 2013,
+    "maxYear": 2020,
+    "avgPrice": 74293.44,
+    "minPrice": 24700.0,
+    "maxPrice": 103000.0,
+    "sampleDescriptions": [
+      "2018 Honda Civic 1.5 TC VTEC Sedan - (We Warranty)",
+      "2019 Honda Civic 1.8 S i-VTEC Sedan",
+      "2017 Honda Civic 1.8 S i-VTEC Sedan - (A) NO PROCESSING CHARGE",
+      "2018 Honda Civic 1.5 TC VTEC Premium Sedan - (Year End Sales) (TCP) (Turbo) (High Loan Available) (Low Downpayment)",
+      "2014 Honda Civic 1.5 i-VTEC Hybrid Sedan - (A) WARRANTY 1 YEAR - ALL PROBLEM CAN APPLY LOAN HERE - SEMUA MASALAH BOLEH BUAT LOAN KEDAI SINI"
+    ]
+  },
+  {
+    "brand": "Honda",
+    "model": "Honda HR-V",
+    "count": 38,
+    "minYear": 2015,
+    "maxYear": 2019,
+    "avgPrice": 58176.32,
+    "minPrice": 45500.0,
+    "maxPrice": 84700.0,
+    "sampleDescriptions": [
+      "2019 Honda HR-V 1.8 i-VTEC V SUV - (A) 1 YEAR WARRANTY",
+      "2015/2016 Honda HR-V 1.8 i-VTEC V SUV - (A) One Owner , Full Service Record Under",
+      "2015 Honda HR-V 1.8 i-VTEC V SUV - V SPEC(A)NO PROCESSING CHARGE",
+      "2016 Honda HR-V 1.8 i-VTEC E SUV - , FULL CAR BLACK BODYKITS, FULL CAR LEATHER , ANDROID PLAYER, HD REVERSE CAMERA, KEYLESS PUSH START , WARRANTY PROVIDE",
+      "2015 Honda HR-V 1.8 i-VTEC V SUV - V SPEC(A)NO PROCESSING CHARGE - Black"
+    ]
+  },
+  {
+    "brand": "Honda",
+    "model": "Honda Jazz",
+    "count": 31,
+    "minYear": 2013,
+    "maxYear": 2019,
+    "avgPrice": 47403.23,
+    "minPrice": 35100.0,
+    "maxPrice": 65800.0,
+    "sampleDescriptions": [
+      "2015 Honda Jazz 1.5 S i-VTEC Hatchback - (A) FULL SERVICE RECORD - SERVICE BOOK AVAILABLE - 1 OWNER - SELLING CHEAP IN MRKET PLACE - ORIGINAL CONDITION",
+      "2014 Honda Jazz 1.5 E i-VTEC Hatchback",
+      "2015 Honda Jazz 1.5 E i-VTEC Hatchback - (Percuma Warranty)(Percuma Siap Tukar Nama)(Tahun Dibuat )( Auto)(Lady Owner)(Warna Puteh)(Push Start)",
+      "2015 Honda Jazz 1.5 S i-VTEC Hatchback - (A) FULL SERVICE RECORD - SERVICE BOOK AVAILABLE - 1 OWNER - SELLING CHEAP IN MRKET PLACE - ORIGINAL CONDITION - Dark Blue",
+      "2016 Honda Jazz 1.5 S i-VTEC Hatchback - BODYKITS CANTIL, NICE SPORT RIMS CAR KING OFFER 1 OWNER"
+    ]
+  },
+  {
+    "brand": "Hyundai",
+    "model": "Hyundai Elantra",
+    "count": 10,
+    "minYear": 2015,
+    "maxYear": 2015,
+    "avgPrice": 31920.0,
+    "minPrice": 26000.0,
+    "maxPrice": 38700.0,
+    "sampleDescriptions": [
+      "2015 Hyundai Elantra 1.6 EX Sedan - , push start,full bodykit",
+      "2015 Hyundai Elantra 1.8 Premium Sedan - PUSH START - SUPERB CAR KING - LOAN WELCOME",
+      "2015 Hyundai Elantra 1.6 EX Sedan - , push start,full bodykit - Maroon",
+      "2015 Hyundai Elantra 1.6 Premium Sedan - HIGH SPEC , KEYLESS PUSH START , FULL LEATHER SEAT",
+      "2015 Hyundai Elantra 1.8 Premium Sedan - PUSH START - SUPERB CAR KING - LOAN WELCOME - White"
+    ]
+  },
+  {
+    "brand": "Hyundai",
+    "model": "Hyundai Grand Starex",
+    "count": 16,
+    "minYear": 2013,
+    "maxYear": 2020,
+    "avgPrice": 99231.25,
+    "minPrice": 63800.0,
+    "maxPrice": 146600.0,
+    "sampleDescriptions": [
+      "2016 Hyundai Grand Starex 2.5 Royale GLS MPV",
+      "2019 Hyundai Grand Starex 2.5 Executive MPV",
+      "2019 Hyundai Grand Starex 2.5 Executive MPV - Maroon",
+      "2020 Hyundai Grand Starex 2.5 Executive Plus MPV",
+      "2015 Hyundai Grand Starex 2.5 Royale GLS MPV - Silver"
+    ]
+  },
+  {
+    "brand": "Hyundai",
+    "model": "Hyundai Ioniq",
+    "count": 2,
+    "minYear": 2017,
+    "maxYear": 2017,
+    "avgPrice": 45900.0,
+    "minPrice": 45000.0,
+    "maxPrice": 46800.0,
+    "sampleDescriptions": [
+      "2017 Hyundai Ioniq 1.6 Hybrid BlueDrive HEV Plus Hatchback - HEV PLUS (A) Car King Easy Loan 1 Malaysia Warranty - Red",
+      "2017 Hyundai Ioniq 1.6 Hybrid BlueDrive HEV Plus Hatchback - HEV PLUS (A) Car King Easy Loan 1 Malaysia Warranty - Blue"
+    ]
+  },
+  {
+    "brand": "Hyundai",
+    "model": "Hyundai Sonata",
+    "count": 11,
+    "minYear": 2013,
+    "maxYear": 2015,
+    "avgPrice": 34518.18,
+    "minPrice": 26900.0,
+    "maxPrice": 44500.0,
+    "sampleDescriptions": [
+      "2015 Hyundai Sonata 2.0 Executive Sedan - FULL SPEC - HIGH LOAN",
+      "2014 Hyundai Sonata 2.0 Elegance Sedan - EXECUTIVE (A) NEW FACELIFT 1 OWNER NO PROCESSING CHARGE",
+      "2015 Hyundai Sonata 2.0 Executive Sedan - FULL SPEC - HIGH LOAN - Grey",
+      "2015 Hyundai Sonata 2.0 Executive Sedan - FULL SPEC - HIGH LOAN - Maroon",
+      "2014 Hyundai Sonata 2.0 Elegance Sedan - EXECUTIVE (A) NEW FACELIFT 1 OWNER NO PROCESSING CHARGE - White"
+    ]
+  },
+  {
+    "brand": "Hyundai",
+    "model": "Hyundai Tucson",
+    "count": 4,
+    "minYear": 2015,
+    "maxYear": 2015,
+    "avgPrice": 49300.0,
+    "minPrice": 34300.0,
+    "maxPrice": 62800.0,
+    "sampleDescriptions": [
+      "2015 Hyundai Tucson 2.0 Sport SUV",
+      "2015 Hyundai Tucson 2.0 Sport SUV - Grey",
+      "2015 Hyundai Tucson 2.0 Executive SUV - Facelift Sport Car King 3 Years Warranty",
+      "2015 Hyundai Tucson 2.0 Executive SUV - Facelift Sport Car King 3 Years Warranty - Red"
+    ]
+  },
+  {
+    "brand": "Inokom",
+    "model": "Inokom Elantra 1.6",
+    "count": 8,
+    "minYear": 2014,
+    "maxYear": 2014,
+    "avgPrice": 22787.5,
+    "minPrice": 21900.0,
+    "maxPrice": 23500.0,
+    "sampleDescriptions": [
+      "2014 Inokom Elantra 1.6 Sedan - HYUNDAI (A) WARRANTY 1 YEAR - ALL PROBLEM CAN APPLY LOAN HERE - SEMUA MASALAH BOLEH BUAT LOAN KEDAI SINI",
+      "2014 Inokom Elantra 1.6 GLS Sedan - (A) FULL SERVICE RECORD - SERVICE BOOK AVAILABLE - PUSH START BUTTON - KEYLESS ENTRY - LEATHER SEAT - ANDROID TOUCH SCREEN",
+      "2014 Inokom Elantra 1.6 GLS Sedan - (A) FULL SERVICE RECORD - SERVICE BOOK AVAILABLE - PUSH START BUTTON - KEYLESS ENTRY - LEATHER SEAT - ANDROID TOUCH SCREEN - Black",
+      "2014 Inokom Elantra 1.6 Sedan - HYUNDAI (A) WARRANTY 1 YEAR - ALL PROBLEM CAN APPLY LOAN HERE - SEMUA MASALAH BOLEH BUAT LOAN KEDAI SINI - Blue",
+      "2014 Inokom Elantra 1.6 Sedan - HYUNDAI (A) WARRANTY 1 YEAR - ALL PROBLEM CAN APPLY LOAN HERE - SEMUA MASALAH BOLEH BUAT LOAN KEDAI SINI - Black"
+    ]
+  },
+  {
+    "brand": "Inokom",
+    "model": "Inokom Elantra 1.8",
+    "count": 3,
+    "minYear": 2013,
+    "maxYear": 2013,
+    "avgPrice": 25966.67,
+    "minPrice": 25100.0,
+    "maxPrice": 27000.0,
+    "sampleDescriptions": [
+      "2013 Inokom Elantra 1.8 Premium Sedan - (A) NO PROCESSING CHARGE 1 OWNER - Silver",
+      "2013 Inokom Elantra 1.8 Premium Sedan - (A) NO PROCESSING CHARGE 1 OWNER - Dark Blue",
+      "2013 Inokom Elantra 1.8 Premium Sedan - (A) NO PROCESSING CHARGE 1 OWNER - Silver"
+    ]
+  },
+  {
+    "brand": "Inokom",
+    "model": "Inokom Santa Fe",
+    "count": 11,
+    "minYear": 2013,
+    "maxYear": 2015,
+    "avgPrice": 48036.36,
+    "minPrice": 36200.0,
+    "maxPrice": 51300.0,
+    "sampleDescriptions": [
+      "2014 Inokom Santa Fe 2.4 Elegance SUV - FULL SPEC - SUNROOF - BROWN INTERIOR - EASY LOAN",
+      "2014 Inokom Santa Fe 2.4 Elegance SUV - FULL SPEC - SUNROOF - BROWN INTERIOR - EASY LOAN - Maroon",
+      "2014 Inokom Santa Fe 2.4 Elegance SUV - FULL SPEC - SUNROOF - BROWN INTERIOR - EASY LOAN - Silver",
+      "2014 Inokom Santa Fe 2.4 Elegance SUV - FULL SPEC - SUNROOF - BROWN INTERIOR - EASY LOAN - Dark Blue",
+      "2014 Inokom Santa Fe 2.4 Elegance SUV - FULL SPEC - SUNROOF - BROWN INTERIOR - EASY LOAN - Maroon"
+    ]
+  },
+  {
+    "brand": "Isuzu",
+    "model": "Isuzu D-Max",
+    "count": 23,
+    "minYear": 2013,
+    "maxYear": 2019,
+    "avgPrice": 53517.39,
+    "minPrice": 38400.0,
+    "maxPrice": 71700.0,
+    "sampleDescriptions": [
+      "2018 Isuzu D-Max 2.5 Premium Dual Cab Pickup Truck - (M) SINGLE CAb 4X4 NEW FACELIFT",
+      "2017 Isuzu D-Max 2.5 Premium Dual Cab Pickup Truck - (M) PREMIUM 4X4 DUAL CAB",
+      "2016 Isuzu D-Max 2.5 Premium Dual Cab Pickup Truck - (M) PREMIUM 4X4 DUAL CAB",
+      "2018 Isuzu D-Max 2.5 X-Series Pickup Truck - (A) Z PRESTIGE 4X4 FACELIFT 1 YEAR WARRANTY",
+      "2015 Isuzu D-Max 2.5 Hi-Ride Dual Cab Pickup Truck - Hi-Ride , FULL LEATHER SEAT, TIPTOP CONDITION, ORIGINAL MILEAGE, WARRANTY PROVIDED"
+    ]
+  },
+  {
+    "brand": "Jaguar",
+    "model": "Jaguar F-Pace 2.0",
+    "count": 3,
+    "minYear": 2018,
+    "maxYear": 2018,
+    "avgPrice": 201633.33,
+    "minPrice": 196700.0,
+    "maxPrice": 207100.0,
+    "sampleDescriptions": [
+      "2018 Jaguar F-Pace 2.0 25t Ingenium Hi-Spec SUV - R Sport Digital Meter 34K KM FullService MSIA 25t FullSpec Perfect Condition One Year Warranty",
+      "2018 Jaguar F-Pace 2.0 25t Ingenium Hi-Spec SUV - R Sport Digital Meter 34K KM FullService MSIA 25t FullSpec Perfect Condition One Year Warranty - Blue",
+      "2018 Jaguar F-Pace 2.0 25t Ingenium Hi-Spec SUV - R Sport Digital Meter 34K KM FullService MSIA 25t FullSpec Perfect Condition One Year Warranty - Maroon"
+    ]
+  },
+  {
+    "brand": "Jaguar",
+    "model": "Jaguar F-Pace 2.0 R-Sport",
+    "count": 25,
+    "minYear": 2015,
+    "maxYear": 2023,
+    "avgPrice": 113660.0,
+    "minPrice": 26700.0,
+    "maxPrice": 332700.0,
+    "sampleDescriptions": [
+      "2015 Jaguar F-Pace 2.0 R-Sport (M) - Black Full Service Record",
+      "2020 Jaguar F-Pace 2.0 R-Sport (M) - Blue Full Service Record",
+      "2015 Jaguar F-Pace 2.0 R-Sport (M) - White Full Service Record",
+      "2020 Jaguar F-Pace 2.0 R-Sport (M) - Pearl White Full Service Record",
+      "2016 Jaguar F-Pace 2.0 R-Sport (M) - Maroon Full Service Record"
+    ]
+  },
+  {
+    "brand": "Jaguar",
+    "model": "Jaguar XF 2.0 R-Sport",
+    "count": 15,
+    "minYear": 2015,
+    "maxYear": 2023,
+    "avgPrice": 93166.67,
+    "minPrice": 30900.0,
+    "maxPrice": 325300.0,
+    "sampleDescriptions": [
+      "2016 Jaguar XF 2.0 R-Sport (M) - Blue Full Service Record",
+      "2016 Jaguar XF 2.0 R-Sport (M) - Blue Full Service Record",
+      "2016 Jaguar XF 2.0 R-Sport (M) - Black Full Service Record",
+      "2015 Jaguar XF 2.0 R-Sport (M) - Dark Blue Full Service Record",
+      "2023 Jaguar XF 2.0 R-Sport (M) - Maroon Full Service Record"
+    ]
+  },
+  {
+    "brand": "Jeep",
+    "model": "Jeep Compass 1.4 Limited",
+    "count": 15,
+    "minYear": 2015,
+    "maxYear": 2023,
+    "avgPrice": 71753.33,
+    "minPrice": 27800.0,
+    "maxPrice": 174100.0,
+    "sampleDescriptions": [
+      "2023 Jeep Compass 1.4 Limited (M) - Grey Full Service Record",
+      "2016 Jeep Compass 1.4 Limited (M) - Red Full Service Record",
+      "2022 Jeep Compass 1.4 Limited (M) - Red Full Service Record",
+      "2017 Jeep Compass 1.4 Limited (M) - Black Full Service Record",
+      "2021 Jeep Compass 1.4 Limited (M) - Silver Full Service Record"
+    ]
+  },
+  {
+    "brand": "Jeep",
+    "model": "Jeep Grand Cherokee 3.6",
+    "count": 24,
+    "minYear": 2015,
+    "maxYear": 2023,
+    "avgPrice": 83166.67,
+    "minPrice": 28500.0,
+    "maxPrice": 268900.0,
+    "sampleDescriptions": [
+      "2021 Jeep Grand Cherokee 3.6 (M) - Maroon Full Service Record",
+      "2021 Jeep Grand Cherokee 3.6 (M) - Dark Blue Full Service Record",
+      "2017 Jeep Grand Cherokee 3.6 (M) - Maroon Full Service Record",
+      "2019 Jeep Grand Cherokee 3.6 (M) - Silver Full Service Record",
+      "2019 Jeep Grand Cherokee 3.6 (M) - Red Full Service Record"
+    ]
+  },
+  {
+    "brand": "Jeep",
+    "model": "Jeep Wrangler 2.0 Rubicon",
+    "count": 11,
+    "minYear": 2015,
+    "maxYear": 2022,
+    "avgPrice": 84072.73,
+    "minPrice": 28400.0,
+    "maxPrice": 161100.0,
+    "sampleDescriptions": [
+      "2015 Jeep Wrangler 2.0 Rubicon (M) - Silver Full Service Record",
+      "2018 Jeep Wrangler 2.0 Rubicon (M) - Silver Full Service Record",
+      "2019 Jeep Wrangler 2.0 Rubicon (M) - Red Full Service Record",
+      "2018 Jeep Wrangler 2.0 Rubicon (M) - Blue Full Service Record",
+      "2019 Jeep Wrangler 2.0 Rubicon (M) - Dark Blue Full Service Record"
+    ]
+  },
+  {
+    "brand": "Kia",
+    "model": "Kia Carnival",
+    "count": 1,
+    "minYear": 2017,
+    "maxYear": 2017,
+    "avgPrice": 95300.0,
+    "minPrice": 95300.0,
+    "maxPrice": 95300.0,
+    "sampleDescriptions": [
+      "2017 Kia Carnival 2.2 YP MPV - (A) 1 YEAR WARRANTY"
+    ]
+  },
+  {
+    "brand": "Kia",
+    "model": "Kia Cerato",
+    "count": 27,
+    "minYear": 2013,
+    "maxYear": 2018,
+    "avgPrice": 32585.19,
+    "minPrice": 26200.0,
+    "maxPrice": 54600.0,
+    "sampleDescriptions": [
+      "2018 Kia Cerato 1.6 K3 Sedan - PADDLE SHIFT KEYLESS FULL SPEC LOAN SENANG",
+      "2014 Kia Cerato 1.6 Sedan - , K3 HIGH SPEC KEYLESS PUSH START , GOOD CONDITION LIKE NEW",
+      "2014 Kia Cerato 1.6 Sedan - NO PROCESSING CHARGE",
+      "2014 Kia Cerato 1.6 Sedan - , K3 HIGH SPEC KEYLESS PUSH START , GOOD CONDITION LIKE NEW - Grey",
+      "2018 Kia Cerato 1.6 K3 Sedan - KEYLESS - PADDLE SHIFT - CAR KING - HIGH LOAN"
+    ]
+  },
+  {
+    "brand": "Kia",
+    "model": "Kia Optima K5",
+    "count": 5,
+    "minYear": 2013,
+    "maxYear": 2013,
+    "avgPrice": 37020.0,
+    "minPrice": 35300.0,
+    "maxPrice": 38600.0,
+    "sampleDescriptions": [
+      "2013 Kia Optima K5 2.0 Sedan - , KEYLESS PUSH START, 6 SPEED AUTO, SUNROOF, CBU IMPORT BARU, CAR KING CONDITION, OFFER NOW",
+      "2013 Kia Optima K5 2.0 Sedan - , KEYLESS PUSH START, 6 SPEED AUTO, SUNROOF, CBU IMPORT BARU, CAR KING CONDITION, OFFER NOW - Maroon",
+      "2013 Kia Optima K5 2.0 Sedan - , KEYLESS PUSH START, 6 SPEED AUTO, SUNROOF, CBU IMPORT BARU, CAR KING CONDITION, OFFER NOW - Maroon",
+      "2013 Kia Optima K5 2.0 Sedan - , KEYLESS PUSH START, 6 SPEED AUTO, SUNROOF, CBU IMPORT BARU, CAR KING CONDITION, OFFER NOW - White",
+      "2013 Kia Optima K5 2.0 Sedan - , KEYLESS PUSH START, 6 SPEED AUTO, SUNROOF, CBU IMPORT BARU, CAR KING CONDITION, OFFER NOW - Blue"
+    ]
+  },
+  {
+    "brand": "Kia",
+    "model": "Kia Rio",
+    "count": 9,
+    "minYear": 2013,
+    "maxYear": 2017,
+    "avgPrice": 22722.22,
+    "minPrice": 22000.0,
+    "maxPrice": 23900.0,
+    "sampleDescriptions": [
+      "2017 Kia Rio 1.4 X Sedan - , ORIGINAL GOOD CODITION , NEW FACELIFT",
+      "2013 Kia Rio 1.4 SX Hatchback - , FULL SPEC HIGH SPEC, SUNROOF, KEYLESS PUSH START, CAR KING, NEGO SAMPAI JADI, OFFER",
+      "2014/2015 Kia Rio 1.4 EX Hatchback - SX ,reverse camera, sunroof ,navigation , full spec",
+      "2013 Kia Rio 1.4 SX Hatchback - , FULL SPEC HIGH SPEC, SUNROOF, KEYLESS PUSH START, CAR KING, NEGO SAMPAI JADI, OFFER - White",
+      "2017 Kia Rio 1.4 X Sedan - , ORIGINAL GOOD CODITION , NEW FACELIFT - Red"
+    ]
+  },
+  {
+    "brand": "Kia",
+    "model": "Kia Sorento",
+    "count": 5,
+    "minYear": 2017,
+    "maxYear": 2018,
+    "avgPrice": 68980.0,
+    "minPrice": 67700.0,
+    "maxPrice": 70900.0,
+    "sampleDescriptions": [
+      "2017 Kia Sorento 2.4 HS SUV - 7 SEATER - POWER BOOT - HIGH LOAN AVAILABLE",
+      "2017 Kia Sorento 2.4 HS SUV - 7 SEATER - POWER BOOT - HIGH LOAN AVAILABLE - White",
+      "2018 Kia Sorento 2.2 SX SUV - (A)NO PROCESSING CHARGE",
+      "2017 Kia Sorento 2.4 HS SUV - 7 SEATER - POWER BOOT - HIGH LOAN AVAILABLE - Silver",
+      "2017 Kia Sorento 2.4 HS SUV - 7 SEATER - POWER BOOT - HIGH LOAN AVAILABLE - Pearl White"
+    ]
+  },
+  {
+    "brand": "Kia",
+    "model": "Kia Sportage",
+    "count": 11,
+    "minYear": 2016,
+    "maxYear": 2018,
+    "avgPrice": 60290.91,
+    "minPrice": 46200.0,
+    "maxPrice": 71700.0,
+    "sampleDescriptions": [
+      "2018 Kia Sportage 2.0 KX SUV - (A) 1 YEAR WARRANTY",
+      "2017 Kia Sportage 2.0 GT Line SUV - (A) FULL SPEC - WARRANTY 1 YEAR - PUSH START BUTTON - ELECTRICAL POWER LEATHER SEAT - ANDROID TOUCH SCREEN - 1 OWNER",
+      "2017 Kia Sportage 2.0 GT Line SUV - (A) FULL SPEC - WARRANTY 1 YEAR - PUSH START BUTTON - ELECTRICAL POWER LEATHER SEAT - ANDROID TOUCH SCREEN - 1 OWNER - Blue",
+      "2017 Kia Sportage 2.0 GT Line SUV - FULL SPEC - KEYLESS - HIGH LOAN - White",
+      "2017 Kia Sportage 2.0 GT Line SUV - (A) FULL SPEC - WARRANTY 1 YEAR - PUSH START BUTTON - ELECTRICAL POWER LEATHER SEAT - ANDROID TOUCH SCREEN - 1 OWNER - Blue"
+    ]
+  },
+  {
+    "brand": "Land Rover",
+    "model": "Land Rover Range",
+    "count": 22,
+    "minYear": 2015,
+    "maxYear": 2022,
+    "avgPrice": 482327.27,
+    "minPrice": 221800.0,
+    "maxPrice": 1166900.0,
+    "sampleDescriptions": [
+      "2015/2017 Land Rover Range Rover 5.0 Supercharged Vogue Autobiography SUV",
+      "2017 Land Rover Range Rover 5.0 Supercharged Vogue SE SUV - LWB Vogue Autobiography Massage Seats Meridian Sound System",
+      "2018 Land Rover Range Rover 5.0 Supercharged Autobiography SUV - Autobiography V8 Supercharged",
+      "2019 Land Rover Range Rover 3.0 SDV6 Vogue SUV - MatrixLight Warranty",
+      "2018 Land Rover Range Rover 5.0 Supercharged Autobiography SUV - Autobiography V8 Supercharged - White"
+    ]
+  },
+  {
+    "brand": "Land Rover",
+    "model": "Land Rover Range Rover Evoque",
+    "count": 6,
+    "minYear": 2012,
+    "maxYear": 2020,
+    "avgPrice": 84116.67,
+    "minPrice": 74500.0,
+    "maxPrice": 107400.0,
+    "sampleDescriptions": [
+      "2013 Land Rover Range Rover Evoque 2.0 Si4 Prestige SUV - 1 YEAR WARRANTY WITH CERTIFIED INSPECTION REPORT, CALL US NOW FOR BEST DEAL",
+      "2016/2020 Land Rover Range Rover Evoque 2.0 Si4 SE SUV - Si4 DYNAMIC , REG20, ONE OWNER ONLY, LIKE RECON CONDITION, WARRANTY PROVIDED",
+      "2012 Land Rover Range Rover Evoque 2.0 Si4 Dynamic SUV - ONE YEAR WARRANTY",
+      "2013 Land Rover Range Rover Evoque 2.0 Si4 Prestige SUV - 1 YEAR WARRANTY WITH CERTIFIED INSPECTION REPORT, CALL US NOW FOR BEST DEAL - White",
+      "2013 Land Rover Range Rover Evoque 2.0 Si4 Dynamic SUV"
+    ]
+  },
+  {
+    "brand": "Land Rover",
+    "model": "Land Rover Range Rover Sport",
+    "count": 15,
+    "minYear": 2016,
+    "maxYear": 2019,
+    "avgPrice": 308900.0,
+    "minPrice": 196800.0,
+    "maxPrice": 498000.0,
+    "sampleDescriptions": [
+      "2016 Land Rover Range Rover Sport 3.0 HST SUV - SVR WTY 2025 , CRYSTAL BLACK IN COLOUR,POWER BOOT,SMOOTH ENGINE GEAR BOX,ONE OF VIP OWNER",
+      "2014/2016 Land Rover Range Rover Sport 3.0 HSE Dynamic SUV - RANGE ROVER SVR BODYKITS , POWER BOOT, AIR SUSPENSION SUPERCHARGED",
+      "2019 Land Rover Range Rover Sport 3.0 HSE SUV - SVR WTY 2025 ,CRYSTAL BLACK IN COLOUR,FULL LEATHER SEAT,PUSH START,ONE OF VIP OWNER",
+      "2014/2016 Land Rover Range Rover Sport 3.0 HSE Dynamic SUV - RANGE ROVER SVR BODYKITS , POWER BOOT, AIR SUSPENSION SUPERCHARGED - Dark Blue",
+      "2017 Land Rover Range Rover Sport 5.0 SVR SUV - WTY 2025 ,CRYSTAL BLACK IN COLOUR,REVERSE CAMERA,PUSH START,ONE OF VIP OWNER"
+    ]
+  },
+  {
+    "brand": "Lexus",
+    "model": "Lexus CT200h",
+    "count": 6,
+    "minYear": 2013,
+    "maxYear": 2013,
+    "avgPrice": 45716.67,
+    "minPrice": 44200.0,
+    "maxPrice": 47900.0,
+    "sampleDescriptions": [
+      "2013 Lexus CT200h 1.8 Hatchback - 1 LADY OWNER FULL LEATHER SEAT PUSHSTART FULL BODY KIT",
+      "2013 Lexus CT200h 1.8 Hatchback - 1 LADY OWNER FULL LEATHER SEAT PUSHSTART FULL BODY KIT - Dark Blue",
+      "2013 Lexus CT200h 1.8 Hatchback - 1 LADY OWNER FULL LEATHER SEAT PUSHSTART FULL BODY KIT - Grey",
+      "2013 Lexus CT200h 1.8 Hatchback - 1 LADY OWNER FULL LEATHER SEAT PUSHSTART FULL BODY KIT - White",
+      "2013 Lexus CT200h 1.8 Hatchback - 1 LADY OWNER FULL LEATHER SEAT PUSHSTART FULL BODY KIT - Maroon"
+    ]
+  },
+  {
+    "brand": "Lexus",
+    "model": "Lexus ES250",
+    "count": 2,
+    "minYear": 2014,
+    "maxYear": 2015,
+    "avgPrice": 92850.0,
+    "minPrice": 87100.0,
+    "maxPrice": 98600.0,
+    "sampleDescriptions": [
+      "2015 Lexus ES250 2.5 Luxury Sedan - L AUTO (SUNROOF)",
+      "2014 Lexus ES250 2.5 Luxury Sedan - L AUTO (SUNROOF MEMORY SEAT)"
+    ]
+  },
+  {
+    "brand": "Lexus",
+    "model": "Lexus LS500 3.4",
+    "count": 2,
+    "minYear": 2018,
+    "maxYear": 2018,
+    "avgPrice": 466100.0,
+    "minPrice": 462200.0,
+    "maxPrice": 470000.0,
+    "sampleDescriptions": [
+      "2018 Lexus LS500 3.4 Luxury Sedan - (CBU-IMPORT BARU) GUARANTEE No Accident No Total Lost No Flood 5 Day Money back Guarantee",
+      "2018 Lexus LS500 3.4 Luxury Sedan - (CBU-IMPORT BARU) GUARANTEE No Accident No Total Lost No Flood 5 Day Money back Guarantee - Grey"
+    ]
+  },
+  {
+    "brand": "Lexus",
+    "model": "Lexus LX570 5.7",
+    "count": 5,
+    "minYear": 2018,
+    "maxYear": 2019,
+    "avgPrice": 376960.0,
+    "minPrice": 361000.0,
+    "maxPrice": 389600.0,
+    "sampleDescriptions": [
+      "2016/2018 Lexus LX570 5.7 SUV",
+      "2016/2018 Lexus LX570 5.7 SUV - Blue",
+      "2016/2018 Lexus LX570 5.7 SUV - Pearl White",
+      "2016/2018 Lexus LX570 5.7 SUV - Dark Blue",
+      "2016/2019 Lexus LX570 5.7 SUV - AWD (A) GUARANTEE No Accident No Total Lost No Flood 5 Day Money back Guarantee"
+    ]
+  },
+  {
+    "brand": "Lexus",
+    "model": "Lexus NX300",
+    "count": 6,
+    "minYear": 2018,
+    "maxYear": 2020,
+    "avgPrice": 213233.33,
+    "minPrice": 201700.0,
+    "maxPrice": 228600.0,
+    "sampleDescriptions": [
+      "2020 Lexus NX300 2.0 F Sport SUV - Sunroof Perfect Condition Nego Till Let go",
+      "2018 Lexus NX300 2.0 Urban SUV - VALUE BUY i Package, Black Interior, Nappa Leather, Power Boot, Side Rear Camera, Seat Ventilation and MORE",
+      "2018 Lexus NX300 2.0 Urban SUV - VALUE BUY i Package, Black Interior, Nappa Leather, Power Boot, Side Rear Camera, Seat Ventilation and MORE - Grey",
+      "2020 Lexus NX300 2.0 F Sport SUV - Sunroof Perfect Condition Nego Till Let go - Black",
+      "2019 Lexus NX300 2.0 F Sport SUV - Rare Spec , Mark Levinson Sound System, 360 Camera and MORE"
+    ]
+  },
+  {
+    "brand": "Lexus",
+    "model": "Lexus RX200t",
+    "count": 2,
+    "minYear": 2017,
+    "maxYear": 2017,
+    "avgPrice": 196700.0,
+    "minPrice": 192600.0,
+    "maxPrice": 200800.0,
+    "sampleDescriptions": [
+      "2016/2017 Lexus RX200t 2.0 F Sport SUV - (A) (CBU-IMPORT BARU) GUARANTEE No Accident No Total Lost No Flood 5 Day Money back Guarantee",
+      "2016/2017 Lexus RX200t 2.0 F Sport SUV - (A) (CBU-IMPORT BARU) GUARANTEE No Accident No Total Lost No Flood 5 Day Money back Guarantee - Red"
+    ]
+  },
+  {
+    "brand": "Lexus",
+    "model": "Lexus RX300 2.0",
+    "count": 22,
+    "minYear": 2018,
+    "maxYear": 2021,
+    "avgPrice": 296072.73,
+    "minPrice": 214400.0,
+    "maxPrice": 365100.0,
+    "sampleDescriptions": [
+      "2018 Lexus RX300 2.0 Premium SUV - (A) 1 YEAR WARRANTY WITH CERTIFIED INSPECTION REPORT",
+      "2021 Lexus RX300 2.0 F Sport SUV",
+      "2021 Lexus RX300 2.0 F Sport SUV - BEST BUY , Mark Levinson Sound System, Sunroof, Black Interior, 360 Camera, HUD, Seat Ventilation and MORE",
+      "2020 Lexus RX300 2.0 F Sport SUV - READY STOCK , Mark Levinson Sound System, Panoramic Roof, Red Interior and MORE",
+      "2021 Lexus RX300 2.0 F Sport SUV - BEST BUY , Mark Levinson Sound System, Sunroof, Black Interior, 360 Camera, HUD, Seat Ventilation and MORE - Grey"
+    ]
+  },
+  {
+    "brand": "Lexus",
+    "model": "Lexus RX350",
+    "count": 6,
+    "minYear": 2013,
+    "maxYear": 2017,
+    "avgPrice": 161716.67,
+    "minPrice": 79100.0,
+    "maxPrice": 247600.0,
+    "sampleDescriptions": [
+      "2017 Lexus RX350 3.5 F Sport SUV - (FULL SERVICE RECORD 70K KM DONE FULL SPEC ORIGINAL ) 2018",
+      "2017 Lexus RX350 3.5 F Sport SUV - (FULL SERVICE RECORD 70K KM DONE FULL SPEC ORIGINAL ) 2018 - Pearl White",
+      "2013 Lexus RX350 3.5 SUV - on the road Offer Paling Cantik (Stok Clearance) - 1 Tahun Warranty",
+      "2013 Lexus RX350 3.5 SUV - on the road Offer Paling Cantik (Stok Clearance) - 1 Tahun Warranty - Red",
+      "2017 Lexus RX350 3.5 F Sport SUV - (FULL SERVICE RECORD 70K KM DONE FULL SPEC ORIGINAL ) 2018 - Maroon"
+    ]
+  },
+  {
+    "brand": "Lexus",
+    "model": "Lexus RX450h 3.5",
+    "count": 2,
+    "minYear": 2017,
+    "maxYear": 2017,
+    "avgPrice": 244150.0,
+    "minPrice": 244000.0,
+    "maxPrice": 244300.0,
+    "sampleDescriptions": [
+      "2017 Lexus RX450h 3.5 SUV",
+      "2017 Lexus RX450h 3.5 SUV - Red"
+    ]
+  },
+  {
+    "brand": "MG",
+    "model": "MG HS 1.5T Trophy",
+    "count": 24,
+    "minYear": 2015,
+    "maxYear": 2022,
+    "avgPrice": 66941.67,
+    "minPrice": 28000.0,
+    "maxPrice": 169700.0,
+    "sampleDescriptions": [
+      "2020 MG HS 1.5T Trophy (M) - White Full Service Record",
+      "2022 MG HS 1.5T Trophy (M) - Pearl White Full Service Record",
+      "2018 MG HS 1.5T Trophy (M) - Pearl White Full Service Record",
+      "2021 MG HS 1.5T Trophy (M) - Red Full Service Record",
+      "2017 MG HS 1.5T Trophy (M) - White Full Service Record"
+    ]
+  },
+  {
+    "brand": "MG",
+    "model": "MG ZS 1.5 Exclusive",
+    "count": 24,
+    "minYear": 2015,
+    "maxYear": 2023,
+    "avgPrice": 114762.5,
+    "minPrice": 20600.0,
+    "maxPrice": 290000.0,
+    "sampleDescriptions": [
+      "2023 MG ZS 1.5 Exclusive (M) - Dark Blue Full Service Record",
+      "2020 MG ZS 1.5 Exclusive (M) - Red Full Service Record",
+      "2023 MG ZS 1.5 Exclusive (M) - Silver Full Service Record",
+      "2020 MG ZS 1.5 Exclusive (M) - Blue Full Service Record",
+      "2015 MG ZS 1.5 Exclusive (M) - Maroon Full Service Record"
+    ]
+  },
+  {
+    "brand": "MINI",
+    "model": "MINI 2.0 Cooper",
+    "count": 4,
+    "minYear": 2017,
+    "maxYear": 2017,
+    "avgPrice": 156400.0,
+    "minPrice": 151600.0,
+    "maxPrice": 162700.0,
+    "sampleDescriptions": [
+      "2017 MINI 2.0 Cooper S Works 210 Convertible - John Cooper Works",
+      "2017 MINI 2.0 Cooper S Works 210 Convertible - John Cooper Works - Dark Blue",
+      "2017 MINI 2.0 Cooper S Works 210 Convertible - John Cooper Works - Grey",
+      "2017 MINI 2.0 Cooper S Works 210 Convertible - John Cooper Works - Silver"
+    ]
+  },
+  {
+    "brand": "MINI",
+    "model": "MINI 3 Door",
+    "count": 4,
+    "minYear": 2015,
+    "maxYear": 2022,
+    "avgPrice": 150800.0,
+    "minPrice": 101500.0,
+    "maxPrice": 179600.0,
+    "sampleDescriptions": [
+      "2019 MINI 3 Door 2.0 John Cooper Works Hatchback - (A) 1 YEAR WARRANTY",
+      "2019 MINI 3 Door 2.0 John Cooper Works Hatchback - (A) 1 YEAR WARRANTY - Maroon",
+      "2018/2022 MINI 3 Door 2.0 John Cooper Works Hatchback - FACELIFT MODEL, REGISTER 2022 RECOND FROM JAPAN, CAR KING OFFER RAMADHAN SALE",
+      "2015 MINI 3 Door 2.0 Cooper S Wired Hatchback - LOCAL COOPER S (FULL SERVICE RECORD 60K KM HARMAN KARDON REVERSE CAMERA) 2016"
+    ]
+  },
+  {
+    "brand": "MINI",
+    "model": "MINI 5 Door",
+    "count": 4,
+    "minYear": 2017,
+    "maxYear": 2017,
+    "avgPrice": 107475.0,
+    "minPrice": 104900.0,
+    "maxPrice": 110400.0,
+    "sampleDescriptions": [
+      "2017 MINI 5 Door 1.5 Cooper Hatchback - CLUBMAN WTY 2025 ,CRYSTAL GREY IN COLOUR,PUSH START,SMOOTH ENGINE GEAR BOX,ONE OF DATIN OWNER",
+      "2017 MINI 5 Door 1.5 Cooper Hatchback - CLUBMAN WTY 2025 ,CRYSTAL GREY IN COLOUR,PUSH START,SMOOTH ENGINE GEAR BOX,ONE OF DATIN OWNER - Silver",
+      "2017 MINI 5 Door 1.5 Cooper Hatchback - CLUBMAN WTY 2025 ,CRYSTAL GREY IN COLOUR,PUSH START,SMOOTH ENGINE GEAR BOX,ONE OF DATIN OWNER - Blue",
+      "2017 MINI 5 Door 1.5 Cooper Hatchback - CLUBMAN WTY 2025 ,CRYSTAL GREY IN COLOUR,PUSH START,SMOOTH ENGINE GEAR BOX,ONE OF DATIN OWNER - Silver"
+    ]
+  },
+  {
+    "brand": "MINI",
+    "model": "MINI Clubman",
+    "count": 6,
+    "minYear": 2016,
+    "maxYear": 2017,
+    "avgPrice": 135850.0,
+    "minPrice": 103700.0,
+    "maxPrice": 192600.0,
+    "sampleDescriptions": [
+      "2016 MINI Clubman 2.0 Cooper S Wagon - Twin Turbo Engine F54 JCW 6-Door Car Tip-Top Condition",
+      "2016 MINI Clubman 2.0 Cooper S Wagon - Twin Turbo Engine F54 JCW 6-Door Car Tip-Top Condition - Blue",
+      "2016 MINI Clubman 2.0 Cooper S Wagon - Twin Turbo Engine F54 JCW 6-Door Car Tip-Top Condition - White",
+      "2017 MINI Clubman 2.0 John Cooper Works Wagon - ALL4 LOCAL JCW (FULL SERVICE RECORD 43K KM HARMAN KARDON JCW BREMBO HEADUP DISPLAY) 2018",
+      "2016 MINI Clubman 2.0 Cooper S Wagon - Twin Turbo Engine F54 JCW 6-Door Car Tip-Top Condition - Grey"
+    ]
+  },
+  {
+    "brand": "MINI",
+    "model": "MINI Countryman",
+    "count": 21,
+    "minYear": 2013,
+    "maxYear": 2018,
+    "avgPrice": 127238.1,
+    "minPrice": 67200.0,
+    "maxPrice": 181800.0,
+    "sampleDescriptions": [
+      "2017 MINI Countryman 2.0 Cooper S SUV - (A)",
+      "2013 MINI Countryman 1.6 Cooper S ALL4 SUV - (A) 1 YEAR WARRANTY",
+      "2014 MINI Countryman 1.6 Cooper S ALL4 SUV - (A) 1 OWNER NO PROCESSING CHARGE",
+      "2018 MINI Countryman 2.0 Cooper S Sports SUV",
+      "2018 MINI Countryman 2.0 Cooper S Sports SUV - JCW KIT (FULL SERVICE RECORD 26KM DONE) 2019"
+    ]
+  },
+  {
+    "brand": "Maxus",
+    "model": "Maxus G10 2.0",
+    "count": 2,
+    "minYear": 2020,
+    "maxYear": 2020,
+    "avgPrice": 109050.0,
+    "minPrice": 108700.0,
+    "maxPrice": 109400.0,
+    "sampleDescriptions": [
+      "2019/2020 Maxus G10 2.0 Executive MPV - TRUE YEAR MAKE REGISTER 2020 NEW FACELIFT 2-POWER DOOR POWER BOOT 7-SEAT PILOT SEAT FULL SPEC",
+      "2019/2020 Maxus G10 2.0 Executive MPV - TRUE YEAR MAKE REGISTER 2020 NEW FACELIFT 2-POWER DOOR POWER BOOT 7-SEAT PILOT SEAT FULL SPEC - Blue"
+    ]
+  },
+  {
+    "brand": "Mazda",
+    "model": "Mazda 2",
+    "count": 9,
+    "minYear": 2015,
+    "maxYear": 2017,
+    "avgPrice": 45877.78,
+    "minPrice": 40100.0,
+    "maxPrice": 53100.0,
+    "sampleDescriptions": [
+      "2017 Mazda 2 1.5 SKYACTIV-G Hatchback - (A) 1 YEAR WARRANTY",
+      "2017 Mazda 2 1.5 SKYACTIV-G Hatchback - (A) 1 YEAR WARRANTY - Pearl White",
+      "2017 Mazda 2 1.5 SKYACTIV-G Hatchback - (A) 1 YEAR WARRANTY - Blue",
+      "2015 Mazda 2 1.5 SKYACTIV-G Sedan - (A)",
+      "2015 Mazda 2 1.5 SKYACTIV-G Sedan - (A) - Dark Blue"
+    ]
+  },
+  {
+    "brand": "Mazda",
+    "model": "Mazda 3",
+    "count": 18,
+    "minYear": 2014,
+    "maxYear": 2016,
+    "avgPrice": 48661.11,
+    "minPrice": 42200.0,
+    "maxPrice": 57200.0,
+    "sampleDescriptions": [
+      "2016 Mazda 3 2.0 SKYACTIV-G High Sedan",
+      "2014 Mazda 3 2.0 GLS Sedan - (A) CBU, 1 YEAR WARRANTY",
+      "2014 Mazda 3 2.0 SKYACTIV-G Sedan - SUNROOF - LOAN AVAILABLE",
+      "2016 Mazda 3 2.0 SKYACTIV-G High Sedan - Pearl White",
+      "2014 Mazda 3 2.0 GLS Sedan - (A) CBU, 1 YEAR WARRANTY - Grey"
+    ]
+  },
+  {
+    "brand": "Mazda",
+    "model": "Mazda 6",
+    "count": 32,
+    "minYear": 2013,
+    "maxYear": 2019,
+    "avgPrice": 66221.88,
+    "minPrice": 38300.0,
+    "maxPrice": 108000.0,
+    "sampleDescriptions": [
+      "2019 Mazda 6 2.5 SKYACTIV-G GVC Plus Sedan - SUNROOF BOSE SYSTEM 360 DEGREE CAMERA ELECTRIC LEATHER SEAT PADDLE SHIFT",
+      "2013 Mazda 6 2.0 SKYACTIV-G Sedan - NO PROCESSING CHARGE",
+      "2015 Mazda 6 2.5 SKYACTIV-G Sedan - SUNROOF - CARKING - HIGH LOAN WELCOME",
+      "2013 Mazda 6 2.0 SKYACTIV-G Sedan",
+      "2015 Mazda 6 2.5 SKYACTIV-G Sedan - FACELIFT BOSE SYSTEM SUNROOF LOW MILEAGE 1 OWNER"
+    ]
+  },
+  {
+    "brand": "Mazda",
+    "model": "Mazda 8",
+    "count": 5,
+    "minYear": 2014,
+    "maxYear": 2014,
+    "avgPrice": 54320.0,
+    "minPrice": 53600.0,
+    "maxPrice": 56400.0,
+    "sampleDescriptions": [
+      "2014 Mazda 8 2.3 MPV - POWER DOOR FULL SPEC EASY LOAN",
+      "2014 Mazda 8 2.3 MPV - POWER DOOR FULL SPEC EASY LOAN - Silver",
+      "2014 Mazda 8 2.3 MPV - POWER DOOR FULL SPEC EASY LOAN - Grey",
+      "2014 Mazda 8 2.3 MPV - POWER DOOR FULL SPEC EASY LOAN - Pearl White",
+      "2014 Mazda 8 2.3 MPV - POWER DOOR FULL SPEC EASY LOAN - Silver"
+    ]
+  },
+  {
+    "brand": "Mazda",
+    "model": "Mazda BT-50",
+    "count": 1,
+    "minYear": 2014,
+    "maxYear": 2014,
+    "avgPrice": 21700.0,
+    "minPrice": 21700.0,
+    "maxPrice": 21700.0,
+    "sampleDescriptions": [
+      "2014 Mazda BT-50 2.5 Dual Cab Pickup Truck - Offer Paling Cantik (Stok Clearance) - 1 Tahun Warranty"
+    ]
+  },
+  {
+    "brand": "Mazda",
+    "model": "Mazda Biante",
+    "count": 10,
+    "minYear": 2014,
+    "maxYear": 2016,
+    "avgPrice": 63740.0,
+    "minPrice": 51200.0,
+    "maxPrice": 69100.0,
+    "sampleDescriptions": [
+      "2016 Mazda Biante 2.0 SKYACTIV-G MPV - POWER DOOR - SUPERB CONDITION - AWESOME FAMILY - EASY HIGH LOAN APPROVAL",
+      "2016 Mazda Biante 2.0 SKYACTIV-G MPV",
+      "2016 Mazda Biante 2.0 SKYACTIV-G MPV - POWER DOOR - SUPERB CONDITION - AWESOME FAMILY - EASY HIGH LOAN APPROVAL - Grey",
+      "2016 Mazda Biante 2.0 SKYACTIV-G MPV - Dark Blue",
+      "2016 Mazda Biante 2.0 SKYACTIV-G MPV - POWER DOOR - SUPERB CONDITION - AWESOME FAMILY - EASY HIGH LOAN APPROVAL - Red"
+    ]
+  },
+  {
+    "brand": "Mazda",
+    "model": "Mazda CX-3",
+    "count": 14,
+    "minYear": 2016,
+    "maxYear": 2019,
+    "avgPrice": 68692.86,
+    "minPrice": 59900.0,
+    "maxPrice": 84900.0,
+    "sampleDescriptions": [
+      "2016 Mazda CX-3 2.0 SKYACTIV SUV - (12 MONTHS CARLIST QUALIFIED WARRANTY)",
+      "2016 Mazda CX-3 2.0 SKYACTIV SUV - NO PROCESSING CHARGE",
+      "2017 Mazda CX-3 2.0 SKYACTIV SUV - (Percuma Warranty)(Siap Tukar Nama)(Tahun Dibuat )( )(1 Lady Owner)(Sunroof)(Leather Memory Seat)(Paddle Shift)",
+      "2016 Mazda CX-3 2.0 SKYACTIV SUV - NO PROCESSING CHARGE - White",
+      "2018/2019 Mazda CX-3 2.0 SKYACTIV GVC SUV - FACELIFT CBU FROM JAPAN IMPORT BARU UNIT FULL SERVICE RECORD LOW MILEAGE - Pearl White"
+    ]
+  },
+  {
+    "brand": "Mazda",
+    "model": "Mazda CX-5",
+    "count": 62,
+    "minYear": 2013,
+    "maxYear": 2020,
+    "avgPrice": 70800.0,
+    "minPrice": 39600.0,
+    "maxPrice": 119200.0,
+    "sampleDescriptions": [
+      "2013 Mazda CX-5 2.0 SKYACTIV-G SUV - HIGH SPEC LEATHER SEAT SUNROOF CBU FREE INSURANCE",
+      "2018 Mazda CX-5 2.0 SKYACTIV-G GLS SUV - ELEC SEAT 74638KM 2YRS WARRANTY",
+      "2018 Mazda CX-5 2.2 SKYACTIV-D GLS SUV - SKYACTIV-D GL(A) 6 months free installment 5 Day Money back Guarantee",
+      "2016 Mazda CX-5 2.2 SKYACTIV-D GLS SUV - DIESEL - HIGH LOAN",
+      "2020 Mazda CX-5 2.0 SKYACTIV-G High SUV - POWER BOOT"
+    ]
+  },
+  {
+    "brand": "Mazda",
+    "model": "Mazda CX-8 2.5",
+    "count": 2,
+    "minYear": 2021,
+    "maxYear": 2021,
+    "avgPrice": 139750.0,
+    "minPrice": 139700.0,
+    "maxPrice": 139800.0,
+    "sampleDescriptions": [
+      "2021 Mazda CX-8 2.5 SKYACTIV-G Mid SUV - Y G MID FSR U WRRNTY LIKE NEW",
+      "2021 Mazda CX-8 2.5 SKYACTIV-G Mid SUV - Y G MID FSR U WRRNTY LIKE NEW - White"
+    ]
+  },
+  {
+    "brand": "Mercedes-Benz",
+    "model": "Mercedes-Benz A180",
+    "count": 3,
+    "minYear": 2020,
+    "maxYear": 2020,
+    "avgPrice": 118333.33,
+    "minPrice": 98000.0,
+    "maxPrice": 156000.0,
+    "sampleDescriptions": [
+      "2016/2020 Mercedes-Benz A180 1.6 AMG Hatchback - Turbo A45 Bodykit (BLIS PRE-CRASH)(Keyless Entry)(1 Year Warranty)",
+      "2020 Mercedes-Benz A180 1.3 SE Hatchback - Turbo Engine BSM System Camera Paddle Shift LED Light",
+      "2016/2020 Mercedes-Benz A180 1.6 AMG Hatchback - Turbo A45 Bodykit (BLIS PRE-CRASH)(Keyless Entry)(1 Year Warranty) - White"
+    ]
+  },
+  {
+    "brand": "Mercedes-Benz",
+    "model": "Mercedes-Benz A200",
+    "count": 6,
+    "minYear": 2014,
+    "maxYear": 2016,
+    "avgPrice": 82433.33,
+    "minPrice": 73000.0,
+    "maxPrice": 95700.0,
+    "sampleDescriptions": [
+      "2014 Mercedes-Benz A200 1.6 Hatchback",
+      "2014 Mercedes-Benz A200 1.6 Hatchback - Maroon",
+      "2014 Mercedes-Benz A200 1.6 Hatchback - Maroon",
+      "2014 Mercedes-Benz A200 1.6 Hatchback - Dark Blue",
+      "2015/2016 Mercedes-Benz A200 1.6 AMG line Hatchback - , AMG RIMS, CAR KING, TIP TOP CONDITION"
+    ]
+  },
+  {
+    "brand": "Mercedes-Benz",
+    "model": "Mercedes-Benz A250",
+    "count": 15,
+    "minYear": 2013,
+    "maxYear": 2018,
+    "avgPrice": 96766.67,
+    "minPrice": 70800.0,
+    "maxPrice": 175000.0,
+    "sampleDescriptions": [
+      "2014 Mercedes-Benz A250 2.0 Sport Hatchback - AMG (A) NO PROCESSING CHARGE 1 OWNER",
+      "2014/2015 Mercedes-Benz A250 2.0 Sport Hatchback - Mercedes Benz (A) CBU AMG S LIMITED EDITION",
+      "2015 Mercedes-Benz A250 2.0 AMG Hatchback - FULL C C SERVICE RECORD ORi 13k Mileage REG 2016",
+      "2013 Mercedes-Benz A250 2.0 Sport Hatchback - LOCAL (WITH 1 YEAR WARRANTY)",
+      "2013 Mercedes-Benz A250 2.0 Sport Hatchback - LOCAL (WITH 1 YEAR WARRANTY) - Maroon"
+    ]
+  },
+  {
+    "brand": "Mercedes-Benz",
+    "model": "Mercedes-Benz A45 AMG",
+    "count": 5,
+    "minYear": 2015,
+    "maxYear": 2016,
+    "avgPrice": 145220.0,
+    "minPrice": 135900.0,
+    "maxPrice": 160200.0,
+    "sampleDescriptions": [
+      "2015/2016 Mercedes-Benz A45 AMG 2.0 4MATIC Hatchback - Mercedes Benz A45 (A) CBU AMG RECARO SEAT LIMITED EDITION 1 - Red",
+      "2015/2016 Mercedes-Benz A45 AMG 2.0 4MATIC Hatchback - Mercedes Benz A45 (A) CBU AMG RECARO SEAT LIMITED EDITION 1 - Dark Blue",
+      "2015/2016 Mercedes-Benz A45 AMG 2.0 4MATIC Hatchback - Mercedes Benz A45 (A) CBU AMG RECARO SEAT LIMITED EDITION 1 - Maroon",
+      "2015 Mercedes-Benz A45 AMG 2.0 4MATIC Hatchback",
+      "2015/2016 Mercedes-Benz A45 AMG 2.0 4MATIC Hatchback - Mercedes Benz A45 (A) CBU AMG RECARO SEAT LIMITED EDITION 1 - Maroon"
+    ]
+  },
+  {
+    "brand": "Mercedes-Benz",
+    "model": "Mercedes-Benz B200",
+    "count": 5,
+    "minYear": 2013,
+    "maxYear": 2013,
+    "avgPrice": 48300.0,
+    "minPrice": 46200.0,
+    "maxPrice": 50100.0,
+    "sampleDescriptions": [
+      "2013 Mercedes-Benz B200 1.6 Sport Tourer Hatchback - (A) 1 YEAR WARRANTY",
+      "2013 Mercedes-Benz B200 1.6 Sport Tourer Hatchback - ONE YEAR WARRANTY - Dark Blue",
+      "2013 Mercedes-Benz B200 1.6 Sport Tourer Hatchback - ONE YEAR WARRANTY - White",
+      "2013 Mercedes-Benz B200 1.6 Sport Tourer Hatchback - ONE YEAR WARRANTY - Dark Blue",
+      "2013 Mercedes-Benz B200 1.6 Sport Tourer Hatchback - (A) 1 YEAR WARRANTY - Red"
+    ]
+  },
+  {
+    "brand": "Mercedes-Benz",
+    "model": "Mercedes-Benz C180",
+    "count": 10,
+    "minYear": 2016,
+    "maxYear": 2018,
+    "avgPrice": 129420.0,
+    "minPrice": 105300.0,
+    "maxPrice": 143800.0,
+    "sampleDescriptions": [
+      "2016 Mercedes-Benz C180 1.6 Avantgarde Sedan - (A)",
+      "2018 Mercedes-Benz C180 1.6 Avantgarde Sedan - AMG W205 FSR",
+      "2018 Mercedes-Benz C180 1.6 Avantgarde Sedan - (A) 1 YEAR WARRANTY, PREMIUM SELECTION",
+      "2018 Mercedes-Benz C180 1.6 Avantgarde Sedan - (A) 1 YEAR WARRANTY, PREMIUM SELECTION - Silver",
+      "2018 Mercedes-Benz C180 1.6 Avantgarde Sedan - (A) 1 YEAR WARRANTY, PREMIUM SELECTION - Grey"
+    ]
+  },
+  {
+    "brand": "Mercedes-Benz",
+    "model": "Mercedes-Benz C200",
+    "count": 22,
+    "minYear": 2016,
+    "maxYear": 2019,
+    "avgPrice": 132868.18,
+    "minPrice": 110600.0,
+    "maxPrice": 173800.0,
+    "sampleDescriptions": [
+      "2019 Mercedes-Benz C200 1.5 Avantgarde Sedan - , like new ,one owner ,accident free year make",
+      "2018 Mercedes-Benz C200 1.5 AMG Line Sedan - AMG",
+      "2017 Mercedes-Benz C200 2.0 Avantgarde Sedan",
+      "2019 Mercedes-Benz C200 1.5 Avantgarde Sedan - (A)",
+      "2017 Mercedes-Benz C200 2.0 AMG Sedan - , 60K KM FULL SERVICE RECORD , WELL KEPT , SHOWROOM CONDITION"
+    ]
+  },
+  {
+    "brand": "Mercedes-Benz",
+    "model": "Mercedes-Benz C200 CGI",
+    "count": 7,
+    "minYear": 2013,
+    "maxYear": 2013,
+    "avgPrice": 46028.57,
+    "minPrice": 41000.0,
+    "maxPrice": 52900.0,
+    "sampleDescriptions": [
+      "2012/2013 Mercedes-Benz C200 CGI 1.8 AMG Sport Sedan - Mercedes Benz C200 (A) CGI BlueEFCY FACELIFT AMG LIMITED EDITION",
+      "2012/2013 Mercedes-Benz C200 CGI 1.8 AMG Sport Sedan - Mercedes Benz C200 (A) CGI BlueEFCY FACELIFT AMG LIMITED EDITION - Pearl White",
+      "2013 Mercedes-Benz C200 CGI 1.8 Avantgarde Sedan - 1 YEAR WARRANTY WITH CERTIFIED INSPECTION REPORT, CALL US NOW FOR BEST DEAL",
+      "2013 Mercedes-Benz C200 CGI 1.8 Avantgarde Sedan - (A) AMG LINE Sterling, 1 YEAR WARRANTY SPORTY",
+      "2013 Mercedes-Benz C200 CGI 1.8 Avantgarde Sedan - 1 YEAR WARRANTY WITH CERTIFIED INSPECTION REPORT, CALL US NOW FOR BEST DEAL - Black"
+    ]
+  },
+  {
+    "brand": "Mercedes-Benz",
+    "model": "Mercedes-Benz C200K",
+    "count": 5,
+    "minYear": 2013,
+    "maxYear": 2013,
+    "avgPrice": 43340.0,
+    "minPrice": 41400.0,
+    "maxPrice": 44500.0,
+    "sampleDescriptions": [
+      "2008/2013 Mercedes-Benz C200K 1.8 AMG Sedan - MERCEDES BENZ SPORT SUNROOF ORI JAPAN SPEC - REG YEAR 2013 RARE UNIT ORI JPN SPEC CASH BUY CARLIST QUALIFIED INSPECTED CAR",
+      "2008/2013 Mercedes-Benz C200K 1.8 AMG Sedan - MERCEDES BENZ SPORT SUNROOF ORI JAPAN SPEC - REG YEAR 2013 RARE UNIT ORI JPN SPEC CASH BUY CARLIST QUALIFIED INSPECTED CAR - Maroon",
+      "2008/2013 Mercedes-Benz C200K 1.8 AMG Sedan - MERCEDES BENZ SPORT SUNROOF ORI JAPAN SPEC - REG YEAR 2013 RARE UNIT ORI JPN SPEC CASH BUY CARLIST QUALIFIED INSPECTED CAR - Blue",
+      "2008/2013 Mercedes-Benz C200K 1.8 AMG Sedan - MERCEDES BENZ SPORT SUNROOF ORI JAPAN SPEC - REG YEAR 2013 RARE UNIT ORI JPN SPEC CASH BUY CARLIST QUALIFIED INSPECTED CAR - Red",
+      "2008/2013 Mercedes-Benz C200K 1.8 AMG Sedan - MERCEDES BENZ SPORT SUNROOF ORI JAPAN SPEC - REG YEAR 2013 RARE UNIT ORI JPN SPEC CASH BUY CARLIST QUALIFIED INSPECTED CAR - White"
+    ]
+  },
+  {
+    "brand": "Mercedes-Benz",
+    "model": "Mercedes-Benz C250",
+    "count": 7,
+    "minYear": 2014,
+    "maxYear": 2016,
+    "avgPrice": 140214.29,
+    "minPrice": 107100.0,
+    "maxPrice": 155500.0,
+    "sampleDescriptions": [
+      "2016 Mercedes-Benz C250 2.0 AMG Sedan - (A) CKD, 1 YEAR WARRANTY WITH CERTIFIED INSPECTION REPORT",
+      "2016 Mercedes-Benz C250 2.0 AMG Sedan - (A) CKD, 1 YEAR WARRANTY WITH CERTIFIED INSPECTION REPORT - Black",
+      "2016 Mercedes-Benz C250 2.0 AMG Sedan - (A)",
+      "2016 Mercedes-Benz C250 2.0 AMG Sedan - (A) CKD, 1 YEAR WARRANTY WITH CERTIFIED INSPECTION REPORT - Silver",
+      "2014 Mercedes-Benz C250 2.0 AMG Sedan - FACELIFT - SUNROOF -NAPPA LEATHER SEAT -PREMIUM SOUND SYSTEM- FREE 2YEAR WARRANTY(PREMIUM)- FULL SERVICE RECORD"
+    ]
+  },
+  {
+    "brand": "Mercedes-Benz",
+    "model": "Mercedes-Benz C250 CGI",
+    "count": 6,
+    "minYear": 2014,
+    "maxYear": 2014,
+    "avgPrice": 35416.67,
+    "minPrice": 34400.0,
+    "maxPrice": 36400.0,
+    "sampleDescriptions": [
+      "2010/2014 Mercedes-Benz C250 CGI 1.8 AMG Sport Sedan - MERCEDES BENZ C250 (UK SPEC) - REG YEAR 2014 SPORTY BLACK LEATHER SEATS CARLIST QUALIFIED 1 YR WARRANTY MAJOR ACCIDENT FLOOD FREE MAXLOAN",
+      "2010/2014 Mercedes-Benz C250 CGI 1.8 AMG Sport Sedan - MERCEDES BENZ C250 (UK SPEC) - REG YEAR 2014 SPORTY BLACK LEATHER SEATS CARLIST QUALIFIED 1 YR WARRANTY MAJOR ACCIDENT FLOOD FREE MAXLOAN - Pearl White",
+      "2010/2014 Mercedes-Benz C250 CGI 1.8 AMG Sport Sedan - MERCEDES BENZ C250 (UK SPEC) - REG YEAR 2014 SPORTY BLACK LEATHER SEATS CARLIST QUALIFIED 1 YR WARRANTY MAJOR ACCIDENT FLOOD FREE MAXLOAN - White",
+      "2010/2014 Mercedes-Benz C250 CGI 1.8 AMG Sport Sedan - MERCEDES BENZ C250 (UK SPEC) - REG YEAR 2014 SPORTY BLACK LEATHER SEATS CARLIST QUALIFIED 1 YR WARRANTY MAJOR ACCIDENT FLOOD FREE MAXLOAN - Pearl White",
+      "2010/2014 Mercedes-Benz C250 CGI 1.8 AMG Sport Sedan - MERCEDES BENZ C250 (UK SPEC) - REG YEAR 2014 SPORTY BLACK LEATHER SEATS CARLIST QUALIFIED 1 YR WARRANTY MAJOR ACCIDENT FLOOD FREE MAXLOAN - Blue"
+    ]
+  },
+  {
+    "brand": "Mercedes-Benz",
+    "model": "Mercedes-Benz C300",
+    "count": 5,
+    "minYear": 2017,
+    "maxYear": 2019,
+    "avgPrice": 161020.0,
+    "minPrice": 134600.0,
+    "maxPrice": 178300.0,
+    "sampleDescriptions": [
+      "2016/2019 Mercedes-Benz C300 2.0 Coupe - PANORAMIC SUNROOF, BURMESTER SOUND SYSTEM, CAR KING AMG LINE,",
+      "2016/2017 Mercedes-Benz C300 2.0 Avantgarde AMG Line Sedan - Mercedes Benz (A) W205 AMG LINE AVANTGARDE F SERVICE RECORD",
+      "2016/2019 Mercedes-Benz C300 2.0 Coupe - PANORAMIC SUNROOF, BURMESTER SOUND SYSTEM, CAR KING AMG LINE, - Blue",
+      "2016/2019 Mercedes-Benz C300 2.0 Coupe - PANORAMIC SUNROOF, BURMESTER SOUND SYSTEM, CAR KING AMG LINE, - Pearl White",
+      "2016/2019 Mercedes-Benz C300 2.0 Coupe - PANORAMIC SUNROOF, BURMESTER SOUND SYSTEM, CAR KING AMG LINE, - Black"
+    ]
+  },
+  {
+    "brand": "Mercedes-Benz",
+    "model": "Mercedes-Benz C350 e",
+    "count": 11,
+    "minYear": 2016,
+    "maxYear": 2018,
+    "avgPrice": 101181.82,
+    "minPrice": 92700.0,
+    "maxPrice": 111800.0,
+    "sampleDescriptions": [
+      "2017 Mercedes-Benz C350 e 2.0 Avantgarde AMG Line interior Sedan - Avantgarde AMG (A) Full Service Mercedes Benz , Nice Number Plate 2822 ,79k Mileage Call Now C350E",
+      "2017 Mercedes-Benz C350 e 2.0 Avantgarde AMG Line interior Sedan - Avantgarde AMG (A) Full Service Mercedes Benz , Nice Number Plate 2822 ,79k Mileage Call Now C350E - Grey",
+      "2016 Mercedes-Benz C350 e 2.0 Avantgarde AMG Line interior Sedan - AMG Hybrid Warranty 2025 360 Camera 19 R Multi-Spoke AMG Wheel Burmester Sound System Smooth Engine Clean Interior",
+      "2016 Mercedes-Benz C350 e 2.0 Avantgarde AMG Line interior Sedan - AMG Hybrid Warranty 2025 360 Camera 19 R Multi-Spoke AMG Wheel Burmester Sound System Smooth Engine Clean Interior - Maroon",
+      "2017 Mercedes-Benz C350 e 2.0 Avantgarde AMG Line interior Sedan - Avantgarde AMG (A) Full Service Mercedes Benz , Nice Number Plate 2822 ,79k Mileage Call Now C350E - Red"
+    ]
+  },
+  {
+    "brand": "Mercedes-Benz",
+    "model": "Mercedes-Benz C43 AMG",
+    "count": 2,
+    "minYear": 2019,
+    "maxYear": 2019,
+    "avgPrice": 217700.0,
+    "minPrice": 212000.0,
+    "maxPrice": 223400.0,
+    "sampleDescriptions": [
+      "2018/2019 Mercedes-Benz C43 AMG 3.0 4MATIC Sedan - (A) 3 YEARS WARRANTY CASH BACK High Loan 6 months free installment GUARANTEE No Accident",
+      "2018/2019 Mercedes-Benz C43 AMG 3.0 4MATIC Sedan - (A) 3 YEARS WARRANTY CASH BACK High Loan 6 months free installment GUARANTEE No Accident - Red"
+    ]
+  },
+  {
+    "brand": "Mercedes-Benz",
+    "model": "Mercedes-Benz CLA180",
+    "count": 3,
+    "minYear": 2017,
+    "maxYear": 2018,
+    "avgPrice": 105933.33,
+    "minPrice": 93900.0,
+    "maxPrice": 126600.0,
+    "sampleDescriptions": [
+      "2016/2017 Mercedes-Benz CLA180 1.6 AMG Coupe - CLA 180 , Facelife, One Year Warranty, Call Now",
+      "2014/2018 Mercedes-Benz CLA180 1.6 Coupe - NEW YEARS PROMOTIONS HIGH TRADE IN FASTER LOAN APPROVALS",
+      "2014/2018 Mercedes-Benz CLA180 1.6 Coupe - NEW YEARS PROMOTIONS HIGH TRADE IN FASTER LOAN APPROVALS - White"
+    ]
+  },
+  {
+    "brand": "Mercedes-Benz",
+    "model": "Mercedes-Benz CLA200",
+    "count": 7,
+    "minYear": 2015,
+    "maxYear": 2015,
+    "avgPrice": 102571.43,
+    "minPrice": 96800.0,
+    "maxPrice": 110800.0,
+    "sampleDescriptions": [
+      "2015 Mercedes-Benz CLA200 1.6 Coupe - (With 1 Year Warranty)",
+      "2015 Mercedes-Benz CLA200 1.6 Coupe - FL Sedan- Local Spec- One Year Warranty",
+      "2015 Mercedes-Benz CLA200 1.6 Coupe",
+      "2015 Mercedes-Benz CLA200 1.6 Coupe - Red",
+      "2015 Mercedes-Benz CLA200 1.6 Sedan - MERCEDES BENZ AMG WTY 2024 , CRYSTAL WHITE IN COLOUR, FULL LEATHER SEAT, REVERSE CAMERA, ONE OF DATIN OWNER - Red"
+    ]
+  },
+  {
+    "brand": "Mercedes-Benz",
+    "model": "Mercedes-Benz CLA250",
+    "count": 10,
+    "minYear": 2015,
+    "maxYear": 2020,
+    "avgPrice": 111220.0,
+    "minPrice": 87200.0,
+    "maxPrice": 124900.0,
+    "sampleDescriptions": [
+      "2016/2020 Mercedes-Benz CLA250 2.0 4MATIC Coupe - HARMAN KARDON CBU IMPORT FROM JAPAN, CAR KING",
+      "2016/2020 Mercedes-Benz CLA250 2.0 4MATIC Coupe - HARMAN KARDON CBU IMPORT FROM JAPAN, CAR KING - Red",
+      "2013/2018 Mercedes-Benz CLA250 2.0 AMG Coupe - SUNROOF HARMAN SOUND SYSTEM MEMORY LEATHER SEAT",
+      "2015 Mercedes-Benz CLA250 2.0 AMG Coupe - (A) 1 YEAR WARRANTY",
+      "2013/2018 Mercedes-Benz CLA250 2.0 AMG Coupe - SUNROOF HARMAN SOUND SYSTEM MEMORY LEATHER SEAT - Maroon"
+    ]
+  },
+  {
+    "brand": "Mercedes-Benz",
+    "model": "Mercedes-Benz E200",
+    "count": 13,
+    "minYear": 2014,
+    "maxYear": 2017,
+    "avgPrice": 123692.31,
+    "minPrice": 74800.0,
+    "maxPrice": 177800.0,
+    "sampleDescriptions": [
+      "2016 Mercedes-Benz E200 2.0 Avantgarde Sedan",
+      "2014 Mercedes-Benz E200 2.0 Avantgarde Sedan - (A) CBU, 1 YEAR WARRANTY WITH CERTIFIED INSPECTION REPORT",
+      "2014 Mercedes-Benz E200 2.0 Avantgarde Sedan - Dark Blue",
+      "2016 Mercedes-Benz E200 2.0 Avantgarde Sedan - AMG CBU (RARE Unit) (Full Spec) (Sunroof) (Keyless) (HUD) (Power Boot) (Offer Sales)",
+      "2014 Mercedes-Benz E200 2.0 Avantgarde Sedan - Black"
+    ]
+  },
+  {
+    "brand": "Mercedes-Benz",
+    "model": "Mercedes-Benz E250",
+    "count": 13,
+    "minYear": 2013,
+    "maxYear": 2018,
+    "avgPrice": 139653.85,
+    "minPrice": 79200.0,
+    "maxPrice": 190400.0,
+    "sampleDescriptions": [
+      "2016 Mercedes-Benz E250 2.0 Avantgarde Sedan - SUNROOF - EASY HIGH LOAN",
+      "2017 Mercedes-Benz E250 2.0 Avantgarde Sedan - (A) 1 YEAR WARRANTY, PREMIUM SELECTION",
+      "2013 Mercedes-Benz E250 2.0 Avantgarde Sedan - MERCEDES BENZ (A) CKD WITH PANORAMIC SUNROOF - YEAR MADE FSR MERCEDES MALAYSIA KEYLESS ENTRY CARLIST QUALIFIED CAR - Pearl White",
+      "2013 Mercedes-Benz E250 2.0 Avantgarde Sedan - MERCEDES BENZ (A) CKD WITH PANORAMIC SUNROOF - YEAR MADE FSR MERCEDES MALAYSIA KEYLESS ENTRY CARLIST QUALIFIED CAR - Maroon",
+      "2016 Mercedes-Benz E250 2.0 Avantgarde Sedan - SUNROOF - EASY HIGH LOAN - Silver"
+    ]
+  },
+  {
+    "brand": "Mercedes-Benz",
+    "model": "Mercedes-Benz E300",
+    "count": 12,
+    "minYear": 2015,
+    "maxYear": 2019,
+    "avgPrice": 110483.33,
+    "minPrice": 62200.0,
+    "maxPrice": 253900.0,
+    "sampleDescriptions": [
+      "2019 Mercedes-Benz E300 2.0 AMG Line Coupe - 245HP FACELIFT Colorfull Ambient LEDS REAR Camera Uk Unreg - Grey",
+      "2015 Mercedes-Benz E300 2.1 BlueTEC Sedan",
+      "2015 Mercedes-Benz E300 2.1 BlueTEC Sedan - HYBRID TURBO DIESEL , SUNROOF, REAR MONITOR, KEYLESS PUSH START, POWER BOOT,",
+      "2019 Mercedes-Benz E300 2.0 AMG Line Coupe - 245HP FACELIFT Colorfull Ambient LEDS REAR Camera Uk Unreg - Pearl White",
+      "2015 Mercedes-Benz E300 2.1 BlueTEC Sedan"
+    ]
+  },
+  {
+    "brand": "Mercedes-Benz",
+    "model": "Mercedes-Benz G350",
+    "count": 1,
+    "minYear": 2022,
+    "maxYear": 2022,
+    "avgPrice": 433900.0,
+    "minPrice": 433900.0,
+    "maxPrice": 433900.0,
+    "sampleDescriptions": [
+      "2017/2022 Mercedes-Benz G350 3.0 d SUV"
+    ]
+  },
+  {
+    "brand": "Mercedes-Benz",
+    "model": "Mercedes-Benz GLA200",
+    "count": 10,
+    "minYear": 2015,
+    "maxYear": 2020,
+    "avgPrice": 123300.0,
+    "minPrice": 97700.0,
+    "maxPrice": 141700.0,
+    "sampleDescriptions": [
+      "2018 Mercedes-Benz GLA200 1.6 Night Edition SUV - New Facelift Model",
+      "2019/2020 Mercedes-Benz GLA200 1.6 Style SUV - REGISTER 2020, FULL SERVICE RECORD, KEYLESS PUSH START DYNAMIC SELECT, 7G-DCT DUAL CLUTH, RAYA SALE OFFER",
+      "2019 Mercedes-Benz GLA200 1.6 Night Edition SUV - AMG GLA 200 FULL SERVICE RECORD C C",
+      "2019 Mercedes-Benz GLA200 1.6 Night Edition SUV - AMG GLA 200 FULL SERVICE RECORD C C - Grey",
+      "2019 Mercedes-Benz GLA200 1.6 Night Edition SUV - AMG GLA 200 FULL SERVICE RECORD C C - Grey"
+    ]
+  },
+  {
+    "brand": "Mercedes-Benz",
+    "model": "Mercedes-Benz GLA250",
+    "count": 4,
+    "minYear": 2015,
+    "maxYear": 2017,
+    "avgPrice": 134225.0,
+    "minPrice": 96900.0,
+    "maxPrice": 152200.0,
+    "sampleDescriptions": [
+      "2017 Mercedes-Benz GLA250 2.0 4MATIC AMG Line SUV - 4MATIC AMG (FULL SERVICE RECORD 39K KM DONE with 1 year warranty) 2018",
+      "2015 Mercedes-Benz GLA250 2.0 4MATIC SUV - TRUE PREMIUM FACELIFT PREMIUM WARRANTY",
+      "2017 Mercedes-Benz GLA250 2.0 4MATIC AMG Line SUV - , POWER BOOTS, ELECTRIC LEATHER SEAT, FULL SERVICE RECORD",
+      "2017 Mercedes-Benz GLA250 2.0 4MATIC AMG Line SUV - 4MATIC AMG (FULL SERVICE RECORD 39K KM DONE with 1 year warranty) 2018 - Black"
+    ]
+  },
+  {
+    "brand": "Mercedes-Benz",
+    "model": "Mercedes-Benz GLC200 2.0",
+    "count": 3,
+    "minYear": 2017,
+    "maxYear": 2019,
+    "avgPrice": 155333.33,
+    "minPrice": 152000.0,
+    "maxPrice": 159700.0,
+    "sampleDescriptions": [
+      "2018/2019 Mercedes-Benz GLC200 2.0 Exclusive SUV - GLC63 BODYKITS, KEYLESS PUSH START , POWER BOOT, KING RAYA SALES",
+      "2017 Mercedes-Benz GLC200 2.0 Exclusive SUV - X253 - 1 YEAR WARRANTY WITH CERTIFIED INSPECTION REPORT, CALL US NOW FOR BEST DEAL",
+      "2018/2019 Mercedes-Benz GLC200 2.0 Exclusive SUV - GLC63 BODYKITS, KEYLESS PUSH START , POWER BOOT, KING RAYA SALES - Maroon"
+    ]
+  },
+  {
+    "brand": "Mercedes-Benz",
+    "model": "Mercedes-Benz GLC250",
+    "count": 4,
+    "minYear": 2016,
+    "maxYear": 2016,
+    "avgPrice": 158600.0,
+    "minPrice": 154900.0,
+    "maxPrice": 164200.0,
+    "sampleDescriptions": [
+      "2016 Mercedes-Benz GLC250 2.0 4MATIC AMG Line SUV - (FULL SERVICE RECORD MBM 57K KM) 2017",
+      "2016 Mercedes-Benz GLC250 2.0 4MATIC AMG Line SUV - (FULL SERVICE RECORD MBM 57K KM) 2017 - Silver",
+      "2016 Mercedes-Benz GLC250 2.0 4MATIC AMG Line SUV - (FULL SERVICE RECORD MBM 57K KM) 2017 - Pearl White",
+      "2016 Mercedes-Benz GLC250 2.0 4MATIC AMG Line SUV - (FULL SERVICE RECORD MBM 57K KM) 2017 - White"
+    ]
+  },
+  {
+    "brand": "Mercedes-Benz",
+    "model": "Mercedes-Benz GLC300",
+    "count": 2,
+    "minYear": 2020,
+    "maxYear": 2020,
+    "avgPrice": 277600.0,
+    "minPrice": 276700.0,
+    "maxPrice": 278500.0,
+    "sampleDescriptions": [
+      "2019/2020 Mercedes-Benz GLC300 2.0 4MATIC AMG Line SUV - (A) 4MATIC AMG Coupe Full Service Record",
+      "2019/2020 Mercedes-Benz GLC300 2.0 4MATIC AMG Line SUV - (A) 4MATIC AMG Coupe Full Service Record - White"
+    ]
+  },
+  {
+    "brand": "Mercedes-Benz",
+    "model": "Mercedes-Benz GLC43 AMG",
+    "count": 7,
+    "minYear": 2018,
+    "maxYear": 2018,
+    "avgPrice": 239942.86,
+    "minPrice": 194600.0,
+    "maxPrice": 267700.0,
+    "sampleDescriptions": [
+      "2018 Mercedes-Benz GLC43 AMG 3.0 4MATIC SUV - 38K km ONLY",
+      "2018 Mercedes-Benz GLC43 AMG 3.0 4MATIC SUV - 38K km ONLY - Blue",
+      "2018 Mercedes-Benz GLC43 AMG 3.0 4MATIC SUV - 38K km ONLY - Black",
+      "2018 Mercedes-Benz GLC43 AMG 3.0 4MATIC SUV - 38K km ONLY - Pearl White",
+      "2018 Mercedes-Benz GLC43 AMG 3.0 4MATIC SUV - 38K km ONLY - Pearl White"
+    ]
+  },
+  {
+    "brand": "Mercedes-Benz",
+    "model": "Mercedes-Benz GLE43 3.0",
+    "count": 1,
+    "minYear": 2020,
+    "maxYear": 2020,
+    "avgPrice": 414700.0,
+    "minPrice": 414700.0,
+    "maxPrice": 414700.0,
+    "sampleDescriptions": [
+      "2019/2020 Mercedes-Benz GLE43 3.0 AMG OrangeArt Edition Coupe - (A) CBU GUARANTEE No Accident No Total Lost No Flood 5 Days Money back GuaranTEE"
+    ]
+  },
+  {
+    "brand": "Mercedes-Benz",
+    "model": "Mercedes-Benz S400L 3.0",
+    "count": 4,
+    "minYear": 2015,
+    "maxYear": 2015,
+    "avgPrice": 132100.0,
+    "minPrice": 128700.0,
+    "maxPrice": 135300.0,
+    "sampleDescriptions": [
+      "2015 Mercedes-Benz S400L 3.0 Sedan",
+      "2015 Mercedes-Benz S400L 3.0 Sedan - Maroon",
+      "2015 Mercedes-Benz S400L 3.0 Sedan - Blue",
+      "2015 Mercedes-Benz S400L 3.0 Sedan - Dark Blue"
+    ]
+  },
+  {
+    "brand": "Mercedes-Benz",
+    "model": "Mercedes-Benz S400L 3.5",
+    "count": 10,
+    "minYear": 2014,
+    "maxYear": 2016,
+    "avgPrice": 120510.0,
+    "minPrice": 99400.0,
+    "maxPrice": 152100.0,
+    "sampleDescriptions": [
+      "2016 Mercedes-Benz S400L 3.5 Hybrid Sedan - AMG S400 PANORAMIC MASSAGE SEAT POWER BOOT WARRANTY",
+      "2015 Mercedes-Benz S400L 3.5 Hybrid Sedan - (A) 1 YEAR WARRANTY WITJ CERTIFIED INSPECTION REPORT",
+      "2014 Mercedes-Benz S400L 3.5 Hybrid Sedan",
+      "2015 Mercedes-Benz S400L 3.5 Hybrid Sedan - (A) 1 YEAR WARRANTY WITJ CERTIFIED INSPECTION REPORT - Dark Blue",
+      "2014 Mercedes-Benz S400L 3.5 Hybrid Sedan - Silver"
+    ]
+  },
+  {
+    "brand": "Mercedes-Benz",
+    "model": "Mercedes-Benz S450L 3.0",
+    "count": 5,
+    "minYear": 2019,
+    "maxYear": 2019,
+    "avgPrice": 312820.0,
+    "minPrice": 302800.0,
+    "maxPrice": 331000.0,
+    "sampleDescriptions": [
+      "2019 Mercedes-Benz S450L 3.0 AMG Line Sedan - MERCEDES BENZ S450 L NO HYBRID AMG WTY 2025 ,CRYSTAL BLACK IN COLOUR,SELDOM USE,POWER BOOT,ONE OF DATO OWNER",
+      "2019 Mercedes-Benz S450L 3.0 AMG Line Sedan - MERCEDES BENZ S450 L NO HYBRID AMG WTY 2025 ,CRYSTAL BLACK IN COLOUR,SELDOM USE,POWER BOOT,ONE OF DATO OWNER - Blue",
+      "2019 Mercedes-Benz S450L 3.0 AMG Line Sedan - MERCEDES BENZ S450 L NO HYBRID AMG WTY 2025 ,CRYSTAL BLACK IN COLOUR,SELDOM USE,POWER BOOT,ONE OF DATO OWNER - Dark Blue",
+      "2019 Mercedes-Benz S450L 3.0 AMG Line Sedan - MERCEDES BENZ S450 L NO HYBRID AMG WTY 2025 ,CRYSTAL BLACK IN COLOUR,SELDOM USE,POWER BOOT,ONE OF DATO OWNER - Dark Blue",
+      "2019 Mercedes-Benz S450L 3.0 AMG Line Sedan - MERCEDES BENZ S450 L NO HYBRID AMG WTY 2025 ,CRYSTAL BLACK IN COLOUR,SELDOM USE,POWER BOOT,ONE OF DATO OWNER - Pearl White"
+    ]
+  },
+  {
+    "brand": "Mercedes-Benz",
+    "model": "Mercedes-Benz S500L 4.7",
+    "count": 2,
+    "minYear": 2014,
+    "maxYear": 2014,
+    "avgPrice": 193650.0,
+    "minPrice": 190900.0,
+    "maxPrice": 196400.0,
+    "sampleDescriptions": [
+      "2013/2014 Mercedes-Benz S500L 4.7 AMG Sedan - Sport VIP Car King Local Spec CBU Malaysia New Car S500 S63 S400 Hybrid",
+      "2013/2014 Mercedes-Benz S500L 4.7 AMG Sedan - Sport VIP Car King Local Spec CBU Malaysia New Car S500 S63 S400 Hybrid - Dark Blue"
+    ]
+  },
+  {
+    "brand": "Mitsubishi",
+    "model": "Mitsubishi ASX",
+    "count": 6,
+    "minYear": 2014,
+    "maxYear": 2016,
+    "avgPrice": 44466.67,
+    "minPrice": 37100.0,
+    "maxPrice": 48100.0,
+    "sampleDescriptions": [
+      "2016 Mitsubishi ASX 2.0 GL SUV - , 4WD , KEYLESS PUSH START ,PANAROMIC ROOF , GOOD CONDITION",
+      "2016 Mitsubishi ASX 2.0 GL SUV - , 4WD , KEYLESS PUSH START ,PANAROMIC ROOF , GOOD CONDITION - Red",
+      "2016 Mitsubishi ASX 2.0 GL SUV - , 4WD , KEYLESS PUSH START ,PANAROMIC ROOF , GOOD CONDITION - Pearl White",
+      "2016 Mitsubishi ASX 2.0 GL SUV - , 4WD , KEYLESS PUSH START ,PANAROMIC ROOF , GOOD CONDITION - Red",
+      "2016 Mitsubishi ASX 2.0 GL SUV - , 4WD , KEYLESS PUSH START ,PANAROMIC ROOF , GOOD CONDITION - Red"
+    ]
+  },
+  {
+    "brand": "Mitsubishi",
+    "model": "Mitsubishi Outlander",
+    "count": 2,
+    "minYear": 2020,
+    "maxYear": 2020,
+    "avgPrice": 96700.0,
+    "minPrice": 95900.0,
+    "maxPrice": 97500.0,
+    "sampleDescriptions": [
+      "2020 Mitsubishi Outlander 2.4 SUV - Super Car King Full Service Record",
+      "2020 Mitsubishi Outlander 2.4 SUV - Super Car King Full Service Record - Dark Blue"
+    ]
+  },
+  {
+    "brand": "Mitsubishi",
+    "model": "Mitsubishi Triton",
+    "count": 28,
+    "minYear": 2014,
+    "maxYear": 2022,
+    "avgPrice": 67853.57,
+    "minPrice": 44900.0,
+    "maxPrice": 93600.0,
+    "sampleDescriptions": [
+      "2017 Mitsubishi Triton 2.5 Dual Cab Pickup Truck - 4X4 (M) 4WD",
+      "2015 Mitsubishi Triton 2.5 VGT Adventure Dual Cab Pickup Truck - VGT Adventure 4WD TIP TOP",
+      "2013/2014 Mitsubishi Triton 2.5 VGT Dual Cab Pickup Truck - (A) VGT CBU Unit",
+      "2020/2021 Mitsubishi Triton 2.4 VGT Dual Cab Pickup Truck - VGT HS FULL SERVICE RECORD UNDER WARRANTY TILL 2025 NO OFF ROAD PUSHSTART 4X4",
+      "2017 Mitsubishi Triton 2.4 VGT Adventure X Dual Cab Pickup Truck - PADDLE SHIFT ELECTRIC SEAT 4X4 WARRANTY - Dark Blue"
+    ]
+  },
+  {
+    "brand": "Nissan",
+    "model": "Nissan Almera",
+    "count": 10,
+    "minYear": 2013,
+    "maxYear": 2017,
+    "avgPrice": 28710.0,
+    "minPrice": 21800.0,
+    "maxPrice": 35900.0,
+    "sampleDescriptions": [
+      "2016 Nissan Almera 1.5 VL Sedan - FACELIFT MODEL, NISMO BODYKITS, 1 OWNER CAR KING WARRANTY PROVIDED, RAYA SALE",
+      "2016 Nissan Almera 1.5 VL Sedan - FACELIFT MODEL, NISMO BODYKITS, 1 OWNER CAR KING WARRANTY PROVIDED, RAYA SALE - Black",
+      "2013 Nissan Almera 1.5 VL Sedan - (Full Spec)",
+      "2013 Nissan Almera 1.5 VL Sedan - (Full Spec) - Pearl White",
+      "2017 Nissan Almera 1.5 E Nismo Sedan - E (NISMO) FACELIFT Easy Loan 1 Years Warranty"
+    ]
+  },
+  {
+    "brand": "Nissan",
+    "model": "Nissan Grand Livina",
+    "count": 3,
+    "minYear": 2008,
+    "maxYear": 2015,
+    "avgPrice": 22600.0,
+    "minPrice": 17000.0,
+    "maxPrice": 33300.0,
+    "sampleDescriptions": [
+      "2008 Nissan Grand Livina 1.6 Luxury MPV - F LEATHER SEAT IMPUL 2 BODYKIT BEST DEAL Carlist Qualified Inspected Car CASH BUYER ONLY SELL UNDER MKT VALUE",
+      "2015 Nissan Grand Livina 1.6 Comfort MPV - Impul Bodykits Full Leather Seats 1 Year Warranty",
+      "2008 Nissan Grand Livina 1.6 Luxury MPV - F LEATHER SEAT IMPUL 2 BODYKIT BEST DEAL Carlist Qualified Inspected Car CASH BUYER ONLY SELL UNDER MKT VALUE - Dark Blue"
+    ]
+  },
+  {
+    "brand": "Nissan",
+    "model": "Nissan Livina X-Gear",
+    "count": 2,
+    "minYear": 2014,
+    "maxYear": 2014,
+    "avgPrice": 27000.0,
+    "minPrice": 25900.0,
+    "maxPrice": 28100.0,
+    "sampleDescriptions": [
+      "2014 Nissan Livina X-Gear 1.6 MPV - 5 Seater Crossover Full Spec 12mths Warranty",
+      "2014 Nissan Livina X-Gear 1.6 MPV - 5 Seater Crossover Full Spec 12mths Warranty - Black"
+    ]
+  },
+  {
+    "brand": "Nissan",
+    "model": "Nissan Navara",
+    "count": 18,
+    "minYear": 2013,
+    "maxYear": 2018,
+    "avgPrice": 54650.0,
+    "minPrice": 34100.0,
+    "maxPrice": 72600.0,
+    "sampleDescriptions": [
+      "2015 Nissan Navara 2.5 SE Dual Cab Pickup Truck - SE (M) NP300 4WD 1year Warranty",
+      "2015 Nissan Navara 2.5 SE Dual Cab Pickup Truck - SE (M) NP300 4WD 1year Warranty - Dark Blue",
+      "2016 Nissan Navara 2.5 NP300 V Dual Cab Pickup Truck - NP300 V (A) PUSH START BUTTON - KEYLESS ENTRY - REVERSE CAMERA - TOUCH SCREEN - LEATHER SEAT - 1 OWNER - SELLING CHEAP",
+      "2018 Nissan Navara 2.5 SINGLE CAB Pickup Truck - (M) Single Cub 4WD",
+      "2016 Nissan Navara 2.5 NP300 V Dual Cab Pickup Truck - NP300 V (A) PUSH START BUTTON - KEYLESS ENTRY - REVERSE CAMERA - TOUCH SCREEN - LEATHER SEAT - 1 OWNER - SELLING CHEAP - Pearl White"
+    ]
+  },
+  {
+    "brand": "Nissan",
+    "model": "Nissan Serena",
+    "count": 9,
+    "minYear": 2015,
+    "maxYear": 2019,
+    "avgPrice": 63822.22,
+    "minPrice": 50300.0,
+    "maxPrice": 95000.0,
+    "sampleDescriptions": [
+      "2016 Nissan Serena 2.0 S-Hybrid High-Way Star MPV - HIGH LOAN WELCOME",
+      "2015 Nissan Serena 2.0 S-Hybrid High-Way Star MPV - FULL LEATHER SEAT PUSH START",
+      "2018 Nissan Serena 2.0 S-Hybrid High-Way Star Premium MPV - 7 SEATER FULL LEATHER SEAT L R POWER SLIDE DOOR REAR MONITOR REAR AIRCOND CONTROL",
+      "2017 Nissan Serena 2.0 S-Hybrid High-Way Star MPV - , FULL CAR LEATHER SEAT, 7 SEATER , 2 POWER DOOR, RAMADHAN SALE, OFFER, NEGO SAMPAI JADI",
+      "2016 Nissan Serena 2.0 S-Hybrid High-Way Star MPV - HIGH LOAN WELCOME - Red"
+    ]
+  },
+  {
+    "brand": "Nissan",
+    "model": "Nissan Sylphy",
+    "count": 5,
+    "minYear": 2014,
+    "maxYear": 2014,
+    "avgPrice": 34040.0,
+    "minPrice": 32400.0,
+    "maxPrice": 37100.0,
+    "sampleDescriptions": [
+      "2014 Nissan Sylphy 1.8 VL Sedan - FULL SPEC - HIGH LOAN",
+      "2014 Nissan Sylphy 1.8 VL Sedan - FULL SPEC - HIGH LOAN - Blue",
+      "2014 Nissan Sylphy 1.8 VL Sedan - (A) - 1 YEAR WARRANTY WITH CERTIFIED INSPECTION REPORT, CALL US NOW FOR BEST DEAL",
+      "2014 Nissan Sylphy 1.8 VL Sedan - (A) - 1 YEAR WARRANTY WITH CERTIFIED INSPECTION REPORT, CALL US NOW FOR BEST DEAL - Grey",
+      "2014 Nissan Sylphy 1.8 VL Sedan - FULL SPEC - HIGH LOAN - Blue"
+    ]
+  },
+  {
+    "brand": "Nissan",
+    "model": "Nissan Teana",
+    "count": 8,
+    "minYear": 2014,
+    "maxYear": 2015,
+    "avgPrice": 46725.0,
+    "minPrice": 43900.0,
+    "maxPrice": 48500.0,
+    "sampleDescriptions": [
+      "2014 Nissan Teana 2.0 XL Sedan - (A) - FULL SPEC - 1 YEAR WARRANTY WITH CERTIFIED INSPECTION REPORT, CALL US NOW FOR BEST DEAL",
+      "2015 Nissan Teana 2.0 XL Sedan - , TIPTOP CONDITION, FULL SPEC , WARRANTY PROVIDED, BEST TO BUY",
+      "2015 Nissan Teana 2.0 XL Sedan - HIGH SPEC - EASY LOAN",
+      "2014 Nissan Teana 2.0 XL Sedan - (A) - FULL SPEC - 1 YEAR WARRANTY WITH CERTIFIED INSPECTION REPORT, CALL US NOW FOR BEST DEAL - Pearl White",
+      "2015 Nissan Teana 2.0 XE Sedan - YEAR END SALE, OFFER CAR KING, UPGRADED SOUND SYSTEM, MUST VIEW"
+    ]
+  },
+  {
+    "brand": "Nissan",
+    "model": "Nissan X-Trail",
+    "count": 14,
+    "minYear": 2015,
+    "maxYear": 2018,
+    "avgPrice": 50242.86,
+    "minPrice": 41800.0,
+    "maxPrice": 71800.0,
+    "sampleDescriptions": [
+      "2015 Nissan X-Trail 2.0 SUV - LUXURY (FULL SERVICE RECORD 45K KM DONE 360 SURROUND CAMERA) 2016",
+      "2015 Nissan X-Trail 2.0 SUV - LUXURY (FULL SERVICE RECORD 45K KM DONE 360 SURROUND CAMERA) 2016 - Black",
+      "2017 Nissan X-Trail 2.0 SUV - (A) FULL SPEC - FULL SERVICE RECORD - WARRANTY 1 YEAR - LEATHER SEAT - 360 CAMERA - PUSH START BUTTON - KEYLESS ENTRY - 1 OWNER",
+      "2017 Nissan X-Trail 2.0 SUV - (A) FULL SPEC - FULL SERVICE RECORD - WARRANTY 1 YEAR - LEATHER SEAT - 360 CAMERA - PUSH START BUTTON - KEYLESS ENTRY - 1 OWNER - Red",
+      "2017 Nissan X-Trail 2.0 SUV - (A) FULL SPEC - FULL SERVICE RECORD - WARRANTY 1 YEAR - LEATHER SEAT - 360 CAMERA - PUSH START BUTTON - KEYLESS ENTRY - 1 OWNER - Silver"
+    ]
+  },
+  {
+    "brand": "Perodua",
+    "model": "Perodua AXIA",
+    "count": 15,
+    "minYear": 2014,
+    "maxYear": 2020,
+    "avgPrice": 29860.0,
+    "minPrice": 25200.0,
+    "maxPrice": 34000.0,
+    "sampleDescriptions": [
+      "2018 Perodua AXIA 1.0 G Hatchback - (A) FACELIFT, 1 YEAR WARRANTY",
+      "2017 Perodua AXIA 1.0 Advance Hatchback - 1 OWNER, LOW MILEAGE, COME WITH WARRANTY, FULL SPEC AV LEATHER SEAT OFFER",
+      "2017 Perodua AXIA 1.0 SE Hatchback - KEYLESS PUSH START, ANDROID PLAYER OFFER",
+      "2014 Perodua AXIA 1.0 SE Hatchback - (Percuma Warranty)(Percuma SIap Tukar Nama)(Tahun Dibuat )( GEAR-UP Auto)(1 Lady Owner)(Special Edition)(Warna Perak)",
+      "2017 Perodua AXIA 1.0 Advance Hatchback - (A) 1 YEAR WARRANTY"
+    ]
+  },
+  {
+    "brand": "Perodua",
+    "model": "Perodua Alza",
+    "count": 21,
+    "minYear": 2013,
+    "maxYear": 2019,
+    "avgPrice": 34628.57,
+    "minPrice": 25000.0,
+    "maxPrice": 50500.0,
+    "sampleDescriptions": [
+      "2015 Perodua Alza 1.5 Advance MPV - FULL CAR LETHER SEAT, ROOF TOP MONITOR, REVERSE CAMERA RAMADHAN SALE",
+      "2016 Perodua Alza 1.5 SE MPV - SUPER SMOOTH CONDITION - EASY LOAN APPROVAL",
+      "2015 Perodua Alza 1.5 SE MPV - (Registed 2016)",
+      "2016 Perodua Alza 1.5 SE MPV - (M) WARRANTY 1 YEAR - CAN VERY VERY HIGH LOAN - 1 OWNER - GOOD CONDTION",
+      "2015 Perodua Alza 1.5 SE MPV - (Registed 2016) - Maroon"
+    ]
+  },
+  {
+    "brand": "Perodua",
+    "model": "Perodua Aruz",
+    "count": 5,
+    "minYear": 2019,
+    "maxYear": 2021,
+    "avgPrice": 56820.0,
+    "minPrice": 52800.0,
+    "maxPrice": 62200.0,
+    "sampleDescriptions": [
+      "2019 Perodua Aruz 1.5 AV SUV",
+      "2019 Perodua Aruz 1.5 AV SUV - White",
+      "2021 Perodua Aruz 1.5 AV SUV - (A) Full Service Record Easy Loan Car King",
+      "2021 Perodua Aruz 1.5 AV SUV - (A) Full Service Record Easy Loan Car King - Pearl White",
+      "2019 Perodua Aruz 1.5 AV SUV - Dark Blue"
+    ]
+  },
+  {
+    "brand": "Perodua",
+    "model": "Perodua Bezza",
+    "count": 5,
+    "minYear": 2017,
+    "maxYear": 2018,
+    "avgPrice": 33000.0,
+    "minPrice": 31600.0,
+    "maxPrice": 34000.0,
+    "sampleDescriptions": [
+      "2017 Perodua Bezza 1.3 Advance Premium Sedan - (A) - 1 YEAR WARRANTY WITH CERTIFIED INSPECTION REPORT, CALL US NOW FOR BEST DEAL",
+      "2017 Perodua Bezza 1.3 Advance Premium Sedan - (A) - 1 YEAR WARRANTY WITH CERTIFIED INSPECTION REPORT, CALL US NOW FOR BEST DEAL - Red",
+      "2018 Perodua Bezza 1.3 X Premium Sedan - (A) Push Start 3 Year Warranty",
+      "2018 Perodua Bezza 1.3 X Premium Sedan - (A) Push Start 3 Year Warranty - White",
+      "2017 Perodua Bezza 1.3 Advance Premium Sedan - (A) - 1 YEAR WARRANTY WITH CERTIFIED INSPECTION REPORT, CALL US NOW FOR BEST DEAL - Pearl White"
+    ]
+  },
+  {
+    "brand": "Perodua",
+    "model": "Perodua Myvi",
+    "count": 47,
+    "minYear": 2013,
+    "maxYear": 2020,
+    "avgPrice": 35353.19,
+    "minPrice": 16600.0,
+    "maxPrice": 51500.0,
+    "sampleDescriptions": [
+      "2020 Perodua Myvi 1.5 H Hatchback - (Percuma Warranty)(Percuma Siap Tukar Nama)(Tahun Dibuat )( GearUp Auto)(One Lady Owner)(Built-in SmartTag)(Push Start)(Grey)",
+      "2013 Perodua Myvi 1.5 SE Hatchback - (Percuma Siap Tukar Nama)(Percuma Warranty)(Tahun Dibuat )( Auto)(One Lady Owner)(Special Edition)(Black)",
+      "2020 Perodua Myvi 1.5 H Hatchback - (A) SEMUA MASALAH BOLEH BUAT LOAN KEDAI SINI - CCRIS CTOS , BLACKLIST , NO DOCUMENT , AKPK , SAA - ALL PROBLEM CAN APPLY LOAN HERE",
+      "2013 Perodua Myvi 1.3 EZ Hatchback - SERVICE RECORD 1 OWNER, CAR KING, OFFER , NEGO SAMPAI JADI",
+      "2013 Perodua Myvi 1.3 SE Hatchback - mileage 77k"
+    ]
+  },
+  {
+    "brand": "Peugeot",
+    "model": "Peugeot 2008",
+    "count": 4,
+    "minYear": 2014,
+    "maxYear": 2019,
+    "avgPrice": 28125.0,
+    "minPrice": 20000.0,
+    "maxPrice": 45900.0,
+    "sampleDescriptions": [
+      "2014 Peugeot 2008 1.6 VTi SUV - NO PROCESSING CHARGE",
+      "2015 Peugeot 2008 1.6 VTi SUV - TIP TOP PANAROMIC ROOF EASY LOAN",
+      "2019 Peugeot 2008 1.2 PureTech SUV - , NEW FACELIFT , ORIGINAL PAINT ,YEAR MAKE",
+      "2014 Peugeot 2008 1.6 VTi SUV - NO PROCESSING CHARGE - Black"
+    ]
+  },
+  {
+    "brand": "Peugeot",
+    "model": "Peugeot 208",
+    "count": 6,
+    "minYear": 2014,
+    "maxYear": 2015,
+    "avgPrice": 20350.0,
+    "minPrice": 19200.0,
+    "maxPrice": 22000.0,
+    "sampleDescriptions": [
+      "2015 Peugeot 208 1.6 Allure Hatchback - , LOW MILEAGE, ONE OWNER, CONDITION LIKE NEW , WARRANTY PROVIDED",
+      "2014 Peugeot 208 1.6 Allure Hatchback - 2 DOOR - PANAROMIC ROOF",
+      "2014 Peugeot 208 1.6 Allure Hatchback - 2 DOOR - PANAROMIC ROOF - Dark Blue",
+      "2015 Peugeot 208 1.6 Allure Hatchback - , LOW MILEAGE, ONE OWNER, CONDITION LIKE NEW , WARRANTY PROVIDED - Maroon",
+      "2014 Peugeot 208 1.6 Allure Hatchback - 2 DOOR - PANAROMIC ROOF - Red"
+    ]
+  },
+  {
+    "brand": "Peugeot",
+    "model": "Peugeot 3008",
+    "count": 21,
+    "minYear": 2016,
+    "maxYear": 2019,
+    "avgPrice": 58538.1,
+    "minPrice": 24600.0,
+    "maxPrice": 75600.0,
+    "sampleDescriptions": [
+      "2018 Peugeot 3008 1.6 THP Allure SUV - HIGH SPEC SUNROOF TIP TOP",
+      "2018 Peugeot 3008 1.6 THP Allure SUV - HIGH SPEC FULL SERVICE , ORIGINAL GOOD CONDITION",
+      "2016 Peugeot 3008 1.6 SUV - THP FACELIFT (A) NO PROCESSING CHARGE 1 OWNER",
+      "2018 Peugeot 3008 1.6 THP Allure SUV",
+      "2018 Peugeot 3008 1.6 THP Allure SUV - HIGH SPEC SUNROOF TIP TOP - Black"
+    ]
+  },
+  {
+    "brand": "Peugeot",
+    "model": "Peugeot 308",
+    "count": 3,
+    "minYear": 2013,
+    "maxYear": 2013,
+    "avgPrice": 16933.33,
+    "minPrice": 16600.0,
+    "maxPrice": 17300.0,
+    "sampleDescriptions": [
+      "2013 Peugeot 308 1.6 Hatchback - (A) TURBO FACELIFT 1 YEAR WARRANTY",
+      "2013 Peugeot 308 1.6 Hatchback - (A) TURBO FACELIFT 1 YEAR WARRANTY - Maroon",
+      "2013 Peugeot 308 1.6 Hatchback - (A) TURBO FACELIFT 1 YEAR WARRANTY - Red"
+    ]
+  },
+  {
+    "brand": "Peugeot",
+    "model": "Peugeot 408",
+    "count": 4,
+    "minYear": 2013,
+    "maxYear": 2013,
+    "avgPrice": 10800.0,
+    "minPrice": 10300.0,
+    "maxPrice": 11200.0,
+    "sampleDescriptions": [
+      "2013 Peugeot 408 2.0 Sedan - CASH OTR (A)",
+      "2013 Peugeot 408 2.0 Sedan - CASH OTR (A) - Silver",
+      "2013 Peugeot 408 2.0 Sedan - CASH OTR (A) - Red",
+      "2013 Peugeot 408 2.0 Sedan - CASH OTR (A) - Black"
+    ]
+  },
+  {
+    "brand": "Peugeot",
+    "model": "Peugeot 508",
+    "count": 4,
+    "minYear": 2015,
+    "maxYear": 2015,
+    "avgPrice": 29450.0,
+    "minPrice": 27800.0,
+    "maxPrice": 31300.0,
+    "sampleDescriptions": [
+      "2015 Peugeot 508 1.6 Premium Sedan - (A) Leather Push Start 3 Years Warranty",
+      "2015 Peugeot 508 1.6 Premium Sedan - FULL SPEC - KEYLESS - LOAN AVAILABLE",
+      "2015 Peugeot 508 1.6 Premium Sedan - (A) Leather Push Start 3 Years Warranty - Maroon",
+      "2015 Peugeot 508 1.6 Premium Sedan - FULL SPEC - KEYLESS - LOAN AVAILABLE - Grey"
+    ]
+  },
+  {
+    "brand": "Porsche",
+    "model": "Porsche 718",
+    "count": 3,
+    "minYear": 2018,
+    "maxYear": 2021,
+    "avgPrice": 406133.33,
+    "minPrice": 302400.0,
+    "maxPrice": 505200.0,
+    "sampleDescriptions": [
+      "2021 Porsche 718 2.0 Boxster Convertible - PDLS PLUS BOSE SOUND SPORT CHRONO REVERSE CAMERA 20 ALLOY WHEEL GENUINE MILEAGE UNREGISTERED",
+      "2018/2021 Porsche 718 2.0 Cayman Coupe - MUST VIEW",
+      "2018 Porsche 718 2.0 Cayman Coupe"
+    ]
+  },
+  {
+    "brand": "Porsche",
+    "model": "Porsche Cayenne 2.9",
+    "count": 4,
+    "minYear": 2021,
+    "maxYear": 2021,
+    "avgPrice": 621925.0,
+    "minPrice": 611700.0,
+    "maxPrice": 634700.0,
+    "sampleDescriptions": [
+      "2019/2021 Porsche Cayenne 2.9 S SUV - COUPE (A) Twin Head Rest Display Full Leather Seat Gls Premium Full Spec Sport 5 DAY MONEY BACK GUARANTEE",
+      "2019/2021 Porsche Cayenne 2.9 S SUV - COUPE (A) Twin Head Rest Display Full Leather Seat Gls Premium Full Spec Sport 5 DAY MONEY BACK GUARANTEE - White",
+      "2019/2021 Porsche Cayenne 2.9 S SUV - COUPE (A) Twin Head Rest Display Full Leather Seat Gls Premium Full Spec Sport 5 DAY MONEY BACK GUARANTEE - Grey",
+      "2019/2021 Porsche Cayenne 2.9 S Coupe - Sunroof Facelift Gls Premium Full Spec Warranty for 3YEARS 5 Days Cash Back"
+    ]
+  },
+  {
+    "brand": "Porsche",
+    "model": "Porsche Macan",
+    "count": 17,
+    "minYear": 2015,
+    "maxYear": 2019,
+    "avgPrice": 251317.65,
+    "minPrice": 182900.0,
+    "maxPrice": 320400.0,
+    "sampleDescriptions": [
+      "2019 Porsche Macan 3.0 S SUV - 3.6 TRUBO NEW FACELIFT 2025 ,CRYSTAL WHITE IN COLOUR,FULL LEATHER SEAT RED IN COLOUR,SPORT CHRONO,ONE OF VIP DATO OWNER",
+      "2015 Porsche Macan 3.0 S SUV - 340-BHP 460-NM FULL SPEC 3.6 TURBO 2.0",
+      "2019 Porsche Macan 3.0 S SUV - 3.6 TRUBO NEW FACELIFT 2025 ,CRYSTAL WHITE IN COLOUR,FULL LEATHER SEAT RED IN COLOUR,SPORT CHRONO,ONE OF VIP DATO OWNER - Blue",
+      "2019 Porsche Macan 2.0 SUV - New Facelift UNREGISTER Japan Spec Grade 4.5 30k Mileage 360 Camera Beige Leather Interior Memory Seat Black Sport Exhaust",
+      "2015 Porsche Macan 3.0 S SUV - 340-BHP 460-NM FULL SPEC 3.6 TURBO 2.0 - Grey"
+    ]
+  },
+  {
+    "brand": "Proton",
+    "model": "Proton Ertiga",
+    "count": 3,
+    "minYear": 2017,
+    "maxYear": 2017,
+    "avgPrice": 35233.33,
+    "minPrice": 33500.0,
+    "maxPrice": 36300.0,
+    "sampleDescriptions": [
+      "2017 Proton Ertiga 1.4 VVT Plus Executive MPV - HIGH LOAN - Dark Blue",
+      "2017 Proton Ertiga 1.4 VVT Plus Executive MPV - HIGH LOAN - Dark Blue",
+      "2017 Proton Ertiga 1.4 VVT Plus Executive MPV - HIGH LOAN - White"
+    ]
+  },
+  {
+    "brand": "Proton",
+    "model": "Proton Exora",
+    "count": 5,
+    "minYear": 2017,
+    "maxYear": 2021,
+    "avgPrice": 35140.0,
+    "minPrice": 29100.0,
+    "maxPrice": 47600.0,
+    "sampleDescriptions": [
+      "2017 Proton Exora 1.6 Turbo Executive MPV - LOW INSTALLMENT",
+      "2017 Proton Exora 1.6 Turbo Executive MPV - LOW INSTALLMENT - Grey",
+      "2021 Proton Exora 1.6 Turbo Premium MPV - JOHOR PLATE - FULL SPEC",
+      "2017 Proton Exora 1.6 Turbo Executive MPV - LOW INSTALLMENT - Red",
+      "2018 Proton Exora 1.6 Turbo Executive Plus MPV - FULL SPEC ( LEATHER SEAT REAR DVD ROOF MONITOR) 2019"
+    ]
+  },
+  {
+    "brand": "Proton",
+    "model": "Proton Inspira",
+    "count": 1,
+    "minYear": 2014,
+    "maxYear": 2014,
+    "avgPrice": 26900.0,
+    "minPrice": 26900.0,
+    "maxPrice": 26900.0,
+    "sampleDescriptions": [
+      "2014 Proton Inspira 2.0 Premium Sedan - (A) SEMUA MASALAH BOLEH BUAT LOAN KEDAI - CCRIS CTOS , BLACKLIST , AKPK , NO DOCUMENT , SAA - ALL PROBLEM CAN APPLY LOAN - Blue"
+    ]
+  },
+  {
+    "brand": "Proton",
+    "model": "Proton Iriz",
+    "count": 7,
+    "minYear": 2015,
+    "maxYear": 2020,
+    "avgPrice": 32557.14,
+    "minPrice": 19200.0,
+    "maxPrice": 35900.0,
+    "sampleDescriptions": [
+      "2020 Proton Iriz 1.6 Premium Hatchback - PUSH START FULL LEATHER SEAT REVERSE CAM 1 MALAY LADY OWNER",
+      "2015 Proton Iriz 1.6 Executive Hatchback - (A) TOUCH SCREEN - REVERSE CAMERA - FULL BODYKIT - SPORTRIM - ALL PROBLEM CAN APPLY LOAN HERE - SEMUA MASALAH BOLEH LOAN KEDAI",
+      "2019 Proton Iriz 1.6 Premium Hatchback - JOHOR PLATE - FULL SPEC - KEYLESS - LOW MILEAGE",
+      "2020 Proton Iriz 1.6 Premium Hatchback - FULL SPEC",
+      "2019 Proton Iriz 1.6 Premium Hatchback - JOHOR PLATE - FULL SPEC - KEYLESS - LOW MILEAGE - Pearl White"
+    ]
+  },
+  {
+    "brand": "Proton",
+    "model": "Proton Perdana",
+    "count": 9,
+    "minYear": 2015,
+    "maxYear": 2019,
+    "avgPrice": 44166.67,
+    "minPrice": 33100.0,
+    "maxPrice": 57200.0,
+    "sampleDescriptions": [
+      "2017/2019 Proton Perdana 2.4 Sedan - K24 ELECTRIC LEATHER SEAT PADDLE SHIFT MICHELIN TYRE - Grey",
+      "2015 Proton Perdana 2.0 E Sedan - (A)",
+      "2017 Proton Perdana 2.4 Sedan - CAR KING - SUPERB CONDITION - EASY HIGH LOAN",
+      "2017/2019 Proton Perdana 2.4 Sedan - K24 ELECTRIC LEATHER SEAT PADDLE SHIFT MICHELIN TYRE - Pearl White",
+      "2017/2019 Proton Perdana 2.4 Sedan - K24 ELECTRIC LEATHER SEAT PADDLE SHIFT MICHELIN TYRE - Black"
+    ]
+  },
+  {
+    "brand": "Proton",
+    "model": "Proton Persona",
+    "count": 3,
+    "minYear": 2018,
+    "maxYear": 2018,
+    "avgPrice": 31133.33,
+    "minPrice": 30300.0,
+    "maxPrice": 31800.0,
+    "sampleDescriptions": [
+      "2018 Proton Persona 1.6 Standard Sedan - (A) HARGA SEKALI PUSPAKOM JPJ R.TAX 1 OWNER NO PROCESSING HIDDEN INFO TRUE YEAR MAKE MUST VIEW ACC FREE - Black",
+      "2018 Proton Persona 1.6 Standard Sedan - (A) HARGA SEKALI PUSPAKOM JPJ R.TAX 1 OWNER NO PROCESSING HIDDEN INFO TRUE YEAR MAKE MUST VIEW ACC FREE - Maroon",
+      "2018 Proton Persona 1.6 Standard Sedan - (A) HARGA SEKALI PUSPAKOM JPJ R.TAX 1 OWNER NO PROCESSING HIDDEN INFO TRUE YEAR MAKE MUST VIEW ACC FREE - Dark Blue"
+    ]
+  },
+  {
+    "brand": "Proton",
+    "model": "Proton Preve",
+    "count": 9,
+    "minYear": 2013,
+    "maxYear": 2018,
+    "avgPrice": 28666.67,
+    "minPrice": 18100.0,
+    "maxPrice": 34000.0,
+    "sampleDescriptions": [
+      "2018 Proton Preve 1.6 CFE Premium Sedan - LEATHER SEAT - EASY LOAN",
+      "2018 Proton Preve 1.6 CFE Premium Sedan - LEATHER SEAT - EASY LOAN - Red",
+      "2018 Proton Preve 1.6 CFE Premium Sedan - Dark Blue",
+      "2018 Proton Preve 1.6 CFE Premium Sedan - LEATHER SEAT - EASY LOAN - Dark Blue",
+      "2013 Proton Preve 1.6 CFE Premium Sedan - (Free Warranty)(Free Siap Tukar Nama)(Tahun Dibuat )( Turbo)(SILVER)(SportRims)(PaddleShift)(PushStart)"
+    ]
+  },
+  {
+    "brand": "Proton",
+    "model": "Proton Saga",
+    "count": 13,
+    "minYear": 2013,
+    "maxYear": 2021,
+    "avgPrice": 19169.23,
+    "minPrice": 14100.0,
+    "maxPrice": 31100.0,
+    "sampleDescriptions": [
+      "2013 Proton Saga 1.3 FLX Executive Sedan - (FreeWarranty)(FreeSiapTkrNama)(TahunDibuat)( )(BROWN)(FullBodykits)(SportRims)(LowMileage)(1 Owner)(SRS Airbag)",
+      "2014 Proton Saga 1.3 FLX Executive Sedan - (FreeWarranty)(FreeSiapTkrNama)(Tahun Dibuat )( )(DARK BLUE)(SportRims)(AndroidPlayer)(ReverseCamera)(SRS Airbags)",
+      "2013 Proton Saga 1.3 FLX Executive Sedan - (FreeWarranty)(FreeSiapTkrNama)(TahunDibuat)( )(BROWN)(FullBodykits)(SportRims)(LowMileage)(1 Owner)(SRS Airbag) - White",
+      "2013 Proton Saga 1.3 FLX Executive Sedan - (FreeWarranty)(FreeSiapTkrNama)(TahunDibuat)( )(BROWN)(FullBodykits)(SportRims)(LowMileage)(1 Owner)(SRS Airbag) - Pearl White",
+      "2021 Proton Saga 1.3 Standard Sedan - JOHOR PLATE - SUPERB CONDITION LIKE NEW - EASY LOAN APPROVE"
+    ]
+  },
+  {
+    "brand": "Proton",
+    "model": "Proton X70",
+    "count": 17,
+    "minYear": 2018,
+    "maxYear": 2021,
+    "avgPrice": 65476.47,
+    "minPrice": 57700.0,
+    "maxPrice": 72700.0,
+    "sampleDescriptions": [
+      "2018 Proton X70 1.8 TGDI Premium SUV - PANORAMIC SUNROOF , FULL SERVICE RECORD, WARRANTY PROVIDED, KING CONDITION",
+      "2020/2021 Proton X70 1.8 TGDI Premium SUV - (CKD) FULL SPEC DCT 7-SPEED GEAR BOX NAPPA LEATHER SEAT",
+      "2019 Proton X70 1.8 TGDI Executive SUV - REMARK-1 YEAR WARRANTY WITH CERTIFIED INSPECTION REPORT, CALL US NOW FOR BEST DEAL - Silver",
+      "2019 Proton X70 1.8 TGDI Premium SUV - (A)",
+      "2019 Proton X70 1.8 TGDI Premium SUV - (A) NO PROCESSING CHARGE 1 OWNER - Maroon"
+    ]
+  },
+  {
+    "brand": "Renault",
+    "model": "Renault Captur 1.2 TCe",
+    "count": 17,
+    "minYear": 2015,
+    "maxYear": 2023,
+    "avgPrice": 72841.18,
+    "minPrice": 39400.0,
+    "maxPrice": 166000.0,
+    "sampleDescriptions": [
+      "2019 Renault Captur 1.2 TCe (M) - Pearl White Full Service Record",
+      "2020 Renault Captur 1.2 TCe (M) - Maroon Full Service Record",
+      "2022 Renault Captur 1.2 TCe (M) - Black Full Service Record",
+      "2020 Renault Captur 1.2 TCe (M) - Grey Full Service Record",
+      "2020 Renault Captur 1.2 TCe (M) - Blue Full Service Record"
+    ]
+  },
+  {
+    "brand": "Renault",
+    "model": "Renault Clio 1.6",
+    "count": 4,
+    "minYear": 2014,
+    "maxYear": 2014,
+    "avgPrice": 68175.0,
+    "minPrice": 64900.0,
+    "maxPrice": 70900.0,
+    "sampleDescriptions": [
+      "2014 Renault Clio 1.6 RS200 EDC Hatchback - RS 200 217WHP Dual Clutch Turbo 47K KM Many many Upgrades Extras Perfect Condition No Accident No Flood - Grey",
+      "2014 Renault Clio 1.6 RS200 EDC Hatchback - RS 200 217WHP Dual Clutch Turbo 47K KM Many many Upgrades Extras Perfect Condition No Accident No Flood - Black",
+      "2014 Renault Clio 1.6 RS200 EDC Hatchback - RS 200 217WHP Dual Clutch Turbo 47K KM Many many Upgrades Extras Perfect Condition No Accident No Flood - Blue",
+      "2014 Renault Clio 1.6 RS200 EDC Hatchback - RS 200 217WHP Dual Clutch Turbo 47K KM Many many Upgrades Extras Perfect Condition No Accident No Flood - Maroon"
+    ]
+  },
+  {
+    "brand": "Renault",
+    "model": "Renault Clio 1.6 RS",
+    "count": 22,
+    "minYear": 2015,
+    "maxYear": 2022,
+    "avgPrice": 70809.09,
+    "minPrice": 19800.0,
+    "maxPrice": 284200.0,
+    "sampleDescriptions": [
+      "2022 Renault Clio 1.6 RS (M) - Silver Full Service Record",
+      "2019 Renault Clio 1.6 RS (M) - Grey Full Service Record",
+      "2018 Renault Clio 1.6 RS (M) - Maroon Full Service Record",
+      "2016 Renault Clio 1.6 RS (M) - Pearl White Full Service Record",
+      "2020 Renault Clio 1.6 RS (M) - Pearl White Full Service Record"
+    ]
+  },
+  {
+    "brand": "Renault",
+    "model": "Renault Megane 2.0 RS",
+    "count": 18,
+    "minYear": 2015,
+    "maxYear": 2023,
+    "avgPrice": 89900.0,
+    "minPrice": 34200.0,
+    "maxPrice": 234900.0,
+    "sampleDescriptions": [
+      "2023 Renault Megane 2.0 RS (M) - White Full Service Record",
+      "2019 Renault Megane 2.0 RS (M) - Grey Full Service Record",
+      "2019 Renault Megane 2.0 RS (M) - Black Full Service Record",
+      "2015 Renault Megane 2.0 RS (M) - White Full Service Record",
+      "2018 Renault Megane 2.0 RS (M) - Grey Full Service Record"
+    ]
+  },
+  {
+    "brand": "Rover",
+    "model": "Rover Range Rover",
+    "count": 2,
+    "minYear": 2013,
+    "maxYear": 2013,
+    "avgPrice": 97850.0,
+    "minPrice": 95000.0,
+    "maxPrice": 100700.0,
+    "sampleDescriptions": [
+      "2013 Rover Range Rover 2.0 Evoque CBA-LV2A (A) SUV - Range FREE ONE YEAR WARRANTY",
+      "2013 Rover Range Rover 2.0 Evoque CBA-LV2A (A) SUV - Range FREE ONE YEAR WARRANTY - Blue"
+    ]
+  },
+  {
+    "brand": "Ssangyong",
+    "model": "Ssangyong Stavic",
+    "count": 2,
+    "minYear": 2013,
+    "maxYear": 2013,
+    "avgPrice": 28400.0,
+    "minPrice": 28100.0,
+    "maxPrice": 28700.0,
+    "sampleDescriptions": [
+      "2013 Ssangyong Stavic 2.0 SV200 eXDi MPV - 11 SEATER CAR KING",
+      "2013 Ssangyong Stavic 2.0 SV200 eXDi MPV - 11 SEATER CAR KING - Dark Blue"
+    ]
+  },
+  {
+    "brand": "Subaru",
+    "model": "Subaru Forester",
+    "count": 12,
+    "minYear": 2016,
+    "maxYear": 2017,
+    "avgPrice": 47000.0,
+    "minPrice": 42900.0,
+    "maxPrice": 52400.0,
+    "sampleDescriptions": [
+      "2016 Subaru Forester 2.0 P SUV - FULL SPEC - EASY LOAN",
+      "2016 Subaru Forester 2.0 P SUV - FULL SPEC - EASY LOAN - Dark Blue",
+      "2016 Subaru Forester 2.0 P SUV - FULL SPEC - EASY LOAN - Grey",
+      "2017 Subaru Forester 2.0 P SUV - FULL SPEC 4WD CHEAPEST",
+      "2017 Subaru Forester 2.0 P SUV - FULL SPEC 4WD CHEAPEST - Blue"
+    ]
+  },
+  {
+    "brand": "Subaru",
+    "model": "Subaru XV",
+    "count": 18,
+    "minYear": 2013,
+    "maxYear": 2019,
+    "avgPrice": 46850.0,
+    "minPrice": 27300.0,
+    "maxPrice": 76300.0,
+    "sampleDescriptions": [
+      "2019 Subaru XV 2.0 SUV - I-Premium Car King Tip Top Condition 3 Years Warranty",
+      "2018 Subaru XV 2.0 P SUV - Full Original Service Record 1 Malaysia Warranty",
+      "2015 Subaru XV 2.0 Premium SUV - FACELIFT (A) NO PROCESSING CHARGE",
+      "2017 Subaru XV 2.0 P SUV - I-P (A) Facelift",
+      "2013 Subaru XV 2.0 SUV - AUTO ,ONE OWNER, ACCIDENT FREE .LIKE NEW"
+    ]
+  },
+  {
+    "brand": "Suzuki",
+    "model": "Suzuki Grand Vitara",
+    "count": 3,
+    "minYear": 2012,
+    "maxYear": 2012,
+    "avgPrice": 21500.0,
+    "minPrice": 21300.0,
+    "maxPrice": 21600.0,
+    "sampleDescriptions": [
+      "2012 Suzuki Grand Vitara 2.0 SUV - (A) ALL PROBLEM CAN APPLY LOAN HERE - CCRIS CTOS , BLACKLIST , AKPK , NO DOCUMENT , SAA - SEMUA MASALAH BOLEH BUAT LOAN KEDAI",
+      "2012 Suzuki Grand Vitara 2.0 SUV - (A) ALL PROBLEM CAN APPLY LOAN HERE - CCRIS CTOS , BLACKLIST , AKPK , NO DOCUMENT , SAA - SEMUA MASALAH BOLEH BUAT LOAN KEDAI - White",
+      "2012 Suzuki Grand Vitara 2.0 SUV - (A) ALL PROBLEM CAN APPLY LOAN HERE - CCRIS CTOS , BLACKLIST , AKPK , NO DOCUMENT , SAA - SEMUA MASALAH BOLEH BUAT LOAN KEDAI - Black"
+    ]
+  },
+  {
+    "brand": "Suzuki",
+    "model": "Suzuki Jimny",
+    "count": 1,
+    "minYear": 2015,
+    "maxYear": 2015,
+    "avgPrice": 82100.0,
+    "minPrice": 82100.0,
+    "maxPrice": 82100.0,
+    "sampleDescriptions": [
+      "2015 Suzuki Jimny 1.3 JLX SUV - (A) 1 OWNER NO PROCESSING CHARGE"
+    ]
+  },
+  {
+    "brand": "Toyota",
+    "model": "Toyota Alphard",
+    "count": 72,
+    "minYear": 2014,
+    "maxYear": 2022,
+    "avgPrice": 248433.33,
+    "minPrice": 104900.0,
+    "maxPrice": 504400.0,
+    "sampleDescriptions": [
+      "2021 Toyota Alphard 2.5 G S C Package MPV - Carlist Qualified",
+      "2016/2021 Toyota Alphard 2.5 G S MPV - AGH30 POWER DOOR POWER BOOT 1 YEAR WARRANTY",
+      "2021 Toyota Alphard 2.5 G S C Package MPV - Carlist Qualified - Maroon",
+      "2019 Toyota Alphard 2.5 G SA MPV - G Spec Pilot Seat Design Full Leather Memory Driver Seat New ALPINE MONITOR UNREG",
+      "2020/2022 Toyota Alphard 2.5 G S C Package MPV - 3BA SUNROOF POWER BOOT, PILOT SEAT ORIGINAL MODELLISTA, KING CONDITION RAYA OFFER"
+    ]
+  },
+  {
+    "brand": "Toyota",
+    "model": "Toyota C-HR",
+    "count": 3,
+    "minYear": 2018,
+    "maxYear": 2018,
+    "avgPrice": 110000.0,
+    "minPrice": 110000.0,
+    "maxPrice": 110000.0,
+    "sampleDescriptions": [
+      "2018 Toyota C-HR 1.8 SUV - (A) 1 YEAR WARRANTY",
+      "2018 Toyota C-HR 1.8 SUV - (A) 1 YEAR WARRANTY - Dark Blue",
+      "2018 Toyota C-HR 1.8 SUV - (A) 1 YEAR WARRANTY - Grey"
+    ]
+  },
+  {
+    "brand": "Toyota",
+    "model": "Toyota Camry",
+    "count": 21,
+    "minYear": 2013,
+    "maxYear": 2017,
+    "avgPrice": 74928.57,
+    "minPrice": 58200.0,
+    "maxPrice": 93900.0,
+    "sampleDescriptions": [
+      "2017 Toyota Camry 2.5 Hybrid Premium Sedan - FULL SPEC EASY LOAN",
+      "2016 Toyota Camry 2.5 Hybrid Premium Sedan - (A) Full Service Record Under Push Start One Owner",
+      "2016 Toyota Camry 2.5 Hybrid Luxury Sedan - Super Car King 3 Years Warranty",
+      "2017 Toyota Camry 2.5 Hybrid Premium Sedan - FULL SPEC EASY LOAN - White",
+      "2013 Toyota Camry 2.5 V Sedan - JOHOR PLATE - KEYLESS - SMOOTH CONDITION - LOAN WELCOME"
+    ]
+  },
+  {
+    "brand": "Toyota",
+    "model": "Toyota Corolla Altis",
+    "count": 11,
+    "minYear": 2014,
+    "maxYear": 2017,
+    "avgPrice": 60681.82,
+    "minPrice": 49300.0,
+    "maxPrice": 72900.0,
+    "sampleDescriptions": [
+      "2016 Toyota Corolla Altis 1.8 G Sedan - (A) 1 YEAR WARRANTY",
+      "2014/2015 Toyota Corolla Altis 1.8 E Sedan - (FreeWarranty)(FreeSiapTkrNama)(ThnDibuat Reg2015)( Dual VVT-i)(SILVER)(FullBodykits)(SportRims)(PushStart)(7Speed)",
+      "2017 Toyota Corolla Altis 1.8 E Sedan - FULL SERVICE RECORD",
+      "2014 Toyota Corolla Altis 2.0 V Sedan - (A) NO PROCESSING CHARGE",
+      "2017 Toyota Corolla Altis 1.8 G Sedan - JOHOR PLATE - LOW DEPOSIT - SUPERB CAR KING - HIGH LOAN WELCOME - Red"
+    ]
+  },
+  {
+    "brand": "Toyota",
+    "model": "Toyota Estima",
+    "count": 4,
+    "minYear": 2017,
+    "maxYear": 2019,
+    "avgPrice": 156275.0,
+    "minPrice": 121100.0,
+    "maxPrice": 177300.0,
+    "sampleDescriptions": [
+      "2014/2017 Toyota Estima 2.4 Aeras MPV - (A) Power Boot",
+      "2019 Toyota Estima 2.4 Aeras Premium MPV - High Spec Leather Alcantara Seats 7 Seaters 2 Power Doors Reverse Camera Push Start Keyless Entry Unregistered",
+      "2019 Toyota Estima 2.4 Aeras Premium MPV - High Spec Leather Alcantara Seats 7 Seaters 2 Power Doors Reverse Camera Push Start Keyless Entry Unregistered - Silver",
+      "2019 Toyota Estima 2.4 Aeras Premium MPV - High Spec Leather Alcantara Seats 7 Seaters 2 Power Doors Reverse Camera Push Start Keyless Entry Unregistered - Blue"
+    ]
+  },
+  {
+    "brand": "Toyota",
+    "model": "Toyota FJ Cruiser",
+    "count": 3,
+    "minYear": 2013,
+    "maxYear": 2013,
+    "avgPrice": 146400.0,
+    "minPrice": 145800.0,
+    "maxPrice": 147300.0,
+    "sampleDescriptions": [
+      "2013 Toyota FJ Cruiser 4.0 SUV - V6 A-TRAC SYSTEM 4X4 2014 (1 YEAR WARRANTY) 2014 - Maroon",
+      "2013 Toyota FJ Cruiser 4.0 SUV - V6 A-TRAC SYSTEM 4X4 2014 (1 YEAR WARRANTY) 2014 - Maroon",
+      "2013 Toyota FJ Cruiser 4.0 SUV - V6 A-TRAC SYSTEM 4X4 2014 (1 YEAR WARRANTY) 2014 - Black"
+    ]
+  },
+  {
+    "brand": "Toyota",
+    "model": "Toyota Fortuner",
+    "count": 10,
+    "minYear": 2017,
+    "maxYear": 2017,
+    "avgPrice": 107950.0,
+    "minPrice": 99200.0,
+    "maxPrice": 117300.0,
+    "sampleDescriptions": [
+      "2017 Toyota Fortuner 2.7 SRZ SUV - , ELECTRIC LEATHER SEAT, POWER BOOT, 4WD , TOUCH SCREEN PLAYER REVERSE CAMERA, NEGO SAMPAI JADI, OFFER",
+      "2017 Toyota Fortuner 2.7 SRZ SUV - 4X4 ( FULL SERVICE RECORD 78K KM) 2018",
+      "2017 Toyota Fortuner 2.7 SRZ SUV - 4X4 ( FULL SERVICE RECORD 78K KM) 2018 - Pearl White",
+      "2017 Toyota Fortuner 2.7 SRZ SUV - , ELECTRIC LEATHER SEAT, POWER BOOT, 4WD , TOUCH SCREEN PLAYER REVERSE CAMERA, NEGO SAMPAI JADI, OFFER - White",
+      "2017 Toyota Fortuner 2.7 SRZ SUV - 4X4 ( FULL SERVICE RECORD 78K KM) 2018 - Black"
+    ]
+  },
+  {
+    "brand": "Toyota",
+    "model": "Toyota GR Supra",
+    "count": 6,
+    "minYear": 2020,
+    "maxYear": 2020,
+    "avgPrice": 310900.0,
+    "minPrice": 261800.0,
+    "maxPrice": 342100.0,
+    "sampleDescriptions": [
+      "2020 Toyota GR Supra 3.0 388 PS Coupe - RZ GR JBL sound Toms Throttle system Carbon Spoiler Carbon side mirror Carbon side moulding",
+      "2020 Toyota GR Supra 2.0 SZ-R Coupe - (A) 1 YEAR WARRANTY",
+      "2020 Toyota GR Supra 3.0 388 PS Coupe - RZ GR JBL sound Toms Throttle system Carbon Spoiler Carbon side mirror Carbon side moulding - Blue",
+      "2020 Toyota GR Supra 2.0 SZ-R Coupe - (A) 1 YEAR WARRANTY - Grey",
+      "2020 Toyota GR Supra 3.0 388 PS Coupe - RZ GR JBL sound Toms Throttle system Carbon Spoiler Carbon side mirror Carbon side moulding - Silver"
+    ]
+  },
+  {
+    "brand": "Toyota",
+    "model": "Toyota GR86 2.4",
+    "count": 1,
+    "minYear": 2022,
+    "maxYear": 2022,
+    "avgPrice": 229900.0,
+    "minPrice": 229900.0,
+    "maxPrice": 229900.0,
+    "sampleDescriptions": [
+      "2022 Toyota GR86 2.4 RZ Coupe - New Car Condition Auto, TEIN-EDFC Active Suspension, TRD Spoiler, 18in Alloy Wheel, Reverse Camera and MORE"
+    ]
+  },
+  {
+    "brand": "Toyota",
+    "model": "Toyota Granace 2.8",
+    "count": 9,
+    "minYear": 2020,
+    "maxYear": 2021,
+    "avgPrice": 295866.67,
+    "minPrice": 284500.0,
+    "maxPrice": 310100.0,
+    "sampleDescriptions": [
+      "2020 Toyota Granace 2.8 MPV - Carlist Qualified",
+      "2020 Toyota Granace 2.8 MPV - Carlist Qualified Premium",
+      "2020 Toyota Granace 2.8 MPV - Premium 6 Seater Grade 5A Ready Stock",
+      "2020 Toyota Granace 2.8 MPV - Carlist Qualified - Pearl White",
+      "2020 Toyota Granace 2.8 MPV - Premium 6 Seater Grade 5A Ready Stock - Grey"
+    ]
+  },
+  {
+    "brand": "Toyota",
+    "model": "Toyota Harrier",
+    "count": 43,
+    "minYear": 2014,
+    "maxYear": 2022,
+    "avgPrice": 138123.26,
+    "minPrice": 87500.0,
+    "maxPrice": 221700.0,
+    "sampleDescriptions": [
+      "2016 Toyota Harrier 2.0 Premium Advanced SUV - JBL LINE ASIST PRE-CRASH 360 PREMIUM WARRANTY",
+      "2020 Toyota Harrier 2.0 Premium SUV - Z Leather",
+      "2014 Toyota Harrier 2.0 Premium Advanced SUV - (JBL 360 SURROUND CAMERA PANORAMIC ROOF) 2015",
+      "2021 Toyota Harrier 2.0 SUV - Z - Full Leather Full Spec Perfect Condition",
+      "2014/2016 Toyota Harrier 2.0 Premium Modellista SUV - MODELLISTA BODYKIT, SUNROOF, POWER BOOT, 2 TONE LEATHER SEAT RAYA SALE"
+    ]
+  },
+  {
+    "brand": "Toyota",
+    "model": "Toyota Hilux",
+    "count": 11,
+    "minYear": 2016,
+    "maxYear": 2018,
+    "avgPrice": 88363.64,
+    "minPrice": 58100.0,
+    "maxPrice": 97500.0,
+    "sampleDescriptions": [
+      "2017 Toyota Hilux 2.8 G Pickup Truck",
+      "2018 Toyota Hilux 2.4 G Dual Cab Pickup Truck - G",
+      "2016 Toyota Hilux 2.5 G VNT Dual Cab Pickup Truck - VNT (M) WARRANTY 1 YEAR - 4X4 4WD - DOUBLE CAB - DUAL CAB - 1 OWNER - SELLING CHEAP IN MARKET PLACE",
+      "2018 Toyota Hilux 2.4 G Dual Cab Pickup Truck - (Percuma Siap Tukar Nama)(Percuma Warranty)(Tahun Dibuat )( G Auto)(Leather Seats)(Push Start)(1 Owner)(Silver)",
+      "2017 Toyota Hilux 2.4 Limited G Dual Cab Pickup Truck - Limited G (A) 1 YEAR WARRANTY - Black"
+    ]
+  },
+  {
+    "brand": "Toyota",
+    "model": "Toyota Innova",
+    "count": 7,
+    "minYear": 2013,
+    "maxYear": 2018,
+    "avgPrice": 51442.86,
+    "minPrice": 32100.0,
+    "maxPrice": 81300.0,
+    "sampleDescriptions": [
+      "2013 Toyota Innova 2.0 G MPV - (A) NO PROCESSING CHARGE 1 OWNER",
+      "2017 Toyota Innova 2.0 G MPV - FULL SERVICE RECORD 7 SEAT",
+      "2018 Toyota Innova 2.0 G MPV - (12 MONTHS CARLIST QUALIFIED WARRANTY)",
+      "2013 Toyota Innova 2.0 G MPV - (A) NO PROCESSING CHARGE 1 OWNER - Pearl White",
+      "2013 Toyota Innova 2.0 G MPV - (A) NO PROCESSING CHARGE 1 OWNER - Blue"
+    ]
+  },
+  {
+    "brand": "Toyota",
+    "model": "Toyota Land Cruiser",
+    "count": 12,
+    "minYear": 2021,
+    "maxYear": 2022,
+    "avgPrice": 566633.33,
+    "minPrice": 533400.0,
+    "maxPrice": 616700.0,
+    "sampleDescriptions": [
+      "2021 Toyota Land Cruiser 3.3 ZX SUV - SUNROOF PRE CRASH MODELISTA BODYKIT LOCAL AP UNREG",
+      "2022 Toyota Land Cruiser 3.3 GR Sport SUV - VALUE BUY , Black Red GR Interior, JBL, Sunroof, Cool Box, 3 Differential Locks, 360 Camera and MORE",
+      "2022 Toyota Land Cruiser 3.3 ZX Modellista SUV - Like New Low Mileage Nego Till Let Go",
+      "2021 Toyota Land Cruiser 3.3 ZX SUV - SUNROOF PRE CRASH MODELISTA BODYKIT LOCAL AP UNREG - Dark Blue",
+      "2021 Toyota Land Cruiser 3.3 ZX SUV - SUNROOF PRE CRASH MODELISTA BODYKIT LOCAL AP UNREG - Maroon"
+    ]
+  },
+  {
+    "brand": "Toyota",
+    "model": "Toyota Land Cruiser Prado",
+    "count": 6,
+    "minYear": 2014,
+    "maxYear": 2021,
+    "avgPrice": 266533.33,
+    "minPrice": 151900.0,
+    "maxPrice": 302300.0,
+    "sampleDescriptions": [
+      "2021 Toyota Land Cruiser Prado 2.8 TX SUV - VALUE BUY -L, 7 Seat, Beige Interior, 360 Camera, Modellista Bodykit, 19in Alloy Wheel, 10in Monitor MORE",
+      "2021 Toyota Land Cruiser Prado 2.8 TX SUV - VALUE BUY -L, 7 Seat, Beige Interior, 360 Camera, Modellista Bodykit, 19in Alloy Wheel, 10in Monitor MORE - Silver",
+      "2021 Toyota Land Cruiser Prado 2.8 TX SUV - VALUE BUY -L, 7 Seat, Beige Interior, 360 Camera, Modellista Bodykit, 19in Alloy Wheel, 10in Monitor MORE - Dark Blue",
+      "2014 Toyota Land Cruiser Prado 2.7 TX L SUV - ( 1 YEAR WARRANTY 360 SURROUND CAMERA DUAL ELECTRIC SEAT SUNROOF) 2015",
+      "2021 Toyota Land Cruiser Prado 2.8 TX SUV - VALUE BUY -L, 7 Seat, Beige Interior, 360 Camera, Modellista Bodykit, 19in Alloy Wheel, 10in Monitor MORE - Red"
+    ]
+  },
+  {
+    "brand": "Toyota",
+    "model": "Toyota Noah 2.0",
+    "count": 18,
+    "minYear": 2018,
+    "maxYear": 2022,
+    "avgPrice": 173044.44,
+    "minPrice": 136500.0,
+    "maxPrice": 195200.0,
+    "sampleDescriptions": [
+      "2022 Toyota Noah 2.0 S-Z MPV - Carlist Qualified G",
+      "2022 Toyota Noah 2.0 S-Z MPV - Carlist Qualified Low miles 5A",
+      "2022 Toyota Noah 2.0 S-Z MPV - Carlist Qualified G - Maroon",
+      "2022 Toyota Noah 2.0 S-Z MPV - Carlist Qualified G",
+      "2022 Toyota Noah 2.0 S-Z MPV - Carlist Qualified G - Silver"
+    ]
+  },
+  {
+    "brand": "Toyota",
+    "model": "Toyota Prius C",
+    "count": 2,
+    "minYear": 2013,
+    "maxYear": 2013,
+    "avgPrice": 29500.0,
+    "minPrice": 29300.0,
+    "maxPrice": 29700.0,
+    "sampleDescriptions": [
+      "2013 Toyota Prius C 1.5 Hybrid Hatchback - Dark Blue",
+      "2013 Toyota Prius C 1.5 Hybrid Hatchback - Grey"
+    ]
+  },
+  {
+    "brand": "Toyota",
+    "model": "Toyota Rush",
+    "count": 4,
+    "minYear": 2013,
+    "maxYear": 2019,
+    "avgPrice": 46675.0,
+    "minPrice": 30100.0,
+    "maxPrice": 63200.0,
+    "sampleDescriptions": [
+      "2019 Toyota Rush 1.5 S SUV - G 7 SEATER KEYLESS PUSHSTART FULL LEATHER SEAT 360 REVERSE CAM",
+      "2019 Toyota Rush 1.5 S SUV - G 7 SEATER KEYLESS PUSHSTART FULL LEATHER SEAT 360 REVERSE CAM - Silver",
+      "2013 Toyota Rush 1.5 S SUV - FACELIFT (A) NO PROCESSING CHARGE 1 OWNER",
+      "2013 Toyota Rush 1.5 S SUV - FACELIFT (A) NO PROCESSING CHARGE 1 OWNER - Grey"
+    ]
+  },
+  {
+    "brand": "Toyota",
+    "model": "Toyota Sienta",
+    "count": 5,
+    "minYear": 2016,
+    "maxYear": 2017,
+    "avgPrice": 61640.0,
+    "minPrice": 51600.0,
+    "maxPrice": 66900.0,
+    "sampleDescriptions": [
+      "2016 Toyota Sienta 1.5 V MPV",
+      "2017 Toyota Sienta 1.5 V MPV - Silver",
+      "2017 Toyota Sienta 1.5 V MPV - Dark Blue",
+      "2017 Toyota Sienta 1.5 V MPV - Black",
+      "2017 Toyota Sienta 1.5 V MPV - Pearl White"
+    ]
+  },
+  {
+    "brand": "Toyota",
+    "model": "Toyota Vellfire",
+    "count": 51,
+    "minYear": 2013,
+    "maxYear": 2021,
+    "avgPrice": 194958.82,
+    "minPrice": 75800.0,
+    "maxPrice": 333000.0,
+    "sampleDescriptions": [
+      "2013 Toyota Vellfire 3.5 V L Edition MPV - V L-EDITION FACELIFT (A) 1 OWNER NO PROCESSING CHARGE",
+      "2014/2017 Toyota Vellfire 2.4 Z Golden Eyes MPV - power boot power door",
+      "2019 Toyota Vellfire 3.5 VL MPV - Full Spec New Car Condition Nego Till Let Go",
+      "2021 Toyota Vellfire 2.5 MPV - Golden Eye 2",
+      "2021 Toyota Vellfire 3.5 Z Modellista G Edition MPV - ZAG 2K KM 5-A Perfect Condition"
+    ]
+  },
+  {
+    "brand": "Toyota",
+    "model": "Toyota Vios",
+    "count": 27,
+    "minYear": 2013,
+    "maxYear": 2020,
+    "avgPrice": 47851.85,
+    "minPrice": 30700.0,
+    "maxPrice": 69300.0,
+    "sampleDescriptions": [
+      "2014 Toyota Vios 1.5 E Sedan - FULL SERVICE RECORD 1 OWNER, CAR KING OFFER",
+      "2014 Toyota Vios 1.5 G Sedan - (FreeWarranty)(FreeSiapTkrNama)(Tahun Dibuat )( )(WHITE)(Full Bodykits)(Facelift)(SportRims)(PushStart)(LeatherSeats)(VVT-i)",
+      "2015 Toyota Vios 1.5 G Sedan - , ALL BLACK LEATHER SEAT, KELI, TIP TOP CONDITION, MERDEKA SALE, NEGO SAMPAI JADI, OFFER",
+      "2014 Toyota Vios 1.5 E Sedan - FULL SERVICE RECORD 1 OWNER, CAR KING OFFER - Black",
+      "2015 Toyota Vios 1.5 G Sedan - , ALL BLACK LEATHER SEAT, KELI, TIP TOP CONDITION, MERDEKA SALE, NEGO SAMPAI JADI, OFFER - Black"
+    ]
+  },
+  {
+    "brand": "Volkswagen",
+    "model": "Volkswagen Beetle",
+    "count": 25,
+    "minYear": 2013,
+    "maxYear": 2018,
+    "avgPrice": 64684.0,
+    "minPrice": 43700.0,
+    "maxPrice": 104500.0,
+    "sampleDescriptions": [
+      "2013 Volkswagen Beetle 1.2 TSI Coupe - , 1 LADY OWNER, TIP TOP CONDITION, WARRANTY PROVIDED, PADDLE SHIFTERS, NEGO SAMPAI JADI, MERDEKA SALE",
+      "2018 Volkswagen Beetle 1.2 TSI Design Coupe - 40K KM Warranty",
+      "2018 Volkswagen Beetle 1.2 TSI Sport Coupe - The TRUSTED DEALER NO HIDDEN COST TRUE YEAR MADE",
+      "2013 Volkswagen Beetle 1.2 TSI Coupe - , 1 LADY OWNER, TIP TOP CONDITION, WARRANTY PROVIDED, PADDLE SHIFTERS, NEGO SAMPAI JADI, MERDEKA SALE - Dark Blue",
+      "2018 Volkswagen Beetle 1.2 TSI Sport Coupe - The TRUSTED DEALER NO HIDDEN COST TRUE YEAR MADE - Pearl White"
+    ]
+  },
+  {
+    "brand": "Volkswagen",
+    "model": "Volkswagen Golf",
+    "count": 10,
+    "minYear": 2012,
+    "maxYear": 2015,
+    "avgPrice": 77650.0,
+    "minPrice": 54500.0,
+    "maxPrice": 95800.0,
+    "sampleDescriptions": [
+      "2013/2014 Volkswagen Golf 2.0 GTi Pure Hatchback - GTi Just Serviced Free Wrnty 1 Owner",
+      "2012 Volkswagen Golf 2.0 GTi Hatchback - (A) 1 YEAR WARRANTY",
+      "2013 Volkswagen Golf 2.0 GTi Advanced Hatchback - HIGH SPEC LEATHER SEAT SPORT MODE MK7 GTI FREE INSURANCE",
+      "2012 Volkswagen Golf 2.0 GTi Hatchback - (A) 1 YEAR WARRANTY - Grey",
+      "2013 Volkswagen Golf 2.0 GTi Advanced Hatchback - GTi TECH PACK (A) MK7 ABT RIM"
+    ]
+  },
+  {
+    "brand": "Volkswagen",
+    "model": "Volkswagen Jetta",
+    "count": 24,
+    "minYear": 2013,
+    "maxYear": 2016,
+    "avgPrice": 31320.83,
+    "minPrice": 21900.0,
+    "maxPrice": 40400.0,
+    "sampleDescriptions": [
+      "2015/2016 Volkswagen Jetta 1.4 TSI Sedan - TRUSTED DEALER NO HIDDEN FEE TRUE YEAR MADE",
+      "2014 Volkswagen Jetta 1.4 TSI Sedan - 1 YEAR WARRANTY WITH CERTIFIED INSPECTION REPORT, CALL US NOW FOR BEST DEAL",
+      "2015/2016 Volkswagen Jetta 1.4 TSI Sedan - TRUSTED DEALER NO HIDDEN FEE TRUE YEAR MADE - Silver",
+      "2014 Volkswagen Jetta 1.4 TSI Sedan - 1 YEAR WARRANTY WITH CERTIFIED INSPECTION REPORT, CALL US NOW FOR BEST DEAL - Silver",
+      "2014 Volkswagen Jetta 1.4 TSI Sedan"
+    ]
+  },
+  {
+    "brand": "Volkswagen",
+    "model": "Volkswagen Passat",
+    "count": 9,
+    "minYear": 2013,
+    "maxYear": 2018,
+    "avgPrice": 46444.44,
+    "minPrice": 27900.0,
+    "maxPrice": 70400.0,
+    "sampleDescriptions": [
+      "2015 Volkswagen Passat 1.8 TSI Sedan - HIGH LOAN WELCOME",
+      "2016 Volkswagen Passat 1.8 280 TSI Comfortline Sedan",
+      "2013 Volkswagen Passat 1.8 TSI Sedan - PUSH START - CAR KING CONDITION - CHEAPEST PRICE",
+      "2016 Volkswagen Passat 1.8 280 TSI Comfortline Sedan - Maroon",
+      "2013 Volkswagen Passat 1.8 TSI Sedan - PUSH START - CAR KING CONDITION - CHEAPEST PRICE - White"
+    ]
+  },
+  {
+    "brand": "Volkswagen",
+    "model": "Volkswagen Polo",
+    "count": 4,
+    "minYear": 2015,
+    "maxYear": 2016,
+    "avgPrice": 34850.0,
+    "minPrice": 31600.0,
+    "maxPrice": 38500.0,
+    "sampleDescriptions": [
+      "2015 Volkswagen Polo 1.6 Sedan - (A) LOW MIL 29K FSR VOLSWAGEN LECTURER OWNER-WELL MAINTAIN CAR CARLIST QUALIFIED CONDITION LIKE NEW WAIT NO MORE",
+      "2015 Volkswagen Polo 1.6 Sedan - (A) LOW MIL 29K FSR VOLSWAGEN LECTURER OWNER-WELL MAINTAIN CAR CARLIST QUALIFIED CONDITION LIKE NEW WAIT NO MORE - Blue",
+      "2016 Volkswagen Polo 1.6 Comfortline Hatchback - A LOW MIL 82K KM CRUISE CONTROL 6-SPEED AUTOMATIC TRANSMISSION UPGRADED SPORT RIMS UPGRADED FULL BODYKIT GOODDEALS - Grey",
+      "2016 Volkswagen Polo 1.6 Comfortline Hatchback - A LOW MIL 82K KM CRUISE CONTROL 6-SPEED AUTOMATIC TRANSMISSION UPGRADED SPORT RIMS UPGRADED FULL BODYKIT GOODDEALS - Pearl White"
+    ]
+  },
+  {
+    "brand": "Volkswagen",
+    "model": "Volkswagen Tiguan",
+    "count": 15,
+    "minYear": 2013,
+    "maxYear": 2022,
+    "avgPrice": 92586.67,
+    "minPrice": 36000.0,
+    "maxPrice": 140500.0,
+    "sampleDescriptions": [
+      "2018 Volkswagen Tiguan 1.4 280 TSI Highline SUV - TRUSTED DEALER NO HIDDEN FEE TRUE YEAR MADE",
+      "2019 Volkswagen Tiguan 1.4 280 TSI Highline SUV",
+      "2013 Volkswagen Tiguan 2.0 TSI SUV",
+      "2018 Volkswagen Tiguan 1.4 280 TSI Highline SUV - FAST APPROVAL",
+      "2021 Volkswagen Tiguan 1.4 Allspace Highline SUV - FULL SERVICE RECORD UNDER WARRANTY 7 SEAT PADDLE SHIFT POWER BOOT REAR AIRCOND VENT"
+    ]
+  },
+  {
+    "brand": "Volkswagen",
+    "model": "Volkswagen Vento",
+    "count": 5,
+    "minYear": 2016,
+    "maxYear": 2017,
+    "avgPrice": 29400.0,
+    "minPrice": 28300.0,
+    "maxPrice": 31400.0,
+    "sampleDescriptions": [
+      "2016 Volkswagen Vento 1.6 Comfort Sedan - (A) 1 YEAR WARRANTY",
+      "2017 Volkswagen Vento 1.2 GT 180 TSI Sedan - FULL SERVICE RECORD",
+      "2017 Volkswagen Vento 1.2 GT 180 TSI Sedan - FULL SERVICE RECORD - Grey",
+      "2017 Volkswagen Vento 1.2 GT 180 TSI Sedan - FULL SERVICE RECORD - Silver",
+      "2016 Volkswagen Vento 1.6 Comfort Sedan - (A) 1 YEAR WARRANTY - Blue"
+    ]
+  },
+  {
+    "brand": "Volvo",
+    "model": "Volvo S60",
+    "count": 5,
+    "minYear": 2012,
+    "maxYear": 2012,
+    "avgPrice": 23560.0,
+    "minPrice": 22800.0,
+    "maxPrice": 24000.0,
+    "sampleDescriptions": [
+      "2012 Volvo S60 1.6 T4 Sedan - (A) PREMIUM TURBO LUXURY HIGH SPEC VERSION 2.0",
+      "2012 Volvo S60 1.6 T4 Sedan - (A) PREMIUM TURBO LUXURY HIGH SPEC VERSION 2.0 - Blue",
+      "2012 Volvo S60 1.6 T4 Sedan - (A) PREMIUM TURBO LUXURY HIGH SPEC VERSION 2.0 - Maroon",
+      "2012 Volvo S60 1.6 T4 Sedan - (A) PREMIUM TURBO LUXURY HIGH SPEC VERSION 2.0 - Maroon",
+      "2012 Volvo S60 1.6 T4 Sedan - (A) PREMIUM TURBO LUXURY HIGH SPEC VERSION 2.0 - White"
+    ]
+  },
+  {
+    "brand": "Volvo",
+    "model": "Volvo V40",
+    "count": 8,
+    "minYear": 2014,
+    "maxYear": 2016,
+    "avgPrice": 50750.0,
+    "minPrice": 43300.0,
+    "maxPrice": 65100.0,
+    "sampleDescriptions": [
+      "2014 Volvo V40 2.0 T5 Hatchback - SPORTS EDITION Super Car King 3 Years Warranty",
+      "2014 Volvo V40 2.0 T5 Hatchback - SPORTS EDITION Super Car King 3 Years Warranty - Maroon",
+      "2014 Volvo V40 2.0 T5 Hatchback - SPORTS EDITION Super Car King 3 Years Warranty - Blue",
+      "2016 Volvo V40 2.0 T5 Hatchback - (A) ONE YEAR WARRANTY FULL SERVICE 107324KM ONE OWNER CAR KING",
+      "2016 Volvo V40 2.0 T5 Hatchback - (A) ONE YEAR WARRANTY FULL SERVICE 107324KM ONE OWNER CAR KING - Black"
+    ]
+  },
+  {
+    "brand": "Volvo",
+    "model": "Volvo V40 Cross",
+    "count": 3,
+    "minYear": 2016,
+    "maxYear": 2016,
+    "avgPrice": 61666.67,
+    "minPrice": 59400.0,
+    "maxPrice": 64000.0,
+    "sampleDescriptions": [
+      "2016 Volvo V40 Cross Country 2.0 T5 Hatchback - FACELIFT FULL SERVICE RECORD",
+      "2016 Volvo V40 Cross Country 2.0 T5 Hatchback - FACELIFT FULL SERVICE RECORD - Silver",
+      "2016 Volvo V40 Cross Country 2.0 T5 Hatchback - FACELIFT FULL SERVICE RECORD - White"
+    ]
+  },
+  {
+    "brand": "Volvo",
+    "model": "Volvo XC40 2.0",
+    "count": 3,
+    "minYear": 2019,
+    "maxYear": 2019,
+    "avgPrice": 134033.33,
+    "minPrice": 128400.0,
+    "maxPrice": 137100.0,
+    "sampleDescriptions": [
+      "2019 Volvo XC40 2.0 T5 R-Design SUV - Service Record",
+      "2019 Volvo XC40 2.0 T5 R-Design SUV - Service Record - White",
+      "2019 Volvo XC40 2.0 T5 R-Design SUV - Service Record - White"
+    ]
+  },
+  {
+    "brand": "Volvo",
+    "model": "Volvo XC60",
+    "count": 1,
+    "minYear": 2016,
+    "maxYear": 2016,
+    "avgPrice": 87000.0,
+    "minPrice": 87000.0,
+    "maxPrice": 87000.0,
+    "sampleDescriptions": [
+      "2016 Volvo XC60 2.0 T5 SUV - (A) FACELIFT ONE YEAR WARRANTY SERVICE RECORD ONE DIRECTOR OWNER"
+    ]
+  },
+  {
+    "brand": "Volvo",
+    "model": "Volvo XC90",
+    "count": 2,
+    "minYear": 2016,
+    "maxYear": 2016,
+    "avgPrice": 135000.0,
+    "minPrice": 134200.0,
+    "maxPrice": 135800.0,
+    "sampleDescriptions": [
+      "2016 Volvo XC90 2.0 T8 SUV - Full Service Record 1 YEAR WARRANTY",
+      "2016 Volvo XC90 2.0 T8 SUV - Full Service Record 1 YEAR WARRANTY - Pearl White"
+    ]
+  }
+]

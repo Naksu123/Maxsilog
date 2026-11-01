@@ -31,8 +31,12 @@ export default function Vehicle3DViewer({
   // 2. State for viewing modes:
   // If the asset has a verified 3D model, default to '3d'. Otherwise, default to 'photo' (authentic media).
   const [viewMode, setViewMode] = useState<"photo" | "3d">(() => {
-    return asset.availability === "verified-3d" ? "3d" : "photo";
+    return (asset.has3DModel || asset.availability === "3d-interactive") ? "3d" : "photo";
   });
+
+  const [imgError, setImgError] = useState(false);
+  const [imgLoading, setImgLoading] = useState(true);
+  const imgSrc = imgError ? "/vehicles/placeholder_car.svg" : asset.photoUrl;
 
   const [activeColor, setActiveColor] = useState(colorHex);
   const [isRotating, setIsRotating] = useState(true);
@@ -199,7 +203,7 @@ export default function Vehicle3DViewer({
     headlightMaterialsRef.current = [];
 
     // Check if verified 3D GLB model exists
-    if (asset.availability === "verified-3d" && asset.model3dUrl) {
+    if ((asset.availability === "3d-interactive" || asset.has3DModel) && asset.model3DUrl) {
       progressTimer = setTimeout(() => {
         setGltfLoadingProgress(10);
         setGltfLoadError(null);
@@ -207,7 +211,7 @@ export default function Vehicle3DViewer({
 
       const loader = new GLTFLoader();
       loader.load(
-        asset.model3dUrl,
+        asset.model3DUrl,
         (gltf) => {
           setGltfLoadingProgress(null);
           const loadedModel = gltf.scene;
@@ -408,8 +412,16 @@ export default function Vehicle3DViewer({
               <span>{asset.brand} {asset.model}</span>
               {year && <span className="text-slate-400 font-mono font-normal">({year})</span>}
             </h3>
-            <span className="text-[10px] px-2 py-0.5 rounded-full bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 font-mono">
-              {asset.generation}
+            <span className={`text-[10px] px-2.5 py-0.5 rounded-full font-mono font-semibold ${
+              asset.badgeTone === "emerald"
+                ? "bg-emerald-500/15 text-emerald-300 border border-emerald-500/30"
+                : asset.badgeTone === "blue"
+                ? "bg-blue-500/15 text-cyan-300 border border-cyan-500/30"
+                : asset.badgeTone === "amber"
+                ? "bg-amber-500/15 text-amber-300 border border-amber-500/30"
+                : "bg-slate-800 text-slate-300 border border-slate-700"
+            }`}>
+              {asset.badgeLabel || asset.generation}
             </span>
           </div>
           <p className="text-[11px] text-slate-400 font-mono">
@@ -453,19 +465,45 @@ export default function Vehicle3DViewer({
           <div className="relative w-full h-64 sm:h-72 md:h-80 rounded-2xl overflow-hidden border border-slate-800/80 bg-slate-950/70 shadow-2xl flex items-center justify-center group">
             {/* Background Studio Glow */}
             <div className="absolute inset-0 bg-radial-gradient from-cyan-950/20 via-transparent to-transparent opacity-60" />
+
+            {/* Skeleton Loading Overlay */}
+            {imgLoading && (
+              <div className="absolute inset-0 flex flex-col items-center justify-center bg-slate-950/80 z-10 space-y-2">
+                <div className="w-8 h-8 border-2 border-cyan-500 border-t-transparent rounded-full animate-spin" />
+                <span className="text-[11px] font-mono text-cyan-300">Resolving Vehicle Asset...</span>
+              </div>
+            )}
             
             <Image
-              src={asset.photoUrl}
+              src={imgSrc}
               alt={`${asset.brand} ${asset.model} ${asset.generation}`}
               fill
               unoptimized
-              className="object-contain p-2 sm:p-4 transition-transform duration-500 group-hover:scale-[1.02]"
+              className={`object-contain p-2 sm:p-4 transition-all duration-500 group-hover:scale-[1.02] ${
+                imgLoading ? "opacity-20 blur-sm" : "opacity-100 blur-0"
+              }`}
+              onLoadingComplete={() => setImgLoading(false)}
+              onError={() => {
+                setImgError(true);
+                setImgLoading(false);
+              }}
               loading="lazy"
             />
 
-            {/* Verified Badge Pill */}
-            <div className="absolute top-3 left-4 flex items-center space-x-1.5 px-3 py-1 rounded-full bg-slate-950/85 border border-emerald-500/40 text-emerald-300 text-[11px] font-mono shadow-xl backdrop-blur-md">
-              <span>Verified Automotive Media ({asset.generation})</span>
+            {/* Verified / Reference Badge Pill */}
+            <div className="absolute top-3 left-4 flex items-center space-x-1.5 px-3 py-1 rounded-full bg-slate-950/85 border border-slate-800 text-[11px] font-mono shadow-xl backdrop-blur-md">
+              <span className={`w-2 h-2 rounded-full ${
+                asset.badgeTone === "emerald" ? "bg-emerald-400" :
+                asset.badgeTone === "blue" ? "bg-cyan-400" :
+                asset.badgeTone === "amber" ? "bg-amber-400" : "bg-slate-400"
+              }`} />
+              <span className={
+                asset.badgeTone === "emerald" ? "text-emerald-300" :
+                asset.badgeTone === "blue" ? "text-cyan-300" :
+                asset.badgeTone === "amber" ? "text-amber-300" : "text-slate-300"
+              }>
+                {asset.badgeLabel || asset.generation}
+              </span>
             </div>
 
             {/* Quick 3D Switch Overlay on Hover */}
@@ -476,6 +514,16 @@ export default function Vehicle3DViewer({
               <span>Launch 3D Studio &rarr;</span>
             </button>
           </div>
+
+          {/* Labeled Generic Fallback Disclosure Banner */}
+          {asset.isFallback && (
+            <div className="p-3.5 rounded-xl bg-amber-950/30 border border-amber-500/40 text-[11px] text-amber-200/90 leading-relaxed font-mono flex items-start space-x-2">
+              <span className="px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold uppercase text-[9px] shrink-0 mt-0.5">
+                Segment Reference
+              </span>
+              <span>{asset.fallbackReason || `Displaying representative ${asset.bodyStyle} reference. Specific photoshoot for ${asset.brand} ${asset.model} is pending editorial curation.`}</span>
+            </div>
+          )}
 
           {/* Genuine Vehicle Specifications & Dimensions Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
@@ -504,7 +552,7 @@ export default function Vehicle3DViewer({
             <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-0.5">
               <span className="text-[10px] text-slate-400 block font-medium">Authentic Colors</span>
               <div className="flex items-center space-x-1.5 pt-1">
-                {asset.colorOptions.map((c) => (
+                {asset.colorOptions?.map((c) => (
                   <span
                     key={c.id}
                     title={c.name}
@@ -569,7 +617,7 @@ export default function Vehicle3DViewer({
             </div>
 
             <div className="flex items-center space-x-2 text-[10px] font-mono text-cyan-400">
-              {asset.availability === "verified-3d" ? (
+              {(asset.availability === "3d-interactive" || asset.has3DModel) ? (
                 <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
                   ★ Verified 3D CAD Geometry
                 </span>
@@ -659,7 +707,7 @@ export default function Vehicle3DViewer({
               </span>
 
               <div className="flex items-center space-x-2">
-                {asset.colorOptions.map((c) => (
+                {asset.colorOptions?.map((c) => (
                   <button
                     key={c.id}
                     onClick={() => setActiveColor(c.hex)}

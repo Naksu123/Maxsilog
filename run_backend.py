@@ -18,7 +18,14 @@ for p in [root_dir, backend_dir, ml_dir]:
         sys.path.insert(0, p)
 
 if __name__ == "__main__":
-    import uvicorn
+    try:
+        import uvicorn  # type: ignore[import-untyped,import-not-found] # pylint: disable=import-error,missing-import # noqa: F401
+    except ImportError:
+        print("[!] Error: 'uvicorn' is not installed in the active Python environment.")
+        print("[*] Please install backend dependencies via:")
+        print("    pip install -r backend/requirements.txt")
+        sys.exit(1)
+
     port = int(os.environ.get("PORT", 8000))
     host = os.environ.get("HOST", "0.0.0.0")
     is_prod = os.environ.get("ENVIRONMENT", "").lower() == "production" or os.environ.get("RENDER", "") == "true"

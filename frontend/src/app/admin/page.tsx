@@ -3,37 +3,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import {
-  RefreshCw,
-  Shield,
-  ShieldCheck,
-  Cpu,
-  Clock,
-  Database,
-  CheckCircle2,
-  AlertTriangle,
-  XCircle,
-  Play,
-  RotateCcw,
-  Sparkles,
-  Lock,
-  ChevronRight,
-  Info,
-  Layers,
-  Award,
-  Terminal,
-  LogOut,
-  Eye,
-  EyeOff,
-  HelpCircle,
-  ArrowRight,
-  Car,
-  ChevronLeft,
-  ChevronsLeft,
-  ChevronsRight,
-  Search,
-  Filter
-} from "lucide-react";
-import {
   getTrainingStatus,
   getTrainingHistory,
   getArchivedModels,
@@ -358,8 +327,7 @@ export default function AdminPage() {
           {/* Header */}
           <div className="text-center space-y-3">
             <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-cyan-400 shadow-xl shadow-blue-500/20 text-white mx-auto">
-              <Shield className="w-7 h-7 text-white" />
-            </div>
+              </div>
             <div>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
                 Auto<span className="text-cyan-400">Valuate</span> Admin Portal
@@ -377,7 +345,6 @@ export default function AdminPage() {
             <form onSubmit={handleLoginSubmit} className="space-y-5">
               {loginError && (
                 <div className="p-3.5 rounded-xl bg-rose-950/40 border border-rose-500/40 text-rose-300 text-xs flex items-start space-x-2.5 animate-in fade-in">
-                  <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
                   <div className="flex-1 font-mono text-[11px] leading-relaxed">{loginError}</div>
                 </div>
               )}
@@ -424,7 +391,7 @@ export default function AdminPage() {
                     tabIndex={-1}
                     aria-label={showPassword ? "Hide password" : "Show password"}
                   >
-                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    {showPassword ? "Hide" : "Show"}
                   </button>
                 </div>
               </div>
@@ -443,9 +410,8 @@ export default function AdminPage() {
                   </>
                 ) : (
                   <>
-                    <Lock className="w-4 h-4" />
                     <span>Authenticate & Enter Console</span>
-                    <ArrowRight className="w-4 h-4" />
+                    &rarr;
                   </>
                 )}
               </button>
@@ -454,7 +420,6 @@ export default function AdminPage() {
             {/* Explanation: Restricted Access */}
             <div className="mt-6 pt-5 border-t border-slate-800 text-[11px] text-slate-400 space-y-2">
               <div className="flex items-center space-x-1.5 text-slate-300 font-semibold font-mono">
-                <HelpCircle className="w-3.5 h-3.5 text-cyan-400" />
                 <span>Restricted Administration</span>
               </div>
               <p className="leading-relaxed text-slate-400">
@@ -469,7 +434,6 @@ export default function AdminPage() {
               href="/"
               className="inline-flex items-center space-x-2 text-xs text-slate-400 hover:text-cyan-400 transition-colors"
             >
-              <Car className="w-3.5 h-3.5" />
               <span>Return to Public Car Valuation Dashboard</span>
             </Link>
           </div>
@@ -688,7 +652,6 @@ export default function AdminPage() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800/80 pb-6">
         <div>
           <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-cyan-400 text-xs font-semibold mb-2">
-            <Shield className="w-3.5 h-3.5" />
             <span>Administrator Control Center</span>
           </div>
           <h1 className="text-3xl font-extrabold text-white tracking-tight">
@@ -716,7 +679,6 @@ export default function AdminPage() {
             className="flex items-center space-x-2 px-3.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 hover:text-white text-xs font-medium transition-all cursor-pointer"
             title="Refresh All Dashboard Data"
           >
-            <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin text-cyan-400" : ""}`} />
             <span>Refresh</span>
           </button>
 
@@ -725,7 +687,6 @@ export default function AdminPage() {
             className="flex items-center space-x-1.5 px-3.5 py-1.5 rounded-xl bg-rose-950/40 hover:bg-rose-900/50 border border-rose-800/50 text-rose-300 hover:text-white text-xs font-medium transition-all cursor-pointer"
             title="Sign out of Admin Console"
           >
-            <LogOut className="w-3.5 h-3.5" />
             <span>Sign Out</span>
           </button>
         </div>
@@ -742,13 +703,7 @@ export default function AdminPage() {
               : "bg-blue-950/30 border-blue-500/40 text-blue-300"
           }`}
         >
-          {feedback.type === "success" ? (
-            <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-          ) : feedback.type === "error" ? (
-            <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
-          ) : (
-            <Info className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
-          )}
+          <span className="font-bold shrink-0">{feedback.type === "success" ? "✓" : feedback.type === "error" ? "⚠" : "i"}</span>
           <div className="flex-1 font-mono">{feedback.message}</div>
           <button
             onClick={() => setFeedback(null)}
@@ -765,8 +720,7 @@ export default function AdminPage() {
         <div className="glass-panel rounded-2xl p-5 border border-slate-800 space-y-2">
           <div className="flex items-center justify-between text-xs text-slate-400">
             <span className="uppercase font-mono tracking-wider">Scheduler Status</span>
-            <RefreshCw className={`w-3.5 h-3.5 ${status?.is_training ? "animate-spin text-cyan-400" : "text-slate-500"}`} />
-          </div>
+            </div>
           <div className="flex items-center space-x-2 pt-1">
             <span className="relative flex h-2.5 w-2.5">
               <span
@@ -803,8 +757,7 @@ export default function AdminPage() {
         <div className="glass-panel rounded-2xl p-5 border border-slate-800 space-y-2">
           <div className="flex items-center justify-between text-xs text-slate-400">
             <span className="uppercase font-mono tracking-wider">Active Champion</span>
-            <Award className="w-3.5 h-3.5 text-cyan-400" />
-          </div>
+            </div>
           <div className="pt-1">
             <div className="text-base font-bold text-white truncate" title={status?.active_model_name}>
               {status?.active_model_name || "Gradient Boosting"}
@@ -822,8 +775,7 @@ export default function AdminPage() {
         <div className="glass-panel rounded-2xl p-5 border border-slate-800 space-y-2">
           <div className="flex items-center justify-between text-xs text-slate-400">
             <span className="uppercase font-mono tracking-wider">Cron Schedule</span>
-            <Clock className="w-3.5 h-3.5 text-indigo-400" />
-          </div>
+            </div>
           <div className="pt-1">
             <div className="text-base font-bold text-white font-mono">02:00 AM MYT</div>
             <div className="text-xs text-slate-400">Asia/Kuala_Lumpur (UTC+8)</div>
@@ -837,14 +789,12 @@ export default function AdminPage() {
         <div className="glass-panel rounded-2xl p-5 border border-slate-800 space-y-2">
           <div className="flex items-center justify-between text-xs text-slate-400">
             <span className="uppercase font-mono tracking-wider">Dataset Checksum</span>
-            <Database className="w-3.5 h-3.5 text-emerald-400" />
-          </div>
+            </div>
           <div className="pt-1">
             <div className="text-xs font-mono text-slate-200 truncate" title={status?.dataset_sha256 || "N/A"}>
               {status?.dataset_sha256 ? status.dataset_sha256.substring(0, 16) + "..." : "Calculating..."}
             </div>
             <div className="text-[11px] text-emerald-400 mt-1 flex items-center space-x-1">
-              <ShieldCheck className="w-3 h-3" />
               <span>Target Leakage Barred</span>
             </div>
           </div>
@@ -866,8 +816,7 @@ export default function AdminPage() {
             </div>
             <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight flex items-center space-x-2">
               <span>Execute Model Retraining Pipeline</span>
-              <Sparkles className="w-5 h-5 text-cyan-400" />
-            </h2>
+              </h2>
             <p className="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
               Triggers the complete automated workflow: dataset integrity audit, 80/20 partitioning, 5-fold cross-validation on all 4 regression models, atomic champion promotion, and manifest archiving.
             </p>
@@ -898,17 +847,14 @@ export default function AdminPage() {
             >
               {status?.is_training ? (
                 <>
-                  <RefreshCw className="w-4 h-4 animate-spin text-amber-300" />
                   <span>Training in Progress...</span>
                 </>
               ) : actionLoading ? (
                 <>
-                  <RefreshCw className="w-4 h-4 animate-spin text-white" />
                   <span>Dispatching...</span>
                 </>
               ) : (
                 <>
-                  <Play className="w-4 h-4 fill-white text-white" />
                   <span>Run Retraining Now</span>
                 </>
               )}
@@ -921,7 +867,6 @@ export default function AdminPage() {
           <div className="mt-6 pt-5 border-t border-slate-800/80 space-y-2">
             <div className="flex items-center justify-between text-xs">
               <span className="font-mono text-cyan-400 font-semibold flex items-center space-x-2">
-                <RefreshCw className="w-3.5 h-3.5 animate-spin" />
                 <span>Job: {status.current_job?.run_id}</span>
               </span>
               <span className="text-slate-400 text-[11px] font-mono">
@@ -943,7 +888,6 @@ export default function AdminPage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div>
             <h3 className="text-lg font-bold text-white flex items-center space-x-2">
-              <Cpu className="w-4 h-4 text-cyan-400" />
               <span>Current Production Benchmark (All 4 Algorithms)</span>
             </h3>
             <p className="text-xs text-slate-400">
@@ -983,11 +927,7 @@ export default function AdminPage() {
                       }
                     >
                       <td className="py-3.5 px-4 font-sans font-medium flex items-center space-x-2">
-                        {isSelected ? (
-                          <Sparkles className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-                        ) : (
-                          <div className="w-1.5 h-1.5 rounded-full bg-slate-600 shrink-0" />
-                        )}
+                        <div className={`w-1.5 h-1.5 rounded-full shrink-0 ${isSelected ? "bg-emerald-400" : "bg-slate-600"}`} />
                         <span>{m.model}</span>
                       </td>
                       <td className="py-3.5 px-3 font-semibold text-cyan-400">
@@ -1049,7 +989,6 @@ export default function AdminPage() {
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-800/80 pb-4">
           <div>
             <div className="flex items-center space-x-2">
-              <Layers className="w-5 h-5 text-indigo-400" />
               <h3 className="text-lg font-bold text-white">Model Artifact Versions & Rollback</h3>
               <span className="px-2 py-0.5 rounded-full text-[10px] font-mono bg-indigo-500/10 text-indigo-300 border border-indigo-500/30">
                 4 Supervised Models
@@ -1096,7 +1035,6 @@ export default function AdminPage() {
 
             {/* Search Input */}
             <div className="relative">
-              <Search className="w-3.5 h-3.5 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 id="versions-search-input"
                 type="text"
@@ -1119,7 +1057,6 @@ export default function AdminPage() {
         {/* Algorithm Filter Pills */}
         <div className="flex flex-wrap items-center gap-2 pt-1">
           <span className="text-xs text-slate-400 font-medium mr-1 flex items-center space-x-1">
-            <Filter className="w-3.5 h-3.5" />
             <span>Filter Model:</span>
           </span>
           {[
@@ -1211,12 +1148,12 @@ export default function AdminPage() {
                         <td className="py-3.5 px-3 font-sans">
                           {cand.is_active ? (
                             <span className="inline-flex items-center space-x-1.5 text-emerald-400 text-xs font-semibold">
-                              <CheckCircle2 className="w-3.5 h-3.5" />
+                              <span className="text-emerald-400 font-bold mr-1">&#10003;</span>
                               <span>Production Active</span>
                             </span>
                           ) : cand.is_champion ? (
                             <span className="inline-flex items-center space-x-1 text-amber-400 text-xs">
-                              <Award className="w-3.5 h-3.5" />
+                              <span className="text-cyan-400 font-bold mr-1">&starf;</span>
                               <span>Archived Champion</span>
                             </span>
                           ) : cand.model_name.includes("Baseline") ? (
@@ -1241,7 +1178,6 @@ export default function AdminPage() {
                               className="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 border border-amber-500/40 text-amber-300 hover:text-amber-200 text-xs transition-colors cursor-pointer"
                               title={`Rollback production model to version ${cand.version_id}`}
                             >
-                              <RotateCcw className="w-3 h-3 text-amber-400" />
                               <span>Rollback</span>
                             </button>
                           )}
@@ -1300,7 +1236,7 @@ export default function AdminPage() {
                       <td className="py-3.5 px-3 font-sans">
                         {ver.is_active ? (
                           <span className="inline-flex items-center space-x-1 text-emerald-400 text-xs font-semibold">
-                            <CheckCircle2 className="w-3.5 h-3.5" />
+                            <span className="text-emerald-400 font-bold mr-1">&#10003;</span>
                             <span>Production Active</span>
                           </span>
                         ) : (
@@ -1322,7 +1258,6 @@ export default function AdminPage() {
                             }}
                             className="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 border border-amber-500/40 text-amber-300 hover:text-amber-200 text-xs transition-colors cursor-pointer"
                           >
-                            <RotateCcw className="w-3 h-3 text-amber-400" />
                             <span>Rollback</span>
                           </button>
                         )}
@@ -1369,7 +1304,7 @@ export default function AdminPage() {
                     : "bg-slate-900 hover:bg-slate-800 border-slate-700 text-slate-300 hover:text-white cursor-pointer"
                 }`}
               >
-                <ChevronsLeft className="w-3.5 h-3.5" />
+                &laquo;
               </button>
             )}
 
@@ -1384,7 +1319,7 @@ export default function AdminPage() {
                   : "bg-slate-900 hover:bg-slate-800 border-slate-700 text-slate-300 hover:text-white cursor-pointer"
               }`}
             >
-              <ChevronLeft className="w-3.5 h-3.5" />
+              &lsaquo;
               <span>Previous</span>
             </button>
 
@@ -1421,7 +1356,7 @@ export default function AdminPage() {
               }`}
             >
               <span>Next</span>
-              <ChevronRight className="w-3.5 h-3.5" />
+              &rsaquo;
             </button>
 
             {/* Last Page Button */}
@@ -1437,7 +1372,7 @@ export default function AdminPage() {
                     : "bg-slate-900 hover:bg-slate-800 border-slate-700 text-slate-300 hover:text-white cursor-pointer"
                 }`}
               >
-                <ChevronsRight className="w-3.5 h-3.5" />
+                &raquo;
               </button>
             )}
           </div>
@@ -1449,7 +1384,6 @@ export default function AdminPage() {
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-800/80 pb-4">
           <div>
             <h3 className="text-lg font-bold text-white flex items-center space-x-2">
-              <Terminal className="w-4 h-4 text-emerald-400" />
               <span>Training Execution History (Audit Log)</span>
             </h3>
             <p className="text-xs text-slate-400 mt-0.5">
@@ -1486,7 +1420,6 @@ export default function AdminPage() {
 
             {/* Search Input */}
             <div className="relative">
-              <Search className="w-3.5 h-3.5 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 value={historySearch}
@@ -1552,17 +1485,15 @@ export default function AdminPage() {
                     <td className="py-3.5 px-3">
                       {item.status === "completed" ? (
                         <span className="inline-flex items-center space-x-1 text-emerald-400 bg-emerald-950/40 border border-emerald-500/30 px-2 py-0.5 rounded text-[10px] font-bold uppercase">
-                          <CheckCircle2 className="w-3 h-3" />
+                          <span className="text-emerald-400 font-bold mr-1">&#10003;</span>
                           <span>Completed</span>
                         </span>
                       ) : item.status === "skipped" ? (
                         <span className="inline-flex items-center space-x-1 text-amber-300 bg-amber-950/40 border border-amber-500/30 px-2 py-0.5 rounded text-[10px] font-bold uppercase">
-                          <Info className="w-3 h-3" />
                           <span>Skipped</span>
                         </span>
                       ) : (
                         <span className="inline-flex items-center space-x-1 text-rose-400 bg-rose-950/40 border border-rose-500/30 px-2 py-0.5 rounded text-[10px] font-bold uppercase">
-                          <XCircle className="w-3 h-3" />
                           <span>Failed</span>
                         </span>
                       )}
@@ -1636,7 +1567,7 @@ export default function AdminPage() {
                     : "bg-slate-900 hover:bg-slate-800 border-slate-700 text-slate-300 hover:text-white cursor-pointer"
                 }`}
               >
-                <ChevronsLeft className="w-3.5 h-3.5" />
+                &laquo;
               </button>
             )}
 
@@ -1651,7 +1582,7 @@ export default function AdminPage() {
                   : "bg-slate-900 hover:bg-slate-800 border-slate-700 text-slate-300 hover:text-white cursor-pointer"
               }`}
             >
-              <ChevronLeft className="w-3.5 h-3.5" />
+              &lsaquo;
               <span>Previous</span>
             </button>
 
@@ -1688,7 +1619,7 @@ export default function AdminPage() {
               }`}
             >
               <span>Next</span>
-              <ChevronRight className="w-3.5 h-3.5" />
+              &rsaquo;
             </button>
 
             {/* Last Page Button */}
@@ -1704,7 +1635,7 @@ export default function AdminPage() {
                     : "bg-slate-900 hover:bg-slate-800 border-slate-700 text-slate-300 hover:text-white cursor-pointer"
                 }`}
               >
-                <ChevronsRight className="w-3.5 h-3.5" />
+                &raquo;
               </button>
             )}
           </div>
@@ -1716,7 +1647,6 @@ export default function AdminPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
           <div className="glass-panel-elevated max-w-md w-full rounded-2xl p-6 border border-amber-500/40 bg-[#0B1120] space-y-4 shadow-2xl">
             <div className="flex items-center space-x-3 text-amber-400">
-              <AlertTriangle className="w-6 h-6 shrink-0" />
               <h4 className="text-lg font-bold text-white">Confirm Model Rollback</h4>
             </div>
 
@@ -1725,7 +1655,6 @@ export default function AdminPage() {
                 id="modal-rollback-error"
                 className="p-3.5 rounded-xl bg-rose-950/70 border border-rose-500/60 text-rose-200 text-xs flex items-start space-x-2.5 animate-in fade-in"
               >
-                <XCircle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
                 <div className="flex-1 font-mono text-[11px] leading-relaxed break-words">
                   <div className="font-bold text-rose-300 mb-0.5">Rollback Execution Error</div>
                   <div>{rollbackModalError}</div>
@@ -1767,12 +1696,10 @@ export default function AdminPage() {
               >
                 {rollbackLoading ? (
                   <>
-                    <RefreshCw className="w-3.5 h-3.5 animate-spin" />
                     <span>Reverting...</span>
                   </>
                 ) : (
                   <>
-                    <RotateCcw className="w-3.5 h-3.5" />
                     <span>Confirm Rollback</span>
                   </>
                 )}
@@ -1797,13 +1724,7 @@ export default function AdminPage() {
                 : "bg-slate-900/95 border-cyan-500/60 text-cyan-100 shadow-cyan-950/60"
             }`}
           >
-            {feedback.type === "success" ? (
-              <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
-            ) : feedback.type === "error" ? (
-              <AlertTriangle className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />
-            ) : (
-              <Info className="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" />
-            )}
+            <span className="font-bold shrink-0">{feedback.type === "success" ? "✓" : feedback.type === "error" ? "⚠" : "i"}</span>
             <div className="flex-1 font-mono text-[11px] sm:text-xs leading-relaxed break-words">
               <div className="font-bold uppercase tracking-wider mb-0.5 text-white">
                 {feedback.type === "success" ? "Operation Successful" : feedback.type === "error" ? "System Error Alert" : "System Notification"}

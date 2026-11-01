@@ -5,6 +5,8 @@ import Link from "next/link";
 import { getMetadata, predictPrice } from "@/lib/api";
 import { ModelMetadata, PredictRequest, PredictResponse } from "@/types";
 import Vehicle3DViewer from "@/components/Vehicle3DViewer";
+import MarketValidationCard from "@/components/MarketValidationCard";
+import { MarketValidationResult } from "@/app/api/market-validation/route";
 
 // Helper: Calculate estimated Malaysian Hire-Purchase installment (10% down, 7 years, 3.2% fixed interest)
 function calculateInstallment(price: number) {
@@ -102,6 +104,8 @@ export default function PredictPage() {
   const [predicting, setPredicting] = useState(false);
   const [result, setResult] = useState<PredictResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [marketValidation, setMarketValidation] = useState<MarketValidationResult | null>(null);
+  const [marketValidationLoading, setMarketValidationLoading] = useState<boolean>(false);
   const resultRef = useRef<HTMLDivElement>(null);
   const errorRef = useRef<HTMLDivElement>(null);
 
@@ -192,6 +196,22 @@ export default function PredictPage() {
 
       const res = await predictPrice(payload);
       setResult(res);
+
+      // Concurrently query external Malaysian market validation (Paqar / Empirical Baseline)
+      setMarketValidationLoading(true);
+      const bName = extractBrand(selectedModel);
+      fetch(`/api/market-validation?brand=${encodeURIComponent(bName)}&model=${encodeURIComponent(selectedModel)}&year=${year || 2018}`)
+        .then((r) => r.json())
+        .then((mdata) => {
+          setMarketValidation(mdata);
+        })
+        .catch(() => {
+          setMarketValidation(null);
+        })
+        .finally(() => {
+          setMarketValidationLoading(false);
+        });
+
 
       // Smooth scroll to valuation result on mobile devices
       setTimeout(() => {
@@ -627,10 +647,29 @@ export default function PredictPage() {
               {/* 2. INTERACTIVE 3D VEHICLE STUDIO DIRECTLY BELOW PRICE    */}
               {/* ======================================================== */}
               <Vehicle3DViewer
+                key={`${result.input_summary.model}-${result.input_summary.manufacturing_year}`}
                 modelName={result.input_summary.model}
                 brandName={extractBrand(result.input_summary.model)}
                 year={result.input_summary.manufacturing_year}
                 gearType={result.input_summary.gear_type}
+              />
+
+              {/* ======================================================== */}
+              {/* 2B. EXTERNAL MALAYSIAN MARKET VALIDATION & BENCHMARKING */}
+              {/* ======================================================== */}
+              <MarketValidationCard
+                data={marketValidation}
+                loading={marketValidationLoading}
+                predictedPrice={result.estimated_price}
+              />
+
+              {/* ======================================================== */}
+              {/* 2B. EXTERNAL MALAYSIAN MARKET VALIDATION & BENCHMARKING */}
+              {/* ======================================================== */}
+              <MarketValidationCard
+                data={marketValidation}
+                loading={marketValidationLoading}
+                predictedPrice={result.estimated_price}
               />
 
               {/* ======================================================== */}
