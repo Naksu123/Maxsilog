@@ -185,7 +185,7 @@ def clean_dataset(df_raw: pd.DataFrame, filter_typos: bool = True) -> Tuple[pd.D
 
     # 7. Deduplication & Validity check
     df = df.dropna(subset=["List_Price", "Mileage"])
-    df = df[df["List_Price"] > 0]
+    df = df.loc[df["List_Price"] > 0]
     dedup_subset = [c for c in ["Description", "List_Price", "Mileage", "Model", "Location"] if c in df.columns]
     before_dedup = len(df)
     df = df.drop_duplicates(subset=dedup_subset).reset_index(drop=True)
@@ -193,17 +193,17 @@ def clean_dataset(df_raw: pd.DataFrame, filter_typos: bool = True) -> Tuple[pd.D
 
     # 8. Anomaly & Data-Entry Typo Purge (Research Data Quality)
     if filter_typos:
-        luxury_brands = {
+        luxury_brands = [
             "Porsche", "Land Rover", "Lexus", "BMW", "Mercedes-Benz",
             "Audi", "Jaguar", "Alfa Romeo", "Ford"
-        }
+        ]
         is_luxury_toyota = (df["Brand"] == "Toyota") & df["Model"].str.contains(
             r"Alphard|Vellfire|Land Cruiser|Supra|Granace|Century", case=False, na=False
         )
         is_legit_high_tier = df["Brand"].isin(luxury_brands) | is_luxury_toyota
         typo_mask = (df["List_Price"] > 300000.0) & (~is_legit_high_tier)
         typos_count = int(typo_mask.sum())
-        df = df[~typo_mask].reset_index(drop=True)
+        df = df.loc[~typo_mask].reset_index(drop=True)
         audit["typos_removed"] = typos_count
     else:
         audit["typos_removed"] = 0

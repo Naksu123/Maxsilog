@@ -4,7 +4,7 @@ Secured administrative endpoints for training status, model history, manual retr
 """
 
 import os
-from typing import Dict, Any, List, Optional
+from typing import Optional
 from fastapi import APIRouter, Depends, HTTPException, Header, Query, BackgroundTasks, status
 from pydantic import BaseModel, Field
 

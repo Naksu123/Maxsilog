@@ -15,7 +15,6 @@ import numpy as np
 import pandas as pd
 from fastapi import FastAPI, HTTPException, Query, status
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
 
 # Add project root, backend, and ml directory to sys.path so unpickled pipelines find custom functions
 base_dir = os.path.dirname(os.path.abspath(__file__))
@@ -31,10 +30,7 @@ for p in [project_root, backend_dir, ml_dir]:
 try:
     import backend.ml.pipeline as pipeline_mod
 except ImportError:
-    try:
-        import ml.pipeline as pipeline_mod
-    except ImportError:
-        import pipeline as pipeline_mod  # type: ignore
+    import pipeline as pipeline_mod  # type: ignore[no-redef]
 
 sys.modules.setdefault("pipeline", pipeline_mod)
 sys.modules.setdefault("backend.ml.pipeline", pipeline_mod)
@@ -51,39 +47,23 @@ try:
     from backend.app.analytics import MarketAnalytics
     from backend.app.admin import router as admin_router
 except (ImportError, ValueError):
-    try:
-        from .schemas import (
-            HealthResponse,
-            PredictRequest,
-            PredictResponse,
-            ModelMetricsResponse,
-            FinancingCalculateRequest,
-            FinancingCalculateResponse
-        )
-        from .analytics import MarketAnalytics
-        from .admin import router as admin_router
-    except (ImportError, ValueError):
-        from schemas import (  # type: ignore
-            HealthResponse,
-            PredictRequest,
-            PredictResponse,
-            ModelMetricsResponse,
-            FinancingCalculateRequest,
-            FinancingCalculateResponse
-        )
-        from analytics import MarketAnalytics  # type: ignore
-        from admin import router as admin_router  # type: ignore
+    from .schemas import (  # type: ignore[no-redef]
+        HealthResponse,
+        PredictRequest,
+        PredictResponse,
+        ModelMetricsResponse,
+        FinancingCalculateRequest,
+        FinancingCalculateResponse
+    )
+    from .analytics import MarketAnalytics  # type: ignore[no-redef]
+    from .admin import router as admin_router  # type: ignore[no-redef]
 
 try:
     from backend.ml.retrain_manager import RetrainManager
     from backend.ml.scheduler import start_daily_scheduler, shutdown_scheduler
 except ImportError:
-    try:
-        from ml.retrain_manager import RetrainManager  # type: ignore
-        from ml.scheduler import start_daily_scheduler, shutdown_scheduler  # type: ignore
-    except ImportError:
-        from retrain_manager import RetrainManager  # type: ignore
-        from scheduler import start_daily_scheduler, shutdown_scheduler  # type: ignore
+    from ml.retrain_manager import RetrainManager  # type: ignore[no-redef]
+    from ml.scheduler import start_daily_scheduler, shutdown_scheduler  # type: ignore[no-redef]
 
 # Global in-memory storage for models and metadata
 MODELS: Dict[str, Any] = {}
@@ -97,7 +77,7 @@ CLEAN_DATA_PATH = os.path.normpath(os.path.join(base_dir, "..", "data", "Resale_
 
 
 def load_artifacts():
-    global MODELS, METRICS, METADATA, ANALYTICS, RETRAIN_MANAGER
+    global METRICS, METADATA, ANALYTICS, RETRAIN_MANAGER
     
     # 1. Load Analytics
     try:

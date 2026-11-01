@@ -1,0 +1,11 @@
+{
+  "venvPath": "C:\\Users\\lemsb",
+  "venv": "anaconda3",
+  "extraPaths": [
+    ".",
+    "backend",
+    "backend/app",
+    "backend/ml"
+  ],
+  "reportMissingImports": "warning"
+}

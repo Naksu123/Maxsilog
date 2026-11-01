@@ -5,7 +5,6 @@ rollback capabilities, and persistent audit logging.
 """
 
 import os
-import sys
 import json
 import time
 import shutil
