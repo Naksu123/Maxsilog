@@ -4,18 +4,6 @@ import React, { useEffect, useRef, useState, useCallback } from "react";
 import Image from "next/image";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-import { 
-  Rotate3d, 
-  Sun, 
-  Palette, 
-  Play, 
-  Pause, 
-  AlertCircle,
-  CheckCircle2,
-  Camera,
-  ExternalLink,
-  ShieldCheck
-} from "lucide-react";
 import { lookupVehicleAsset, VehicleRegistryEntry } from "@/data/vehicleRegistry";
 
 export type VehicleBodyStyle = "sedan" | "suv" | "hatchback" | "coupe";
@@ -439,7 +427,6 @@ export default function Vehicle3DViewer({
                 : "text-slate-400 hover:text-white"
             }`}
           >
-            <Camera className="w-3.5 h-3.5" />
             <span>Authentic Photograph</span>
           </button>
 
@@ -451,7 +438,6 @@ export default function Vehicle3DViewer({
                 : "text-slate-400 hover:text-white"
             }`}
           >
-            <Rotate3d className="w-3.5 h-3.5" />
             <span>Interactive 3D Studio</span>
           </button>
         </div>
@@ -479,7 +465,6 @@ export default function Vehicle3DViewer({
 
             {/* Verified Badge Pill */}
             <div className="absolute top-3 left-4 flex items-center space-x-1.5 px-3 py-1 rounded-full bg-slate-950/85 border border-emerald-500/40 text-emerald-300 text-[11px] font-mono shadow-xl backdrop-blur-md">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
               <span>Verified Automotive Media ({asset.generation})</span>
             </div>
 
@@ -488,8 +473,7 @@ export default function Vehicle3DViewer({
               onClick={() => setViewMode("3d")}
               className="absolute bottom-3 right-4 flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-cyan-500/40 text-cyan-300 text-xs font-semibold shadow-xl transition-all cursor-pointer backdrop-blur-md"
             >
-              <Rotate3d className="w-3.5 h-3.5 text-cyan-400" />
-              <span>Launch 3D Studio</span>
+              <span>Launch 3D Studio &rarr;</span>
             </button>
           </div>
 
@@ -536,10 +520,7 @@ export default function Vehicle3DViewer({
           {/* Genuine Media Attribution & Research Integrity Disclaimer */}
           <div className="p-3.5 rounded-xl bg-slate-900/50 border border-slate-800 text-[11px] text-slate-400 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div className="flex items-center space-x-2">
-              <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
-              <span>
-                {asset.curatorNotes}
-              </span>
+              <span>{asset.curatorNotes}</span>
             </div>
 
             <div className="flex items-center space-x-2 shrink-0 font-mono text-[10px] text-slate-400">
@@ -550,8 +531,7 @@ export default function Vehicle3DViewer({
                 rel="noopener noreferrer"
                 className="text-cyan-400 hover:text-cyan-300 flex items-center space-x-0.5"
               >
-                <span>License</span>
-                <ExternalLink className="w-2.5 h-2.5" />
+                <span>License &rarr;</span>
               </a>
             </div>
           </div>
@@ -611,7 +591,7 @@ export default function Vehicle3DViewer({
               />
             ) : (
               <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center space-y-3">
-                <AlertCircle className="w-10 h-10 text-amber-400" />
+                
                 <div className="text-sm font-semibold text-white">WebGL Hardware Acceleration Unavailable</div>
                 <p className="text-xs text-slate-400 max-w-md">
                   Showing authentic verified vehicle photography.
@@ -644,7 +624,6 @@ export default function Vehicle3DViewer({
 
             {/* Overlay Drag/Touch Hint */}
             <div className="absolute top-3 left-4 pointer-events-none flex items-center space-x-2 text-[10px] font-mono text-slate-400 bg-slate-950/70 px-2.5 py-1 rounded-full border border-slate-800/80 backdrop-blur-sm">
-              <Rotate3d className="w-3.5 h-3.5 text-cyan-400" />
               <span>Click & Drag to Rotate 360° • Scroll to Zoom</span>
             </div>
 
@@ -654,17 +633,7 @@ export default function Vehicle3DViewer({
               className="absolute top-3 right-4 z-10 flex items-center space-x-1.5 text-[11px] font-mono px-3 py-1.5 rounded-xl bg-slate-950/80 hover:bg-slate-900 border border-slate-800 text-slate-300 hover:text-white transition-all cursor-pointer backdrop-blur-md shadow-lg"
               title={isRotating ? "Pause auto-rotation" : "Start auto-rotation"}
             >
-              {isRotating ? (
-                <>
-                  <Pause className="w-3 h-3 text-cyan-400" />
-                  <span>Turntable Active</span>
-                </>
-              ) : (
-                <>
-                  <Play className="w-3 h-3 text-slate-400" />
-                  <span>Resume Turntable</span>
-                </>
-              )}
+              {isRotating ? "Turntable: Active" : "Turntable: Paused"}
             </button>
 
             {/* Headlights Toggle */}
@@ -677,7 +646,6 @@ export default function Vehicle3DViewer({
               }`}
               title="Toggle LED Headlights & Taillights"
             >
-              <Sun className="w-3.5 h-3.5" />
               <span>LED Lamps: {headlightsOn ? "ON" : "OFF"}</span>
             </button>
           </div>
@@ -687,7 +655,6 @@ export default function Vehicle3DViewer({
             {/* Color Customizer */}
             <div className="flex items-center space-x-3">
               <span className="flex items-center space-x-1.5 text-slate-400 font-medium">
-                <Palette className="w-3.5 h-3.5 text-cyan-400" />
                 <span>Finish:</span>
               </span>
 
@@ -712,7 +679,6 @@ export default function Vehicle3DViewer({
               onClick={() => setViewMode("photo")}
               className="text-cyan-400 hover:text-cyan-300 flex items-center space-x-1 font-mono text-[11px] cursor-pointer"
             >
-              <Camera className="w-3.5 h-3.5" />
               <span>View Authentic High-Definition Photograph</span>
             </button>
           </div>

@@ -2,27 +2,6 @@
 
 import React, { useEffect, useState, useRef, useMemo } from "react";
 import Link from "next/link";
-import { 
-  Car, 
-  Gauge, 
-  Settings2, 
-  MapPin, 
-  Calendar, 
-  Flame, 
-  Sparkles, 
-  ArrowRight, 
-  AlertCircle, 
-  CheckCircle2, 
-  Cpu, 
-  Zap, 
-  ShieldCheck, 
-  Tag, 
-  Wallet, 
-  Wrench, 
-  Award, 
-  Check, 
-  Search 
-} from "lucide-react";
 import { getMetadata, predictPrice } from "@/lib/api";
 import { ModelMetadata, PredictRequest, PredictResponse } from "@/types";
 import Vehicle3DViewer from "@/components/Vehicle3DViewer";
@@ -242,7 +221,6 @@ export default function PredictPage() {
       {/* Header */}
       <div className="space-y-2 border-b border-slate-800/80 pb-6">
         <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-semibold">
-          <Sparkles className="w-3.5 h-3.5" />
           <span>Interactive Machine Learning Valuation System</span>
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
@@ -266,7 +244,6 @@ export default function PredictPage() {
             <div className="space-y-4">
               <div className="flex items-center justify-between pb-2 border-b border-slate-800">
                 <div className="flex items-center space-x-2 text-xs font-bold uppercase tracking-wider text-white">
-                  <Car className="w-4 h-4 text-cyan-400" />
                   <span>1. Vehicle Identity</span>
                 </div>
                 <span className="text-[11px] text-slate-400 font-mono">
@@ -309,13 +286,12 @@ export default function PredictPage() {
                 </div>
 
                 <div className="relative">
-                  <Search className="w-3.5 h-3.5 text-slate-500 absolute left-3 top-3" />
                   <input
                     type="text"
                     placeholder={`Filter ${selectedBrand !== "All Brands" ? selectedBrand : ""} models (e.g. Civic, City, Myvi)...`}
                     value={modelSearch}
                     onChange={(e) => setModelSearch(e.target.value)}
-                    className="w-full bg-slate-900/90 border border-slate-800 rounded-xl pl-9 pr-4 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors"
+                    className="w-full bg-slate-900/90 border border-slate-800 rounded-xl px-4 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors"
                   />
                 </div>
 
@@ -336,7 +312,6 @@ export default function PredictPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
                   <label className="flex items-center space-x-1.5 text-xs font-semibold text-slate-300">
-                    <Calendar className="w-3.5 h-3.5 text-cyan-400" />
                     <span>Manufacturing Year</span>
                   </label>
                   <input
@@ -368,7 +343,6 @@ export default function PredictPage() {
 
                 <div className="space-y-1.5">
                   <label className="flex items-center space-x-1.5 text-xs font-semibold text-slate-300">
-                    <MapPin className="w-3.5 h-3.5 text-cyan-400" />
                     <span>State / Region</span>
                   </label>
                   <select
@@ -397,7 +371,6 @@ export default function PredictPage() {
             {/* 2. VEHICLE SPECIFICATIONS GROUP */}
             <div className="space-y-4 pt-3 border-t border-slate-800/80">
               <div className="flex items-center space-x-2 text-xs font-bold uppercase tracking-wider text-white pb-1">
-                <Gauge className="w-4 h-4 text-cyan-400" />
                 <span>2. Vehicle Specifications</span>
               </div>
 
@@ -461,7 +434,6 @@ export default function PredictPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
                   <label className="flex items-center space-x-1.5 text-xs font-semibold text-slate-300">
-                    <Settings2 className="w-3.5 h-3.5 text-cyan-400" />
                     <span>Transmission</span>
                   </label>
                   <div className="grid grid-cols-2 gap-2">
@@ -484,7 +456,6 @@ export default function PredictPage() {
 
                 <div className="space-y-1.5">
                   <label className="flex items-center space-x-1.5 text-xs font-semibold text-slate-300">
-                    <Flame className="w-3.5 h-3.5 text-cyan-400" />
                     <span>Engine Displacement (L)</span>
                   </label>
                   <input
@@ -505,7 +476,6 @@ export default function PredictPage() {
             <div className="space-y-2.5 pt-3 border-t border-slate-800/80">
               <label className="flex items-center justify-between text-xs font-semibold text-slate-300">
                 <span className="flex items-center space-x-1.5">
-                  <Cpu className="w-4 h-4 text-cyan-400" />
                   <span>Machine Learning Algorithm</span>
                 </span>
                 <span className="text-[11px] text-cyan-400 font-mono">
@@ -544,7 +514,6 @@ export default function PredictPage() {
                 id="predict-form-error"
                 className="flex items-start space-x-2.5 p-3.5 rounded-xl bg-rose-950/60 border border-rose-500/50 text-rose-200 text-xs shadow-lg animate-in fade-in"
               >
-                <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5 text-rose-400" />
                 <span className="font-mono text-[11px] leading-relaxed break-words">{error}</span>
               </div>
             )}
@@ -562,7 +531,6 @@ export default function PredictPage() {
                 </>
               ) : (
                 <>
-                  <Zap className="w-4 h-4" />
                   <span>Generate Estimated Price</span>
                 </>
               )}
@@ -583,7 +551,6 @@ export default function PredictPage() {
                 {/* Result Header & Status */}
                 <div className="flex items-center justify-between pb-3 border-b border-slate-800">
                   <div className="flex items-center space-x-2">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
                     <span className="text-xs uppercase font-bold tracking-wider text-cyan-400">
                       Empirical Model Valuation
                     </span>
@@ -650,8 +617,8 @@ export default function PredictPage() {
                 </div>
 
                 {/* Research Disclaimer */}
-                <div className="p-3 rounded-xl bg-slate-900/50 border border-slate-800/80 text-[11px] text-slate-400 leading-relaxed flex items-start space-x-2">
-                  <AlertCircle className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
+                <div className="p-3 rounded-xl bg-slate-900/50 border border-slate-800/80 text-[11px] text-slate-400 leading-relaxed">
+                  <span className="text-cyan-400 font-semibold mr-1.5">Note:</span>
                   <span>{result.disclaimer}</span>
                 </div>
               </div>
@@ -673,8 +640,7 @@ export default function PredictPage() {
                 
                 {/* SUBGRID CARD 1: Actionable Pricing Recommendation */}
                 <div className="glass-panel rounded-2xl p-5 border border-slate-800 flex flex-col justify-between space-y-3">
-                  <div className="flex items-center space-x-1.5 text-xs font-bold text-slate-200 uppercase tracking-wider">
-                    <Tag className="w-3.5 h-3.5 text-cyan-400" />
+                  <div className="text-xs font-bold text-slate-200 uppercase tracking-wider">
                     <span>Negotiation Guide</span>
                   </div>
 
@@ -708,8 +674,7 @@ export default function PredictPage() {
                 {/* SUBGRID CARD 2: Annual Mileage Assessment */}
                 <div className="glass-panel rounded-2xl p-5 border border-slate-800 flex flex-col justify-between space-y-3">
                   <div className="flex items-center justify-between gap-1">
-                    <div className="flex items-center space-x-1.5 text-xs font-bold text-slate-200">
-                      <Gauge className="w-3.5 h-3.5 text-cyan-400" />
+                    <div className="text-xs font-bold text-slate-200 uppercase tracking-wider">
                       <span>Mileage Health</span>
                     </div>
                     <span className={`text-[10px] px-2 py-0.5 rounded-full border font-semibold truncate ${mileageHealth.badgeColor}`}>
@@ -724,16 +689,14 @@ export default function PredictPage() {
                 {/* SUBGRID CARD 3: Instant Financing & Road Tax */}
                 <div className="glass-panel rounded-2xl p-5 border border-slate-800 flex flex-col justify-between space-y-3">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="font-bold text-slate-200 flex items-center space-x-1.5">
-                      <Wallet className="w-3.5 h-3.5 text-cyan-400" />
-                      <span>Financing & Road Tax</span>
+                    <span className="font-bold text-slate-200 uppercase tracking-wider">
+                      Financing & Road Tax
                     </span>
                     <Link
                       href={`/financing?price=${Math.round(result.estimated_price)}`}
-                      className="text-[10px] text-cyan-400 hover:text-cyan-300 flex items-center space-x-0.5 transition-colors"
+                      className="text-[10px] text-cyan-400 hover:text-cyan-300 font-medium transition-colors"
                     >
-                      <span>Loan Calc</span>
-                      <ArrowRight className="w-3 h-3" />
+                      Loan Calc &rarr;
                     </Link>
                   </div>
 
@@ -768,9 +731,8 @@ export default function PredictPage() {
                 {result.model_comparison && Object.keys(result.model_comparison).length > 0 ? (
                   <div className="glass-panel rounded-2xl p-5 border border-slate-800 flex flex-col justify-between space-y-3">
                     <div className="flex items-center justify-between text-xs">
-                      <span className="font-bold text-slate-200 flex items-center space-x-1.5 uppercase tracking-wider">
-                        <Award className="w-3.5 h-3.5 text-cyan-400" />
-                        <span>Model Consensus</span>
+                      <span className="font-bold text-slate-200 uppercase tracking-wider">
+                        Model Consensus
                       </span>
                       <span className="text-[10px] text-emerald-400 font-mono">4 Models</span>
                     </div>
@@ -801,25 +763,24 @@ export default function PredictPage() {
 
               {/* Inspection Checklist */}
               <div className="glass-panel rounded-2xl p-5 border border-slate-800 space-y-3 text-xs">
-                <div className="flex items-center space-x-1.5 font-bold text-slate-200 uppercase tracking-wider">
-                  <Wrench className="w-3.5 h-3.5 text-cyan-400" />
-                  <span>Pre-Purchase & Puspakom Verification Checklist</span>
+                <div className="font-bold text-slate-200 uppercase tracking-wider">
+                  Pre-Purchase & Puspakom Verification Checklist
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-[11px] text-slate-300">
                   <div className="flex items-center space-x-2">
-                    <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                    <span className="text-emerald-400 font-bold">&#10003;</span>
                     <span>Puspakom B5 Transfer Certificate</span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                    <span className="text-emerald-400 font-bold">&#10003;</span>
                     <span>Chassis rust & structural flood check</span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                    <span className="text-emerald-400 font-bold">&#10003;</span>
                     <span>Official manufacturer service logbook</span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                    <span className="text-emerald-400 font-bold">&#10003;</span>
                     <span>JPJ blacklist & police summon clearance</span>
                   </div>
                 </div>
@@ -831,8 +792,8 @@ export default function PredictPage() {
               
               {/* Primary Ready Panel */}
               <div className="glass-panel-elevated rounded-2xl p-6 sm:p-8 border border-slate-800 text-center space-y-5">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-900/50 via-indigo-900/40 to-cyan-500/20 border border-cyan-500/30 flex items-center justify-center mx-auto text-cyan-400 shadow-xl shadow-cyan-500/10">
-                  <Car className="w-8 h-8" />
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-blue-900/50 via-indigo-900/40 to-cyan-500/20 border border-cyan-500/30 flex items-center justify-center mx-auto text-cyan-400 shadow-xl shadow-cyan-500/10 text-xs font-mono font-bold">
+                  AUTO
                 </div>
                 <div className="space-y-2">
                   <h3 className="text-xl font-bold text-white">Ready to Value Your Vehicle</h3>
@@ -842,17 +803,14 @@ export default function PredictPage() {
                 </div>
 
                 <div className="pt-1 flex flex-wrap items-center justify-center gap-2">
-                  <span className="inline-flex items-center space-x-1.5 text-xs text-slate-300 bg-slate-900/90 px-3 py-1.5 rounded-full border border-slate-800 font-mono">
-                    <Cpu className="w-3.5 h-3.5 text-cyan-400" />
-                    <span>Gradient Boosting Regressor</span>
+                  <span className="inline-flex items-center text-xs text-slate-300 bg-slate-900/90 px-3 py-1.5 rounded-full border border-slate-800 font-mono">
+                    Gradient Boosting Regressor
                   </span>
-                  <span className="inline-flex items-center space-x-1.5 text-xs text-emerald-400 bg-emerald-950/40 px-3 py-1.5 rounded-full border border-emerald-800/40 font-mono">
-                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                    <span>Target Leakage Excluded</span>
+                  <span className="inline-flex items-center text-xs text-emerald-400 bg-emerald-950/40 px-3 py-1.5 rounded-full border border-emerald-800/40 font-mono">
+                    Target Leakage Excluded
                   </span>
-                  <span className="inline-flex items-center space-x-1.5 text-xs text-cyan-300 bg-cyan-950/40 px-3 py-1.5 rounded-full border border-cyan-800/40 font-mono">
-                    <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
-                    <span>3D Vehicle Studio</span>
+                  <span className="inline-flex items-center text-xs text-cyan-300 bg-cyan-950/40 px-3 py-1.5 rounded-full border border-cyan-800/40 font-mono">
+                    3D Vehicle Studio
                   </span>
                 </div>
               </div>
@@ -860,8 +818,7 @@ export default function PredictPage() {
               {/* Subgrid of Baseline References while Standby */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="glass-panel rounded-2xl p-5 border border-slate-800 space-y-3">
-                  <div className="flex items-center space-x-2 text-xs font-bold uppercase tracking-wider text-slate-200">
-                    <Tag className="w-3.5 h-3.5 text-cyan-400" />
+                  <div className="text-xs font-bold uppercase tracking-wider text-slate-200">
                     <span>Market Reference Benchmarks</span>
                   </div>
                   <div className="space-y-2 text-xs font-mono">
@@ -885,8 +842,7 @@ export default function PredictPage() {
                 </div>
 
                 <div className="glass-panel rounded-2xl p-5 border border-slate-800 space-y-3">
-                  <div className="flex items-center space-x-2 text-xs font-bold uppercase tracking-wider text-slate-200">
-                    <Award className="w-3.5 h-3.5 text-cyan-400" />
+                  <div className="text-xs font-bold uppercase tracking-wider text-slate-200">
                     <span>Empirical Research Integrity</span>
                   </div>
                   <p className="text-xs text-slate-300 leading-relaxed">
@@ -910,8 +866,7 @@ export default function PredictPage() {
 
           {/* Target Leakage Protection Banner */}
           <div className="glass-panel rounded-xl p-5 border border-slate-800 space-y-2 text-xs">
-            <div className="flex items-center space-x-2 text-emerald-400 font-semibold">
-              <ShieldCheck className="w-4 h-4" />
+            <div className="text-emerald-400 font-semibold">
               <span>Target Leakage Protection Guarantee</span>
             </div>
             <p className="text-slate-400 text-[11px] leading-relaxed">
