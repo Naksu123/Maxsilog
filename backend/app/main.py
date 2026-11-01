@@ -30,32 +30,60 @@ for p in [project_root, backend_dir, ml_dir]:
 # Register 'pipeline' alias in sys.modules to guarantee joblib unpickling across all runtime environments
 try:
     import backend.ml.pipeline as pipeline_mod
-    sys.modules.setdefault("pipeline", pipeline_mod)
 except ImportError:
     try:
-        import pipeline as pipeline_mod
-        sys.modules.setdefault("backend.ml.pipeline", pipeline_mod)
+        import ml.pipeline as pipeline_mod
     except ImportError:
-        pass
+        import pipeline as pipeline_mod  # type: ignore
 
-from .schemas import (
-    HealthResponse,
-    PredictRequest,
-    PredictResponse,
-    ModelMetricsResponse,
-    FinancingCalculateRequest,
-    FinancingCalculateResponse
-)
-from .analytics import MarketAnalytics
+sys.modules.setdefault("pipeline", pipeline_mod)
+sys.modules.setdefault("backend.ml.pipeline", pipeline_mod)
+
+try:
+    from backend.app.schemas import (
+        HealthResponse,
+        PredictRequest,
+        PredictResponse,
+        ModelMetricsResponse,
+        FinancingCalculateRequest,
+        FinancingCalculateResponse
+    )
+    from backend.app.analytics import MarketAnalytics
+    from backend.app.admin import router as admin_router
+except (ImportError, ValueError):
+    try:
+        from .schemas import (
+            HealthResponse,
+            PredictRequest,
+            PredictResponse,
+            ModelMetricsResponse,
+            FinancingCalculateRequest,
+            FinancingCalculateResponse
+        )
+        from .analytics import MarketAnalytics
+        from .admin import router as admin_router
+    except (ImportError, ValueError):
+        from schemas import (  # type: ignore
+            HealthResponse,
+            PredictRequest,
+            PredictResponse,
+            ModelMetricsResponse,
+            FinancingCalculateRequest,
+            FinancingCalculateResponse
+        )
+        from analytics import MarketAnalytics  # type: ignore
+        from admin import router as admin_router  # type: ignore
 
 try:
     from backend.ml.retrain_manager import RetrainManager
     from backend.ml.scheduler import start_daily_scheduler, shutdown_scheduler
 except ImportError:
-    from ml.retrain_manager import RetrainManager
-    from ml.scheduler import start_daily_scheduler, shutdown_scheduler
-
-from .admin import router as admin_router
+    try:
+        from ml.retrain_manager import RetrainManager  # type: ignore
+        from ml.scheduler import start_daily_scheduler, shutdown_scheduler  # type: ignore
+    except ImportError:
+        from retrain_manager import RetrainManager  # type: ignore
+        from scheduler import start_daily_scheduler, shutdown_scheduler  # type: ignore
 
 # Global in-memory storage for models and metadata
 MODELS: Dict[str, Any] = {}
