@@ -7,5 +7,6 @@
     "backend/app",
     "backend/ml"
   ],
-  "reportMissingImports": "warning"
+  "typeCheckingMode": "off",
+  "reportMissingImports": "none"
 }

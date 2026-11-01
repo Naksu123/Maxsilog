@@ -395,6 +395,7 @@ class RetrainManager:
             "progress": "Validating and auditing dataset..."
         }
 
+        version_dir: Optional[str] = None
         try:
             print(f"[{run_id}] Commencing daily retraining pipeline (Trigger: {trigger}, Force: {force})...")
             
@@ -875,7 +876,7 @@ class RetrainManager:
             print(f"[{run_id}] Retraining failed: {err_msg}")
 
             # Clean up version directory if it was created during this failed run
-            if 'version_dir' in locals() and os.path.exists(version_dir):
+            if version_dir and os.path.exists(version_dir):
                 shutil.rmtree(version_dir, ignore_errors=True)
 
             fail_record = {
