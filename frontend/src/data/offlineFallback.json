@@ -14,10 +14,50 @@
     "is_offline_fallback": true
   },
   "metadata": {
-    "model_version": "v1.2.0-research",
+    "model_version": "v_20261101_174107",
     "author": "University of Negros Occidental - Recoletos Research Team",
     "target_variable": "List_Price",
     "currency": "MYR (RM)",
+    "brand_medians": {
+      "Alfa Romeo": 66100,
+      "Audi": 53100,
+      "BMW": 86100,
+      "BYD": 50400,
+      "Chery": 60100,
+      "Chevrolet": 77900,
+      "Citroen": 42900,
+      "Ford": 56700,
+      "Haval": 46200,
+      "Honda": 59300,
+      "Hyundai": 44500,
+      "Inokom": 47700,
+      "Isuzu": 56250,
+      "Jaguar": 82100,
+      "Jeep": 64450,
+      "Kia": 29700,
+      "Land Rover": 277400,
+      "Lexus": 280150,
+      "MG": 66600,
+      "MINI": 132700,
+      "Maxus": 109050,
+      "Mazda": 61500,
+      "Mercedes-Benz": 120300,
+      "Mitsubishi": 63350,
+      "Nissan": 47100,
+      "Perodua": 33800,
+      "Peugeot": 27250,
+      "Porsche": 268700,
+      "Proton": 34950,
+      "Renault": 63650,
+      "Rover": 95000,
+      "Ssangyong": 28400,
+      "Subaru": 44500,
+      "Suzuki": 21600,
+      "Toyota": 157100,
+      "Volkswagen": 46800,
+      "Volvo": 53850
+    },
+    "global_median_price": 68550,
     "features": {
       "numerical": [
         {
@@ -1836,7 +1876,7 @@
   },
   "metrics": {
     "selected_model": "Random Forest Regressor",
-    "model_version": "v_20261101_172408",
+    "model_version": "v_20261101_174107",
     "random_state": 42,
     "train_size": 1986,
     "test_size": 497,
@@ -1858,44 +1898,44 @@
       },
       {
         "model": "Ridge Regression",
-        "cv_mae": 22709.487149638488,
-        "cv_mae_std": 3177.2670961125173,
-        "cv_rmse": 48674.85554824028,
-        "cv_rmse_std": 14888.516886318814,
-        "cv_r2": 0.7479484919961419,
-        "cv_r2_std": 0.10346701011339879,
-        "test_mae": 21477.566767297016,
-        "test_rmse": 40747.73618717424,
-        "test_r2": 0.8327519456109633,
-        "generalization_gap": -1231.9203823414718,
+        "cv_mae": 21908.306449005082,
+        "cv_mae_std": 2960.842936657096,
+        "cv_rmse": 46468.80065850717,
+        "cv_rmse_std": 13723.690778440092,
+        "cv_r2": 0.7709310970849257,
+        "cv_r2_std": 0.08889086497794978,
+        "test_mae": 20929.519390116566,
+        "test_rmse": 39952.84134055908,
+        "test_r2": 0.8392135509235505,
+        "generalization_gap": -978.7870588885162,
         "is_selected": false
       },
       {
         "model": "Random Forest Regressor",
-        "cv_mae": 20931.788850930956,
-        "cv_mae_std": 2814.3212217005594,
-        "cv_rmse": 43251.18264897808,
-        "cv_rmse_std": 11891.67738921942,
-        "cv_r2": 0.8032048366927906,
-        "cv_r2_std": 0.06664564568076303,
-        "test_mae": 19910.86386922806,
-        "test_rmse": 39296.01204733844,
-        "test_r2": 0.8444567893068026,
-        "generalization_gap": -1020.9249817028976,
+        "cv_mae": 19052.88999736578,
+        "cv_mae_std": 2539.8317471379123,
+        "cv_rmse": 40575.261454731146,
+        "cv_rmse_std": 10399.820589855795,
+        "cv_r2": 0.8270466760651853,
+        "cv_r2_std": 0.05190089310585629,
+        "test_mae": 18194.295283558124,
+        "test_rmse": 37945.333752644794,
+        "test_r2": 0.8549656553389611,
+        "generalization_gap": -858.5947138076554,
         "is_selected": true
       },
       {
         "model": "Gradient Boosting Regressor",
-        "cv_mae": 20976.59925323089,
-        "cv_mae_std": 3123.206900658276,
-        "cv_rmse": 43636.91877387653,
-        "cv_rmse_std": 13944.56454260113,
-        "cv_r2": 0.7980104608040773,
-        "cv_r2_std": 0.0871265855248825,
-        "test_mae": 20149.408762806066,
-        "test_rmse": 40027.135888293444,
-        "test_r2": 0.8386150121047486,
-        "generalization_gap": -827.1904904248222,
+        "cv_mae": 19507.25008139536,
+        "cv_mae_std": 3015.90898485812,
+        "cv_rmse": 42311.52954538973,
+        "cv_rmse_std": 11222.79927050613,
+        "cv_r2": 0.8116946132788311,
+        "cv_r2_std": 0.05979718977730113,
+        "test_mae": 18523.498415168942,
+        "test_rmse": 37975.118754978655,
+        "test_r2": 0.8547378779925194,
+        "generalization_gap": -983.751666226417,
         "is_selected": false
       }
     ],
@@ -1906,8 +1946,8 @@
         "model": "Renault Clio 1.6 RS",
         "mileage": 127500,
         "actual_price": 284200,
-        "predicted_price": 57778.08848930957,
-        "residual_error": 226421.91151069044
+        "predicted_price": 58383.25913024519,
+        "residual_error": 225816.7408697548
       },
       {
         "index": 1210,
@@ -1915,17 +1955,8 @@
         "model": "Chevrolet Colorado 2.8 High Country",
         "mileage": 224500,
         "actual_price": 273700,
-        "predicted_price": 47855.47335253489,
-        "residual_error": 225844.5266474651
-      },
-      {
-        "index": 1915,
-        "description": "2022 Jeep Grand Cherokee 3.6 (M) - Grey Full Service Record",
-        "model": "Jeep Grand Cherokee 3.6",
-        "mileage": 114500,
-        "actual_price": 268900,
-        "predicted_price": 58997.5094836252,
-        "residual_error": 209902.4905163748
+        "predicted_price": 51467.25567870595,
+        "residual_error": 222232.74432129404
       },
       {
         "index": 1068,
@@ -1933,8 +1964,17 @@
         "model": "Land Rover Range Rover Sport",
         "mileage": 183500,
         "actual_price": 490500,
-        "predicted_price": 285578.28022416646,
-        "residual_error": 204921.71977583354
+        "predicted_price": 280415.07840853464,
+        "residual_error": 210084.92159146536
+      },
+      {
+        "index": 1915,
+        "description": "2022 Jeep Grand Cherokee 3.6 (M) - Grey Full Service Record",
+        "model": "Jeep Grand Cherokee 3.6",
+        "mileage": 114500,
+        "actual_price": 268900,
+        "predicted_price": 84354.19717505902,
+        "residual_error": 184545.802824941
       },
       {
         "index": 1178,
@@ -1942,8 +1982,8 @@
         "model": "Land Rover Range",
         "mileage": 198500,
         "actual_price": 221800,
-        "predicted_price": 419425.7804494153,
-        "residual_error": -197625.78044941532
+        "predicted_price": 391073.2335342718,
+        "residual_error": -169273.23353427183
       }
     ],
     "target_leakage_audit": {

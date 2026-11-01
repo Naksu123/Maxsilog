@@ -56,17 +56,31 @@ def train_and_benchmark(
     print(f"Cleaned dataset saved to {clean_csv_path} ({len(df_clean)} rows)")
 
     # 2. Features and Target setup
-    numerical_features = ["Mileage", "Vehicle_Age", "Engine_Size", "Mileage_Per_Year", "Log_Mileage", "Age_Squared"]
-    categorical_features = ["Brand", "Model", "Gear_Type", "State", "Is_Luxury"]
+    numerical_features = [
+        "Mileage", "Vehicle_Age", "Engine_Size", "Mileage_Per_Year",
+        "Log_Mileage", "Age_Squared", "Log_Age", "Engine_Squared", "Brand_Median"
+    ]
+    categorical_features = ["Brand", "Model", "Gear_Type", "State", "Body_Type", "Is_Luxury"]
     target_variable = "List_Price"
 
-    X = df_clean[numerical_features + categorical_features].copy()
-    y = df_clean[target_variable].copy()
-
     # 3. Train-Test Split (80/20) with fixed random seed 42
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.20, random_state=RANDOM_STATE
+    X_raw = df_clean.copy()
+    y_raw = df_clean[target_variable].copy()
+
+    X_train_raw, X_test_raw, y_train, y_test = train_test_split(
+        X_raw, y_raw, test_size=0.20, random_state=RANDOM_STATE
     )
+
+    # Compute Brand Median Price strictly on training split to eliminate target leakage
+    brand_medians = y_train.groupby(X_train_raw["Brand"]).median().to_dict()
+    global_median = float(y_train.median())
+
+    X_train_raw["Brand_Median"] = X_train_raw["Brand"].map(brand_medians).fillna(global_median)
+    X_test_raw["Brand_Median"] = X_test_raw["Brand"].map(brand_medians).fillna(global_median)
+
+    X_train = X_train_raw[numerical_features + categorical_features].copy()
+    X_test = X_test_raw[numerical_features + categorical_features].copy()
+
     print(f"Dataset split: Train = {len(X_train)} samples, Test = {len(X_test)} samples")
 
     # 4. Construct Preprocessors
@@ -106,15 +120,15 @@ def train_and_benchmark(
         inverse_func=np.expm1
     )
 
-    # Model 3: Random Forest Regressor (200 trees, max_features=0.6, log-target transformation)
+    # Model 3: Random Forest Regressor (350 trees, max_depth=20, max_features=0.6, log-target transformation)
     rf_raw_pipeline = Pipeline([
         ('prep', tree_preprocessor),
         ('model', RandomForestRegressor(
-            n_estimators=200,
-            max_depth=16,
+            n_estimators=350,
+            max_depth=20,
             max_features=0.6,
-            min_samples_split=5,
-            min_samples_leaf=2,
+            min_samples_split=2,
+            min_samples_leaf=1,
             random_state=RANDOM_STATE,
             n_jobs=1
         ))
@@ -125,15 +139,15 @@ def train_and_benchmark(
         inverse_func=np.expm1
     )
 
-    # Model 4: Gradient Boosting Regressor (Huber Loss, 250 trees, subsample=0.85, log-target transformation)
+    # Model 4: Gradient Boosting Regressor (Huber Loss, 350 trees, learning_rate=0.045, max_depth=6, subsample=0.85)
     gbr_raw_pipeline = Pipeline([
         ('prep', tree_preprocessor),
         ('model', GradientBoostingRegressor(
             loss='huber',
-            n_estimators=250,
-            learning_rate=0.06,
-            max_depth=5,
-            min_samples_split=5,
+            n_estimators=350,
+            learning_rate=0.045,
+            max_depth=6,
+            min_samples_split=4,
             min_samples_leaf=2,
             subsample=0.85,
             random_state=RANDOM_STATE
@@ -338,6 +352,8 @@ def train_and_benchmark(
         "author": "University of Negros Occidental - Recoletos Research Team",
         "target_variable": "List_Price",
         "currency": "MYR (RM)",
+        "brand_medians": brand_medians,
+        "global_median_price": global_median,
         "features": {
             "numerical": [
                 {"name": "Mileage", "description": "Odometer reading in kilometers", "unit": "KM", "min": float(df_clean["Mileage"].min()), "max": float(df_clean["Mileage"].max()), "median": float(df_clean["Mileage"].median())},

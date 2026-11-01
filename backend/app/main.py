@@ -240,10 +240,18 @@ def predict_price(req: PredictRequest):
 
     # 3. Build Input Row
     brand = pipeline_mod.extract_brand_from_description_or_model(req.model)
+    body_type = pipeline_mod.extract_body_type(req.model)
     is_luxury = pipeline_mod.is_luxury_brand(brand)
+
+    brand_medians = METADATA.get("brand_medians", {})
+    global_med = METADATA.get("global_median_price", 68400.0)
+    brand_median_val = float(brand_medians.get(brand, global_med))
+
     mileage_per_year = float(req.mileage) / max(1.0, float(vehicle_age))
     log_mileage = float(np.log1p(float(req.mileage)))
     age_squared = float(np.square(float(vehicle_age)))
+    log_age = float(np.log1p(float(vehicle_age)))
+    engine_squared = float(np.square(float(resolved_engine)))
 
     input_data = pd.DataFrame([{
         "Mileage": float(req.mileage),
@@ -252,10 +260,14 @@ def predict_price(req: PredictRequest):
         "Mileage_Per_Year": float(mileage_per_year),
         "Log_Mileage": float(log_mileage),
         "Age_Squared": float(age_squared),
+        "Log_Age": float(log_age),
+        "Engine_Squared": float(engine_squared),
+        "Brand_Median": float(brand_median_val),
         "Brand": str(brand),
         "Model": str(req.model),
         "Gear_Type": str(req.gear_type),
         "State": str(req.state),
+        "Body_Type": str(body_type),
         "Is_Luxury": int(is_luxury)
     }])
 

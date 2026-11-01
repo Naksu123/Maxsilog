@@ -1,5 +1,33 @@
 [
   {
+    "event_id": "evt_promote_20261101_174107_000",
+    "event_type": "PROMOTION",
+    "timestamp_utc": "2026-11-01T09:41:07.506707+00:00",
+    "timestamp_myt": "2026-11-01T17:41:07.506707+08:00",
+    "previous_version_id": "v_20261101_172408",
+    "new_version_id": "v_20261101_174107",
+    "deployed_version_id": "v_20261101_174107",
+    "model_type": "Random Forest Regressor",
+    "cv_mae": 19052.88999736578,
+    "cv_r2": 0.8270466760651853,
+    "evaluation_metrics": {
+      "cv_mae": 19052.88999736578,
+      "cv_mae_std": 2539.8317471379123,
+      "cv_rmse": 40575.261454731146,
+      "cv_rmse_std": 10399.820589855795,
+      "cv_r2": 0.8270466760651853,
+      "cv_r2_std": 0.05190089310585629,
+      "test_mae": 18194.295283558124,
+      "test_rmse": 37945.333752644794,
+      "test_r2": 0.8549656553389611,
+      "generalization_gap": -858.5947138076554
+    },
+    "artifact_location": "versions/v_20261101_174107",
+    "trigger": "train_and_benchmark",
+    "status": "deployed",
+    "message": "Successfully promoted new model version 'v_20261101_174107' (Random Forest Regressor) replacing 'v_20261101_172408'"
+  },
+  {
     "event_id": "evt_promote_20261101_172408_000",
     "event_type": "PROMOTION",
     "timestamp_utc": "2026-11-01T09:24:08.819009+00:00",

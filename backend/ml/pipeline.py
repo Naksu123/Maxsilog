@@ -108,6 +108,24 @@ def is_luxury_brand(brand: Any) -> int:
     return 1 if b in luxury_brands else 0
 
 
+def extract_body_type(desc: Any) -> str:
+    """Extract automotive body segment from description or model text."""
+    if not isinstance(desc, str) or not desc.strip():
+        return "Sedan"
+    s = str(desc).upper()
+    if re.search(r"\bSUV\b|\bCROSSOVER\b|\b4X4\b|\b4WD\b", s):
+        return "SUV"
+    if re.search(r"\bMPV\b|\bVAN\b", s):
+        return "MPV"
+    if re.search(r"\bHATCHBACK\b", s):
+        return "Hatchback"
+    if re.search(r"\bPICKUP\b|\bTRUCK\b|\bHILUX\b|\bD-MAX\b|\bRANGER\b|\bNAVARA\b|\bTRITON\b", s):
+        return "Pickup"
+    if re.search(r"\bCOUPE\b|\bCONVERTIBLE\b|\bCABRIOLET\b|\bSPORTS\b", s):
+        return "Coupe"
+    return "Sedan"
+
+
 def clean_dataset(df_raw: pd.DataFrame, filter_typos: bool = True) -> Tuple[pd.DataFrame, Dict[str, Any]]:
     """
     Execute full leakage-free data cleansing and feature extraction on the Malaysian car dataset.
@@ -150,9 +168,12 @@ def clean_dataset(df_raw: pd.DataFrame, filter_typos: bool = True) -> Tuple[pd.D
     df["Engine_Size"] = df["Description"].apply(extract_engine_displacement)
     df["State"] = df["Location"].apply(extract_state_from_location)
     df["Brand"] = df["Model"].apply(extract_brand_from_description_or_model)
+    df["Body_Type"] = df["Description"].apply(extract_body_type)
     df["Is_Luxury"] = df["Brand"].apply(is_luxury_brand)
     df["Log_Mileage"] = np.log1p(df["Mileage"])
     df["Age_Squared"] = np.square(df["Vehicle_Age"].fillna(5.0))
+    df["Log_Age"] = np.log1p(df["Vehicle_Age"].fillna(5.0))
+    df["Engine_Squared"] = np.square(df["Engine_Size"].fillna(1.8))
     df["Mileage_Per_Year"] = df["Mileage"] / np.maximum(1.0, df["Vehicle_Age"].fillna(5.0))
 
     # 6. Target Leakage Prevention: STRICT PURGE of Monthly_Installment
@@ -194,8 +215,11 @@ def clean_dataset(df_raw: pd.DataFrame, filter_typos: bool = True) -> Tuple[pd.D
 
 
 def build_preprocessors(
-    numerical_features: List[str] = ["Mileage", "Vehicle_Age", "Engine_Size", "Mileage_Per_Year", "Log_Mileage", "Age_Squared"],
-    categorical_features: List[str] = ["Brand", "Model", "Gear_Type", "State", "Is_Luxury"]
+    numerical_features: List[str] = [
+        "Mileage", "Vehicle_Age", "Engine_Size", "Mileage_Per_Year",
+        "Log_Mileage", "Age_Squared", "Log_Age", "Engine_Squared", "Brand_Median"
+    ],
+    categorical_features: List[str] = ["Brand", "Model", "Gear_Type", "State", "Body_Type", "Is_Luxury"]
 ) -> Tuple[ColumnTransformer, ColumnTransformer]:
     """
     Construct scikit-learn ColumnTransformers for:

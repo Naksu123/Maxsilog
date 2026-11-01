@@ -95,7 +95,7 @@ export default function PredictPage() {
   const [state, setState] = useState<string>("Selangor");
   const [year, setYear] = useState<number | "">(2018);
   const [engineSize, setEngineSize] = useState<number | "">(1.5);
-  const [algorithm, setAlgorithm] = useState<string>("Gradient Boosting Regressor");
+  const [algorithm, setAlgorithm] = useState<string>("Random Forest Regressor");
 
   // Search filter for car model dropdown
   const [modelSearch, setModelSearch] = useState<string>("");
@@ -532,10 +532,10 @@ export default function PredictPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {[
-                  { id: "Gradient Boosting Regressor", name: "Gradient Boosting", sub: "Production Champion • CV R² 80.8%" },
-                  { id: "Random Forest Regressor", name: "Random Forest", sub: "Ensemble Trees • Non-linear" },
-                  { id: "Ridge Regression", name: "Ridge Regression", sub: "L2 Regularized Linear" },
-                  { id: "Simple Linear Regression (Baseline)", name: "Simple Linear", sub: "Unregularized Baseline OLS" }
+                  { id: "Random Forest Regressor", name: "Random Forest", sub: "Champion Model • CV R² 82.7%" },
+                  { id: "Gradient Boosting Regressor", name: "Gradient Boosting", sub: "Robust Huber Loss • CV R² 81.2%" },
+                  { id: "Ridge Regression", name: "Ridge Regression", sub: "L2 Regularized • Test R² 83.9%" },
+                  { id: "Simple Linear Regression (Baseline)", name: "Simple Linear", sub: "Bivariate Baseline • Mileage & Age" }
                 ].map((item) => (
                   <button
                     key={item.id}
