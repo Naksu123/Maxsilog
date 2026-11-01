@@ -137,11 +137,17 @@ async def lifespan(app: FastAPI):
         pass
 
 
+# Security: Disable public Swagger / OpenAPI documentation in production environments
+is_production = os.getenv("ENVIRONMENT", "").lower() in ("production", "prod")
+
 app = FastAPI(
     title="AutoValuate API — Malaysian Used-Car Valuation System",
     description="Full-stack AI valuation and market analytics service with automated daily retraining.",
     version="1.2.0-research",
-    lifespan=lifespan
+    lifespan=lifespan,
+    docs_url=None if is_production else "/docs",
+    redoc_url=None if is_production else "/redoc",
+    openapi_url=None if is_production else "/openapi.json"
 )
 
 # Include Administrator Router

@@ -3,9 +3,6 @@ import Link from "next/link";
 
 export default function Footer() {
   const githubUrl = process.env.NEXT_PUBLIC_GITHUB_REPO_URL || "https://github.com/Naksu123/autovaluate";
-  const apiDocsUrl = process.env.NEXT_PUBLIC_API_URL 
-    ? `${process.env.NEXT_PUBLIC_API_URL}/docs` 
-    : "http://localhost:8000/docs";
 
   return (
     <footer className="bg-[#050811] border-t border-slate-800/80 mt-12 text-slate-400 text-xs">
@@ -38,27 +35,27 @@ export default function Footer() {
 
           {/* Quick Navigation & External Links */}
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-medium text-slate-300">
-            <Link href="/" className="hover:text-cyan-400 transition-colors">
+            <Link href="/" className="hover:text-purple-300 transition-colors">
               Home
             </Link>
-            <Link href="/dashboard" className="hover:text-cyan-400 transition-colors">
+            <Link href="/dashboard" className="hover:text-purple-300 transition-colors">
               Dashboard
             </Link>
-            <Link href="/predict" className="hover:text-cyan-400 transition-colors">
+            <Link href="/predict" className="hover:text-purple-300 transition-colors">
               Predict
             </Link>
-            <Link href="/analytics" className="hover:text-cyan-400 transition-colors">
+            <Link href="/analytics" className="hover:text-purple-300 transition-colors">
               Analytics
             </Link>
-            <Link href="/benchmark" className="hover:text-cyan-400 transition-colors">
+            <Link href="/benchmark" className="hover:text-purple-300 transition-colors">
               Benchmark
             </Link>
-            <Link href="/financing" className="hover:text-cyan-400 transition-colors">
+            <Link href="/financing" className="hover:text-purple-300 transition-colors">
               Financing
             </Link>
-            <Link href="/admin" className="hover:text-cyan-400 transition-colors inline-flex items-center space-x-1">
+            <Link href="/admin" className="hover:text-purple-300 transition-colors inline-flex items-center space-x-1">
               <span>Admin</span>
-              <span className="text-[8px] px-1 py-0.2 bg-cyan-950 text-cyan-300 rounded border border-cyan-800/80 font-mono">
+              <span className="text-[8px] px-1.5 py-0.5 bg-purple-950/80 text-purple-300 rounded border border-purple-800/80 font-mono">
                 SECURE
               </span>
             </Link>
@@ -66,20 +63,10 @@ export default function Footer() {
             <span className="text-slate-800 hidden sm:inline">|</span>
 
             <a
-              href={apiDocsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center space-x-1 text-slate-400 hover:text-cyan-400 transition-colors text-[11px]"
-              title="FastAPI Swagger Documentation"
-            >
-              <span>API Docs &rarr;</span>
-            </a>
-
-            <a
               href={githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center space-x-1 text-slate-400 hover:text-cyan-400 transition-colors text-[11px]"
+              className="inline-flex items-center space-x-1 text-slate-400 hover:text-purple-300 transition-colors text-[11px]"
               aria-label="View on GitHub"
             >
               <span>GitHub &rarr;</span>
