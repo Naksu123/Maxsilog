@@ -135,7 +135,7 @@ export function computeFallbackPrediction(payload: PredictRequest): PredictRespo
   else if (algo.includes("Ridge")) finalPrice = ridgePred;
   else if (algo.includes("Linear") || algo.includes("Baseline")) finalPrice = baselinePred;
 
-  const cvMae = 21821.65;
+  const cvMae = 20931.79; // Champion Random Forest CV MAE
   const fairLow = Math.max(5000, Math.round(finalPrice - cvMae * 0.75));
   const fairHigh = Math.round(finalPrice + cvMae * 0.75);
 

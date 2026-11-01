@@ -1,0 +1,118 @@
+{
+  "selected_model": "Random Forest Regressor",
+  "model_version": "v_20261101_172408",
+  "random_state": 42,
+  "train_size": 1986,
+  "test_size": 497,
+  "k_folds": 5,
+  "benchmark": [
+    {
+      "model": "Simple Linear Regression (Baseline)",
+      "cv_mae": 51716.014935291096,
+      "cv_mae_std": 3269.0325146364185,
+      "cv_rmse": 90333.64121509928,
+      "cv_rmse_std": 10396.04077312273,
+      "cv_r2": 0.1383901043309425,
+      "cv_r2_std": 0.026827068441225527,
+      "test_mae": 53280.8676415452,
+      "test_rmse": 92035.3237607565,
+      "test_r2": 0.14677574741008792,
+      "generalization_gap": 1564.8527062541034,
+      "is_selected": false
+    },
+    {
+      "model": "Ridge Regression",
+      "cv_mae": 22709.487149638488,
+      "cv_mae_std": 3177.2670961125173,
+      "cv_rmse": 48674.85554824028,
+      "cv_rmse_std": 14888.516886318814,
+      "cv_r2": 0.7479484919961419,
+      "cv_r2_std": 0.10346701011339879,
+      "test_mae": 21477.566767297016,
+      "test_rmse": 40747.73618717424,
+      "test_r2": 0.8327519456109633,
+      "generalization_gap": -1231.9203823414718,
+      "is_selected": false
+    },
+    {
+      "model": "Random Forest Regressor",
+      "cv_mae": 20931.788850930956,
+      "cv_mae_std": 2814.3212217005594,
+      "cv_rmse": 43251.18264897808,
+      "cv_rmse_std": 11891.67738921942,
+      "cv_r2": 0.8032048366927906,
+      "cv_r2_std": 0.06664564568076303,
+      "test_mae": 19910.86386922806,
+      "test_rmse": 39296.01204733844,
+      "test_r2": 0.8444567893068026,
+      "generalization_gap": -1020.9249817028976,
+      "is_selected": true
+    },
+    {
+      "model": "Gradient Boosting Regressor",
+      "cv_mae": 20976.59925323089,
+      "cv_mae_std": 3123.206900658276,
+      "cv_rmse": 43636.91877387653,
+      "cv_rmse_std": 13944.56454260113,
+      "cv_r2": 0.7980104608040773,
+      "cv_r2_std": 0.0871265855248825,
+      "test_mae": 20149.408762806066,
+      "test_rmse": 40027.135888293444,
+      "test_r2": 0.8386150121047486,
+      "generalization_gap": -827.1904904248222,
+      "is_selected": false
+    }
+  ],
+  "diagnostic_outliers": [
+    {
+      "index": 1864,
+      "description": "2020 Renault Clio 1.6 RS (M) - Black Full Service Record",
+      "model": "Renault Clio 1.6 RS",
+      "mileage": 127500.0,
+      "actual_price": 284200.0,
+      "predicted_price": 57778.08848930957,
+      "residual_error": 226421.91151069044
+    },
+    {
+      "index": 1210,
+      "description": "2015 Chevrolet Colorado 2.8 High Country (M) - Dark Blue Full Service Record",
+      "model": "Chevrolet Colorado 2.8 High Country",
+      "mileage": 224500.0,
+      "actual_price": 273700.0,
+      "predicted_price": 47855.47335253489,
+      "residual_error": 225844.5266474651
+    },
+    {
+      "index": 1915,
+      "description": "2022 Jeep Grand Cherokee 3.6 (M) - Grey Full Service Record",
+      "model": "Jeep Grand Cherokee 3.6",
+      "mileage": 114500.0,
+      "actual_price": 268900.0,
+      "predicted_price": 58997.5094836252,
+      "residual_error": 209902.4905163748
+    },
+    {
+      "index": 1068,
+      "description": "2017 Land Rover Range Rover Sport 5.0 SVR SUV - FACELIFT 575BHP 1YR Warranty No Processing Fee No Accident No Flood 2018 - Black",
+      "model": "Land Rover Range Rover Sport",
+      "mileage": 183500.0,
+      "actual_price": 490500.0,
+      "predicted_price": 285578.28022416646,
+      "residual_error": 204921.71977583354
+    },
+    {
+      "index": 1178,
+      "description": "2018 Land Rover Range Rover 3.0 P400 Vogue SE SUV - VOGUE DIESEL WTY 2025 ,CRYSTAL BLACK IN COLOUR,PANAROMIC ROOF,POWER BOOT,ONE OF DATO VIP OWNER - Grey",
+      "model": "Land Rover Range",
+      "mileage": 198500.0,
+      "actual_price": 221800.0,
+      "predicted_price": 419425.7804494153,
+      "residual_error": -197625.78044941532
+    }
+  ],
+  "target_leakage_audit": {
+    "status": "SECURE",
+    "excluded_variable": "Monthly_Installment",
+    "justification": "Target leakage occurs because monthly installments are directly computed from the list price by vehicle financing institutions. Omission guarantees genuine predictive validity."
+  }
+}

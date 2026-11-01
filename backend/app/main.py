@@ -240,16 +240,23 @@ def predict_price(req: PredictRequest):
 
     # 3. Build Input Row
     brand = pipeline_mod.extract_brand_from_description_or_model(req.model)
+    is_luxury = pipeline_mod.is_luxury_brand(brand)
     mileage_per_year = float(req.mileage) / max(1.0, float(vehicle_age))
+    log_mileage = float(np.log1p(float(req.mileage)))
+    age_squared = float(np.square(float(vehicle_age)))
+
     input_data = pd.DataFrame([{
         "Mileage": float(req.mileage),
         "Vehicle_Age": float(vehicle_age),
         "Engine_Size": float(resolved_engine),
         "Mileage_Per_Year": float(mileage_per_year),
+        "Log_Mileage": float(log_mileage),
+        "Age_Squared": float(age_squared),
         "Brand": str(brand),
         "Model": str(req.model),
         "Gear_Type": str(req.gear_type),
-        "State": str(req.state)
+        "State": str(req.state),
+        "Is_Luxury": int(is_luxury)
     }])
 
     # 4. Generate Prediction

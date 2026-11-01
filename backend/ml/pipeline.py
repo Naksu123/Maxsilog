@@ -98,6 +98,16 @@ def extract_brand_from_description_or_model(val: Any) -> str:
     return tokens[0] if tokens else "Unknown"
 
 
+def is_luxury_brand(brand: Any) -> int:
+    """Flag luxury / premium continental automotive brands."""
+    luxury_brands = {
+        "MERCEDES-BENZ", "BMW", "PORSCHE", "AUDI", "LEXUS", "LAND ROVER",
+        "JAGUAR", "VOLVO", "MINI", "ALFA ROMEO", "MASERATI", "BENTLEY", "FERRARI"
+    }
+    b = str(brand).strip().upper()
+    return 1 if b in luxury_brands else 0
+
+
 def clean_dataset(df_raw: pd.DataFrame, filter_typos: bool = True) -> Tuple[pd.DataFrame, Dict[str, Any]]:
     """
     Execute full leakage-free data cleansing and feature extraction on the Malaysian car dataset.
@@ -140,6 +150,9 @@ def clean_dataset(df_raw: pd.DataFrame, filter_typos: bool = True) -> Tuple[pd.D
     df["Engine_Size"] = df["Description"].apply(extract_engine_displacement)
     df["State"] = df["Location"].apply(extract_state_from_location)
     df["Brand"] = df["Model"].apply(extract_brand_from_description_or_model)
+    df["Is_Luxury"] = df["Brand"].apply(is_luxury_brand)
+    df["Log_Mileage"] = np.log1p(df["Mileage"])
+    df["Age_Squared"] = np.square(df["Vehicle_Age"].fillna(5.0))
     df["Mileage_Per_Year"] = df["Mileage"] / np.maximum(1.0, df["Vehicle_Age"].fillna(5.0))
 
     # 6. Target Leakage Prevention: STRICT PURGE of Monthly_Installment
@@ -181,8 +194,8 @@ def clean_dataset(df_raw: pd.DataFrame, filter_typos: bool = True) -> Tuple[pd.D
 
 
 def build_preprocessors(
-    numerical_features: List[str] = ["Mileage", "Vehicle_Age", "Engine_Size", "Mileage_Per_Year"],
-    categorical_features: List[str] = ["Brand", "Model", "Gear_Type", "State"]
+    numerical_features: List[str] = ["Mileage", "Vehicle_Age", "Engine_Size", "Mileage_Per_Year", "Log_Mileage", "Age_Squared"],
+    categorical_features: List[str] = ["Brand", "Model", "Gear_Type", "State", "Is_Luxury"]
 ) -> Tuple[ColumnTransformer, ColumnTransformer]:
     """
     Construct scikit-learn ColumnTransformers for:

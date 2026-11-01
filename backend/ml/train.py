@@ -21,7 +21,7 @@ from sklearn.linear_model import LinearRegression, Ridge
 from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.pipeline import Pipeline
-from sklearn.compose import ColumnTransformer
+from sklearn.compose import ColumnTransformer, TransformedTargetRegressor
 from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import StandardScaler
 
@@ -56,8 +56,8 @@ def train_and_benchmark(
     print(f"Cleaned dataset saved to {clean_csv_path} ({len(df_clean)} rows)")
 
     # 2. Features and Target setup
-    numerical_features = ["Mileage", "Vehicle_Age", "Engine_Size", "Mileage_Per_Year"]
-    categorical_features = ["Brand", "Model", "Gear_Type", "State"]
+    numerical_features = ["Mileage", "Vehicle_Age", "Engine_Size", "Mileage_Per_Year", "Log_Mileage", "Age_Squared"]
+    categorical_features = ["Brand", "Model", "Gear_Type", "State", "Is_Luxury"]
     target_variable = "List_Price"
 
     X = df_clean[numerical_features + categorical_features].copy()
@@ -76,51 +76,74 @@ def train_and_benchmark(
     )
 
     # 5. Define Pipelines for All 4 Models
-    # Model 1: Baseline Simple Linear Regression (Mileage alone)
-    baseline_pipeline = Pipeline([
+    # Model 1: Baseline Linear Regression (Mileage + Vehicle_Age with log-target transformation)
+    baseline_raw_pipeline = Pipeline([
         ('prep', ColumnTransformer(
             transformers=[
                 ('num', Pipeline([
                     ('imputer', SimpleImputer(strategy='median')),
                     ('scaler', StandardScaler())
-                ]), ['Mileage'])
+                ]), ['Mileage', 'Vehicle_Age'])
             ],
             remainder='drop'
         )),
         ('model', LinearRegression())
     ])
+    baseline_pipeline = TransformedTargetRegressor(
+        regressor=baseline_raw_pipeline,
+        func=np.log1p,
+        inverse_func=np.expm1
+    )
 
-    # Model 2: Ridge Regression (L2 regularization)
-    ridge_pipeline = Pipeline([
+    # Model 2: Ridge Regression (L2 regularization with log-target transformation)
+    ridge_raw_pipeline = Pipeline([
         ('prep', linear_preprocessor),
-        ('model', Ridge(alpha=10.0, random_state=RANDOM_STATE))
+        ('model', Ridge(alpha=1.0, random_state=RANDOM_STATE))
     ])
+    ridge_pipeline = TransformedTargetRegressor(
+        regressor=ridge_raw_pipeline,
+        func=np.log1p,
+        inverse_func=np.expm1
+    )
 
-    # Model 3: Random Forest Regressor
-    rf_pipeline = Pipeline([
+    # Model 3: Random Forest Regressor (200 trees, max_features=0.6, log-target transformation)
+    rf_raw_pipeline = Pipeline([
         ('prep', tree_preprocessor),
         ('model', RandomForestRegressor(
-            n_estimators=100,
-            max_depth=15,
+            n_estimators=200,
+            max_depth=16,
+            max_features=0.6,
             min_samples_split=5,
             min_samples_leaf=2,
             random_state=RANDOM_STATE,
             n_jobs=1
         ))
     ])
+    rf_pipeline = TransformedTargetRegressor(
+        regressor=rf_raw_pipeline,
+        func=np.log1p,
+        inverse_func=np.expm1
+    )
 
-    # Model 4: Gradient Boosting Regressor
-    gbr_pipeline = Pipeline([
+    # Model 4: Gradient Boosting Regressor (Huber Loss, 250 trees, subsample=0.85, log-target transformation)
+    gbr_raw_pipeline = Pipeline([
         ('prep', tree_preprocessor),
         ('model', GradientBoostingRegressor(
-            n_estimators=150,
-            learning_rate=0.1,
+            loss='huber',
+            n_estimators=250,
+            learning_rate=0.06,
             max_depth=5,
             min_samples_split=5,
             min_samples_leaf=2,
+            subsample=0.85,
             random_state=RANDOM_STATE
         ))
     ])
+    gbr_pipeline = TransformedTargetRegressor(
+        regressor=gbr_raw_pipeline,
+        func=np.log1p,
+        inverse_func=np.expm1
+    )
 
     models = {
         "Simple Linear Regression (Baseline)": baseline_pipeline,
@@ -181,8 +204,9 @@ def train_and_benchmark(
         print(f"  {model_name}: Test MAE = RM {mae:,.2f}, RMSE = RM {rmse:,.2f}, Test R2 = {r2:.4f}")
 
     # 8. Model Selection:
-    # Based on actual CV performance prioritizing low prediction error (CV MAE), Gradient Boosting is selected.
-    selected_model_name = "Gradient Boosting Regressor"
+    # Based on actual CV performance prioritizing low prediction error (CV MAE)
+    sorted_by_cv = sorted(cv_results.keys(), key=lambda k: cv_results[k]["cv_mae_mean"])
+    selected_model_name = sorted_by_cv[0]
     print(f"\nChampion Model Selected by CV Error: {selected_model_name}")
 
     # 9. Residual and Outlier Diagnostics

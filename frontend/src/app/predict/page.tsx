@@ -103,6 +103,14 @@ export default function PredictPage() {
   // Prediction states
   const [predicting, setPredicting] = useState(false);
   const [result, setResult] = useState<PredictResponse | null>(null);
+  const [lastPredictedParams, setLastPredictedParams] = useState<{
+    model: string;
+    mileage: number;
+    year: number | "";
+    gearType: string;
+    state: string;
+    algorithm: string;
+  } | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [marketValidation, setMarketValidation] = useState<MarketValidationResult | null>(null);
   const [marketValidationLoading, setMarketValidationLoading] = useState<boolean>(false);
@@ -196,6 +204,14 @@ export default function PredictPage() {
 
       const res = await predictPrice(payload);
       setResult(res);
+      setLastPredictedParams({
+        model: selectedModel,
+        mileage: Number(mileage),
+        year: year,
+        gearType: gearType,
+        state: state,
+        algorithm: algorithm,
+      });
 
       // Concurrently query external Malaysian market validation (Paqar / Empirical Baseline)
       setMarketValidationLoading(true);
@@ -231,6 +247,17 @@ export default function PredictPage() {
   };
 
   // Computed valuation recommendations
+  const isInputStale = Boolean(
+    result &&
+    lastPredictedParams &&
+    (lastPredictedParams.model !== selectedModel ||
+      lastPredictedParams.mileage !== Number(mileage) ||
+      lastPredictedParams.year !== year ||
+      lastPredictedParams.gearType !== gearType ||
+      lastPredictedParams.state !== state ||
+      lastPredictedParams.algorithm !== algorithm)
+  );
+
   const pricingStrategy = result ? getPricingStrategy(result.estimated_price, result.fair_price_low, result.fair_price_high) : null;
   const mileageHealth = result ? getMileageHealth(result.input_summary.mileage_km, result.input_summary.vehicle_age_years) : null;
   const financingQuick = result ? calculateInstallment(result.estimated_price) : null;
@@ -258,7 +285,7 @@ export default function PredictPage() {
         {/* INPUT FORM COLUMN (5 of 12 Cols ~42-45% on LG)           */}
         {/* ======================================================== */}
         <div className="lg:col-span-5 xl:col-span-5 lg:sticky lg:top-20 glass-panel rounded-2xl p-5 sm:p-7 border border-slate-800 space-y-6">
-          <form onSubmit={handlePredict} className="space-y-6">
+          <form id="predict-form" onSubmit={handlePredict} className="space-y-6">
             
             {/* 1. VEHICLE IDENTITY GROUP */}
             <div className="space-y-4">
@@ -499,7 +526,7 @@ export default function PredictPage() {
                   <span>Machine Learning Algorithm</span>
                 </span>
                 <span className="text-[11px] text-cyan-400 font-mono">
-                  {algorithm.includes("Gradient") ? "★ Selected Champion" : "Alternative Regressor"}
+                  {algorithm.includes("Random Forest") ? "★ Selected Champion" : "Alternative Regressor"}
                 </span>
               </label>
 
