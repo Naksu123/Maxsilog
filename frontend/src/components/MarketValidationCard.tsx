@@ -99,9 +99,9 @@ export default function MarketValidationCard({
         </div>
 
         {/* Metric 2: External Market Median */}
-        <div className="p-3.5 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-1">
+        <div className="p-3.5 rounded-2xl bg-slate-900/60 border border-slate-800/80 space-y-1">
           <span className="text-[10px] text-slate-400 block font-medium font-mono">External Market Median</span>
-          <div className="text-sm sm:text-base font-bold text-cyan-300 font-mono tabular-nums">
+          <div className="text-sm sm:text-base font-bold text-indigo-300 font-mono tabular-nums">
             {data.externalMarketMedian ? formatRM(data.externalMarketMedian) : "Pending Indexing"}
           </div>
           <span className="text-[9px] text-slate-500 block font-mono">
@@ -165,9 +165,11 @@ export default function MarketValidationCard({
       )}
 
       {/* Academic Methodology & Integrity Note */}
-      <div className="p-3.5 rounded-2xl bg-slate-900/40 border border-slate-800/60 text-[11px] text-slate-400 leading-relaxed font-mono">
-        <span className="text-purple-400 font-semibold mr-1.5">Academic Note:</span>
-        <span>{data.academicNote}</span>
+      <div className="p-3.5 sm:p-4 rounded-2xl bg-slate-950/40 backdrop-blur-md border border-white/[0.06] flex items-start space-x-3 text-[11px] text-slate-400 leading-relaxed">
+        <span className="px-2 py-0.5 rounded-md bg-purple-500/15 border border-purple-500/20 text-purple-300 font-semibold font-mono text-[10px] uppercase tracking-wider shrink-0 mt-0.5">
+          Academic Note
+        </span>
+        <span className="text-slate-400 font-normal">{data.academicNote}</span>
       </div>
     </div>
   );
