@@ -1,6 +1,6 @@
 {
   "selected_model": "Gradient Boosting Regressor",
-  "model_version": "v_20261123_071636",
+  "model_version": "v_20261124_115105",
   "random_state": 42,
   "train_size": 1986,
   "test_size": 497,
